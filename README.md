@@ -1,0 +1,2 @@
+# OpenGLFramework
+前のOpenGLフレームワークが一旦一段落したので作り直し
