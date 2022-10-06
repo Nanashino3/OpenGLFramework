@@ -1,6 +1,8 @@
+#include "Mesh.h"
+
 #include <math.h>
 #include <vector>
-#include "Mesh.h"
+#include "VertexArray.h"
 #include "../Library/Vector.h"
 #include "../Library/Math.h"
 
@@ -9,7 +11,7 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 {
 	Mesh* mesh = new Mesh();
 	// 頂点座標計算
-	std::vector<Vector3> vertices;
+	std::vector<VertexArray::VERTEX> vertices;
 	for(int i = 0; i < (divHeight + 1); ++i){
 		float t = static_cast<float>(i) / static_cast<float>(divHeight);
 		float y = cosf(tkl::PI * t) * radius;
@@ -20,13 +22,13 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 			float x = r * cosf(2 * tkl::PI * s);
 			float z = r * sinf(2 * tkl::PI * s);
 
-			Vector3 vertex(x, y, z);
+			VertexArray::VERTEX vertex = {x, y, z};
 			vertices.emplace_back(vertex);
 		}
 	}
 
 	// インデックス計算
-	std::vector<unsigned int> indices;
+	std::vector<int> indices;
 	for(int i = 0; i < (divHeight + 1); ++i){
 		for(int j = 0; j < (divWidth + 1); ++j){
 			int v0 = (divHeight + 1) * i + j;	// 頂点座標(左上)
@@ -46,9 +48,9 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 		}
 	}
 
-//	mesh->mVertexArray = std::make_unique<VertexArray>(3,
-//		static_cast<int>(vertices.size()), vertices.data(),
-//		static_cast<int>(indices.size()), indices.data());
+	mesh->mVertexArray = std::make_unique<VertexArray>(3,
+		static_cast<unsigned int>(vertices.size()), vertices.data(),
+		static_cast<unsigned int>(indices.size()), indices.data());
 
 	return mesh;
 }

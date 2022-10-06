@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 
 VertexArray::VertexArray(int dimension,
-	unsigned int vertexNum, const float* vertices,
+	unsigned int vertexNum, const VERTEX* vertices,
 	unsigned int indexNum, const int* indices)
 : mVertexNum(vertexNum)
 , mIndexNum(indexNum)
@@ -17,24 +17,24 @@ VertexArray::VertexArray(int dimension,
 	// 頂点バッファオブジェクト
 	glGenBuffers(1, &mVertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertexNum * 8 * sizeof(float), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexNum * sizeof(VERTEX), vertices, GL_STATIC_DRAW);
 
 	// インデックスバッファオブジェクト
 	glGenBuffers(1, &mIndexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexNum * sizeof(unsigned int), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexNum * sizeof(int), indices, GL_STATIC_DRAW);
 
 	// 頂点座標(3点)
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, dimension, GL_FLOAT, GL_FALSE, 8 * sizeof(float), 0);
+	glVertexAttribPointer(0, dimension, GL_FLOAT, GL_FALSE, sizeof(VERTEX), static_cast<VERTEX*>(0)->position);
 
 	// 法線座標(3点)
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, dimension, GL_FLOAT, GL_FALSE, 8 * sizeof(float), reinterpret_cast<void*>(sizeof(float) * 3));
+	glVertexAttribPointer(1, dimension, GL_FLOAT, GL_FALSE, sizeof(VERTEX), static_cast<VERTEX*>(0)->normal);
 
 	// テクスチャ座標(2点)
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, dimension, GL_FLOAT, GL_FALSE, 8 * sizeof(float), reinterpret_cast<void*>(sizeof(float) * 6));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VERTEX), static_cast<VERTEX*>(0)->uv);
 }
 
 VertexArray::~VertexArray()

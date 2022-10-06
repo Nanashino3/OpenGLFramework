@@ -20,24 +20,39 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\Game\Actor.cpp" />
+    <ClCompile Include="Program\Game\Component\Component.cpp" />
+    <ClCompile Include="Program\Game\Component\MeshComponent.cpp" />
     <ClCompile Include="Program\Game\GameMain.cpp" />
     <ClCompile Include="Program\Game\GameManager.cpp" />
     <ClCompile Include="Program\Game\Mesh.cpp" />
+    <ClCompile Include="Program\Game\Shader.cpp" />
+    <ClCompile Include="Program\Game\VertexArray.cpp" />
     <ClCompile Include="Program\Library\Input.cpp" />
+    <ClCompile Include="Program\Library\Matrix.cpp" />
+    <ClCompile Include="Program\Library\Quaternion.cpp" />
     <ClCompile Include="Program\Library\System.cpp" />
-    <ClCompile Include="Program\Library\VertexArray.cpp" />
+    <ClCompile Include="Program\Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\Game\Actor.h" />
+    <ClInclude Include="Program\Game\Component\Component.h" />
+    <ClInclude Include="Program\Game\Component\MeshComponent.h" />
     <ClInclude Include="Program\Game\GameMain.h" />
     <ClInclude Include="Program\Game\GameManager.h" />
     <ClInclude Include="Program\Game\Mesh.h" />
+    <ClInclude Include="Program\Game\Shader.h" />
+    <ClInclude Include="Program\Game\VertexArray.h" />
     <ClInclude Include="Program\Library\Input.h" />
     <ClInclude Include="Program\Library\Math.h" />
+    <ClInclude Include="Program\Library\Matrix.h" />
+    <ClInclude Include="Program\Library\Quaternion.h" />
     <ClInclude Include="Program\Library\System.h" />
     <ClInclude Include="Program\Library\Vector.h" />
-    <ClInclude Include="Program\Library\VertexArray.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\LambertFrag.glsl" />
+    <None Include="Shader\LambertVert.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

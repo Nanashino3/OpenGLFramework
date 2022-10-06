@@ -3,7 +3,14 @@
 class VertexArray
 {
 public:
-	VertexArray(int dimension, unsigned int vertexNum, const float* vertices, unsigned int indexNum, const int* indices);
+	struct VERTEX
+	{
+		float position[3];
+		float normal[3];
+		float uv[3];
+	};
+
+	VertexArray(int dimension, unsigned int vertexNum, const VERTEX* vertices, unsigned int indexNum, const int* indices);
 	~VertexArray();
 
 	void Bind() const;
