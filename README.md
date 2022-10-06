@@ -1,4 +1,4 @@
-# OpenGLFramework
+## OpenGLFramework
 OpenGLを使用した3DCGの基礎的な部分が一旦完了したので、
 
 ゲームフレームワークとして落とし込む作業を行う。
