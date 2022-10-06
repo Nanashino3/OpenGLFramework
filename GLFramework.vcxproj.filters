@@ -1,17 +1,67 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Program">
+      <UniqueIdentifier>{4b2dd2b1-094e-4267-9704-7b2d8e493fe3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Program\Library">
+      <UniqueIdentifier>{69473cc5-91a0-4c17-90d3-9d1cb99e0d01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Program\Game">
+      <UniqueIdentifier>{cce7607d-8ccb-45a6-bfa1-1fcb630e4328}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Program\Main.cpp" />
+    <ClCompile Include="Program\Library\Input.cpp">
+      <Filter>Program\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Library\System.cpp">
+      <Filter>Program\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Library\VertexArray.cpp">
+      <Filter>Program\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\GameMain.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\GameManager.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\Mesh.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\Actor.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Program\Library\Input.h">
+      <Filter>Program\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Library\Math.h">
+      <Filter>Program\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Library\System.h">
+      <Filter>Program\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Library\Vector.h">
+      <Filter>Program\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Library\VertexArray.h">
+      <Filter>Program\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\GameMain.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\Mesh.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\GameManager.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\Actor.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
