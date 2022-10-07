@@ -16,6 +16,9 @@ public:
 		return temp;
 	}
 
+	// 行列の配列を返す
+	const float* GetData() const { return reinterpret_cast<const float*>(&mMatrix[0]); }
+
 	// 乗算
 	Matrix operator*(const Matrix& m) const
 	{
@@ -41,6 +44,8 @@ public:
 	static Matrix CreateTranslation(const Vector3& pos);
 	static Matrix CreateScale(const Vector3& scale);
 	static Matrix CreateRotationFromQuaternion(const Quaternion& q);
+	static Matrix CreatePerspectiveProjection(float angle, float aspect, float near, float far);
+	static Matrix CreateLookAt(const Vector3& camPos, const Vector3& targetPos, const Vector3& upVector);
 
 private:
 	// 単位行列を設定
