@@ -10,9 +10,6 @@
     <Filter Include="Program\Game">
       <UniqueIdentifier>{cce7607d-8ccb-45a6-bfa1-1fcb630e4328}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Program\Game\Component">
-      <UniqueIdentifier>{18712d7d-e11b-4d75-be1a-7af53c43784e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader">
       <UniqueIdentifier>{ee65cdab-7690-474d-a2a0-4b985e443bee}</UniqueIdentifier>
     </Filter>
@@ -34,20 +31,11 @@
     <ClCompile Include="Program\Game\Mesh.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\Actor.cpp">
-      <Filter>Program\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Program\Library\Quaternion.cpp">
       <Filter>Program\Library</Filter>
     </ClCompile>
     <ClCompile Include="Program\Library\Vector.cpp">
       <Filter>Program\Library</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\Game\Component\MeshComponent.cpp">
-      <Filter>Program\Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\Game\Component\Component.cpp">
-      <Filter>Program\Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Program\Library\Matrix.cpp">
       <Filter>Program\Library</Filter>
@@ -61,7 +49,7 @@
     <ClCompile Include="Program\Game\Renderer.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\CameraActor.cpp">
+    <ClCompile Include="Program\Game\Camera.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -87,17 +75,8 @@
     <ClInclude Include="Program\Game\GameManager.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Program\Game\Actor.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
     <ClInclude Include="Program\Library\Quaternion.h">
       <Filter>Program\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\Component\Component.h">
-      <Filter>Program\Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\Component\MeshComponent.h">
-      <Filter>Program\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Program\Library\Matrix.h">
       <Filter>Program\Library</Filter>
@@ -111,7 +90,7 @@
     <ClInclude Include="Program\Game\Renderer.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Program\Game\CameraActor.h">
+    <ClInclude Include="Program\Game\Camera.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
   </ItemGroup>
@@ -120,6 +99,12 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="Shader\PointVert.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\LambertFrag.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\LambertVert.glsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

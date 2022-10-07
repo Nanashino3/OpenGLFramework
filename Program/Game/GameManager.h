@@ -1,5 +1,9 @@
 #pragma once
+#include <memory>
+#include <vector>
 
+class Renderer;
+class Camera;
 class GameManager
 {
 public:
@@ -8,7 +12,6 @@ public:
 	static void DestoryInstance();
 
 	void Update(float deltaTime);
-
 private:
 	GameManager();
 	~GameManager();
@@ -16,6 +19,6 @@ private:
 	GameManager& operator=(const GameManager&){}
 
 private:
-
 	static GameManager* sInstance;
+	Camera* mCamera;
 };

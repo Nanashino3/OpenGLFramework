@@ -1,5 +1,8 @@
 #include "Shader.h"
 
+#include "../Library/Matrix.h"
+#include "../Library/Vector.h"
+
 #include <GL/glew.h>
 #include <vector>
 #include <iostream>
@@ -19,9 +22,31 @@ Shader::~Shader()
 {}
 
 // シェーダの読み込み
-void Shader::LoadShader()
+void Shader::LoadShader(const char* vertFileName, const char* fragFileName)
 {
-	mShaderProgram = Load("LambertVert.glsl", "LambertFlag.glsl");
+	mShaderProgram = Load(vertFileName, fragFileName);
+}
+
+// シェーダを有効化
+void Shader::ActiveShader()
+{
+	glUseProgram(mShaderProgram);
+}
+
+void Shader::SetMatrixUniform(const char* name, const Matrix& matrix)
+{
+	unsigned int location = glGetUniformLocation(mShaderProgram, name);
+	glUniformMatrix4fv(location, 1, GL_FALSE, matrix.GetData());
+}
+void Shader::SetVectorUniform(const char* name, const Vector3& vector)
+{
+	unsigned int location = glGetUniformLocation(mShaderProgram, name);
+	glUniform3fv(location, 1, vector.GetData());
+}
+void Shader::SetFloatUniform(const char* name, const float value)
+{
+	unsigned int location = glGetUniformLocation(mShaderProgram, name);
+	glUniform1f(location, value);
 }
 
 // ロード処理
@@ -41,12 +66,12 @@ bool ReadShaderFile(const char* fileName, std::vector<char>& buffer)
 {
 	std::ifstream file(fileName, std::ios::binary);
 	if(file.fail()){
-		std::cerr << "Error：Can't open file." << std::endl;
+		std::cerr << "Error：Can't open file." << fileName << std::endl;
 		return false;
 	}
 
 	// ファイルサイズを取得
-	file.seekg(0, std::ios::beg);
+	file.seekg(0, std::ios::end);
 	size_t length = file.tellg();
 
 	// ファイルサイズ分のメモリを確保
@@ -98,6 +123,8 @@ unsigned int CreateShader(const char* vertexSrc, const char* fragmentSrc)
 	}
 
 	// 各種属性をリンクする
+	glBindAttribLocation(program, 0, "inPosition");
+	glBindAttribLocation(program, 1, "inNormal");
 	glBindFragDataLocation(program, 0, "outColor");
 	glLinkProgram(program);
 

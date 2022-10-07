@@ -30,8 +30,13 @@ bool System::Initialize(int screenWidth, int screenHeight)
 		return false;
 	}
 
-	// 垂直同期のタイミング設定
+	// 垂直同期のタイミングを待つ
 	glfwSwapInterval(1);
+
+	// デプスバッファ(Zバッファ)を有効にする
+	glClearDepth(1.0f);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_DEPTH_TEST);
 
 	return true;
 }

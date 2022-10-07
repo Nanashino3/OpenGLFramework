@@ -1,10 +1,89 @@
 #include "Mesh.h"
 
-#include <math.h>
 #include <vector>
+#include "Camera.h"
+#include "Renderer.h"
 #include "VertexArray.h"
-#include "../Library/Vector.h"
 #include "../Library/Math.h"
+#include "../Library/Matrix.h"
+
+Mesh::Mesh()
+: mPosition(Vector3(0, 0, 0))
+, mRotation(Quaternion())
+, mScale(Vector3(1, 1, 1))
+{
+	mRenderer = new Renderer();
+	mRenderer->Initialize();
+}
+
+void Mesh::Render(Camera* camera)
+{
+	mRenderer->SetViewProjectionMatrix(camera->GetViewProjection());
+
+	Matrix worldTransform;
+	worldTransform  = Matrix::CreateTranslation(mPosition);
+	worldTransform *= Matrix::CreateRotationFromQuaternion(mRotation);
+	worldTransform *= Matrix::CreateScale(mScale);
+	mRenderer->SetWorldTransformMatrix(worldTransform);
+
+	mRenderer->Draw(mVertexArray.get());
+}
+
+Mesh* Mesh::CreateBox(float sizeW, float sizeH, float sizeD)
+{
+	Mesh* mesh = new Mesh();
+	VertexArray::VERTEX vertices[] = {
+		// 左面
+		{ -25.0f, -25.0f, -25.0f, -1.0f,  0.0f,  0.0f },
+		{ -25.0f, -25.0f,  25.0f, -1.0f,  0.0f,  0.0f },
+		{ -25.0f,  25.0f,  25.0f, -1.0f,  0.0f,  0.0f },
+		{ -25.0f,  25.0f, -25.0f, -1.0f,  0.0f,  0.0f },
+
+		// 裏面
+		{  25.0f, -25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
+		{ -25.0f, -25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
+		{ -25.0f,  25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
+		{  25.0f,  25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
+
+		// 下面
+		{ -25.0f, -25.0f, -25.0f,  0.0f, -1.0f,  0.0f },
+		{  25.0f, -25.0f, -25.0f,  0.0f, -1.0f,  0.0f },
+		{  25.0f, -25.0f,  25.0f,  0.0f, -1.0f,  0.0f },
+		{ -25.0f, -25.0f,  25.0f,  0.0f, -1.0f,  0.0f },
+
+		// 右面
+		{  25.0f, -25.0f,  25.0f,  1.0f,  0.0f,  0.0f },
+		{  25.0f, -25.0f, -25.0f,  1.0f,  0.0f,  0.0f },
+		{  25.0f,  25.0f, -25.0f,  1.0f,  0.0f,  0.0f },
+		{  25.0f,  25.0f,  25.0f,  1.0f,  0.0f,  0.0f },
+
+		// 上面
+		{ -25.0f,  25.0f, -25.0f,  0.0f,  1.0f,  0.0f },
+		{ -25.0f,  25.0f,  25.0f,  0.0f,  1.0f,  0.0f },
+		{  25.0f,  25.0f,  25.0f,  0.0f,  1.0f,  0.0f },
+		{  25.0f,  25.0f, -25.0f,  0.0f,  1.0f,  0.0f },
+
+		// 前面
+		{ -25.0f, -25.0f,  25.0f,  0.0f,  0.0f,  1.0f },
+		{  25.0f, -25.0f,  25.0f,  0.0f,  0.0f,  1.0f },
+		{  25.0f,  25.0f,  25.0f,  0.0f,  0.0f,  1.0f },
+		{ -25.0f,  25.0f,  25.0f,  0.0f,  0.0f,  1.0f }
+	};
+
+	int indices[] = {
+		 0,  1,  2,  0,  2,  3,	// 左面
+		 4,  5,  6,  4,  6,  7,	// 裏面
+		 8,  9, 10,  8, 10, 11,	// 下面
+		12, 13, 14, 12, 14, 15,	// 右面
+		16, 17, 18, 16, 18, 19,	// 上面
+		20, 21, 22, 20, 22, 23	// 前面
+	};
+
+	int indicesNum = sizeof(indices) / sizeof(indices[0]);
+	mesh->mVertexArray = std::make_unique<VertexArray>(3, 24, vertices, indicesNum, indices);
+
+	return mesh;
+}
 
 // 球体の作成
 Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
@@ -22,7 +101,7 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 			float x = r * cosf(2 * tkl::PI * s);
 			float z = r * sinf(2 * tkl::PI * s);
 
-			VertexArray::VERTEX vertex = {x, y, z};
+			VertexArray::VERTEX vertex = {x, y, z, x, y, z};
 			vertices.emplace_back(vertex);
 		}
 	}

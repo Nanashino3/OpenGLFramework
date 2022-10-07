@@ -57,8 +57,8 @@ Matrix Matrix::CreatePerspectiveProjection(float angle, float aspect, float near
 
 	float fsn = far - near;
 	if(fsn != 0.0f){
-		temp[5] = 1.0f / tanf(fovy * 0.5f);
-		temp[0] = temp[5] / aspect;
+		temp[5]  = 1.0f / tanf(fovy * 0.5f);
+		temp[0]  = temp[5] / aspect;
 		temp[10] = -(far + near) / fsn;
 		temp[11] = -1.0f;
 		temp[14] = -2.0f * far * near / fsn;
@@ -82,9 +82,14 @@ Matrix Matrix::CreateLookAt(const Vector3& camPos, const Vector3& targetPos, con
 
 	Matrix temp;
 	temp.LoadIdentity();
-	temp[0]  = xAxis.mX; temp[1] = yAxis.mX; temp[2] = zAxis.mX;
-	temp[4]  = xAxis.mY; temp[5] = yAxis.mY; temp[6] = zAxis.mY;
-	temp[8]  = xAxis.mZ; temp[9] = yAxis.mZ; temp[10] = zAxis.mZ;
+	temp[0]  = xAxis.mX; temp[1]  = yAxis.mX; temp[2]  = zAxis.mX;
+	temp[4]  = xAxis.mY; temp[5]  = yAxis.mY; temp[6]  = zAxis.mY;
+	temp[8]  = xAxis.mZ; temp[9]  = yAxis.mZ; temp[10] = zAxis.mZ;
 	temp[12] = trans.mX; temp[13] = trans.mY; temp[14] = trans.mZ;
 	return temp;
+}
+
+Vector3 Matrix::GetTranslation() const
+{
+	return Vector3(mMatrix[12], mMatrix[13], mMatrix[14]);
 }

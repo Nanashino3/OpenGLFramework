@@ -1,23 +1,21 @@
 #include "GameManager.h"
-#include "Actor.h"
-#include "Component/MeshComponent.h"
+
 #include "Mesh.h"
+#include "Camera.h"
 #include "../Library/Math.h"
 
-//デバッグ用
-Actor* gActor = nullptr;
+// デバッグ用
+Mesh* gBox = nullptr;
 
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
-	gActor = new Actor();
-	gActor->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-	Quaternion q = Quaternion::RotationAxis(Vector3::UNITY, tkl::ToRadian(90.0f));
-	gActor->SetRotation(q);
-	gActor->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+	// 球体作成
+//	gBox = Mesh::CreateSphere(50.0f, 24, 16);
+	gBox = Mesh::CreateBox(25.0f, 25.0f, 25.0f);
 
-	MeshComponent* mc = new MeshComponent(gActor);
-	mc->SetMesh(Mesh::CreateSphere(1.0f, 16, 8));
+	// カメラの作成
+	mCamera = new Camera(1024, 768);
 }
 
 GameManager::~GameManager()
@@ -37,5 +35,6 @@ void GameManager::DestoryInstance()
 
 void GameManager::Update(float deltaTime)
 {
-	gActor->Update();
+	mCamera->Update();
+	gBox->Render(mCamera);
 }

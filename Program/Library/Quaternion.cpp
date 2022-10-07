@@ -12,5 +12,7 @@ Quaternion Quaternion::RotationAxis(const Vector3& axis, float rotate)
 	temp.mY = axis.mY * scalar;
 	temp.mZ = axis.mZ * scalar;
 
+	temp.mW = cosf(rotate / 2.0f);
+
 	return temp; 
 }
