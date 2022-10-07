@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\Game\Actor.cpp" />
+    <ClCompile Include="Program\Game\CameraActor.cpp" />
     <ClCompile Include="Program\Game\Component\Component.cpp" />
     <ClCompile Include="Program\Game\Component\MeshComponent.cpp" />
     <ClCompile Include="Program\Game\GameMain.cpp" />
     <ClCompile Include="Program\Game\GameManager.cpp" />
     <ClCompile Include="Program\Game\Mesh.cpp" />
+    <ClCompile Include="Program\Game\Renderer.cpp" />
     <ClCompile Include="Program\Game\Shader.cpp" />
     <ClCompile Include="Program\Game\VertexArray.cpp" />
     <ClCompile Include="Program\Library\Input.cpp" />
@@ -36,11 +38,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\Game\Actor.h" />
+    <ClInclude Include="Program\Game\CameraActor.h" />
     <ClInclude Include="Program\Game\Component\Component.h" />
     <ClInclude Include="Program\Game\Component\MeshComponent.h" />
     <ClInclude Include="Program\Game\GameMain.h" />
     <ClInclude Include="Program\Game\GameManager.h" />
     <ClInclude Include="Program\Game\Mesh.h" />
+    <ClInclude Include="Program\Game\Renderer.h" />
     <ClInclude Include="Program\Game\Shader.h" />
     <ClInclude Include="Program\Game\VertexArray.h" />
     <ClInclude Include="Program\Library\Input.h" />
@@ -51,8 +55,8 @@
     <ClInclude Include="Program\Library\Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\LambertFrag.glsl" />
-    <None Include="Shader\LambertVert.glsl" />
+    <None Include="Shader\PointFrag.glsl" />
+    <None Include="Shader\PointVert.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -58,6 +58,12 @@
     <ClCompile Include="Program\Game\Shader.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Program\Game\Renderer.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\CameraActor.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\Library\Input.h">
@@ -102,12 +108,18 @@
     <ClInclude Include="Program\Game\Shader.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Program\Game\Renderer.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\CameraActor.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\LambertFrag.glsl">
+    <None Include="Shader\PointFrag.glsl">
       <Filter>Shader</Filter>
     </None>
-    <None Include="Shader\LambertVert.glsl">
+    <None Include="Shader\PointVert.glsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>
