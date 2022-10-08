@@ -34,40 +34,40 @@ Mesh* Mesh::CreateBox(float sizeW, float sizeH, float sizeD)
 	Mesh* mesh = new Mesh();
 	VertexArray::VERTEX vertices[] = {
 		// ç∂ñ 
-		{ -25.0f, -25.0f, -25.0f, -1.0f,  0.0f,  0.0f },
-		{ -25.0f, -25.0f,  25.0f, -1.0f,  0.0f,  0.0f },
-		{ -25.0f,  25.0f,  25.0f, -1.0f,  0.0f,  0.0f },
-		{ -25.0f,  25.0f, -25.0f, -1.0f,  0.0f,  0.0f },
+		{ -sizeW, -sizeH, -sizeD, -1.0f,  0.0f,  0.0f },
+		{ -sizeW, -sizeH,  sizeD, -1.0f,  0.0f,  0.0f },
+		{ -sizeW,  sizeH,  sizeD, -1.0f,  0.0f,  0.0f },
+		{ -sizeW,  sizeH, -sizeD, -1.0f,  0.0f,  0.0f },
 
 		// ó†ñ 
-		{  25.0f, -25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
-		{ -25.0f, -25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
-		{ -25.0f,  25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
-		{  25.0f,  25.0f, -25.0f,  0.0f,  0.0f,  -1.0f },
+		{  sizeW, -sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
+		{ -sizeW, -sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
+		{ -sizeW,  sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
+		{  sizeW,  sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
 
 		// â∫ñ 
-		{ -25.0f, -25.0f, -25.0f,  0.0f, -1.0f,  0.0f },
-		{  25.0f, -25.0f, -25.0f,  0.0f, -1.0f,  0.0f },
-		{  25.0f, -25.0f,  25.0f,  0.0f, -1.0f,  0.0f },
-		{ -25.0f, -25.0f,  25.0f,  0.0f, -1.0f,  0.0f },
+		{ -sizeW, -sizeH, -sizeD,  0.0f, -1.0f,  0.0f },
+		{  sizeW, -sizeH, -sizeD,  0.0f, -1.0f,  0.0f },
+		{  sizeW, -sizeH,  sizeD,  0.0f, -1.0f,  0.0f },
+		{ -sizeW, -sizeH,  sizeD,  0.0f, -1.0f,  0.0f },
 
 		// âEñ 
-		{  25.0f, -25.0f,  25.0f,  1.0f,  0.0f,  0.0f },
-		{  25.0f, -25.0f, -25.0f,  1.0f,  0.0f,  0.0f },
-		{  25.0f,  25.0f, -25.0f,  1.0f,  0.0f,  0.0f },
-		{  25.0f,  25.0f,  25.0f,  1.0f,  0.0f,  0.0f },
+		{  sizeW, -sizeH,  sizeD,  1.0f,  0.0f,  0.0f },
+		{  sizeW, -sizeH, -sizeD,  1.0f,  0.0f,  0.0f },
+		{  sizeW,  sizeH, -sizeD,  1.0f,  0.0f,  0.0f },
+		{  sizeW,  sizeH,  sizeD,  1.0f,  0.0f,  0.0f },
 
 		// è„ñ 
-		{ -25.0f,  25.0f, -25.0f,  0.0f,  1.0f,  0.0f },
-		{ -25.0f,  25.0f,  25.0f,  0.0f,  1.0f,  0.0f },
-		{  25.0f,  25.0f,  25.0f,  0.0f,  1.0f,  0.0f },
-		{  25.0f,  25.0f, -25.0f,  0.0f,  1.0f,  0.0f },
+		{ -sizeW,  sizeH, -sizeD,  0.0f,  1.0f,  0.0f },
+		{ -sizeW,  sizeH,  sizeD,  0.0f,  1.0f,  0.0f },
+		{  sizeW,  sizeH,  sizeD,  0.0f,  1.0f,  0.0f },
+		{  sizeW,  sizeH, -sizeD,  0.0f,  1.0f,  0.0f },
 
 		// ëOñ 
-		{ -25.0f, -25.0f,  25.0f,  0.0f,  0.0f,  1.0f },
-		{  25.0f, -25.0f,  25.0f,  0.0f,  0.0f,  1.0f },
-		{  25.0f,  25.0f,  25.0f,  0.0f,  0.0f,  1.0f },
-		{ -25.0f,  25.0f,  25.0f,  0.0f,  0.0f,  1.0f }
+		{ -sizeW, -sizeH,  sizeD,  0.0f,  0.0f,  1.0f },
+		{  sizeW, -sizeH,  sizeD,  0.0f,  0.0f,  1.0f },
+		{  sizeW,  sizeH,  sizeD,  0.0f,  0.0f,  1.0f },
+		{ -sizeW,  sizeH,  sizeD,  0.0f,  0.0f,  1.0f }
 	};
 
 	int indices[] = {
