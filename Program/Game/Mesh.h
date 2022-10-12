@@ -6,13 +6,16 @@
 #include "../Library/Quaternion.h"
 
 class Camera;
+class Renderer;
 class Mesh
 {
 public:
 	std::unique_ptr<VertexArray> mVertexArray;
 
-	Mesh();
+	Mesh(unsigned int type);
 	~Mesh();
+
+	void Draw(Camera* camera);
 
 	void SetPosition(const Vector3& pos){ mPosition = pos; }
 	Vector3 GetPosition() const{ return mPosition; }
@@ -34,4 +37,6 @@ private:
 	Vector3 mPosition;
 	Quaternion mRotation;
 	Vector3 mScale;
+
+	std::unique_ptr<Renderer> mRenderer;
 };

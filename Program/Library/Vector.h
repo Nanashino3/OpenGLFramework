@@ -9,8 +9,15 @@ public:
 	Vector3() : mX(0), mY(0), mZ(0){}
 	Vector3(float x, float y, float z) : mX(x), mY(y), mZ(z){}
 
+	friend Vector3 operator+(const Vector3& a, const Vector3& b){
+		return Vector3(a.mX + b.mX, a.mY + b.mY, a.mZ + b.mZ);
+	}
 	friend Vector3 operator-(const Vector3& a, const Vector3& b){
 		return Vector3(a.mX - b.mX, a.mY - b.mY, a.mZ - b.mZ);
+	}
+	friend Vector3 operator*(const Vector3& v, float scalar)
+	{
+		return Vector3(v.mX * scalar, v.mY * scalar, v.mZ * scalar);
 	}
 
 	// ベクトルの配列を返す
@@ -39,4 +46,7 @@ public:
 	static const Vector3 UNITX;
 	static const Vector3 UNITY;
 	static const Vector3 UNITZ;
+	static const Vector3 NEG_UNITX;
+	static const Vector3 NEG_UNITY;
+	static const Vector3 NEG_UNITZ;
 };

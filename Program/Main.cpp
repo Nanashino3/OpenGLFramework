@@ -20,6 +20,7 @@ int main()
 		system.SwapBuffers();
 	}
 
+	GameEnd();
 	system.Finalize();
 	return 0;
 }

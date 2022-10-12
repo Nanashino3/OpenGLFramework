@@ -3,10 +3,13 @@
 #include <math.h>
 #include "Quaternion.h"
 
-const Vector3 Vector3::ZERO(0.0f, 0.0f, 0.0f);
-const Vector3 Vector3::UNITX(1.0f, 0.0f, 0.0f);
-const Vector3 Vector3::UNITY(0.0f, 1.0f, 0.0f);
-const Vector3 Vector3::UNITZ(0.0f, 0.0f, 1.0f);
+const Vector3 Vector3::ZERO(0, 0, 0);
+const Vector3 Vector3::UNITX(1, 0, 0);
+const Vector3 Vector3::UNITY(0, 1, 0);
+const Vector3 Vector3::UNITZ(0, 0, 1);
+const Vector3 Vector3::NEG_UNITX(-1,  0,  0);
+const Vector3 Vector3::NEG_UNITY( 0, -1,  0);
+const Vector3 Vector3::NEG_UNITZ( 0,  0, -1);
 
 // ÉxÉNÉgÉãÇÃê≥ãKâª
 Vector3 Vector3::Normalize(const Vector3& v)
