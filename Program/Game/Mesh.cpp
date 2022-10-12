@@ -2,33 +2,19 @@
 
 #include <vector>
 #include "Camera.h"
-#include "Renderer.h"
 #include "VertexArray.h"
 #include "../Library/Math.h"
-#include "../Library/Matrix.h"
 
 Mesh::Mesh()
 : mPosition(Vector3(0, 0, 0))
 , mRotation(Quaternion())
 , mScale(Vector3(1, 1, 1))
-{
-	mRenderer = new Renderer();
-	mRenderer->Initialize();
-}
+{}
 
-void Mesh::Render(Camera* camera)
-{
-	mRenderer->SetViewProjectionMatrix(camera->GetViewProjection());
+Mesh::~Mesh()
+{}
 
-	Matrix worldTransform;
-	worldTransform  = Matrix::CreateTranslation(mPosition);
-	worldTransform *= Matrix::CreateRotationFromQuaternion(mRotation);
-	worldTransform *= Matrix::CreateScale(mScale);
-	mRenderer->SetWorldTransformMatrix(worldTransform);
-
-	mRenderer->Draw(mVertexArray.get());
-}
-
+// ボックスの作成
 Mesh* Mesh::CreateBox(float sizeW, float sizeH, float sizeD)
 {
 	Mesh* mesh = new Mesh();
@@ -81,7 +67,7 @@ Mesh* Mesh::CreateBox(float sizeW, float sizeH, float sizeD)
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
 	mesh->mVertexArray = std::make_unique<VertexArray>(3, 24, vertices, indicesNum, indices);
-
+	
 	return mesh;
 }
 
@@ -110,7 +96,7 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 	std::vector<int> indices;
 	for(int i = 0; i < (divHeight + 1); ++i){
 		for(int j = 0; j < (divWidth + 1); ++j){
-			int v0 = (divHeight + 1) * i + j;	// 頂点座標(左上)
+			int v0 = (divWidth + 1) * i + j;	// 頂点座標(左上)
 			int v1 = v0 + 1;					// 頂点座標(右上)
 			int v2 = v1 + divWidth;				// 頂点座標(左下)
 			int v3 = v2 + 1;					// 頂点座標(右下)
@@ -126,10 +112,52 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 			indices.emplace_back(v1);
 		}
 	}
-
 	mesh->mVertexArray = std::make_unique<VertexArray>(3,
 		static_cast<unsigned int>(vertices.size()), vertices.data(),
 		static_cast<unsigned int>(indices.size()), indices.data());
+
+	return mesh;
+}
+
+// グリッドの作成
+Mesh* Mesh::CreateGround(int size, int rowNum)
+{
+	Mesh* mesh = new Mesh();
+
+	float l = size * rowNum * 0.5f;
+	float n = -l;
+
+	VertexArray::VERTEX v[4] = { 0.0f };
+	std::vector<VertexArray::VERTEX> gridVertex;
+
+	for (int i = 0; i < rowNum + 1; ++i) {
+		if ((rowNum >> 1) == i) {
+			v[0] = {  n,  0,  l,  1.0f,  0.0f,  0.0f };
+			v[1] = {  n,  0, -l,  1.0f,  0.0f,  0.0f };
+			v[2] = {  l,  0,  n,  0.0f,  0.0f,  1.0f };
+			v[3] = { -l,  0,  n,  0.0f,  0.0f,  1.0f };
+		}
+		else {
+			v[0] = {  n,  0,  l,  1.0f,  1.0f,  1.0f };
+			v[1] = {  n,  0, -l,  1.0f,  1.0f,  1.0f };
+			v[2] = {  l,  0,  n,  1.0f,  1.0f,  1.0f };
+			v[3] = { -l,  0,  n,  1.0f,  1.0f,  1.0f };
+		}
+
+		gridVertex.emplace_back(v[0]);
+		gridVertex.emplace_back(v[1]);
+		gridVertex.emplace_back(v[2]);
+		gridVertex.emplace_back(v[3]);
+
+		n += size;
+	}
+
+	VertexArray::VERTEX v5 = { 0.0f,   l,  0.0f,  0.0f,  1.0f,  0.0f };
+	VertexArray::VERTEX v6 = { 0.0f,  -l,  0.0f,  0.0f,  1.0f,  0.0f };
+
+	gridVertex.emplace_back(v5);
+	gridVertex.emplace_back(v6);
+	mesh->mVertexArray = std::make_unique<VertexArray>(3, gridVertex.size(), gridVertex.data(), 0, nullptr);
 
 	return mesh;
 }

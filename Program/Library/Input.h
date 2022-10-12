@@ -6,7 +6,6 @@ namespace tkl
 class Input
 {
 public:
-
 	// キーボード対応一覧
 	enum class eKeys
 	{
@@ -62,7 +61,8 @@ public:
 		KB_MAX
 	};
 
-	static void Update(GLFWwindow* const);
+	static void Initialize(GLFWwindow* const window, int screenWidth, int screenHeight);
+	static void Update(GLFWwindow* const window);
 
 	// 押しっぱなし検知(複数キー未対応)
 	template<typename eKeys>
@@ -76,12 +76,29 @@ public:
 		return sKeyDownTrgStatus[static_cast<int>(keys)];
 	}
 
+	// マウス座標の取得
+	static void GetMousePosition(int* posX, int* posY){
+		*posX = sMousePosition[0], *posY = sMousePosition[1];
+	}
+
+	// マウススクロール量の取得
+	static double GetMouseScrollValue(){ 
+		double retVal = sMouseScrollValue;
+		sMouseScrollValue = 0.0f;
+		return retVal;
+	}
+
 private:
 	Input(){}
 
-	static void InputKeyboard(GLFWwindow* const);
+	static void UpdateMousePos(GLFWwindow* const window);
+	static void UpdateKeyboardStatus(GLFWwindow* const window);
+	static void UpdateMouseScroll(GLFWwindow* window, double x, double y);
 
 private:
+	static int sWindowSize[2];												// ウィンドウサイズ
+	static double sMousePosition[2];										// マウス座標
+	static double sMouseScrollValue;										// マウススクロール量
 	static bool sKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)];		// キー押下状態
 	static bool sPrevKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)];	// 前回のキー押下状態
 	static bool sKeyDownTrgStatus[static_cast<int>(Input::eKeys::KB_MAX)];	// キー押下トリガー状態

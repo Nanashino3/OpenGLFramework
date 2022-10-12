@@ -6,7 +6,7 @@ class Quaternion;
 class Matrix
 {
 public:
-	Matrix() {}
+	Matrix(){}
 
 	const float& operator[](unsigned int i) const { return mMatrix[i]; }
 	float& operator[](unsigned int i) { return mMatrix[i]; }

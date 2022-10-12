@@ -8,6 +8,8 @@ const int WINDOW_HEIGHT = 768;
 class System
 {
 public:
+	System();
+	~System();
 
 	bool Initialize(int screenWidth, int screenHeight);
 	bool ProcessMessage();

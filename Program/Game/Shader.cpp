@@ -1,12 +1,12 @@
 #include "Shader.h"
 
-#include "../Library/Matrix.h"
-#include "../Library/Vector.h"
-
 #include <GL/glew.h>
 #include <vector>
 #include <iostream>
 #include <fstream>
+
+#include "../Library/Matrix.h"
+#include "../Library/Vector.h"
 
 unsigned int Load(const char* vertexFile, const char* flagFile);
 bool ReadShaderFile(const char* fileName, std::vector<char>& buffer);
@@ -33,6 +33,7 @@ void Shader::ActiveShader()
 	glUseProgram(mShaderProgram);
 }
 
+// 各種データをGPUに設定する
 void Shader::SetMatrixUniform(const char* name, const Matrix& matrix)
 {
 	unsigned int location = glGetUniformLocation(mShaderProgram, name);
@@ -54,7 +55,6 @@ unsigned int Load(const char* vertexFile, const char* flagFile)
 {
 	std::vector<char> vertexSource;
 	bool vRet = ReadShaderFile(vertexFile, vertexSource);
-
 	std::vector<char> flagmentSource;
 	bool fRet = ReadShaderFile(flagFile, flagmentSource);
 
@@ -64,6 +64,8 @@ unsigned int Load(const char* vertexFile, const char* flagFile)
 // シェーダファイルの読み込み
 bool ReadShaderFile(const char* fileName, std::vector<char>& buffer)
 {
+	if (fileName == 0) { return false; }
+
 	std::ifstream file(fileName, std::ios::binary);
 	if(file.fail()){
 		std::cerr << "Error：Can't open file." << fileName << std::endl;
@@ -123,9 +125,6 @@ unsigned int CreateShader(const char* vertexSrc, const char* fragmentSrc)
 	}
 
 	// 各種属性をリンクする
-	glBindAttribLocation(program, 0, "inPosition");
-	glBindAttribLocation(program, 1, "inNormal");
-	glBindFragDataLocation(program, 0, "outColor");
 	glLinkProgram(program);
 
 	if(PrintProgramInfoLog(program)){ return static_cast<unsigned int>(program); }

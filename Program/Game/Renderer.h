@@ -3,9 +3,10 @@
 #include <vector>
 #include "../Library/Matrix.h"
 
+class Camera;
 class Shader;
-class VertexArray;
-
+class MeshComponent;
+class WireComponent;
 class Renderer
 {
 public:
@@ -13,18 +14,21 @@ public:
 	~Renderer();
 
 	void Initialize();
-	void Draw(VertexArray* vertexArray);
+	void Draw(Camera* camera);
 
 	void SetViewProjectionMatrix(const Matrix& m){ mViewProjection = m; }
-	void SetWorldTransformMatrix(const Matrix& m){ mWorldTransform = m; }
-
+	void AddMeshComponent(MeshComponent* comp){ mMeshComponents.emplace_back(comp); }
+	void AddWireComponent(WireComponent* comp){ mWireComponents.emplace_back(comp); }
 private:
 	void LoadShaders();
-	void SetLightUniforms();
+	void SetLightUniforms(Shader* shader);
 
 private:
 	std::unique_ptr<Shader> mMeshShader;
+	std::unique_ptr<Shader> mWireframeShader;
 
 	Matrix mViewProjection;
-	Matrix mWorldTransform;
+
+	std::vector<MeshComponent*> mMeshComponents;
+	std::vector<WireComponent*> mWireComponents;
 };

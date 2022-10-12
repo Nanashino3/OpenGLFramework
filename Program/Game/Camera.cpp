@@ -1,9 +1,10 @@
 #include "Camera.h"
 #include "GameManager.h"
 #include "Renderer.h"
+#include "../Library/Input.h"
 
 Camera::Camera(int screenWidth, int screenHeight)
-: mCamPos(100.0f, 100.0f, 300.0f)
+: mCamPos(0, 0, 0)
 , mTargetPos(Vector3::ZERO)
 , mUpVector(Vector3::UNITY)
 , mAngle(60.0f)

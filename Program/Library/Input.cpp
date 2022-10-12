@@ -1,7 +1,13 @@
 #include "Input.h"
 
+// デバッグ用
+#include <iostream>
+
 namespace tkl
 {
+int Input::sWindowSize[2] = { 0 };
+double Input::sMousePosition[2] = {0};
+double Input::sMouseScrollValue = 0.0;
 bool Input::sKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)] = { false };
 bool Input::sPrevKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)] = { false };
 bool Input::sKeyDownTrgStatus[static_cast<int>(Input::eKeys::KB_MAX)] = { false };
@@ -56,13 +62,31 @@ unsigned short Input::sKeys[static_cast<int>(Input::eKeys::KB_MAX)] = {
 		GLFW_KEY_9
 };
 
+void Input::Initialize(GLFWwindow* const window, int screenWidth, int screenHeight)
+{
+	sWindowSize[0] = screenWidth;
+	sWindowSize[1] = screenHeight;
+
+	glfwSetScrollCallback(window, UpdateMouseScroll);
+}
+
 void Input::Update(GLFWwindow* const window)
 {
-	InputKeyboard(window);
+	UpdateMousePos(window);
+	UpdateKeyboardStatus(window);
+}
+
+void Input::UpdateMousePos(GLFWwindow* const window)
+{
+	glfwGetCursorPos(window, &sMousePosition[0], &sMousePosition[1]);
+
+	sMousePosition[0] = sMousePosition[0] - static_cast<double>(sWindowSize[0] / 2.0f);
+	sMousePosition[1] = static_cast<double>(sWindowSize[1] / 2.0f) - sMousePosition[1];
+//	std::cout << "MousePosX : " << sMousePosition[0] << " MousePosY : " << sMousePosition[1] << std::endl;
 }
 
 // キー入力
-void Input::InputKeyboard(GLFWwindow* const window)
+void Input::UpdateKeyboardStatus(GLFWwindow* const window)
 {
 	for(int i = 0; i < static_cast<int>(eKeys::KB_MAX); ++i){
 		sKeyDownStatus[i] = glfwGetKey(window, sKeys[i]);
@@ -74,6 +98,12 @@ void Input::InputKeyboard(GLFWwindow* const window)
 
 		sPrevKeyDownStatus[i] = sKeyDownStatus[i];
 	}
+}
+
+void Input::UpdateMouseScroll(GLFWwindow* window, double x, double y)
+{
+	sMouseScrollValue = y;
+	std::cout << "MouseScrollX : " << x << " MouseScrollY : " << y << std::endl;
 }
 
 } // namespace tkl

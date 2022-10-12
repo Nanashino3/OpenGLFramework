@@ -52,6 +52,15 @@
     <ClCompile Include="Program\Game\Camera.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Program\Game\MeshComponent.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\Component.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\WireComponent.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\Library\Input.h">
@@ -91,6 +100,15 @@
       <Filter>Program\Game</Filter>
     </ClInclude>
     <ClInclude Include="Program\Game\Camera.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\Component.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\MeshComponent.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\WireComponent.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
   </ItemGroup>

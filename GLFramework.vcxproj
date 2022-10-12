@@ -20,12 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\Game\Camera.cpp" />
+    <ClCompile Include="Program\Game\Component.cpp" />
     <ClCompile Include="Program\Game\GameMain.cpp" />
     <ClCompile Include="Program\Game\GameManager.cpp" />
     <ClCompile Include="Program\Game\Mesh.cpp" />
+    <ClCompile Include="Program\Game\MeshComponent.cpp" />
     <ClCompile Include="Program\Game\Renderer.cpp" />
     <ClCompile Include="Program\Game\Shader.cpp" />
     <ClCompile Include="Program\Game\VertexArray.cpp" />
+    <ClCompile Include="Program\Game\WireComponent.cpp" />
     <ClCompile Include="Program\Library\Input.cpp" />
     <ClCompile Include="Program\Library\Matrix.cpp" />
     <ClCompile Include="Program\Library\Quaternion.cpp" />
@@ -35,12 +38,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\Game\Camera.h" />
+    <ClInclude Include="Program\Game\Component.h" />
     <ClInclude Include="Program\Game\GameMain.h" />
     <ClInclude Include="Program\Game\GameManager.h" />
     <ClInclude Include="Program\Game\Mesh.h" />
+    <ClInclude Include="Program\Game\MeshComponent.h" />
     <ClInclude Include="Program\Game\Renderer.h" />
     <ClInclude Include="Program\Game\Shader.h" />
     <ClInclude Include="Program\Game\VertexArray.h" />
+    <ClInclude Include="Program\Game\WireComponent.h" />
     <ClInclude Include="Program\Library\Input.h" />
     <ClInclude Include="Program\Library\Math.h" />
     <ClInclude Include="Program\Library\Matrix.h" />

@@ -20,5 +20,6 @@ private:
 
 private:
 	static GameManager* sInstance;
+	Renderer* mRenderer;
 	Camera* mCamera;
 };

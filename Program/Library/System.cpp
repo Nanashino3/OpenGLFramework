@@ -1,7 +1,14 @@
 #include "System.h"
-#include <iostream>
 
+#include <iostream>
 #include "Input.h"
+
+System::System()
+: mWindow(nullptr)
+{}
+
+System::~System()
+{}
 
 bool System::Initialize(int screenWidth, int screenHeight)
 {
@@ -38,6 +45,9 @@ bool System::Initialize(int screenWidth, int screenHeight)
 	glDepthFunc(GL_LESS);
 	glEnable(GL_DEPTH_TEST);
 
+	// 入力デバイスの初期化
+	tkl::Input::Initialize(mWindow, screenWidth, screenHeight);
+
 	return true;
 }
 
@@ -50,7 +60,6 @@ bool System::ProcessMessage()
 void System::SwapBuffers()
 {
 	glfwSwapBuffers(mWindow);
-
 	glfwPollEvents();
 }
 

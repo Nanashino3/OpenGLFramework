@@ -1,5 +1,6 @@
 #pragma once
 
+class Quaternion;
 class Vector3
 {
 public:
@@ -14,8 +15,6 @@ public:
 
 	// ベクトルの配列を返す
 	const float* GetData() const { return reinterpret_cast<const float*>(&mX); }
-
-	static Vector3 Normalize(const Vector3& v);
 
 	// ベクトルの外積
 	static Vector3 Cross(const Vector3& v1, const Vector3& v2)
@@ -33,7 +32,8 @@ public:
 		return v1.mX * v2.mX + v1.mY * v2.mY + v1.mZ * v2.mZ;
 	}
 
-//	Vector3 TransformCoord(const Vector3& v, const Quaternion& q);
+	static Vector3 Normalize(const Vector3& v);
+	static Vector3 TransformCoord(const Vector3& v, const Quaternion& q);
 
 	static const Vector3 ZERO;
 	static const Vector3 UNITX;
