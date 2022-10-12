@@ -61,19 +61,41 @@ public:
 		KB_MAX
 	};
 
+	// マウス操作一覧
+	enum class eMouse
+	{
+		MOUSE_INPUT_LEFT,
+		MOUSE_INPUT_RIGHT,
+		MOUSE_INPUT_CENTER,
+
+		MAX_MOUSE_INPUT
+	};
+
 	static void Initialize(GLFWwindow* const window, int screenWidth, int screenHeight);
 	static void Update(GLFWwindow* const window);
 
-	// 押しっぱなし検知(複数キー未対応)
+	// キーボード押しっぱなし検知(複数キー未対応)
 	template<typename eKeys>
 	static bool IsKeyDown(eKeys keys){
 		return sKeyDownStatus[static_cast<int>(keys)];
 	}
 
-	// 1フレーム押し検知(複数キー未対応)
+	// キーボード1フレーム押し検知(複数キー未対応)
 	template<typename eKeys>
 	static bool IsKeyDownTrigger(eKeys keys){
 		return sKeyDownTrgStatus[static_cast<int>(keys)];
+	}
+ 
+	// マウス押しっぱなし検知(複数未対応)
+	template<typename eMouse>
+	static bool IsMouseInput(eMouse mouse) {
+		return sMouseStatus[static_cast<int>(mouse)];
+	}
+
+	// マウス1フレーム押し検知(複数未対応)
+	template<typename eMouse>
+	static bool IsMouseInputTrigger(eMouse mouse){
+		return sMouseTrgStatus[static_cast<int>(mouse)];
 	}
 
 	// マウス座標の取得
@@ -94,17 +116,27 @@ private:
 	static void UpdateMousePos(GLFWwindow* const window);
 	static void UpdateKeyboardStatus(GLFWwindow* const window);
 	static void UpdateMouseScroll(GLFWwindow* window, double x, double y);
+	static void UpdateMouseStatus(GLFWwindow* const window);
 
 private:
-	static int sWindowSize[2];												// ウィンドウサイズ
-	static double sMousePosition[2];										// マウス座標
-	static double sMouseScrollValue;										// マウススクロール量
-	static bool sKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)];		// キー押下状態
-	static bool sPrevKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)];	// 前回のキー押下状態
-	static bool sKeyDownTrgStatus[static_cast<int>(Input::eKeys::KB_MAX)];	// キー押下トリガー状態
-	static unsigned short sKeys[static_cast<int>(Input::eKeys::KB_MAX)];	// GLFWのキー一覧
+	static int sWindowSize[2];													// ウィンドウサイズ
+	
+	// マウス関連変数
+	static double sMousePosition[2];	// マウス座標
+	static double sMouseScrollValue;	// マウススクロール量
+	static bool sMouseStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)];		// マウス状態
+	static bool sPrevMouseStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)];	// 前回のキー押下状態
+	static bool sMouseTrgStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)];	// キー押下トリガー状態
+	static unsigned short sMouse[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)];	// GLFWのマウス一覧
+
+	// キーボード関連変数
+	static bool sKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)];			// キー押下状態
+	static bool sPrevKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)];		// 前回のキー押下状態
+	static bool sKeyDownTrgStatus[static_cast<int>(Input::eKeys::KB_MAX)];		// キー押下トリガー状態
+	static unsigned short sKeys[static_cast<int>(Input::eKeys::KB_MAX)];		// GLFWのキー一覧
 };
 
 } // namespace tkl
 
 using eKeys = tkl::Input::eKeys;
+using eMouse = tkl::Input::eMouse;

@@ -6,8 +6,19 @@
 namespace tkl
 {
 int Input::sWindowSize[2] = { 0 };
+
 double Input::sMousePosition[2] = {0};
 double Input::sMouseScrollValue = 0.0;
+
+bool Input::sPrevMouseStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)] = { false };
+bool Input::sMouseTrgStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)] = { false };
+bool Input::sMouseStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)] = { false };
+unsigned short Input::sMouse[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)] = {
+	GLFW_MOUSE_BUTTON_LEFT,
+	GLFW_MOUSE_BUTTON_RIGHT,
+	GLFW_MOUSE_BUTTON_MIDDLE
+};
+
 bool Input::sKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)] = { false };
 bool Input::sPrevKeyDownStatus[static_cast<int>(Input::eKeys::KB_MAX)] = { false };
 bool Input::sKeyDownTrgStatus[static_cast<int>(Input::eKeys::KB_MAX)] = { false };
@@ -73,6 +84,7 @@ void Input::Initialize(GLFWwindow* const window, int screenWidth, int screenHeig
 void Input::Update(GLFWwindow* const window)
 {
 	UpdateMousePos(window);
+	UpdateMouseStatus(window);
 	UpdateKeyboardStatus(window);
 }
 
@@ -85,7 +97,7 @@ void Input::UpdateMousePos(GLFWwindow* const window)
 //	std::cout << "MousePosX : " << sMousePosition[0] << " MousePosY : " << sMousePosition[1] << std::endl;
 }
 
-// キー入力
+// キー入力入力状態
 void Input::UpdateKeyboardStatus(GLFWwindow* const window)
 {
 	for(int i = 0; i < static_cast<int>(eKeys::KB_MAX); ++i){
@@ -93,17 +105,31 @@ void Input::UpdateKeyboardStatus(GLFWwindow* const window)
 
 		sKeyDownTrgStatus[i] = false;
 		if(sPrevKeyDownStatus[i] != sKeyDownStatus[i]){
-			if(sKeyDownStatus[i] != GLFW_RELEASE) sKeyDownTrgStatus[i] = true;
+			if(sKeyDownStatus[i] != GLFW_RELEASE){ sKeyDownTrgStatus[i] = true; }
 		}
-
 		sPrevKeyDownStatus[i] = sKeyDownStatus[i];
 	}
 }
 
+// マウス入力状態更新
+void Input::UpdateMouseStatus(GLFWwindow* const window)
+{
+	for(int i = 0; i < static_cast<int>(eMouse::MAX_MOUSE_INPUT); ++i){
+		sMouseStatus[i] = glfwGetMouseButton(window, sMouse[i]);
+
+		sMouseTrgStatus[i] = false;
+		if(sPrevMouseStatus[i] != sMouseStatus[i]){
+			if(sMouseStatus[i] != GLFW_RELEASE){ sMouseTrgStatus[i] = true; }
+		}
+		sPrevMouseStatus[i] = sMouseStatus[i];
+	}
+}
+
+// マウススクロール更新
 void Input::UpdateMouseScroll(GLFWwindow* window, double x, double y)
 {
 	sMouseScrollValue = y;
-	std::cout << "MouseScrollX : " << x << " MouseScrollY : " << y << std::endl;
+//	std::cout << "MouseScrollX : " << x << " MouseScrollY : " << y << std::endl;
 }
 
 } // namespace tkl
