@@ -7,21 +7,30 @@
 
 // デバッグ用
 #include <iostream>
+#include "../Library/FontTexture.h"
 Mesh* gBox = nullptr;
+Mesh* gSphere = nullptr;
 Mesh* gGridGround = nullptr;
 
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
+//	FontTexture::CreateFontTexture();
 	// ボックス
 	gBox = Mesh::CreateBox(50, 50, 50);
 
+	gSphere = Mesh::CreateSphere(50, 24, 16);
+
 	// グリッド
-	gGridGround = Mesh::CreateGround(100, 20);
+//	gGridGround = Mesh::CreateGround(100, 20);
 
 	// カメラの作成
 	mCamera = new Camera(1024, 768);
+#if 1
 	mCamera->SetPosition(Vector3(500, 500, 500));
+#else
+	mCamera->SetPosition(Vector3(0, 0, 500));
+#endif
 }
 
 GameManager::~GameManager()
@@ -45,40 +54,11 @@ void GameManager::DestoryInstance()
 
 void GameManager::Update(float deltaTime)
 {
-	Vector3 pos = gBox->GetPosition();
-	Quaternion camRot = mCamera->GetRotation();
-	if(tkl::Input::IsKeyDown(eKeys::KB_D)){
-		pos.mX += 1.0f;
-	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_A)){
-		pos.mX -= 1.0f;
-	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_W)){
-		pos.mZ -= 1.0f;
-	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_S)){
-		pos.mZ += 1.0f;
-	}
-
-#if 0
-	if(tkl::Input::IsKeyDown(eKeys::KB_LEFT)){
-		camRot *= Quaternion::RotationAxis(mCamera->Up(), tkl::ToRadian(1));
-	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_RIGHT)){
-		camRot *= Quaternion::RotationAxis(mCamera->Up(), tkl::ToRadian(-1));
-	}
-#else
-	if(tkl::Input::IsMouseInput(eMouse::MOUSE_INPUT_LEFT)){
-		camRot *= Quaternion::RotationAxis(mCamera->Up(), tkl::ToRadian(1));
-	}
-	if(tkl::Input::IsMouseInput(eMouse::MOUSE_INPUT_RIGHT)){
-		camRot *= Quaternion::RotationAxis(mCamera->Up(), tkl::ToRadian(-1));
-	}
-#endif
-	gBox->SetPosition(pos);
-	mCamera->SetRotation(camRot);
+	// カメラ更新
 	mCamera->Update();
 
+	// オブジェクトの描画
 	gBox->Draw(mCamera);
-	gGridGround->Draw(mCamera);
+	gSphere->Draw(mCamera);
+//	gGridGround->Draw(mCamera);
 }

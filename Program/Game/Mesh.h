@@ -12,7 +12,7 @@ class Mesh
 public:
 	std::unique_ptr<VertexArray> mVertexArray;
 
-	Mesh(unsigned int type);
+	Mesh();
 	~Mesh();
 
 	void Draw(Camera* camera);
@@ -26,6 +26,8 @@ public:
 	void SetScale(const Vector3& scale){ mScale = scale; }
 	Vector3 GetScale() const{ return mScale; }
 
+	void SetRenderer(Renderer* renderer){ mRenderer = renderer; }
+
 //	void SetVertexArray(std::unique_ptr<VertexArray> vertex){ mVertexArray = std::move(vertex); }
 //	const VertexArray& GetVertexArray() const { return *mVertexArray; }
 
@@ -38,5 +40,5 @@ private:
 	Quaternion mRotation;
 	Vector3 mScale;
 
-	std::unique_ptr<Renderer> mRenderer;
+	Renderer* mRenderer;
 };

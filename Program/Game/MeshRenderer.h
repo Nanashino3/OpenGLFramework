@@ -1,12 +1,10 @@
 #pragma once
 
 #include "Renderer.h"
-
-class Mesh;
 class MeshRenderer : public Renderer
 {
 public:
-	MeshRenderer(Mesh* mesh);
+	MeshRenderer(Mesh* mesh, const char* shaderName);
 	virtual ~MeshRenderer();
 
 	virtual void Draw(Camera* camera);

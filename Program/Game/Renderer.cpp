@@ -2,22 +2,17 @@
 
 #include "Camera.h"
 #include "Shader.h"
+#include "ShaderFactory.h"
 
-Renderer::Renderer(Mesh* mesh)
+Renderer::Renderer(Mesh* mesh, const char* shaderName)
 : mMesh(mesh)
-, mShader(nullptr)
-{}
+{
+	mShader = ShaderFactory::GetInstance()->GetShader(shaderName);
+}
 
 Renderer::~Renderer()
 {
 	delete mShader;
-}
-
-// シェーダの読み込み
-void Renderer::LoadShader(const char* vertexFile, const char* fragFile)
-{
-	mShader = new Shader();
-	mShader->LoadShader(vertexFile, fragFile);
 }
 
 // 描画指示

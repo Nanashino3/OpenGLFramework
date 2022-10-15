@@ -5,9 +5,11 @@
 #include "Mesh.h"
 #include "../Library/Vector.h"
 #include "../Library/Matrix.h"
-MeshRenderer::MeshRenderer(Mesh* mesh)
-: Renderer(mesh)
-{}
+MeshRenderer::MeshRenderer(Mesh* mesh, const char* shaderName)
+: Renderer(mesh, shaderName)
+{
+	mesh->SetRenderer(this);
+}
 
 MeshRenderer::~MeshRenderer()
 {}

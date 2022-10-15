@@ -25,10 +25,11 @@
     <ClCompile Include="Program\Game\Mesh.cpp" />
     <ClCompile Include="Program\Game\MeshRenderer.cpp" />
     <ClCompile Include="Program\Game\Renderer.cpp" />
-    <ClCompile Include="Program\Game\RendererFactory.cpp" />
+    <ClCompile Include="Program\Game\ShaderFactory.cpp" />
     <ClCompile Include="Program\Game\Shader.cpp" />
     <ClCompile Include="Program\Game\VertexArray.cpp" />
     <ClCompile Include="Program\Game\WireRenderer.cpp" />
+    <ClCompile Include="Program\Library\FontTexture.cpp" />
     <ClCompile Include="Program\Library\Input.cpp" />
     <ClCompile Include="Program\Library\Matrix.cpp" />
     <ClCompile Include="Program\Library\Quaternion.cpp" />
@@ -43,10 +44,11 @@
     <ClInclude Include="Program\Game\Mesh.h" />
     <ClInclude Include="Program\Game\MeshRenderer.h" />
     <ClInclude Include="Program\Game\Renderer.h" />
-    <ClInclude Include="Program\Game\RendererFactory.h" />
+    <ClInclude Include="Program\Game\ShaderFactory.h" />
     <ClInclude Include="Program\Game\Shader.h" />
     <ClInclude Include="Program\Game\VertexArray.h" />
     <ClInclude Include="Program\Game\WireRenderer.h" />
+    <ClInclude Include="Program\Library\FontTexture.h" />
     <ClInclude Include="Program\Library\Input.h" />
     <ClInclude Include="Program\Library\Math.h" />
     <ClInclude Include="Program\Library\Matrix.h" />
@@ -55,10 +57,10 @@
     <ClInclude Include="Program\Library\Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shader\BasicFrag.glsl" />
+    <None Include="Shader\BasicVert.glsl" />
     <None Include="Shader\LambertFrag.glsl" />
     <None Include="Shader\LambertVert.glsl" />
-    <None Include="Shader\PointFrag.glsl" />
-    <None Include="Shader\PointVert.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

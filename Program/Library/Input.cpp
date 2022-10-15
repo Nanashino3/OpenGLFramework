@@ -6,7 +6,6 @@
 namespace tkl
 {
 int Input::sWindowSize[2] = { 0 };
-
 double Input::sMousePosition[2] = {0};
 double Input::sMouseScrollValue = 0.0;
 
@@ -78,23 +77,14 @@ void Input::Initialize(GLFWwindow* const window, int screenWidth, int screenHeig
 	sWindowSize[0] = screenWidth;
 	sWindowSize[1] = screenHeight;
 
-	glfwSetScrollCallback(window, UpdateMouseScroll);
+	glfwSetCursorPosCallback(window, CallbackMousePos);
+	glfwSetScrollCallback(window, CallbackMouseScroll);
 }
 
 void Input::Update(GLFWwindow* const window)
 {
-	UpdateMousePos(window);
 	UpdateMouseStatus(window);
 	UpdateKeyboardStatus(window);
-}
-
-void Input::UpdateMousePos(GLFWwindow* const window)
-{
-	glfwGetCursorPos(window, &sMousePosition[0], &sMousePosition[1]);
-
-	sMousePosition[0] = sMousePosition[0] - static_cast<double>(sWindowSize[0] / 2.0f);
-	sMousePosition[1] = static_cast<double>(sWindowSize[1] / 2.0f) - sMousePosition[1];
-//	std::cout << "MousePosX : " << sMousePosition[0] << " MousePosY : " << sMousePosition[1] << std::endl;
 }
 
 // キー入力入力状態
@@ -125,11 +115,18 @@ void Input::UpdateMouseStatus(GLFWwindow* const window)
 	}
 }
 
-// マウススクロール更新
-void Input::UpdateMouseScroll(GLFWwindow* window, double x, double y)
+// マウススクロール更新(コールバック関数)
+void Input::CallbackMouseScroll(GLFWwindow* window, double x, double y)
 {
 	sMouseScrollValue = y;
-//	std::cout << "MouseScrollX : " << x << " MouseScrollY : " << y << std::endl;
+}
+
+// マウス座標更新(コールバック関数)
+void Input::CallbackMousePos(GLFWwindow* const window, double x, double y)
+{
+	// 現在座標
+	sMousePosition[0] = x - static_cast<double>(sWindowSize[0] / 2.0f);
+	sMousePosition[1] = static_cast<double>(sWindowSize[1] / 2.0f) - y;
 }
 
 } // namespace tkl

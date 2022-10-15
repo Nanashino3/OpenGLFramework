@@ -3,18 +3,15 @@
 #include <vector>
 #include "Camera.h"
 #include "VertexArray.h"
-#include "Renderer.h"
-#include "RendererFactory.h"
+#include "MeshRenderer.h"
+#include "WireRenderer.h"
 #include "../Library/Math.h"
 
-Mesh::Mesh(unsigned int type)
+Mesh::Mesh()
 : mPosition(Vector3(0, 0, 0))
 , mRotation(Quaternion())
 , mScale(Vector3(1, 1, 1))
-{
-	std::unique_ptr<RendererFactory> factory = std::make_unique<RendererFactory>(this);
-	mRenderer = factory->Build(static_cast<RendererFactory::BUILD_TYPE>(type));
-}
+{}
 
 Mesh::~Mesh()
 {}
@@ -27,7 +24,9 @@ void Mesh::Draw(Camera* camera)
 // ボックスの作成
 Mesh* Mesh::CreateBox(float sizeW, float sizeH, float sizeD)
 {
-	Mesh* mesh = new Mesh(RendererFactory::BUILD_MESH);
+	Mesh* mesh = new Mesh();
+	mesh->mRenderer = new MeshRenderer(mesh, "Lambert");
+
 	VertexArray::VERTEX vertices[] = {
 		// 左面
 		{ -sizeW, -sizeH, -sizeD, -1.0f,  0.0f,  0.0f },
@@ -84,7 +83,9 @@ Mesh* Mesh::CreateBox(float sizeW, float sizeH, float sizeD)
 // 球体の作成
 Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 {
-	Mesh* mesh = new Mesh(RendererFactory::BUILD_MESH);
+	Mesh* mesh = new Mesh();
+	mesh->mRenderer = new MeshRenderer(mesh, "Lambert");
+
 	// 頂点座標計算
 	std::vector<VertexArray::VERTEX> vertices;
 	for(int i = 0; i < (divHeight + 1); ++i){
@@ -132,7 +133,8 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 // グリッドの作成
 Mesh* Mesh::CreateGround(int size, int rowNum)
 {
-	Mesh* mesh = new Mesh(RendererFactory::BUILD_WIRE);
+	Mesh* mesh = new Mesh();
+	mesh->mRenderer = new WireRenderer(mesh, "Basic");
 
 	float l = size * rowNum * 0.5f;
 	float n = -l;

@@ -99,8 +99,10 @@ public:
 	}
 
 	// マウス座標の取得
-	static void GetMousePosition(int* posX, int* posY){
+	static void GetMousePosition(double* posX, double* posY){
 		*posX = sMousePosition[0], *posY = sMousePosition[1];
+		sMousePosition[0] = 0.0f;
+		sMousePosition[1] = 0.0f;
 	}
 
 	// マウススクロール量の取得
@@ -113,10 +115,11 @@ public:
 private:
 	Input(){}
 
-	static void UpdateMousePos(GLFWwindow* const window);
 	static void UpdateKeyboardStatus(GLFWwindow* const window);
-	static void UpdateMouseScroll(GLFWwindow* window, double x, double y);
 	static void UpdateMouseStatus(GLFWwindow* const window);
+
+	static void CallbackMouseScroll(GLFWwindow* window, double x, double y);
+	static void CallbackMousePos(GLFWwindow* const window, double x, double y);
 
 private:
 	static int sWindowSize[2];													// ウィンドウサイズ

@@ -4,9 +4,11 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "../Library/Matrix.h"
-WireRenderer::WireRenderer(Mesh* mesh)
-: Renderer(mesh)
-{}
+WireRenderer::WireRenderer(Mesh* mesh, const char* shaderName)
+: Renderer(mesh, shaderName)
+{
+	mesh->SetRenderer(this);
+}
 
 WireRenderer::~WireRenderer()
 {}

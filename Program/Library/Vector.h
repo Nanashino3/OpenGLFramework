@@ -9,11 +9,29 @@ public:
 	Vector3() : mX(0), mY(0), mZ(0){}
 	Vector3(float x, float y, float z) : mX(x), mY(y), mZ(z){}
 
+	// ベクトル同士
 	friend Vector3 operator+(const Vector3& a, const Vector3& b){
 		return Vector3(a.mX + b.mX, a.mY + b.mY, a.mZ + b.mZ);
 	}
-	friend Vector3 operator-(const Vector3& a, const Vector3& b){
+	Vector3 operator+=(const Vector3& a){
+		*this = *this + a;
+		return *this;
+	}
+	friend Vector3 operator-(const Vector3& a, const Vector3& b) {
 		return Vector3(a.mX - b.mX, a.mY - b.mY, a.mZ - b.mZ);
+	}
+	Vector3 operator-=(const Vector3& a) {
+		*this = *this - a;
+		return *this;
+	}
+
+	// ベクトルとスカラー
+	friend Vector3 operator+(const Vector3& a, float s){
+		return Vector3(a.mX + s, a.mY + s, a.mZ + s);
+	}
+	Vector3 operator+=(float s){
+		*this = *this + s;
+		return *this;
 	}
 	friend Vector3 operator*(const Vector3& v, float scalar)
 	{

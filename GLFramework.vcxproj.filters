@@ -49,13 +49,16 @@
     <ClCompile Include="Program\Game\Camera.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\RendererFactory.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\Library\FontTexture.cpp">
+      <Filter>Program\Library</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\Renderer.cpp">
+    <ClCompile Include="Program\Game\ShaderFactory.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
     <ClCompile Include="Program\Game\MeshRenderer.cpp">
+      <Filter>Program\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Game\Renderer.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
     <ClCompile Include="Program\Game\WireRenderer.cpp">
@@ -99,13 +102,16 @@
     <ClInclude Include="Program\Game\Camera.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Program\Game\RendererFactory.h">
-      <Filter>Program\Game</Filter>
+    <ClInclude Include="Program\Library\FontTexture.h">
+      <Filter>Program\Library</Filter>
     </ClInclude>
-    <ClInclude Include="Program\Game\Renderer.h">
+    <ClInclude Include="Program\Game\ShaderFactory.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
     <ClInclude Include="Program\Game\MeshRenderer.h">
+      <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Game\Renderer.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
     <ClInclude Include="Program\Game\WireRenderer.h">
@@ -113,16 +119,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\PointFrag.glsl">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shader\PointVert.glsl">
-      <Filter>Shader</Filter>
-    </None>
     <None Include="Shader\LambertFrag.glsl">
       <Filter>Shader</Filter>
     </None>
     <None Include="Shader\LambertVert.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\BasicFrag.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\BasicVert.glsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>

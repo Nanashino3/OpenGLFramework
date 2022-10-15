@@ -7,10 +7,9 @@ class Mesh;
 class Renderer
 {
 public:
-	Renderer(Mesh* mesh);
+	Renderer(Mesh* mesh, const char* shaderName);
 	~Renderer();
 
-	void LoadShader(const char* vertexFile, const char* fragFile);
 	virtual void Draw(Camera* camera);
 protected:
 	Shader* mShader;
