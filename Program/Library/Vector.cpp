@@ -1,6 +1,6 @@
 #include "Vector.h"
 
-#include <math.h>
+#include <cmath>
 #include "Quaternion.h"
 
 const Vector3 Vector3::ZERO(0, 0, 0);

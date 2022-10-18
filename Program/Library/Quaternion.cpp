@@ -1,6 +1,6 @@
 #include "Quaternion.h"
 
-#include <math.h>
+#include <cmath>
 #include "Vector.h"
 
 Quaternion Quaternion::RotationAxis(const Vector3& axis, float rotate)
