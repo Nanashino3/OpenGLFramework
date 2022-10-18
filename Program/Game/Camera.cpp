@@ -9,7 +9,6 @@ Camera::Camera(int screenWidth, int screenHeight)
 : mCamPos(0, 0, 0)
 , mTargetPos(Vector3::ZERO)
 , mUpVector(Vector3::UNITY)
-, mDragPos(Vector3::ZERO)
 , mRotation(Quaternion())
 , mScreenWidth(screenWidth)
 , mScreenHeight(screenHeight)
@@ -30,29 +29,57 @@ void Camera::Update()
 	float scrollVal = static_cast<float>(tkl::Input::GetMouseScrollValue() * 10.0f);
 	mCamPos += Front() * scrollVal;
 
-//	// 視線移動
-//	if(tkl::Input::IsMouseInputTrigger(eMouse::MOUSE_INPUT_RIGHT) ||
-//	   tkl::Input::IsMouseInputTrigger(eMouse::MOUSE_INPUT_LEFT)){
-//		double posX, posY;
-//		tkl::Input::GetMousePosition(&posX, &posY);
-//		mDragPos.mX = static_cast<float>(posX);
-//		mDragPos.mY = static_cast<float>(posY);
-//	}
-//
-//	if(tkl::Input::IsMouseInput(eMouse::MOUSE_INPUT_RIGHT)){
-//		double currentX, currentY;
-//		tkl::Input::GetMousePosition(&currentX, &currentY);
-//
-//		float diffX = (mDragPos.mX - currentX) / (mScreenWidth >> 1);
-//		mRotation *= Quaternion::RotationAxis(Up(), tkl::ToRadian(-1));
+	// カメラ移動
+	CameraMove();
 
-//		Vector3 temp2 = Vector3::Cross(Front(), Top());
-//		float diffY = (mDragPos.mY - currentY) / (mScreenHeight >> 1);
-//		mRotation *= Quaternion::RotationAxis(temp2, tkl::ToRadian(-1));
-//	}
-	mTargetPos = mCamPos + Vector3::TransformCoord({-1, -1, -1}, mRotation);
+	// 視線移動
+	LookMove();
+	mTargetPos = mCamPos + Vector3::TransformCoord({ -1, -1, -1 }, mRotation);
 
 	// 行列
 	mViewProjection  = Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
 	mViewProjection *= Matrix::CreateLookAt(mCamPos, mTargetPos, mUpVector);
+}
+
+// カメラ移動(TODO：マウス操作で移動できるようにする)
+void Camera::CameraMove()
+{
+	if(tkl::Input::IsKeyDown(eKeys::KB_W)){
+		mCamPos.mY += 2.0f;
+	}
+	if(tkl::Input::IsKeyDown(eKeys::KB_S)){
+		mCamPos.mY -= 2.0f;
+	}
+
+	if(tkl::Input::IsKeyDown(eKeys::KB_A)){
+		mCamPos += Left() * 2.0f;
+	}
+	if(tkl::Input::IsKeyDown(eKeys::KB_D)){
+		mCamPos += Right() * 2.0f;
+	}
+}
+
+// 視線移動(TODO：マウスで操作できるようにする)
+void Camera::LookMove()
+{
+	// 上下視線移動
+	if(tkl::Input::IsKeyDownTrigger(eKeys::KB_UP) || 
+	   tkl::Input::IsKeyDownTrigger(eKeys::KB_DOWN)){
+		mUpAndDownVec = Vector3::Cross(Front(), Up());
+	}
+	if(tkl::Input::IsKeyDown(eKeys::KB_UP)){
+		mRotation *= Quaternion::RotationAxis(mUpAndDownVec, tkl::ToRadian(1));
+	}
+	if(tkl::Input::IsKeyDown(eKeys::KB_DOWN)){
+		mRotation *= Quaternion::RotationAxis(mUpAndDownVec, tkl::ToRadian(-1));
+	}
+	std::cout << "x : " << mUpAndDownVec.mX << " y : " << mUpAndDownVec.mY << " z : " << mUpAndDownVec.mZ << std::endl;
+
+	// 左右視線移動
+	if(tkl::Input::IsKeyDown(eKeys::KB_LEFT)){
+		mRotation *= Quaternion::RotationAxis({ 0, 1, 0 }, tkl::ToRadian(1));
+	}
+	if(tkl::Input::IsKeyDown(eKeys::KB_RIGHT)){
+		mRotation *= Quaternion::RotationAxis({ 0, 1, 0 }, tkl::ToRadian(-1));
+	}
 }

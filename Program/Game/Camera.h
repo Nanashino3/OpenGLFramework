@@ -32,11 +32,14 @@ public:
 	Vector3 Up()	{ return Vector3::Cross(Right(), Front()); }
 
 private:
+	void CameraMove();
+	void LookMove();
+
+private:
 	Vector3 mCamPos;
 	Vector3 mTargetPos;
 	Vector3 mUpVector;
-	Vector3 mDragPos;
-	Vector3 mRightVector;
+	Vector3 mUpAndDownVec;
 
 	Quaternion mRotation;
 

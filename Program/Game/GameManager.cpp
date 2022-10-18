@@ -9,7 +9,6 @@
 #include <iostream>
 #include "../Library/FontTexture.h"
 Mesh* gBox = nullptr;
-Mesh* gSphere = nullptr;
 Mesh* gGridGround = nullptr;
 
 GameManager* GameManager::sInstance = nullptr;
@@ -19,10 +18,8 @@ GameManager::GameManager()
 	// ボックス
 	gBox = Mesh::CreateBox(50, 50, 50);
 
-	gSphere = Mesh::CreateSphere(50, 24, 16);
-
 	// グリッド
-//	gGridGround = Mesh::CreateGround(100, 20);
+	gGridGround = Mesh::CreateGround(100, 20);
 
 	// カメラの作成
 	mCamera = new Camera(1024, 768);
@@ -59,6 +56,5 @@ void GameManager::Update(float deltaTime)
 
 	// オブジェクトの描画
 	gBox->Draw(mCamera);
-	gSphere->Draw(mCamera);
-//	gGridGround->Draw(mCamera);
+	gGridGround->Draw(mCamera);
 }
