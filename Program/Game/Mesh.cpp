@@ -8,9 +8,9 @@
 #include "../Library/Math.h"
 
 Mesh::Mesh()
-: mPosition(Vector3(0, 0, 0))
-, mRotation(Quaternion())
-, mScale(Vector3(1, 1, 1))
+: mPosition(tkl::Vector3(0, 0, 0))
+, mRotation(tkl::Quaternion())
+, mScale(tkl::Vector3(1, 1, 1))
 {}
 
 Mesh::~Mesh()

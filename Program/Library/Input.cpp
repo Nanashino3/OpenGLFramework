@@ -5,8 +5,8 @@
 
 namespace tkl
 {
-int Input::sWindowSize[2] = { 0 };
-double Input::sMousePosition[2] = {0};
+int Input::sWindowSize[2] = {0};
+int Input::sMousePosition[2] = {0};
 double Input::sMouseScrollValue = 0.0;
 
 bool Input::sPrevMouseStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)] = { false };
@@ -83,8 +83,8 @@ void Input::Initialize(GLFWwindow* const window, int screenWidth, int screenHeig
 
 void Input::Update(GLFWwindow* const window)
 {
-	UpdateMouseStatus(window);
 	UpdateKeyboardStatus(window);
+	UpdateMouseStatus(window);
 }
 
 // ÉLÅ[ì¸óÕì¸óÕèÛë‘
@@ -125,8 +125,8 @@ void Input::CallbackMouseScroll(GLFWwindow* window, double x, double y)
 void Input::CallbackMousePos(GLFWwindow* const window, double x, double y)
 {
 	// åªç›ç¿ïW
-	sMousePosition[0] = x - static_cast<double>(sWindowSize[0] / 2.0f);
-	sMousePosition[1] = static_cast<double>(sWindowSize[1] / 2.0f) - y;
+	sMousePosition[0] = static_cast<int>(x);
+	sMousePosition[1] = static_cast<int>(y);
 }
 
 } // namespace tkl

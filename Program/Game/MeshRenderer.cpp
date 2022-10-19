@@ -17,10 +17,10 @@ MeshRenderer::~MeshRenderer()
 // ライティングの設定
 void MeshRenderer::SetLightUniforms()
 {
-	Vector3 camPos = Vector3(0.0f, 1.0f, 0.0f);
-	Vector3 ambientLight = Vector3(0.2f, 0.2f, 0.2f);
-	Vector3 dirLightDirection = Vector3(0.0f, -1.0f, 0.0f);
-	Vector3 dirLightDiffuseColor = Vector3(1.0f, 1.0f, 1.0f);
+	tkl::Vector3 camPos = tkl::Vector3(0.0f, 1.0f, 0.0f);
+	tkl::Vector3 ambientLight = tkl::Vector3(0.2f, 0.2f, 0.2f);
+	tkl::Vector3 dirLightDirection = tkl::Vector3(0.0f, -1.0f, 0.0f);
+	tkl::Vector3 dirLightDiffuseColor = tkl::Vector3(1.0f, 1.0f, 1.0f);
 
 	mShader->SetVectorUniform("uCameraPos", camPos);
 	mShader->SetVectorUniform("uAmbientColor", ambientLight);
@@ -35,9 +35,9 @@ void MeshRenderer::Draw(Camera* camera)
 	Renderer::Draw(camera);
 	SetLightUniforms();
 
-	Matrix wm = Matrix::CreateTranslation(mMesh->GetPosition());
-	wm *= Matrix::CreateRotationFromQuaternion(mMesh->GetRotation());
-	wm *= Matrix::CreateScale(mMesh->GetScale());
+	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mMesh->GetPosition());
+	wm *= tkl::Matrix::CreateRotationFromQuaternion(mMesh->GetRotation());
+	wm *= tkl::Matrix::CreateScale(mMesh->GetScale());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
 	VertexArray* va = mMesh->mVertexArray.get();

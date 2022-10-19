@@ -24,9 +24,9 @@ GameManager::GameManager()
 	// ƒJƒƒ‰‚Ìì¬
 	mCamera = new Camera(1024, 768);
 #if 1
-	mCamera->SetPosition(Vector3(500, 500, 500));
+	mCamera->SetPosition(tkl::Vector3(500, 500, 500));
 #else
-	mCamera->SetPosition(Vector3(0, 0, 500));
+	mCamera->SetPosition(tkl::Vector3(0, 0, 500));
 #endif
 }
 

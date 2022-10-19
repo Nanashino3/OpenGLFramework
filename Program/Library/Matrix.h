@@ -1,6 +1,8 @@
 #pragma once
 #include <algorithm>
 
+namespace tkl
+{
 class Vector3;
 class Quaternion;
 class Matrix
@@ -68,3 +70,5 @@ private:
 private:
 	float mMatrix[16];
 };
+
+} // namespace tkl

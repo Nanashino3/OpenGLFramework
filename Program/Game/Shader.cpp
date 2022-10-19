@@ -34,12 +34,12 @@ void Shader::ActiveShader()
 }
 
 // 各種データをGPUに設定する
-void Shader::SetMatrixUniform(const char* name, const Matrix& matrix)
+void Shader::SetMatrixUniform(const char* name, const tkl::Matrix& matrix)
 {
 	unsigned int location = glGetUniformLocation(mShaderProgram, name);
 	glUniformMatrix4fv(location, 1, GL_FALSE, matrix.GetData());
 }
-void Shader::SetVectorUniform(const char* name, const Vector3& vector)
+void Shader::SetVectorUniform(const char* name, const tkl::Vector3& vector)
 {
 	unsigned int location = glGetUniformLocation(mShaderProgram, name);
 	glUniform3fv(location, 1, vector.GetData());

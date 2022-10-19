@@ -1,5 +1,7 @@
 #pragma once
 
+namespace tkl
+{
 class Quaternion;
 class Vector3
 {
@@ -68,3 +70,5 @@ public:
 	static const Vector3 NEG_UNITY;
 	static const Vector3 NEG_UNITZ;
 };
+
+} // namespace tkl

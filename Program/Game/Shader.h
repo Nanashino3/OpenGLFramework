@@ -1,7 +1,10 @@
 #pragma once
 
-class Matrix;
-class Vector3;
+namespace tkl{
+	class Matrix;
+	class Vector3;
+}
+
 class Shader
 {
 public:
@@ -11,8 +14,8 @@ public:
 	void LoadShader(const char* vertFileName, const char* fragFileName);
 	void ActiveShader();
 	
-	void SetMatrixUniform(const char* name, const Matrix& matrix);
-	void SetVectorUniform(const char* name, const Vector3& vector);
+	void SetMatrixUniform(const char* name, const tkl::Matrix& matrix);
+	void SetVectorUniform(const char* name, const tkl::Vector3& vector);
 	void SetFloatUniform(const char* name, const float value);
 
 private:

@@ -3,6 +3,8 @@
 #include <cmath>
 #include "Vector.h"
 
+namespace tkl
+{
 Quaternion Quaternion::RotationAxis(const Vector3& axis, float rotate)
 {
 	Quaternion temp;
@@ -16,3 +18,5 @@ Quaternion Quaternion::RotationAxis(const Vector3& axis, float rotate)
 
 	return temp; 
 }
+
+} // namespace tkl

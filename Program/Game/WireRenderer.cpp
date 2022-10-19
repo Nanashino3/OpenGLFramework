@@ -19,7 +19,7 @@ void WireRenderer::Draw(Camera* camera)
 
 	Renderer::Draw(camera);
 
-	Matrix wm = Matrix::CreateTranslation(mMesh->GetPosition());
+	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mMesh->GetPosition());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
 	VertexArray* va = mMesh->mVertexArray.get();

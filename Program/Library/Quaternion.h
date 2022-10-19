@@ -1,5 +1,7 @@
 #pragma once
 
+namespace tkl
+{
 class Vector3;
 class Quaternion
 {
@@ -33,3 +35,5 @@ public:
 	// 回転角と回転軸からクォータニオンを作成
 	static Quaternion RotationAxis(const Vector3& axis, float rotate);
 };
+
+} // namespace tkl

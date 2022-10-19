@@ -17,14 +17,14 @@ public:
 
 	void Draw(Camera* camera);
 
-	void SetPosition(const Vector3& pos){ mPosition = pos; }
-	Vector3 GetPosition() const{ return mPosition; }
+	void SetPosition(const tkl::Vector3& pos){ mPosition = pos; }
+	tkl::Vector3 GetPosition() const{ return mPosition; }
 
-	void SetRotation(const Quaternion& rot){ mRotation = rot; }
-	Quaternion GetRotation() const{ return mRotation; }
+	void SetRotation(const tkl::Quaternion& rot){ mRotation = rot; }
+	tkl::Quaternion GetRotation() const{ return mRotation; }
 
-	void SetScale(const Vector3& scale){ mScale = scale; }
-	Vector3 GetScale() const{ return mScale; }
+	void SetScale(const tkl::Vector3& scale){ mScale = scale; }
+	tkl::Vector3 GetScale() const{ return mScale; }
 
 	void SetRenderer(Renderer* renderer){ mRenderer = renderer; }
 
@@ -36,9 +36,9 @@ public:
 	static Mesh* CreateGround(int size, int rowNum);
 
 private:
-	Vector3 mPosition;
-	Quaternion mRotation;
-	Vector3 mScale;
+	tkl::Vector3 mPosition;
+	tkl::Quaternion mRotation;
+	tkl::Vector3 mScale;
 
 	Renderer* mRenderer;
 };

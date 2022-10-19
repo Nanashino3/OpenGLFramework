@@ -3,6 +3,8 @@
 #include <cmath>
 #include "Quaternion.h"
 
+namespace tkl
+{
 const Vector3 Vector3::ZERO(0, 0, 0);
 const Vector3 Vector3::UNITX(1, 0, 0);
 const Vector3 Vector3::UNITY(0, 1, 0);
@@ -39,3 +41,5 @@ Vector3 Vector3::TransformCoord(const Vector3& v, const Quaternion& q)
 
 	return Vector3(vx, vy, vz);
 }
+
+} // namespace tkl

@@ -99,10 +99,8 @@ public:
 	}
 
 	// マウス座標の取得
-	static void GetMousePosition(double* posX, double* posY){
+	static void GetMousePosition(int* posX, int* posY){
 		*posX = sMousePosition[0], *posY = sMousePosition[1];
-		sMousePosition[0] = 0.0f;
-		sMousePosition[1] = 0.0f;
 	}
 
 	// マウススクロール量の取得
@@ -115,9 +113,11 @@ public:
 private:
 	Input(){}
 
+	/// 入力更新関数群
 	static void UpdateKeyboardStatus(GLFWwindow* const window);
 	static void UpdateMouseStatus(GLFWwindow* const window);
 
+	// コールバック関数群
 	static void CallbackMouseScroll(GLFWwindow* window, double x, double y);
 	static void CallbackMousePos(GLFWwindow* const window, double x, double y);
 
@@ -125,7 +125,7 @@ private:
 	static int sWindowSize[2];													// ウィンドウサイズ
 	
 	// マウス関連変数
-	static double sMousePosition[2];	// マウス座標
+	static int sMousePosition[2];		// マウス座標
 	static double sMouseScrollValue;	// マウススクロール量
 	static bool sMouseStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)];		// マウス状態
 	static bool sPrevMouseStatus[static_cast<int>(Input::eMouse::MAX_MOUSE_INPUT)];	// 前回のキー押下状態

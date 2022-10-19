@@ -5,6 +5,8 @@
 #include "Quaternion.h"
 #include "Math.h"
 
+namespace tkl
+{
 // •½ss—ñ‚ğì¬
 Matrix Matrix::CreateTranslation(const Vector3& pos)
 {
@@ -93,3 +95,5 @@ Vector3 Matrix::GetTranslation() const
 {
 	return Vector3(mMatrix[12], mMatrix[13], mMatrix[14]);
 }
+
+} // namespace tkl
