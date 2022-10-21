@@ -53,7 +53,7 @@ bool System::Initialize(int screenWidth, int screenHeight)
 
 bool System::ProcessMessage()
 {
-	tkl::Input::Update(mWindow);
+	tkl::Input::Update();
 	return glfwWindowShouldClose(mWindow);
 }
 

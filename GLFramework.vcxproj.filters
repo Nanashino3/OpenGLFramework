@@ -16,9 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\Main.cpp" />
-    <ClCompile Include="Program\Library\Input.cpp">
-      <Filter>Program\Library</Filter>
-    </ClCompile>
     <ClCompile Include="Program\Library\System.cpp">
       <Filter>Program\Library</Filter>
     </ClCompile>
@@ -49,9 +46,6 @@
     <ClCompile Include="Program\Game\Camera.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Library\FontTexture.cpp">
-      <Filter>Program\Library</Filter>
-    </ClCompile>
     <ClCompile Include="Program\Game\ShaderFactory.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
@@ -64,11 +58,14 @@
     <ClCompile Include="Program\Game\WireRenderer.cpp">
       <Filter>Program\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Program\Library\Utility.cpp">
+      <Filter>Program\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Library\Input.cpp">
+      <Filter>Program\Library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Program\Library\Input.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
     <ClInclude Include="Program\Library\Math.h">
       <Filter>Program\Library</Filter>
     </ClInclude>
@@ -102,9 +99,6 @@
     <ClInclude Include="Program\Game\Camera.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Program\Library\FontTexture.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
     <ClInclude Include="Program\Game\ShaderFactory.h">
       <Filter>Program\Game</Filter>
     </ClInclude>
@@ -116,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="Program\Game\WireRenderer.h">
       <Filter>Program\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Library\Utility.h">
+      <Filter>Program\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Library\Input.h">
+      <Filter>Program\Library</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

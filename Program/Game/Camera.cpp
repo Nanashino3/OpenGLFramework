@@ -10,6 +10,8 @@ Camera::Camera(int screenWidth, int screenHeight)
 : mCamPos(0, 0, 0)
 , mTargetPos(tkl::Vector3::ZERO)
 , mUpVector(tkl::Vector3::UNITY)
+, mOnClickPos(tkl::Vector3::ZERO)
+, mMovePos(tkl::Vector3::ZERO)
 , mRotation(tkl::Quaternion())
 , mScreenWidth(screenWidth)
 , mScreenHeight(screenHeight)
@@ -18,6 +20,7 @@ Camera::Camera(int screenWidth, int screenHeight)
 , mNear(1.0f)
 , mFar(5000.0f)
 , mViewProjection(tkl::Matrix())
+, mIsMouseMove(false)
 {}
 
 Camera::~Camera()
@@ -28,21 +31,11 @@ void Camera::Update()
 	// カメラズームイン・アウト(係数をかける)
 	float scrollVal = static_cast<float>(tkl::Input::GetMouseScrollValue() * 10.0f);
 	mCamPos += Front() * scrollVal;
-
-//	// クリックした場所を記録
-//	if(tkl::Input::IsMouseInputTrigger(eMouse::MOUSE_INPUT_CENTER) ||
-//	   tkl::Input::IsMouseInputTrigger(eMouse::MOUSE_INPUT_RIGHT)){
-//		int x = 0, y = 0;
-//		tkl::Input::GetMousePosition(&x, &y);
-//		mOnClickPos.mX = x, mOnClickPos.mY = y;
-//	}
 	
-	// カメラ移動
-	CameraMove();
+	Input();
+	Move();
 
-	// 視線移動
-	LookMove();
-	mTargetPos = mCamPos + tkl::Vector3::TransformCoord({-1, -1, -1}, mRotation);
+	mTargetPos = mCamPos + tkl::Vector3::TransformCoord(tkl::Vector3::NEG_UNITZ, mRotation);
 	mUpVector = tkl::Vector3::TransformCoord(tkl::Vector3::UNITY, mRotation);
 
 	// 行列
@@ -50,41 +43,57 @@ void Camera::Update()
 	mViewProjection *= tkl::Matrix::CreateLookAt(mCamPos, mTargetPos, mUpVector);
 }
 
-// カメラ移動(TODO：マウス操作で移動できるようにする)
-void Camera::CameraMove()
+void Camera::Input()
 {
-	if(tkl::Input::IsKeyDown(eKeys::KB_W)){
-		mCamPos.mY += 2.0f;
+	// クリックした座標を記録する
+	int tempPosX = 0, tempPosY = 0;
+	if(tkl::Input::IsMouseDownTrigger(eMouse::MOUSE_CENTER, eMouse::MOUSE_RIGHT)){
+		tkl::Input::GetMousePoint(&tempPosX, &tempPosY);
+		mOnClickPos = tkl::Vector3(tempPosX, tempPosY, 0);
 	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_S)){
-		mCamPos.mY -= 2.0f;
+	// クリックした座標を初期化する
+	if(tkl::Input::IsMouseReleaseTrigger(eMouse::MOUSE_CENTER, eMouse::MOUSE_RIGHT)){
+		mOnClickPos = tkl::Vector3(tkl::Vector3::ZERO); 
+		mMovePos = tkl::Vector3(tkl::Vector3::ZERO);
 	}
 
-	if(tkl::Input::IsKeyDown(eKeys::KB_A)){
-		mCamPos += Left() * 2.0f;
-	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_D)){
-		mCamPos += Right() * 2.0f;
+	// 現在位置を取得
+	tempPosX = 0, tempPosY = 0;
+	if(tkl::Input::IsMouseDown(eMouse::MOUSE_CENTER, eMouse::MOUSE_RIGHT)){
+		tkl::Input::GetMousePoint(&tempPosX, &tempPosY);
+
+		// マウス移動しているかどうか
+		mIsMouseMove = true;
+		if(mMovePos.mX == tempPosX && mMovePos.mY == tempPosY){
+			mIsMouseMove = !mIsMouseMove;
+			mOnClickPos = mMovePos;
+		}else{
+			mMovePos.mX = static_cast<float>(tempPosX);
+			mMovePos.mY = static_cast<float>(tempPosY);
+		}
 	}
 }
 
-// 視線移動(TODO：マウスで操作できるようにする)
-void Camera::LookMove()
+// 移動処理
+void Camera::Move()
 {
-	if(tkl::Input::IsKeyDown(eKeys::KB_UP)){
-		tkl::Vector3 axis = tkl::Vector3::Cross(Front(), mUpVector);
-		mRotation *= tkl::Quaternion::RotationAxis(axis, tkl::ToRadian(1));
+	float dx = 0.0f, dy = 0.0f;
+	if(mIsMouseMove){
+		dx = (mOnClickPos.mX - mMovePos.mX) / (mScreenWidth >> 1);
+		dy = (mOnClickPos.mY - mMovePos.mY) / (mScreenHeight >> 1);
 	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_DOWN)){
-		tkl::Vector3 axis = tkl::Vector3::Cross(Front(), mUpVector);
-		mRotation *= tkl::Quaternion::RotationAxis(axis, tkl::ToRadian(-1));
+	std::cout << "dx : " << std::setw(5) << dx << " dy : " << dy << std::endl;
+
+	// 平行移動
+	if(tkl::Input::IsMouseDown(eMouse::MOUSE_CENTER)){
+		mCamPos.mX += Front().mX + dx * 10.0f;
+		mCamPos.mY += Front().mY - dy * 10.0f;
 	}
 
-	// 左右視線移動
-	if(tkl::Input::IsKeyDown(eKeys::KB_LEFT)){
-		mRotation *= tkl::Quaternion::RotationAxis({0, 1, 0}, tkl::ToRadian(1));
-	}
-	if(tkl::Input::IsKeyDown(eKeys::KB_RIGHT)){
-		mRotation *= tkl::Quaternion::RotationAxis({0, 1, 0}, tkl::ToRadian(-1));
+	// 視線移動
+	if(tkl::Input::IsMouseDown(eMouse::MOUSE_RIGHT)){
+		tkl::Vector3 axis = tkl::Vector3::Cross(Front(), mUpVector);
+		mRotation *= tkl::Quaternion::RotationAxis(axis, tkl::ToRadian(dy * 5.0f));
+		mRotation *= tkl::Quaternion::RotationAxis({ 0, 1, 0 }, tkl::ToRadian(dx * 5.0f));
 	}
 }

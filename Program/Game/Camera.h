@@ -26,21 +26,17 @@ public:
 	tkl::Vector3 Left()	{ return tkl::Vector3::Cross(tkl::Vector3::UNITY, Front()); }
 	tkl::Vector3 Right(){ return tkl::Vector3::Cross(Front(), tkl::Vector3::UNITY); }
 
-//	Vector3 Top()	{ return Vector3::Cross(Vector3::UNITX, Front()); }
-//	Vector3 Bottom(){ return Vector3::Cross(Front(), Vector3::UNITX); }
-//	tkl::Vector3 Up()	{ return tkl::Vector3::Cross(Right(), Front()); }
-
 private:
-	void CameraMove();
-	void LookMove();
+	void Input();
+	void Move();
 
 private:
 	tkl::Vector3 mCamPos;
 	tkl::Vector3 mTargetPos;
 	tkl::Vector3 mUpVector;
-//	tkl::Vector3 mUpAndDownVec;
 
 	tkl::Vector3 mOnClickPos;
+	tkl::Vector3 mMovePos;
 
 	tkl::Quaternion mRotation;
 
@@ -52,4 +48,6 @@ private:
 	float mFar;		// ï\é¶îÕàÕ(ç≈âìãóó£)
 
 	tkl::Matrix mViewProjection;
+
+	bool mIsMouseMove;
 };

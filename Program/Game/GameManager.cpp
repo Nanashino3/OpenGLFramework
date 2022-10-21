@@ -3,18 +3,17 @@
 #include "Mesh.h"
 #include "Camera.h"
 #include "../Library/Math.h"
-#include "../Library/Input.h"
 
+//************************************************
 // デバッグ用
 #include <iostream>
-#include "../Library/FontTexture.h"
 Mesh* gBox = nullptr;
 Mesh* gGridGround = nullptr;
+//************************************************
 
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
-//	FontTexture::CreateFontTexture();
 	// ボックス
 	gBox = Mesh::CreateBox(50, 50, 50);
 
