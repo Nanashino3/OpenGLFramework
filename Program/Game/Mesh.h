@@ -31,7 +31,7 @@ public:
 //	void SetVertexArray(std::unique_ptr<VertexArray> vertex){ mVertexArray = std::move(vertex); }
 //	const VertexArray& GetVertexArray() const { return *mVertexArray; }
 
-	static Mesh* CreateBox(float sizeW, float sizeH, float sizeD);
+	static Mesh* CreateBox(float size);
 	static Mesh* CreateSphere(float radius, int divWidth, int divHeight);
 	static Mesh* CreateGround(int size, int rowNum);
 

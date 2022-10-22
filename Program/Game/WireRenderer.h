@@ -7,5 +7,6 @@ public:
 	WireRenderer(Mesh* mesh, const char* shaderName);
 	virtual ~WireRenderer();
 
-	virtual void Draw(Camera* camera);
+private:
+	virtual void ActualDraw(Mesh* mesh) final;
 };

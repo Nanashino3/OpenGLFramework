@@ -2,11 +2,12 @@
 
 #include "Mesh.h"
 #include "Camera.h"
-#include "../Library/Math.h"
 
 //************************************************
 // デバッグ用
 #include <iostream>
+//#include "../Library/Utility.h"
+//#include "../Library/FontTexture.h"
 Mesh* gBox = nullptr;
 Mesh* gGridGround = nullptr;
 //************************************************
@@ -14,19 +15,17 @@ Mesh* gGridGround = nullptr;
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
+//	auto temp = tnl::CreateFontTexture(32, tkl::ToOnceWChara("あ"));
+
 	// ボックス
-	gBox = Mesh::CreateBox(50, 50, 50);
+	gBox = Mesh::CreateBox(50);
 
 	// グリッド
-	gGridGround = Mesh::CreateGround(100, 20);
+	gGridGround = Mesh::CreateGround(50, 20);
 
 	// カメラの作成
 	mCamera = new Camera(1024, 768);
-#if 1
 	mCamera->SetPosition(tkl::Vector3(500, 500, 500));
-#else
-	mCamera->SetPosition(tkl::Vector3(0, 0, 500));
-#endif
 }
 
 GameManager::~GameManager()

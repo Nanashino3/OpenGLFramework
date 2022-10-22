@@ -7,8 +7,7 @@ public:
 	MeshRenderer(Mesh* mesh, const char* shaderName);
 	virtual ~MeshRenderer();
 
-	virtual void Draw(Camera* camera);
-
 private:
+	virtual void ActualDraw(Mesh* mesh) final;
 	void SetLightUniforms();
 };

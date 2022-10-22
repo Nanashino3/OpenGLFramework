@@ -82,17 +82,16 @@ void Camera::Move()
 		dx = (mOnClickPos.mX - mMovePos.mX) / (mScreenWidth >> 1);
 		dy = (mOnClickPos.mY - mMovePos.mY) / (mScreenHeight >> 1);
 	}
-	std::cout << "dx : " << std::setw(5) << dx << " dy : " << dy << std::endl;
 
 	// •½sˆÚ“®
+	tkl::Vector3 axis = tkl::Vector3::Cross(Front(), mUpVector);
 	if(tkl::Input::IsMouseDown(eMouse::MOUSE_CENTER)){
-		mCamPos.mX += Front().mX + dx * 10.0f;
-		mCamPos.mY += Front().mY - dy * 10.0f;
+		mCamPos += axis * (10.0f * dx);
+		mCamPos.mY -= 10.0f * dy;
 	}
 
 	// ‹üˆÚ“®
 	if(tkl::Input::IsMouseDown(eMouse::MOUSE_RIGHT)){
-		tkl::Vector3 axis = tkl::Vector3::Cross(Front(), mUpVector);
 		mRotation *= tkl::Quaternion::RotationAxis(axis, tkl::ToRadian(dy * 5.0f));
 		mRotation *= tkl::Quaternion::RotationAxis({ 0, 1, 0 }, tkl::ToRadian(dx * 5.0f));
 	}

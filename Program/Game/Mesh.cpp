@@ -18,51 +18,52 @@ Mesh::~Mesh()
 
 void Mesh::Draw(Camera* camera)
 {
-	mRenderer->Draw(camera);
+	mRenderer->Draw(this, camera);
 }
 
 // ボックスの作成
-Mesh* Mesh::CreateBox(float sizeW, float sizeH, float sizeD)
+Mesh* Mesh::CreateBox(float size)
 {
 	Mesh* mesh = new Mesh();
 	mesh->mRenderer = new MeshRenderer(mesh, "Lambert");
 
+	size *= 0.5f;
 	VertexArray::VERTEX vertices[] = {
 		// 左面
-		{ -sizeW, -sizeH, -sizeD, -1.0f,  0.0f,  0.0f },
-		{ -sizeW, -sizeH,  sizeD, -1.0f,  0.0f,  0.0f },
-		{ -sizeW,  sizeH,  sizeD, -1.0f,  0.0f,  0.0f },
-		{ -sizeW,  sizeH, -sizeD, -1.0f,  0.0f,  0.0f },
+		{ -size, -size, -size, -1.0f,  0.0f,  0.0f },
+		{ -size, -size,  size, -1.0f,  0.0f,  0.0f },
+		{ -size,  size,  size, -1.0f,  0.0f,  0.0f },
+		{ -size,  size, -size, -1.0f,  0.0f,  0.0f },
 
 		// 裏面
-		{  sizeW, -sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
-		{ -sizeW, -sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
-		{ -sizeW,  sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
-		{  sizeW,  sizeH, -sizeD,  0.0f,  0.0f,  -1.0f },
+		{  size, -size, -size,  0.0f,  0.0f,  -1.0f },
+		{ -size, -size, -size,  0.0f,  0.0f,  -1.0f },
+		{ -size,  size, -size,  0.0f,  0.0f,  -1.0f },
+		{  size,  size, -size,  0.0f,  0.0f,  -1.0f },
 
 		// 下面
-		{ -sizeW, -sizeH, -sizeD,  0.0f, -1.0f,  0.0f },
-		{  sizeW, -sizeH, -sizeD,  0.0f, -1.0f,  0.0f },
-		{  sizeW, -sizeH,  sizeD,  0.0f, -1.0f,  0.0f },
-		{ -sizeW, -sizeH,  sizeD,  0.0f, -1.0f,  0.0f },
+		{ -size, -size, -size,  0.0f, -1.0f,  0.0f },
+		{  size, -size, -size,  0.0f, -1.0f,  0.0f },
+		{  size, -size,  size,  0.0f, -1.0f,  0.0f },
+		{ -size, -size,  size,  0.0f, -1.0f,  0.0f },
 
 		// 右面
-		{  sizeW, -sizeH,  sizeD,  1.0f,  0.0f,  0.0f },
-		{  sizeW, -sizeH, -sizeD,  1.0f,  0.0f,  0.0f },
-		{  sizeW,  sizeH, -sizeD,  1.0f,  0.0f,  0.0f },
-		{  sizeW,  sizeH,  sizeD,  1.0f,  0.0f,  0.0f },
+		{  size, -size,  size,  1.0f,  0.0f,  0.0f },
+		{  size, -size, -size,  1.0f,  0.0f,  0.0f },
+		{  size,  size, -size,  1.0f,  0.0f,  0.0f },
+		{  size,  size,  size,  1.0f,  0.0f,  0.0f },
 
 		// 上面
-		{ -sizeW,  sizeH, -sizeD,  0.0f,  1.0f,  0.0f },
-		{ -sizeW,  sizeH,  sizeD,  0.0f,  1.0f,  0.0f },
-		{  sizeW,  sizeH,  sizeD,  0.0f,  1.0f,  0.0f },
-		{  sizeW,  sizeH, -sizeD,  0.0f,  1.0f,  0.0f },
+		{ -size,  size, -size,  0.0f,  1.0f,  0.0f },
+		{ -size,  size,  size,  0.0f,  1.0f,  0.0f },
+		{  size,  size,  size,  0.0f,  1.0f,  0.0f },
+		{  size,  size, -size,  0.0f,  1.0f,  0.0f },
 
 		// 前面
-		{ -sizeW, -sizeH,  sizeD,  0.0f,  0.0f,  1.0f },
-		{  sizeW, -sizeH,  sizeD,  0.0f,  0.0f,  1.0f },
-		{  sizeW,  sizeH,  sizeD,  0.0f,  0.0f,  1.0f },
-		{ -sizeW,  sizeH,  sizeD,  0.0f,  0.0f,  1.0f }
+		{ -size, -size,  size,  0.0f,  0.0f,  1.0f },
+		{  size, -size,  size,  0.0f,  0.0f,  1.0f },
+		{  size,  size,  size,  0.0f,  0.0f,  1.0f },
+		{ -size,  size,  size,  0.0f,  0.0f,  1.0f }
 	};
 
 	int indices[] = {

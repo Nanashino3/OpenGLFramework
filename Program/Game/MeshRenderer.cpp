@@ -14,6 +14,22 @@ MeshRenderer::MeshRenderer(Mesh* mesh, const char* shaderName)
 MeshRenderer::~MeshRenderer()
 {}
 
+void MeshRenderer::ActualDraw(Mesh* mesh)
+{
+	if (!mesh) { return; }
+
+	SetLightUniforms();
+
+	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
+	wm *= tkl::Matrix::CreateRotationFromQuaternion(mesh->GetRotation());
+	wm *= tkl::Matrix::CreateScale(mesh->GetScale());
+	mShader->SetMatrixUniform("uWorldTransform", wm);
+
+	VertexArray* va = mesh->mVertexArray.get();
+	va->Bind();
+	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
+}
+
 // ライティングの設定
 void MeshRenderer::SetLightUniforms()
 {
@@ -26,21 +42,4 @@ void MeshRenderer::SetLightUniforms()
 	mShader->SetVectorUniform("uAmbientColor", ambientLight);
 	mShader->SetVectorUniform("uDirLight.mDirection", dirLightDirection);
 	mShader->SetVectorUniform("uDirLight.mDiffuseColor", dirLightDiffuseColor);
-}
-
-void MeshRenderer::Draw(Camera* camera)
-{
-	if(!mMesh){ return; }
-
-	Renderer::Draw(camera);
-	SetLightUniforms();
-
-	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mMesh->GetPosition());
-	wm *= tkl::Matrix::CreateRotationFromQuaternion(mMesh->GetRotation());
-	wm *= tkl::Matrix::CreateScale(mMesh->GetScale());
-	mShader->SetMatrixUniform("uWorldTransform", wm);
-
-	VertexArray* va = mMesh->mVertexArray.get();
-	va->Bind();
-	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
 }

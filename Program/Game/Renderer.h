@@ -10,8 +10,11 @@ public:
 	Renderer(Mesh* mesh, const char* shaderName);
 	~Renderer();
 
-	virtual void Draw(Camera* camera);
+	virtual void Draw(Mesh* mesh, Camera* camera);
+
+private:
+	virtual void ActualDraw(Mesh* mesh) = 0;
+
 protected:
 	Shader* mShader;
-	Mesh* mMesh;
 };

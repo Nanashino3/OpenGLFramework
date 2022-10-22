@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "../Library/Matrix.h"
+
 WireRenderer::WireRenderer(Mesh* mesh, const char* shaderName)
 : Renderer(mesh, shaderName)
 {
@@ -13,16 +14,14 @@ WireRenderer::WireRenderer(Mesh* mesh, const char* shaderName)
 WireRenderer::~WireRenderer()
 {}
 
-void WireRenderer::Draw(Camera* camera)
+void WireRenderer::ActualDraw(Mesh* mesh)
 {
-	if(!mMesh){ return; }
+	if(!mesh){ return; }
 
-	Renderer::Draw(camera);
-
-	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mMesh->GetPosition());
+	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
-	VertexArray* va = mMesh->mVertexArray.get();
+	VertexArray* va = mesh->mVertexArray.get();
 	va->Bind();
 	glDrawArrays(GL_LINES, 0, va->GetVertexNum());
 }
