@@ -5,8 +5,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "../Library/Matrix.h"
-#include "../Library/Vector.h"
+#include "../02_Library/Matrix.h"
+#include "../02_Library/Vector.h"
 
 unsigned int Load(const char* vertexFile, const char* flagFile);
 bool ReadShaderFile(const char* fileName, std::vector<char>& buffer);

@@ -1,6 +1,7 @@
 #include <iostream>
-#include "Library/System.h"
-#include "Game/GameMain.h"
+
+#include "00_Game/GameMain.h"
+#include "02_Library/System.h"
 
 int main()
 {

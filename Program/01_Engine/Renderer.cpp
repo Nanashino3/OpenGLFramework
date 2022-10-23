@@ -1,10 +1,9 @@
 #include "Renderer.h"
 
-#include "Camera.h"
 #include "Shader.h"
 #include "ShaderFactory.h"
 
-Renderer::Renderer(Mesh* mesh, const char* shaderName)
+Renderer::Renderer(const char* shaderName)
 {
 	mShader = ShaderFactory::GetInstance()->GetShader(shaderName);
 }
@@ -15,11 +14,11 @@ Renderer::~Renderer()
 }
 
 // •`‰æw¦
-void Renderer::Draw(Mesh* mesh, Camera* camera)
+void Renderer::Draw(void* drawObject)
 {
 	mShader->ActiveShader();
-	mShader->SetMatrixUniform("uViewProjection", camera->GetViewProjection());
+	mShader->SetMatrixUniform("uViewProjection", mViewProjection);
 
 	// ‹ïÛƒNƒ‰ƒX‘¤‚Ì•`‰æˆ—
-	ActualDraw(mesh);
+	ActualDraw(drawObject);
 }

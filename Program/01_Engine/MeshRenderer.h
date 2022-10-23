@@ -4,10 +4,10 @@
 class MeshRenderer : public Renderer
 {
 public:
-	MeshRenderer(Mesh* mesh, const char* shaderName);
+	MeshRenderer(const char* shaderName = "Lambert");
 	virtual ~MeshRenderer();
 
 private:
-	virtual void ActualDraw(Mesh* mesh) final;
+	virtual void ActualDraw(void* drawObject) final;
 	void SetLightUniforms();
 };

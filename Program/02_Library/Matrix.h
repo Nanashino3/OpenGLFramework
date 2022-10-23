@@ -50,6 +50,7 @@ public:
 	static Matrix CreateScale(const Vector3& scale);
 	static Matrix CreateRotationFromQuaternion(const Quaternion& q);
 	static Matrix CreatePerspectiveProjection(float angle, float aspect, float near, float far);
+	static Matrix CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far);
 	static Matrix CreateLookAt(const Vector3& camPos, const Vector3& targetPos, const Vector3& upVector);
 
 private:

@@ -4,6 +4,12 @@
 
 // シングルトン
 ShaderFactory* ShaderFactory::sInstance = nullptr;
+ShaderFactory::ShaderFactory()
+{}
+
+ShaderFactory::~ShaderFactory()
+{}
+
 ShaderFactory* ShaderFactory::GetInstance()
 {
 	if(!sInstance){
@@ -15,12 +21,6 @@ void ShaderFactory::DestroyInstance()
 {
 	delete sInstance;
 }
-
-ShaderFactory::ShaderFactory()
-{}
-
-ShaderFactory::~ShaderFactory()
-{}
 
 // 組み立て
 Shader* ShaderFactory::GetShader(std::string shaderName)

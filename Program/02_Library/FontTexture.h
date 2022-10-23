@@ -1,0 +1,40 @@
+#pragma once
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <tuple>
+#include "Vector.h"
+
+namespace tnl {
+
+	typedef std::tuple<std::shared_ptr<char>, uint32_t, uint32_t, uint32_t, uint32_t> Font;
+	//----------------------------------------------------------------------------------------------
+	// フォントテクスチャの生成
+	// arg1... フォントサイズ　※ テクスチャサイズではありません
+	// arg2... 生成する 1 文字 
+	// arg3... 縦書き用なら true
+	// arg4... 枠の太さ　※最大５ピクセルですが小さいフォントサイズに大枠は無効になります
+	// arg5... 枠の色
+	// arg6... フォントタイプ　※指定なしの場合は ＭＳ Ｐ明朝 になります
+	// arg7... 上部の色 ( x = R, y = G, z = B )
+	// arg8... 下部の色 ( x = R, y = G, z = B )
+	// ret....  
+	// tuple [ 0 : 4 byte カラー配列 ] 
+	// tuple [ 1 : テクスチャの幅 ] 
+	// tuple [ 2 : テクスチャの高さ ]
+	// tuple [ 3 : 文字の幅 ]
+	// tuple [ 4 : 文字の高さ ]
+	// tips... 使用例
+	// auto tex1 = tnl::CreateFontTexture(32, tnl::ToOnceWChara("あ"));
+	//
+	Font CreateFontTexture(
+			const uint32_t font_size,
+			const wchar_t& once,
+			bool is_vertical = false,
+			int32_t thickness = 0,
+			const tkl::Vector3& thickness_color = tkl::Vector3(0, 0, 0),
+			const std::string& font_type = "",
+			const tkl::Vector3& top_color = tkl::Vector3(1, 1, 1),
+			const tkl::Vector3& bottom_color = tkl::Vector3(1, 1, 1));
+
+}

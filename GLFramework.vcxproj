@@ -19,48 +19,60 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Program\Game\Camera.cpp" />
-    <ClCompile Include="Program\Game\GameMain.cpp" />
-    <ClCompile Include="Program\Game\GameManager.cpp" />
-    <ClCompile Include="Program\Game\Mesh.cpp" />
-    <ClCompile Include="Program\Game\MeshRenderer.cpp" />
-    <ClCompile Include="Program\Game\Renderer.cpp" />
-    <ClCompile Include="Program\Game\ShaderFactory.cpp" />
-    <ClCompile Include="Program\Game\Shader.cpp" />
-    <ClCompile Include="Program\Game\VertexArray.cpp" />
-    <ClCompile Include="Program\Game\WireRenderer.cpp" />
-    <ClCompile Include="Program\Library\Input.cpp" />
-    <ClCompile Include="Program\Library\Matrix.cpp" />
-    <ClCompile Include="Program\Library\Quaternion.cpp" />
-    <ClCompile Include="Program\Library\System.cpp" />
-    <ClCompile Include="Program\Library\Utility.cpp" />
-    <ClCompile Include="Program\Library\Vector.cpp" />
+    <ClCompile Include="Program\00_Game\GameMain.cpp" />
+    <ClCompile Include="Program\00_Game\GameManager.cpp" />
+    <ClCompile Include="Program\01_Engine\Camera.cpp" />
+    <ClCompile Include="Program\01_Engine\FontManager.cpp" />
+    <ClCompile Include="Program\01_Engine\Mesh.cpp" />
+    <ClCompile Include="Program\01_Engine\MeshRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Renderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Shader.cpp" />
+    <ClCompile Include="Program\01_Engine\ShaderFactory.cpp" />
+    <ClCompile Include="Program\01_Engine\SpriteRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\TestFont.cpp" />
+    <ClCompile Include="Program\01_Engine\Texture.cpp" />
+    <ClCompile Include="Program\01_Engine\VertexArray.cpp" />
+    <ClCompile Include="Program\01_Engine\WireRenderer.cpp" />
+    <ClCompile Include="Program\02_Library\FontTexture.cpp" />
+    <ClCompile Include="Program\02_Library\Input.cpp" />
+    <ClCompile Include="Program\02_Library\Matrix.cpp" />
+    <ClCompile Include="Program\02_Library\Quaternion.cpp" />
+    <ClCompile Include="Program\02_Library\System.cpp" />
+    <ClCompile Include="Program\02_Library\Utility.cpp" />
+    <ClCompile Include="Program\02_Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Program\Game\Camera.h" />
-    <ClInclude Include="Program\Game\GameMain.h" />
-    <ClInclude Include="Program\Game\GameManager.h" />
-    <ClInclude Include="Program\Game\Mesh.h" />
-    <ClInclude Include="Program\Game\MeshRenderer.h" />
-    <ClInclude Include="Program\Game\Renderer.h" />
-    <ClInclude Include="Program\Game\ShaderFactory.h" />
-    <ClInclude Include="Program\Game\Shader.h" />
-    <ClInclude Include="Program\Game\VertexArray.h" />
-    <ClInclude Include="Program\Game\WireRenderer.h" />
-    <ClInclude Include="Program\Library\Input.h" />
-    <ClInclude Include="Program\Library\Math.h" />
-    <ClInclude Include="Program\Library\Matrix.h" />
-    <ClInclude Include="Program\Library\Quaternion.h" />
-    <ClInclude Include="Program\Library\System.h" />
-    <ClInclude Include="Program\Library\Utility.h" />
-    <ClInclude Include="Program\Library\Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\BasicFrag.glsl" />
     <None Include="Shader\BasicVert.glsl" />
     <None Include="Shader\LambertFrag.glsl" />
     <None Include="Shader\LambertVert.glsl" />
+    <None Include="Shader\SpriteFrag.glsl" />
+    <None Include="Shader\SpriteVert.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Program\00_Game\GameMain.h" />
+    <ClInclude Include="Program\00_Game\GameManager.h" />
+    <ClInclude Include="Program\01_Engine\Camera.h" />
+    <ClInclude Include="Program\01_Engine\FontManager.h" />
+    <ClInclude Include="Program\01_Engine\Mesh.h" />
+    <ClInclude Include="Program\01_Engine\MeshRenderer.h" />
+    <ClInclude Include="Program\01_Engine\Renderer.h" />
+    <ClInclude Include="Program\01_Engine\Shader.h" />
+    <ClInclude Include="Program\01_Engine\ShaderFactory.h" />
+    <ClInclude Include="Program\01_Engine\SpriteRenderer.h" />
+    <ClInclude Include="Program\01_Engine\TestFont.h" />
+    <ClInclude Include="Program\01_Engine\Texture.h" />
+    <ClInclude Include="Program\01_Engine\VertexArray.h" />
+    <ClInclude Include="Program\01_Engine\WireRenderer.h" />
+    <ClInclude Include="Program\02_Library\FontTexture.h" />
+    <ClInclude Include="Program\02_Library\Input.h" />
+    <ClInclude Include="Program\02_Library\Math.h" />
+    <ClInclude Include="Program\02_Library\Matrix.h" />
+    <ClInclude Include="Program\02_Library\Quaternion.h" />
+    <ClInclude Include="Program\02_Library\System.h" />
+    <ClInclude Include="Program\02_Library\Utility.h" />
+    <ClInclude Include="Program\02_Library\Vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -87,7 +99,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -149,6 +161,7 @@
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\WorkSpace\Study\Library\glfw\include;C:\WorkSpace\Study\Library\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

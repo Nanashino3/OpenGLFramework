@@ -1,8 +1,9 @@
 #include "Camera.h"
-#include "GameManager.h"
-#include "../Library/Math.h"
-#include "../Library/Input.h"
 
+#include "../02_Library/Math.h"
+#include "../02_Library/Input.h"
+
+// デバッグ用
 #include <iostream>
 #include <iomanip>
 

@@ -1,7 +1,7 @@
 #pragma once
-#include "../Library/Vector.h"
-#include "../Library/Quaternion.h"
-#include "../Library/Matrix.h"
+#include "../02_Library/Vector.h"
+#include "../02_Library/Quaternion.h"
+#include "../02_Library/Matrix.h"
 
 class Camera
 {

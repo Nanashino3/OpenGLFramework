@@ -3,20 +3,21 @@
 #include <GL/glew.h>
 #include "Mesh.h"
 #include "Shader.h"
-#include "../Library/Matrix.h"
+#include "VertexArray.h"
+#include "../02_Library/Matrix.h"
 
-WireRenderer::WireRenderer(Mesh* mesh, const char* shaderName)
-: Renderer(mesh, shaderName)
-{
-	mesh->SetRenderer(this);
-}
+WireRenderer::WireRenderer(const char* shaderName)
+: Renderer(shaderName)
+{}
 
 WireRenderer::~WireRenderer()
 {}
 
-void WireRenderer::ActualDraw(Mesh* mesh)
+void WireRenderer::ActualDraw(void* drawObject)
 {
-	if(!mesh){ return; }
+	if(!drawObject){ return; }
+
+	Mesh* mesh = static_cast<Mesh*>(drawObject);
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	mShader->SetMatrixUniform("uWorldTransform", wm);

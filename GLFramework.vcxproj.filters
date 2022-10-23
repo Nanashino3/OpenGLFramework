@@ -4,119 +4,84 @@
     <Filter Include="Program">
       <UniqueIdentifier>{4b2dd2b1-094e-4267-9704-7b2d8e493fe3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Program\Library">
-      <UniqueIdentifier>{69473cc5-91a0-4c17-90d3-9d1cb99e0d01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Program\Game">
-      <UniqueIdentifier>{cce7607d-8ccb-45a6-bfa1-1fcb630e4328}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader">
       <UniqueIdentifier>{ee65cdab-7690-474d-a2a0-4b985e443bee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Program\00_Game">
+      <UniqueIdentifier>{8faa3eb8-5c05-49a9-9293-9f97d92da183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Program\01_Engine">
+      <UniqueIdentifier>{9e1b03aa-c09c-457c-97b7-b0a7e4459a79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Program\02_Library">
+      <UniqueIdentifier>{fecd4be1-b4b8-4d6b-8515-9b6bc236a102}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\Main.cpp" />
-    <ClCompile Include="Program\Library\System.cpp">
-      <Filter>Program\Library</Filter>
+    <ClCompile Include="Program\00_Game\GameMain.cpp">
+      <Filter>Program\00_Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\GameMain.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\00_Game\GameManager.cpp">
+      <Filter>Program\00_Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\GameManager.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\FontManager.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\Mesh.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\Mesh.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Library\Quaternion.cpp">
-      <Filter>Program\Library</Filter>
+    <ClCompile Include="Program\01_Engine\MeshRenderer.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Library\Vector.cpp">
-      <Filter>Program\Library</Filter>
+    <ClCompile Include="Program\01_Engine\Renderer.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Library\Matrix.cpp">
-      <Filter>Program\Library</Filter>
+    <ClCompile Include="Program\01_Engine\Shader.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\VertexArray.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\ShaderFactory.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\Shader.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\SpriteRenderer.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\Camera.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\TestFont.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\ShaderFactory.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\Texture.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\MeshRenderer.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\VertexArray.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\Renderer.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\01_Engine\WireRenderer.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Game\WireRenderer.cpp">
-      <Filter>Program\Game</Filter>
+    <ClCompile Include="Program\02_Library\FontTexture.cpp">
+      <Filter>Program\02_Library</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Library\Utility.cpp">
-      <Filter>Program\Library</Filter>
+    <ClCompile Include="Program\02_Library\Input.cpp">
+      <Filter>Program\02_Library</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Library\Input.cpp">
-      <Filter>Program\Library</Filter>
+    <ClCompile Include="Program\02_Library\Matrix.cpp">
+      <Filter>Program\02_Library</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Program\Library\Math.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Library\System.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Library\Vector.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\GameMain.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\Mesh.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\GameManager.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Library\Quaternion.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Library\Matrix.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\VertexArray.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\Shader.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\Camera.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\ShaderFactory.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\MeshRenderer.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\Renderer.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Game\WireRenderer.h">
-      <Filter>Program\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Library\Utility.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\Library\Input.h">
-      <Filter>Program\Library</Filter>
-    </ClInclude>
+    <ClCompile Include="Program\02_Library\Quaternion.cpp">
+      <Filter>Program\02_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\02_Library\System.cpp">
+      <Filter>Program\02_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\02_Library\Utility.cpp">
+      <Filter>Program\02_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\02_Library\Vector.cpp">
+      <Filter>Program\02_Library</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Camera.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -131,5 +96,79 @@
     <None Include="Shader\BasicVert.glsl">
       <Filter>Shader</Filter>
     </None>
+    <None Include="Shader\SpriteFrag.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\SpriteVert.glsl">
+      <Filter>Shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Program\00_Game\GameMain.h">
+      <Filter>Program\00_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\GameManager.h">
+      <Filter>Program\00_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\FontManager.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Mesh.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\MeshRenderer.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Renderer.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Shader.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\ShaderFactory.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\SpriteRenderer.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\TestFont.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Texture.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\VertexArray.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\WireRenderer.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\FontTexture.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\Input.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\Math.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\Matrix.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\Quaternion.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\System.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\Utility.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\Vector.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

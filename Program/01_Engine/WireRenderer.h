@@ -4,9 +4,9 @@
 class WireRenderer : public Renderer
 {
 public:
-	WireRenderer(Mesh* mesh, const char* shaderName);
+	WireRenderer(const char* shaderName = "Basic");
 	virtual ~WireRenderer();
 
 private:
-	virtual void ActualDraw(Mesh* mesh) final;
+	virtual void ActualDraw(void* drawObject) final;
 };

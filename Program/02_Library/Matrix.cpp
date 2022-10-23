@@ -70,6 +70,29 @@ Matrix Matrix::CreatePerspectiveProjection(float angle, float aspect, float near
 	return temp;
 }
 
+// ³Ë‰es—ñ
+Matrix Matrix::CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far)
+{
+	Matrix temp;
+	temp.LoadIdentity();
+
+	float ral = right + left;	// right add left
+	float rsl = right - left;	// right subtraction left
+	float tab = top + bottom;	// top add bottom
+	float tsb = top - bottom;	// top subtraction bottom
+	float fan = far + near;		// far add near
+	float fsn = far - near;		// far subtraction near
+
+	temp[0] = 2.0f / rsl;
+	temp[5] = 2.0f / tsb;
+	temp[10] = -2.0f / fsn;
+	temp[12] = -ral / rsl;
+	temp[13] = -tab / tsb;
+	temp[14] = -fan / fsn;
+
+	return temp;
+}
+
 // ‹üs—ñ‚ğì¬
 Matrix Matrix::CreateLookAt(const Vector3& camPos, const Vector3& targetPos, const Vector3& upVector)
 {

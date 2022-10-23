@@ -3,20 +3,21 @@
 #include <GL/glew.h>
 #include "Shader.h"
 #include "Mesh.h"
-#include "../Library/Vector.h"
-#include "../Library/Matrix.h"
-MeshRenderer::MeshRenderer(Mesh* mesh, const char* shaderName)
-: Renderer(mesh, shaderName)
-{
-	mesh->SetRenderer(this);
-}
+#include "VertexArray.h"
+#include "../02_Library/Vector.h"
+#include "../02_Library/Matrix.h"
+MeshRenderer::MeshRenderer(const char* shaderName)
+: Renderer(shaderName)
+{}
 
 MeshRenderer::~MeshRenderer()
 {}
 
-void MeshRenderer::ActualDraw(Mesh* mesh)
+void MeshRenderer::ActualDraw(void* drawObject)
 {
-	if (!mesh) { return; }
+	if (!drawObject) { return; }
+
+	Mesh* mesh = static_cast<Mesh*>(drawObject);
 
 	SetLightUniforms();
 

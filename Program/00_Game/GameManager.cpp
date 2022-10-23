@@ -1,13 +1,12 @@
 #include "GameManager.h"
 
-#include "Mesh.h"
-#include "Camera.h"
+#include "../01_Engine/Mesh.h"
+#include "../01_Engine/Camera.h"
 
 //************************************************
 // デバッグ用
 #include <iostream>
-//#include "../Library/Utility.h"
-//#include "../Library/FontTexture.h"
+#include "../01_Engine/TestFont.h"
 Mesh* gBox = nullptr;
 Mesh* gGridGround = nullptr;
 //************************************************
@@ -15,7 +14,7 @@ Mesh* gGridGround = nullptr;
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
-//	auto temp = tnl::CreateFontTexture(32, tkl::ToOnceWChara("あ"));
+	tkl::DrawString("あえいうえおあお");
 
 	// ボックス
 	gBox = Mesh::CreateBox(50);

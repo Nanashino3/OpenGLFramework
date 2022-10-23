@@ -5,7 +5,7 @@
 #include "VertexArray.h"
 #include "MeshRenderer.h"
 #include "WireRenderer.h"
-#include "../Library/Math.h"
+#include "../02_Library/Math.h"
 
 Mesh::Mesh()
 : mPosition(tkl::Vector3(0, 0, 0))
@@ -18,14 +18,15 @@ Mesh::~Mesh()
 
 void Mesh::Draw(Camera* camera)
 {
-	mRenderer->Draw(this, camera);
+	mRenderer->SetViewProjection(camera->GetViewProjection());
+	mRenderer->Draw(this);
 }
 
 // ボックスの作成
 Mesh* Mesh::CreateBox(float size)
 {
 	Mesh* mesh = new Mesh();
-	mesh->mRenderer = new MeshRenderer(mesh, "Lambert");
+	mesh->mRenderer = new MeshRenderer();
 
 	size *= 0.5f;
 	VertexArray::VERTEX vertices[] = {
@@ -85,7 +86,7 @@ Mesh* Mesh::CreateBox(float size)
 Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 {
 	Mesh* mesh = new Mesh();
-	mesh->mRenderer = new MeshRenderer(mesh, "Lambert");
+	mesh->mRenderer = new MeshRenderer();
 
 	// 頂点座標計算
 	std::vector<VertexArray::VERTEX> vertices;
@@ -135,7 +136,7 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 Mesh* Mesh::CreateGround(int size, int rowNum)
 {
 	Mesh* mesh = new Mesh();
-	mesh->mRenderer = new WireRenderer(mesh, "Basic");
+	mesh->mRenderer = new WireRenderer();
 
 	float l = size * rowNum * 0.5f;
 	float n = -l;
