@@ -1,7 +1,7 @@
 #include "System.h"
 
 #include <iostream>
-#include "Input.h"
+#include "../02_Library/Input.h"
 
 System::System()
 : mWindow(nullptr)

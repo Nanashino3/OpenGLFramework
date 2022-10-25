@@ -77,7 +77,7 @@ Mesh* Mesh::CreateBox(float size)
 	};
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
-	mesh->mVertexArray = std::make_unique<VertexArray>(3, 24, vertices, indicesNum, indices);
+	mesh->mVertexArray = std::make_unique<VertexArray>(24, vertices, indicesNum, indices);
 	
 	return mesh;
 }
@@ -125,9 +125,34 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 			indices.emplace_back(v1);
 		}
 	}
-	mesh->mVertexArray = std::make_unique<VertexArray>(3,
+	mesh->mVertexArray = std::make_unique<VertexArray>(
 		static_cast<unsigned int>(vertices.size()), vertices.data(),
 		static_cast<unsigned int>(indices.size()), indices.data());
+
+	return mesh;
+}
+
+// •½–Ê‚Ìì¬
+Mesh* Mesh::CreatePlane(float size)
+{
+	Mesh* mesh = new Mesh();
+	mesh->mRenderer = new MeshRenderer();
+
+	size *= 0.5f;
+
+	VertexArray::VERTEX vertices[] = {
+		{-size,  size, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f},
+		{ size,  size, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f},
+		{ size, -size, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f},
+		{-size, -size, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f}
+	};
+	int indices[] = {
+		0, 1, 2,
+		0, 2, 3
+	};
+
+	int indicesNum = sizeof(indices) / sizeof(indices[0]);
+	mesh->mVertexArray = std::make_unique<VertexArray>(4, vertices, indicesNum, indices);
 
 	return mesh;
 }
@@ -171,7 +196,7 @@ Mesh* Mesh::CreateGround(int size, int rowNum)
 
 	gridVertex.emplace_back(v5);
 	gridVertex.emplace_back(v6);
-	mesh->mVertexArray = std::make_unique<VertexArray>(3, gridVertex.size(), gridVertex.data(), 0, nullptr);
+	mesh->mVertexArray = std::make_unique<VertexArray>(gridVertex.size(), gridVertex.data(), 0, nullptr);
 
 	return mesh;
 }

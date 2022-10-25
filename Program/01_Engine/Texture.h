@@ -1,19 +1,23 @@
 #pragma once
+#include "../02_Library/Vector.h"
 
 class Texture
 {
 public:
-	Texture(int width, int height, void* pixels);
+	Texture(int width, int height, void* pixels, int channels = 4);
 	~Texture();
 
 	void Bind();
 
-	int GetWidth() const { return mWidth; }
-	int GetHeight() const { return mHeight; }
+	int GetTextureWidth() const { return mTextureW; }
+	int GetTextureHeight() const { return mTextureH; }
 	unsigned int GetTextureID() const { return mTextureID; }
 
+	static Texture* CreateTextureFromFile(const char* fileName);
+
+	tkl::Vector3 mPosition;
 private:
 	unsigned int mTextureID;
-	int mWidth;
-	int mHeight;
+	int mTextureW;
+	int mTextureH;
 };

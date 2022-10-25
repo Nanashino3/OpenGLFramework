@@ -1,8 +1,9 @@
 #include "MeshRenderer.h"
 
 #include <GL/glew.h>
-#include "Shader.h"
 #include "Mesh.h"
+#include "Shader.h"
+#include "Texture.h"
 #include "VertexArray.h"
 #include "../02_Library/Vector.h"
 #include "../02_Library/Matrix.h"
@@ -21,11 +22,17 @@ void MeshRenderer::ActualDraw(void* drawObject)
 
 	SetLightUniforms();
 
+	// ワールド座標計算
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	wm *= tkl::Matrix::CreateRotationFromQuaternion(mesh->GetRotation());
 	wm *= tkl::Matrix::CreateScale(mesh->GetScale());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
+	// テクスチャを有効化するか
+	Texture* texture = mesh->GetTexture();
+	if(texture){ texture->Bind(); }
+
+	// 描画を有効化する
 	VertexArray* va = mesh->mVertexArray.get();
 	va->Bind();
 	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);

@@ -25,9 +25,6 @@
     <ClCompile Include="Program\00_Game\GameManager.cpp">
       <Filter>Program\00_Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\FontManager.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Mesh.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
@@ -44,9 +41,6 @@
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\SpriteRenderer.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\TestFont.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Texture.cpp">
@@ -70,9 +64,6 @@
     <ClCompile Include="Program\02_Library\Quaternion.cpp">
       <Filter>Program\02_Library</Filter>
     </ClCompile>
-    <ClCompile Include="Program\02_Library\System.cpp">
-      <Filter>Program\02_Library</Filter>
-    </ClCompile>
     <ClCompile Include="Program\02_Library\Utility.cpp">
       <Filter>Program\02_Library</Filter>
     </ClCompile>
@@ -80,6 +71,9 @@
       <Filter>Program\02_Library</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Camera.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\System.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,9 +104,6 @@
     <ClInclude Include="Program\00_Game\GameManager.h">
       <Filter>Program\00_Game</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\FontManager.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Mesh.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
@@ -129,9 +120,6 @@
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\SpriteRenderer.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\TestFont.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Texture.h">
@@ -158,9 +146,6 @@
     <ClInclude Include="Program\02_Library\Quaternion.h">
       <Filter>Program\02_Library</Filter>
     </ClInclude>
-    <ClInclude Include="Program\02_Library\System.h">
-      <Filter>Program\02_Library</Filter>
-    </ClInclude>
     <ClInclude Include="Program\02_Library\Utility.h">
       <Filter>Program\02_Library</Filter>
     </ClInclude>
@@ -168,6 +153,9 @@
       <Filter>Program\02_Library</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Camera.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\System.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
   </ItemGroup>

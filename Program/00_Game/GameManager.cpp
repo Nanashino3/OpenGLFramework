@@ -6,18 +6,22 @@
 //************************************************
 // デバッグ用
 #include <iostream>
-#include "../01_Engine/TestFont.h"
-Mesh* gBox = nullptr;
+#include "../01_Engine/Texture.h"
+Mesh* gPlane = nullptr;
 Mesh* gGridGround = nullptr;
 //************************************************
 
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
-	tkl::DrawString("あえいうえおあお");
+	// TODO：常木講師に確認する
+//	tkl::DrawString(100, 100, "あえいうえおあお");
 
-	// ボックス
-	gBox = Mesh::CreateBox(50);
+
+
+	// 3D平面
+	gPlane = Mesh::CreatePlane(50);
+	gPlane->SetTexture(Texture::CreateTextureFromFile("Resource/Ship.png"));
 
 	// グリッド
 	gGridGround = Mesh::CreateGround(50, 20);
@@ -29,7 +33,6 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-	delete gBox;
 	delete gGridGround;
 	delete mCamera;
 }
@@ -52,6 +55,6 @@ void GameManager::Update(float deltaTime)
 	mCamera->Update();
 
 	// オブジェクトの描画
-	gBox->Draw(mCamera);
+	gPlane->Draw(mCamera);
 	gGridGround->Draw(mCamera);
 }

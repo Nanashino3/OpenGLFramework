@@ -1,9 +1,7 @@
 #include "VertexArray.h"
 #include <GL/glew.h>
 
-VertexArray::VertexArray(int dimension,
-	unsigned int vertexNum, const VERTEX* vertices,
-	unsigned int indexNum, const int* indices)
+VertexArray::VertexArray(unsigned int vertexNum, const VERTEX* vertices, unsigned int indexNum, const int* indices)
 : mVertexNum(vertexNum)
 , mIndexNum(indexNum)
 , mVertexArray(0)
@@ -26,11 +24,11 @@ VertexArray::VertexArray(int dimension,
 
 	// 頂点座標(3点)
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, dimension, GL_FLOAT, GL_FALSE, sizeof(VERTEX), static_cast<VERTEX*>(0)->position);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VERTEX), static_cast<VERTEX*>(0)->position);
 
 	// 法線座標(3点)
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, dimension, GL_FLOAT, GL_FALSE, sizeof(VERTEX), static_cast<VERTEX*>(0)->normal);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VERTEX), static_cast<VERTEX*>(0)->normal);
 
 	// テクスチャ座標(2点)
 	glEnableVertexAttribArray(2);

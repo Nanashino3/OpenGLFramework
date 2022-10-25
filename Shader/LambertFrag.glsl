@@ -1,5 +1,6 @@
 #version 460 core
 
+uniform sampler2D uTexture;	// テクスチャのサンプリング
 uniform vec3 uAmbientColor;	// 環境光(Ka)
 
 // 平行光源
@@ -10,6 +11,7 @@ struct DirectionalLight
 };
 uniform DirectionalLight uDirLight;
 
+in vec2 fragTexCoord;	// テクスチャ座標
 in vec3 fragNormal;		// 法線座標
 out vec4 outColor;
 
@@ -31,5 +33,5 @@ void main()
 		Lambert += Diffuse;
 	}
 
-	outColor = vec4(Lambert, 1.0);
+	outColor = texture(uTexture, fragTexCoord) * vec4(Lambert, 1.0);
 }

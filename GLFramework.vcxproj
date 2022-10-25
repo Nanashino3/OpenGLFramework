@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -22,14 +22,13 @@
     <ClCompile Include="Program\00_Game\GameMain.cpp" />
     <ClCompile Include="Program\00_Game\GameManager.cpp" />
     <ClCompile Include="Program\01_Engine\Camera.cpp" />
-    <ClCompile Include="Program\01_Engine\FontManager.cpp" />
     <ClCompile Include="Program\01_Engine\Mesh.cpp" />
     <ClCompile Include="Program\01_Engine\MeshRenderer.cpp" />
     <ClCompile Include="Program\01_Engine\Renderer.cpp" />
     <ClCompile Include="Program\01_Engine\Shader.cpp" />
     <ClCompile Include="Program\01_Engine\ShaderFactory.cpp" />
     <ClCompile Include="Program\01_Engine\SpriteRenderer.cpp" />
-    <ClCompile Include="Program\01_Engine\TestFont.cpp" />
+    <ClCompile Include="Program\01_Engine\System.cpp" />
     <ClCompile Include="Program\01_Engine\Texture.cpp" />
     <ClCompile Include="Program\01_Engine\VertexArray.cpp" />
     <ClCompile Include="Program\01_Engine\WireRenderer.cpp" />
@@ -37,7 +36,6 @@
     <ClCompile Include="Program\02_Library\Input.cpp" />
     <ClCompile Include="Program\02_Library\Matrix.cpp" />
     <ClCompile Include="Program\02_Library\Quaternion.cpp" />
-    <ClCompile Include="Program\02_Library\System.cpp" />
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
@@ -54,14 +52,13 @@
     <ClInclude Include="Program\00_Game\GameMain.h" />
     <ClInclude Include="Program\00_Game\GameManager.h" />
     <ClInclude Include="Program\01_Engine\Camera.h" />
-    <ClInclude Include="Program\01_Engine\FontManager.h" />
     <ClInclude Include="Program\01_Engine\Mesh.h" />
     <ClInclude Include="Program\01_Engine\MeshRenderer.h" />
     <ClInclude Include="Program\01_Engine\Renderer.h" />
     <ClInclude Include="Program\01_Engine\Shader.h" />
     <ClInclude Include="Program\01_Engine\ShaderFactory.h" />
     <ClInclude Include="Program\01_Engine\SpriteRenderer.h" />
-    <ClInclude Include="Program\01_Engine\TestFont.h" />
+    <ClInclude Include="Program\01_Engine\System.h" />
     <ClInclude Include="Program\01_Engine\Texture.h" />
     <ClInclude Include="Program\01_Engine\VertexArray.h" />
     <ClInclude Include="Program\01_Engine\WireRenderer.h" />
@@ -70,7 +67,6 @@
     <ClInclude Include="Program\02_Library\Math.h" />
     <ClInclude Include="Program\02_Library\Matrix.h" />
     <ClInclude Include="Program\02_Library\Quaternion.h" />
-    <ClInclude Include="Program\02_Library\System.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
   </ItemGroup>
@@ -160,14 +156,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\WorkSpace\Study\Library\glfw\include;C:\WorkSpace\Study\Library\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WorkSpace\Study\Library\glfw\include;C:\WorkSpace\Study\Library\glew\include;C:\WorkSpace\Study\Library\SOIL\SOIL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\WorkSpace\Study\Library\glfw\lib-vc2022;C:\WorkSpace\Study\Library\glew\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\WorkSpace\Study\Library\glfw\lib-vc2022;C:\WorkSpace\Study\Library\glew\lib\Release\x64;C:\WorkSpace\Study\Library\SOIL\SOIL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;winmm.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

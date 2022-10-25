@@ -10,7 +10,7 @@ public:
 		float uv[3];
 	};
 
-	VertexArray(int dimension, unsigned int vertexNum, const VERTEX* vertices, unsigned int indexNum, const int* indices);
+	VertexArray(unsigned int vertexNum, const VERTEX* vertices, unsigned int indexNum, const int* indices);
 	~VertexArray();
 
 	void Bind() const;

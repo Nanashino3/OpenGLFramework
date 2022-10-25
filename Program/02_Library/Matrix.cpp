@@ -93,6 +93,19 @@ Matrix Matrix::CreateOrthogonalProjection(float left, float right, float bottom,
 	return temp;
 }
 
+// 単純なビュー射影行列
+Matrix Matrix::CreateSimpleViewProjection(float width, float height)
+{
+	Matrix temp;
+	temp.LoadIdentity();
+
+	temp[0]  = 2.0f / width;
+	temp[5]  = 2.0f / height;
+	temp[14] = 1.0f;
+
+	return temp;
+}
+
 // 視線行列を作成
 Matrix Matrix::CreateLookAt(const Vector3& camPos, const Vector3& targetPos, const Vector3& upVector)
 {
