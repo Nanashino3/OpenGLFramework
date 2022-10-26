@@ -6,8 +6,6 @@
 #include "Vector.h"
 
 namespace tnl {
-
-	typedef std::tuple<std::shared_ptr<char>, uint32_t, uint32_t, uint32_t, uint32_t> Font;
 	//----------------------------------------------------------------------------------------------
 	// フォントテクスチャの生成
 	// arg1... フォントサイズ　※ テクスチャサイズではありません
@@ -27,7 +25,7 @@ namespace tnl {
 	// tips... 使用例
 	// auto tex1 = tnl::CreateFontTexture(32, tnl::ToOnceWChara("あ"));
 	//
-	Font CreateFontTexture(
+	std::tuple<std::shared_ptr<char>, uint32_t, uint32_t, uint32_t, uint32_t> CreateFontTexture(
 			const uint32_t font_size,
 			const wchar_t& once,
 			bool is_vertical = false,

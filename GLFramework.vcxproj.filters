@@ -88,6 +88,12 @@
     <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Program\01_Engine\TestFont.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\FontManager.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -178,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Camera\FixedCamera.h">
       <Filter>Program\01_Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\TestFont.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\FontManager.h">
+      <Filter>Program\01_Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

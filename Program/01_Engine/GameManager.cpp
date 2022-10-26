@@ -7,6 +7,7 @@
 //************************************************
 // デバッグ用
 #include <iostream>
+#include "../01_Engine/TestFont.h"
 #include "../01_Engine/ResourceManager.h"
 std::shared_ptr<Mesh> gPlane = nullptr;
 std::shared_ptr<Mesh> gGridGround = nullptr;
@@ -17,13 +18,8 @@ int gImageHdl = 0;
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
-	// TODO：常木講師に確認する
-//	tkl::DrawString(100, 100, "あえいうえおあお");	// 文字列表示
-
-//	gImageHdl = ResourceManager::GetInstance()->GetTextureHandle("Resource/Ship.png");
-
-	gTexture = Mesh::CreatePlaneForTexture();
-	gTexture->SetTexture(ResourceManager::GetInstance()->CreateTextureFromFile("Resource/Ship.png"));
+//	gTexture = Mesh::CreatePlaneForTexture();
+//	gTexture->SetTexture(ResourceManager::GetInstance()->CreateTextureFromFile("Resource/Ship.png"));
 
 	// 3D平面
 	gPlane = Mesh::CreatePlane(50);
@@ -61,10 +57,11 @@ void GameManager::Update(float deltaTime)
 	m2DCamera->Update();
 	m3DCamera->Update();
 
-//	ResourceManager::GetInstance()->DrawGraph(100, 100, gImageHdl, 0);
+	// TODO：常木講師に確認する
+	tkl::DrawString(100, 100, "あえいうえおあお", m2DCamera);	// 文字列表示
 
 	// オブジェクトの描画
-	gTexture->Draw(m2DCamera);
+//	gTexture->Draw(m2DCamera);
 	gPlane->Draw(m3DCamera);
 	gGridGround->Draw(m3DCamera);
 }
