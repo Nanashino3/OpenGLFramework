@@ -1,15 +1,28 @@
 #pragma once
-#include "../02_Library/Vector.h"
-#include "../02_Library/Quaternion.h"
-#include "../02_Library/Matrix.h"
+#include "../../02_Library/Vector.h"
+#include "../../02_Library/Quaternion.h"
+#include "../../02_Library/Matrix.h"
 
 class Camera
 {
 public:
-	Camera(int screenWidth, int screenHeight);
-	virtual ~Camera();
+	Camera(int screenWidth, int screenHeight)
+	: mCamPos(0, 0, 0)
+	, mTargetPos(tkl::Vector3::ZERO)
+	, mUpVector(tkl::Vector3::UNITY)
+	, mRotation(tkl::Quaternion())
+	, mScreenWidth(screenWidth)
+	, mScreenHeight(screenHeight)
+	, mAngle(60.0f)
+	, mAspect(static_cast<float>(screenWidth) / static_cast<float>(screenHeight))
+	, mNear(1.0f)
+	, mFar(5000.0f)
+	, mViewProjection(tkl::Matrix())
+	{}
+
+	virtual ~Camera(){}
 	
-	void Update();
+	virtual void Update() = 0;
 
 	void SetPosition(const tkl::Vector3& pos){ mCamPos = pos; }
 	tkl::Vector3 GetPosition() const{ return mCamPos; }
@@ -26,18 +39,10 @@ public:
 	tkl::Vector3 Left()	{ return tkl::Vector3::Cross(tkl::Vector3::UNITY, Front()); }
 	tkl::Vector3 Right(){ return tkl::Vector3::Cross(Front(), tkl::Vector3::UNITY); }
 
-private:
-	void Input();
-	void Move();
-
-private:
+protected:
 	tkl::Vector3 mCamPos;
 	tkl::Vector3 mTargetPos;
 	tkl::Vector3 mUpVector;
-
-	tkl::Vector3 mOnClickPos;
-	tkl::Vector3 mMovePos;
-
 	tkl::Quaternion mRotation;
 
 	int mScreenWidth;
@@ -48,6 +53,4 @@ private:
 	float mFar;		// ï\é¶îÕàÕ(ç≈âìãóó£)
 
 	tkl::Matrix mViewProjection;
-
-	bool mIsMouseMove;
 };

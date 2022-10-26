@@ -1,12 +1,12 @@
 #include "MeshRenderer.h"
 
 #include <GL/glew.h>
-#include "Mesh.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "VertexArray.h"
-#include "../02_Library/Vector.h"
-#include "../02_Library/Matrix.h"
+#include "../Mesh.h"
+#include "../Shader.h"
+#include "../Texture.h"
+#include "../VertexArray.h"
+#include "../../02_Library/Vector.h"
+#include "../../02_Library/Matrix.h"
 MeshRenderer::MeshRenderer(const char* shaderName)
 : Renderer(shaderName)
 {}
@@ -29,11 +29,11 @@ void MeshRenderer::ActualDraw(void* drawObject)
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
 	// テクスチャを有効化するか
-	Texture* texture = mesh->GetTexture();
+	std::shared_ptr<Texture> texture = mesh->GetTexture();
 	if(texture){ texture->Bind(); }
 
 	// 描画を有効化する
-	VertexArray* va = mesh->mVertexArray.get();
+	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();
 	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
 }

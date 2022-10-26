@@ -14,7 +14,7 @@ public:
 	Mesh();
 	~Mesh();
 
-	void Draw(Camera* camera);
+	void Draw(std::shared_ptr<Camera> camera);
 
 	void SetPosition(const tkl::Vector3& pos){ mPosition = pos; }
 	tkl::Vector3 GetPosition() const{ return mPosition; }
@@ -25,20 +25,26 @@ public:
 	void SetScale(const tkl::Vector3& scale){ mScale = scale; }
 	tkl::Vector3 GetScale() const{ return mScale; }
 
-	void SetTexture(Texture* texture){ mTexture = texture; }
-	Texture* GetTexture() const{ return mTexture; }	
+	void SetTexture(std::shared_ptr<Texture> tex){ mTexture = tex; }
+	std::shared_ptr<Texture> GetTexture() const { return mTexture; }
+
+	void SetVertex(std::shared_ptr<VertexArray> vertex){ mVertexArray = vertex; }
+	std::shared_ptr<VertexArray> GetVertex() const { return mVertexArray; }
+
+	void SetRenderer(std::shared_ptr<Renderer> renderer){ mRenderer = renderer; }
+	std::shared_ptr<Renderer> GetRenderer() const { return mRenderer; }
 
 	static Mesh* CreateBox(float size);
 	static Mesh* CreateSphere(float radius, int divWidth, int divHeight);
 	static Mesh* CreatePlane(float size);
 	static Mesh* CreateGround(int size, int rowNum);
 
-	std::unique_ptr<VertexArray> mVertexArray;
 private:
 	tkl::Vector3 mPosition;
 	tkl::Quaternion mRotation;
 	tkl::Vector3 mScale;
 
-	Renderer* mRenderer;
-	Texture* mTexture;
+	std::shared_ptr<Renderer> mRenderer;
+	std::shared_ptr<Texture> mTexture;
+	std::shared_ptr<VertexArray> mVertexArray;
 };

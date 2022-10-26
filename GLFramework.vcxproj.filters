@@ -16,22 +16,19 @@
     <Filter Include="Program\02_Library">
       <UniqueIdentifier>{fecd4be1-b4b8-4d6b-8515-9b6bc236a102}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\01_Engine\Camera">
+      <UniqueIdentifier>{513ab0b8-cdae-4703-a9d1-42a49873ff69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Program\01_Engine\Renderer">
+      <UniqueIdentifier>{a310e053-8c41-4636-862d-de3dd2035280}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\Main.cpp" />
     <ClCompile Include="Program\00_Game\GameMain.cpp">
       <Filter>Program\00_Game</Filter>
     </ClCompile>
-    <ClCompile Include="Program\00_Game\GameManager.cpp">
-      <Filter>Program\00_Game</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Mesh.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\MeshRenderer.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Renderer.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Shader.cpp">
@@ -40,16 +37,10 @@
     <ClCompile Include="Program\01_Engine\ShaderFactory.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\SpriteRenderer.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Texture.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\VertexArray.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\WireRenderer.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\02_Library\FontTexture.cpp">
@@ -70,11 +61,29 @@
     <ClCompile Include="Program\02_Library\Vector.cpp">
       <Filter>Program\02_Library</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Camera.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\System.cpp">
       <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\ResourceManager.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Renderer\MeshRenderer.cpp">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Renderer\Renderer.cpp">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Renderer\SpriteRenderer.cpp">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Renderer\WireRenderer.cpp">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\GameManager.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
+      <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,16 +110,7 @@
     <ClInclude Include="Program\00_Game\GameMain.h">
       <Filter>Program\00_Game</Filter>
     </ClInclude>
-    <ClInclude Include="Program\00_Game\GameManager.h">
-      <Filter>Program\00_Game</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Mesh.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\MeshRenderer.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Renderer.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Shader.h">
@@ -119,16 +119,10 @@
     <ClInclude Include="Program\01_Engine\ShaderFactory.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\SpriteRenderer.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Texture.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\VertexArray.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\WireRenderer.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\02_Library\FontTexture.h">
@@ -152,11 +146,32 @@
     <ClInclude Include="Program\02_Library\Vector.h">
       <Filter>Program\02_Library</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Camera.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\System.h">
       <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\ResourceManager.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Renderer\MeshRenderer.h">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Renderer\Renderer.h">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Renderer\SpriteRenderer.h">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Renderer\WireRenderer.h">
+      <Filter>Program\01_Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera\Camera.h">
+      <Filter>Program\01_Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\GameManager.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
+      <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

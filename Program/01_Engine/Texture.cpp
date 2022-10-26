@@ -20,19 +20,7 @@ Texture::Texture(int width, int height, void* pixels, int channels)
 Texture::~Texture()
 {}
 
-// ファイル名によるテクスチャ生成
-Texture* Texture::CreateTextureFromFile(const char* fileName)
-{
-	int channels = 0, textureW = 0, textureH = 0;
-	unsigned char* image = SOIL_load_image(fileName, &textureW, &textureH, &channels, SOIL_LOAD_AUTO);
-	if(image == nullptr){ return nullptr; }
-
-	Texture* newTexture = new Texture(textureW, textureH, image, channels);
-	return newTexture;
-}
-
 void Texture::Bind()
 {
-//	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
 }

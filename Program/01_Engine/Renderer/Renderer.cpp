@@ -1,7 +1,7 @@
 #include "Renderer.h"
 
-#include "Shader.h"
-#include "ShaderFactory.h"
+#include "../Shader.h"
+#include "../ShaderFactory.h"
 
 Renderer::Renderer(const char* shaderName)
 {

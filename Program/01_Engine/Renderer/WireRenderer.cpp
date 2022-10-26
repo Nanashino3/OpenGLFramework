@@ -1,10 +1,10 @@
 #include "WireRenderer.h"
 
 #include <GL/glew.h>
-#include "Mesh.h"
-#include "Shader.h"
-#include "VertexArray.h"
-#include "../02_Library/Matrix.h"
+#include "../Mesh.h"
+#include "../Shader.h"
+#include "../VertexArray.h"
+#include "../../02_Library/Matrix.h"
 
 WireRenderer::WireRenderer(const char* shaderName)
 : Renderer(shaderName)
@@ -22,7 +22,7 @@ void WireRenderer::ActualDraw(void* drawObject)
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
-	VertexArray* va = mesh->mVertexArray.get();
+	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();
 	glDrawArrays(GL_LINES, 0, va->GetVertexNum());
 }

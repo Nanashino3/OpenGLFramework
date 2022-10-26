@@ -19,5 +19,5 @@ private:
 
 private:
 	static GameManager* sInstance;
-	Camera* mCamera;
+	std::shared_ptr<Camera> mCamera;
 };

@@ -83,8 +83,8 @@ Matrix Matrix::CreateOrthogonalProjection(float left, float right, float bottom,
 	float fan = far + near;		// far add near
 	float fsn = far - near;		// far subtraction near
 
-	temp[0] = 2.0f / rsl;
-	temp[5] = 2.0f / tsb;
+	temp[0]  = 2.0f / rsl;
+	temp[5]  = 2.0f / tsb;
 	temp[10] = -2.0f / fsn;
 	temp[12] = -ral / rsl;
 	temp[13] = -tab / tsb;

@@ -12,10 +12,6 @@ public:
 	int GetTextureWidth() const { return mTextureW; }
 	int GetTextureHeight() const { return mTextureH; }
 	unsigned int GetTextureID() const { return mTextureID; }
-
-	static Texture* CreateTextureFromFile(const char* fileName);
-
-	tkl::Vector3 mPosition;
 private:
 	unsigned int mTextureID;
 	int mTextureW;

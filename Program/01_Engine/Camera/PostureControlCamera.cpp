@@ -1,50 +1,37 @@
-#include "Camera.h"
+#include "PostureControlCamera.h"
 
-#include "../02_Library/Math.h"
-#include "../02_Library/Input.h"
+#include "../../02_Library/Math.h"
+#include "../../02_Library/Input.h"
 
-// デバッグ用
-#include <iostream>
-#include <iomanip>
-
-Camera::Camera(int screenWidth, int screenHeight)
-: mCamPos(0, 0, 0)
-, mTargetPos(tkl::Vector3::ZERO)
-, mUpVector(tkl::Vector3::UNITY)
+PostureControlCamera::PostureControlCamera(int screenWidth, int screenHeight)
+: Camera(screenHeight, screenHeight)
 , mOnClickPos(tkl::Vector3::ZERO)
 , mMovePos(tkl::Vector3::ZERO)
-, mRotation(tkl::Quaternion())
-, mScreenWidth(screenWidth)
-, mScreenHeight(screenHeight)
-, mAngle(60.0f)
-, mAspect(static_cast<float>(screenWidth)/static_cast<float>(screenHeight))
-, mNear(1.0f)
-, mFar(5000.0f)
-, mViewProjection(tkl::Matrix())
 , mIsMouseMove(false)
 {}
 
-Camera::~Camera()
+PostureControlCamera::~PostureControlCamera()
 {}
 
-void Camera::Update()
+void PostureControlCamera::Update()
 {
 	// カメラズームイン・アウト(係数をかける)
 	float scrollVal = static_cast<float>(tkl::Input::GetMouseScrollValue() * 10.0f);
 	mCamPos += Front() * scrollVal;
-	
+
 	Input();
 	Move();
 
+	// 注視点と上方向ベクトルを更新
 	mTargetPos = mCamPos + tkl::Vector3::TransformCoord(tkl::Vector3::NEG_UNITZ, mRotation);
 	mUpVector = tkl::Vector3::TransformCoord(tkl::Vector3::UNITY, mRotation);
 
 	// 行列
-	mViewProjection  = tkl::Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
+	mViewProjection = tkl::Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
 	mViewProjection *= tkl::Matrix::CreateLookAt(mCamPos, mTargetPos, mUpVector);
 }
 
-void Camera::Input()
+void PostureControlCamera::Input()
 {
 	// クリックした座標を記録する
 	int tempPosX = 0, tempPosY = 0;
@@ -54,7 +41,7 @@ void Camera::Input()
 	}
 	// クリックした座標を初期化する
 	if(tkl::Input::IsMouseReleaseTrigger(eMouse::MOUSE_CENTER, eMouse::MOUSE_RIGHT)){
-		mOnClickPos = tkl::Vector3(tkl::Vector3::ZERO); 
+		mOnClickPos = tkl::Vector3(tkl::Vector3::ZERO);
 		mMovePos = tkl::Vector3(tkl::Vector3::ZERO);
 	}
 
@@ -76,7 +63,7 @@ void Camera::Input()
 }
 
 // 移動処理
-void Camera::Move()
+void PostureControlCamera::Move()
 {
 	float dx = 0.0f, dy = 0.0f;
 	if(mIsMouseMove){
@@ -84,8 +71,9 @@ void Camera::Move()
 		dy = (mOnClickPos.mY - mMovePos.mY) / (mScreenHeight >> 1);
 	}
 
-	// 平行移動
 	tkl::Vector3 axis = tkl::Vector3::Cross(Front(), mUpVector);
+
+	// 平行移動
 	if(tkl::Input::IsMouseDown(eMouse::MOUSE_CENTER)){
 		mCamPos += axis * (10.0f * dx);
 		mCamPos.mY -= 10.0f * dy;

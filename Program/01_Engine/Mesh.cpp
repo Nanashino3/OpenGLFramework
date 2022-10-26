@@ -1,22 +1,24 @@
 #include "Mesh.h"
 
 #include <vector>
-#include "Camera.h"
 #include "VertexArray.h"
-#include "MeshRenderer.h"
-#include "WireRenderer.h"
+#include "Camera/Camera.h"
+#include "Renderer/MeshRenderer.h"
+#include "Renderer/WireRenderer.h"
 #include "../02_Library/Math.h"
 
 Mesh::Mesh()
 : mPosition(tkl::Vector3(0, 0, 0))
 , mRotation(tkl::Quaternion())
 , mScale(tkl::Vector3(1, 1, 1))
+, mRenderer(nullptr)
+, mTexture(nullptr)
 {}
 
 Mesh::~Mesh()
 {}
 
-void Mesh::Draw(Camera* camera)
+void Mesh::Draw(std::shared_ptr<Camera> camera)
 {
 	mRenderer->SetViewProjection(camera->GetViewProjection());
 	mRenderer->Draw(this);
@@ -26,7 +28,7 @@ void Mesh::Draw(Camera* camera)
 Mesh* Mesh::CreateBox(float size)
 {
 	Mesh* mesh = new Mesh();
-	mesh->mRenderer = new MeshRenderer();
+	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
 	size *= 0.5f;
 	VertexArray::VERTEX vertices[] = {
@@ -77,7 +79,7 @@ Mesh* Mesh::CreateBox(float size)
 	};
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
-	mesh->mVertexArray = std::make_unique<VertexArray>(24, vertices, indicesNum, indices);
+	mesh->SetVertex(std::make_shared<VertexArray>(24, vertices, indicesNum, indices));
 	
 	return mesh;
 }
@@ -86,7 +88,7 @@ Mesh* Mesh::CreateBox(float size)
 Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 {
 	Mesh* mesh = new Mesh();
-	mesh->mRenderer = new MeshRenderer();
+	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
 	// í∏ì_ç¿ïWåvéZ
 	std::vector<VertexArray::VERTEX> vertices;
@@ -125,9 +127,9 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 			indices.emplace_back(v1);
 		}
 	}
-	mesh->mVertexArray = std::make_unique<VertexArray>(
+	mesh->SetVertex(std::make_shared<VertexArray>(
 		static_cast<unsigned int>(vertices.size()), vertices.data(),
-		static_cast<unsigned int>(indices.size()), indices.data());
+		static_cast<unsigned int>(indices.size()), indices.data()));
 
 	return mesh;
 }
@@ -136,7 +138,7 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 Mesh* Mesh::CreatePlane(float size)
 {
 	Mesh* mesh = new Mesh();
-	mesh->mRenderer = new MeshRenderer();
+	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
 	size *= 0.5f;
 
@@ -152,7 +154,7 @@ Mesh* Mesh::CreatePlane(float size)
 	};
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
-	mesh->mVertexArray = std::make_unique<VertexArray>(4, vertices, indicesNum, indices);
+	mesh->SetVertex(std::make_shared<VertexArray>(4, vertices, indicesNum, indices));
 
 	return mesh;
 }
@@ -161,7 +163,7 @@ Mesh* Mesh::CreatePlane(float size)
 Mesh* Mesh::CreateGround(int size, int rowNum)
 {
 	Mesh* mesh = new Mesh();
-	mesh->mRenderer = new WireRenderer();
+	mesh->SetRenderer(std::make_shared<WireRenderer>());
 
 	float l = size * rowNum * 0.5f;
 	float n = -l;
@@ -196,7 +198,7 @@ Mesh* Mesh::CreateGround(int size, int rowNum)
 
 	gridVertex.emplace_back(v5);
 	gridVertex.emplace_back(v6);
-	mesh->mVertexArray = std::make_unique<VertexArray>(gridVertex.size(), gridVertex.data(), 0, nullptr);
+	mesh->SetVertex(std::make_shared<VertexArray>(gridVertex.size(), gridVertex.data(), 0, nullptr));
 
 	return mesh;
 }

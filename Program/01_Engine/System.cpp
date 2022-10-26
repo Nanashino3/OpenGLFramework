@@ -1,6 +1,7 @@
 #include "System.h"
 
 #include <iostream>
+#include "../01_Engine/ResourceManager.h"
 #include "../02_Library/Input.h"
 
 System::System()
@@ -47,6 +48,8 @@ bool System::Initialize(int screenWidth, int screenHeight)
 
 	// 入力デバイスの初期化
 	tkl::Input::Initialize(mWindow, screenWidth, screenHeight);
+
+	ResourceManager::GetInstance()->Initialize(screenWidth, screenHeight);
 
 	return true;
 }

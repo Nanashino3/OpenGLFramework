@@ -20,18 +20,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp" />
-    <ClCompile Include="Program\00_Game\GameManager.cpp" />
-    <ClCompile Include="Program\01_Engine\Camera.cpp" />
+    <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp" />
+    <ClCompile Include="Program\01_Engine\GameManager.cpp" />
     <ClCompile Include="Program\01_Engine\Mesh.cpp" />
-    <ClCompile Include="Program\01_Engine\MeshRenderer.cpp" />
-    <ClCompile Include="Program\01_Engine\Renderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Renderer\MeshRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Renderer\Renderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Renderer\WireRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\ResourceManager.cpp" />
     <ClCompile Include="Program\01_Engine\Shader.cpp" />
     <ClCompile Include="Program\01_Engine\ShaderFactory.cpp" />
-    <ClCompile Include="Program\01_Engine\SpriteRenderer.cpp" />
     <ClCompile Include="Program\01_Engine\System.cpp" />
     <ClCompile Include="Program\01_Engine\Texture.cpp" />
     <ClCompile Include="Program\01_Engine\VertexArray.cpp" />
-    <ClCompile Include="Program\01_Engine\WireRenderer.cpp" />
     <ClCompile Include="Program\02_Library\FontTexture.cpp" />
     <ClCompile Include="Program\02_Library\Input.cpp" />
     <ClCompile Include="Program\02_Library\Matrix.cpp" />
@@ -50,18 +51,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\00_Game\GameMain.h" />
-    <ClInclude Include="Program\00_Game\GameManager.h" />
-    <ClInclude Include="Program\01_Engine\Camera.h" />
+    <ClInclude Include="Program\01_Engine\Camera\Camera.h" />
+    <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h" />
+    <ClInclude Include="Program\01_Engine\GameManager.h" />
     <ClInclude Include="Program\01_Engine\Mesh.h" />
-    <ClInclude Include="Program\01_Engine\MeshRenderer.h" />
-    <ClInclude Include="Program\01_Engine\Renderer.h" />
+    <ClInclude Include="Program\01_Engine\Renderer\MeshRenderer.h" />
+    <ClInclude Include="Program\01_Engine\Renderer\Renderer.h" />
+    <ClInclude Include="Program\01_Engine\Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Program\01_Engine\Renderer\WireRenderer.h" />
+    <ClInclude Include="Program\01_Engine\ResourceManager.h" />
     <ClInclude Include="Program\01_Engine\Shader.h" />
     <ClInclude Include="Program\01_Engine\ShaderFactory.h" />
-    <ClInclude Include="Program\01_Engine\SpriteRenderer.h" />
     <ClInclude Include="Program\01_Engine\System.h" />
     <ClInclude Include="Program\01_Engine\Texture.h" />
     <ClInclude Include="Program\01_Engine\VertexArray.h" />
-    <ClInclude Include="Program\01_Engine\WireRenderer.h" />
     <ClInclude Include="Program\02_Library\FontTexture.h" />
     <ClInclude Include="Program\02_Library\Input.h" />
     <ClInclude Include="Program\02_Library\Math.h" />
