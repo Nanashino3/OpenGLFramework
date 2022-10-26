@@ -12,11 +12,11 @@ Renderer::~Renderer()
 {}
 
 // •`‰æw¦
-void Renderer::Draw(void* drawObject)
+void Renderer::Draw(std::shared_ptr<Mesh> mesh)
 {
 	mShader->ActiveShader();
 	mShader->SetMatrixUniform("uViewProjection", mViewProjection);
 
 	// ‹ïÛƒNƒ‰ƒX‘¤‚Ì•`‰æˆ—
-	ActualDraw(drawObject);
+	ActualDraw(mesh);
 }

@@ -1,15 +1,15 @@
 #include "ResourceManager.h"
 
 #include <SOIL.h>
-#include "Mesh.h"
+//#include "Mesh.h"
 #include "Texture.h"
 #include "VertexArray.h"
-#include "Renderer/SpriteRenderer.h"
+//#include "Renderer/SpriteRenderer.h"
 
 ResourceManager* ResourceManager::sMyInstance = nullptr;
 ResourceManager::ResourceManager()
-: mMesh(new Mesh)
-, mRenderer(new SpriteRenderer())
+//: mMesh(new Mesh)
+//, mRenderer(new SpriteRenderer())
 {}
 
 ResourceManager::~ResourceManager()
@@ -28,29 +28,29 @@ void ResourceManager::DestroyInstance()
 	delete sMyInstance;
 }
 
-void ResourceManager::Initialize(int screenWidth, int screenHeight)
-{
-	float w = static_cast<float>(screenWidth >> 1);
-	float h = static_cast<float>(screenHeight >> 1);
-
-	tkl::Matrix vpm = tkl::Matrix::CreateOrthogonalProjection(-w, w, -h, h, 1.0f, -1.0f);
-	mRenderer->SetViewProjection(vpm);
-
-	VertexArray::VERTEX vertices[] = {
-		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},
-		{ 0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  0.0f},
-		{ 0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  1.0f},
-		{-0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  1.0f}
-	};
-
-	int indices[] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	int indicesNum = sizeof(indices) / sizeof(indices[0]);
-	mMesh->SetVertex(std::make_shared<VertexArray>(4, vertices, indicesNum, indices));
-}
+//void ResourceManager::Initialize(int screenWidth, int screenHeight)
+//{
+//	float w = static_cast<float>(screenWidth >> 1);
+//	float h = static_cast<float>(screenHeight >> 1);
+//
+//	tkl::Matrix vpm = tkl::Matrix::CreateOrthogonalProjection(-w, w, -h, h, 1.0f, -1.0f);
+//	mRenderer->SetViewProjection(vpm);
+//
+//	VertexArray::VERTEX vertices[] = {
+//		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},
+//		{ 0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  0.0f},
+//		{ 0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  1.0f},
+//		{-0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  1.0f}
+//	};
+//
+//	int indices[] = {
+//		0, 1, 2,
+//		2, 3, 0
+//	};
+//
+//	int indicesNum = sizeof(indices) / sizeof(indices[0]);
+//	mMesh->SetVertex(std::make_shared<VertexArray>(4, vertices, indicesNum, indices));
+//}
 
 // テクスチャハンドルの取得
 int ResourceManager::GetTextureHandle(const char* fileName)
@@ -78,15 +78,15 @@ std::shared_ptr<Texture> ResourceManager::CreateTextureFromFile(const char* file
 	return newTexture;
 }
 
-void ResourceManager::DrawGraph(int posX, int posY, int textureID, int isTrans)
-{
-	// IDからテクスチャを取得する
-	auto iter = mCacheTextures.find(textureID);
-	if(iter == mCacheTextures.end()){ return; }
-
-	std::shared_ptr<Texture> texture = iter->second;
-	mMesh->SetPosition(tkl::Vector3(posX, posY, 1.0f));
-	mMesh->SetScale(tkl::Vector3(texture->GetTextureWidth(), texture->GetTextureHeight(), 1.0f));
-	mMesh->SetTexture(texture);
-	mRenderer->Draw(mMesh);
-}
+//void ResourceManager::DrawGraph(int posX, int posY, int textureID, int isTrans)
+//{
+//	// IDからテクスチャを取得する
+//	auto iter = mCacheTextures.find(textureID);
+//	if(iter == mCacheTextures.end()){ return; }
+//
+//	std::shared_ptr<Texture> texture = iter->second;
+//	mMesh->SetPosition(tkl::Vector3(posX, posY, 1.0f));
+//	mMesh->SetScale(tkl::Vector3(texture->GetTextureWidth(), texture->GetTextureHeight(), 1.0f));
+//	mMesh->SetTexture(texture);
+//	mRenderer->Draw(mMesh);
+//}

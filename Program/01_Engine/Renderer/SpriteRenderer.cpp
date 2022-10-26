@@ -14,18 +14,18 @@ SpriteRenderer::SpriteRenderer(const char* shaderName)
 SpriteRenderer::~SpriteRenderer()
 {}
 
-void SpriteRenderer::ActualDraw(void* drawObject)
+void SpriteRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 {
-	if(!drawObject){ return; }
-
-//	Texture* texture = static_cast<Texture*>(drawObject);
-	Mesh* mesh = static_cast<Mesh*>(drawObject);
-
-	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
-	wm *= tkl::Matrix::CreateScale(mesh->GetScale());
-	mShader->SetMatrixUniform("uWorldTransform", wm);
+	if(!mesh){ return; }
 	
 	std::shared_ptr<Texture> texture = mesh->GetTexture();
+	if(!texture){ return ;}
+
+	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
+	wm *= tkl::Matrix::CreateScale(tkl::Vector3(texture->GetTextureWidth(), texture->GetTextureHeight(), 1.0f));
+	mShader->SetMatrixUniform("uWorldTransform", wm);
+	
+	
 	if(texture){ texture->Bind(); }
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();

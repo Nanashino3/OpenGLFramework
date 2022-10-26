@@ -5,6 +5,7 @@
 #include "Camera/Camera.h"
 #include "Renderer/MeshRenderer.h"
 #include "Renderer/WireRenderer.h"
+#include "Renderer/SpriteRenderer.h"
 #include "../02_Library/Math.h"
 
 Mesh::Mesh()
@@ -21,7 +22,7 @@ Mesh::~Mesh()
 void Mesh::Draw(std::shared_ptr<Camera> camera)
 {
 	mRenderer->SetViewProjection(camera->GetViewProjection());
-	mRenderer->Draw(this);
+	mRenderer->Draw(shared_from_this());
 }
 
 // ボックスの作成
@@ -200,5 +201,28 @@ std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 	gridVertex.emplace_back(v6);
 	mesh->SetVertex(std::make_shared<VertexArray>(gridVertex.size(), gridVertex.data(), 0, nullptr));
 
+	return mesh;
+}
+
+// テクスチャ用のメッシュ作成
+std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
+{
+	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
+	mesh->SetRenderer(std::make_shared<SpriteRenderer>());
+
+	VertexArray::VERTEX vertices[] = {
+		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},
+		{ 0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  0.0f},
+		{ 0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  1.0f},
+		{-0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  1.0f}
+	};
+
+	int indices[] = {
+		0, 1, 2,
+		2, 3, 0
+	};
+
+	int indicesNum = sizeof(indices) / sizeof(indices[0]);
+	mesh->SetVertex(std::make_shared<VertexArray>(4, vertices, indicesNum, indices));
 	return mesh;
 }

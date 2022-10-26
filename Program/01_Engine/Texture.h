@@ -1,5 +1,4 @@
 #pragma once
-#include "../02_Library/Vector.h"
 
 class Texture
 {

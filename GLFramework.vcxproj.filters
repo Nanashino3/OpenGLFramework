@@ -85,6 +85,9 @@
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp">
+      <Filter>Program\01_Engine\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -171,6 +174,9 @@
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
+      <Filter>Program\01_Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera\FixedCamera.h">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
   </ItemGroup>

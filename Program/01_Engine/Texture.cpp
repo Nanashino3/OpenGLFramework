@@ -1,6 +1,5 @@
 #include "Texture.h"
 #include <GL/glew.h>
-#include <SOIL.h>
 
 Texture::Texture(int width, int height, void* pixels, int channels)
 {

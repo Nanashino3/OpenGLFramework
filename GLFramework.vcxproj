@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp" />
+    <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp" />
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -56,6 +57,7 @@
     <ClInclude Include="Program\01_Engine\Camera\Camera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera\FixedCamera.h" />
     <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

@@ -13,11 +13,9 @@ WireRenderer::WireRenderer(const char* shaderName)
 WireRenderer::~WireRenderer()
 {}
 
-void WireRenderer::ActualDraw(void* drawObject)
+void WireRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 {
-	if(!drawObject){ return; }
-
-	Mesh* mesh = static_cast<Mesh*>(drawObject);
+	if(!mesh){ return; }
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	mShader->SetMatrixUniform("uWorldTransform", wm);

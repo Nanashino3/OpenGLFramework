@@ -14,12 +14,11 @@ MeshRenderer::MeshRenderer(const char* shaderName)
 MeshRenderer::~MeshRenderer()
 {}
 
-void MeshRenderer::ActualDraw(void* drawObject)
+void MeshRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 {
-	if (!drawObject) { return; }
+	if (!mesh) { return; }
 
-	Mesh* mesh = static_cast<Mesh*>(drawObject);
-
+	// 光源設定
 	SetLightUniforms();
 
 	// ワールド座標計算

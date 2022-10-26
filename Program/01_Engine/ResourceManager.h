@@ -3,19 +3,19 @@
 #include <memory>
 #include <unordered_map>
 
-class Mesh;
+//class Mesh;
+//class Renderer;
 class Texture;
-class Renderer;
 class ResourceManager
 {
 public:
 	static ResourceManager* GetInstance();
 	static void DestroyInstance();
 
-	void Initialize(int screenWidth, int screenHeight);
+//	void Initialize(int screenWidth, int screenHeight);
 	int GetTextureHandle(const char* fileName);
 	std::shared_ptr<Texture> CreateTextureFromFile(const char* fileName);
-	void DrawGraph(int posX, int posY, int textureID, int isTrans);
+//	void DrawGraph(int posX, int posY, int textureID, int isTrans);
 
 private:
 	ResourceManager();
@@ -27,8 +27,8 @@ private:
 private:
 	static ResourceManager* sMyInstance;
 
-	Mesh* mMesh;
-	Renderer* mRenderer;
+//	Mesh* mMesh;
+//	Renderer* mRenderer;
 	std::unordered_map<const char*, int> mCacheTextureID;					// ファイル名とIDを紐づける
 	std::unordered_map<int, std::shared_ptr<Texture>> mCacheTextures;		// IDとテクスチャクラスを紐づける
 };

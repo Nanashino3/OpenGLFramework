@@ -8,7 +8,7 @@ class Camera;
 class Renderer;
 class Texture;
 class VertexArray;
-class Mesh
+class Mesh : public std::enable_shared_from_this<Mesh>
 {
 public:
 	Mesh();
@@ -38,6 +38,7 @@ public:
 	static std::shared_ptr<Mesh> CreateSphere(float radius, int divWidth, int divHeight);
 	static std::shared_ptr<Mesh> CreatePlane(float size);
 	static std::shared_ptr<Mesh> CreateGround(int size, int rowNum);
+	static std::shared_ptr<Mesh> CreatePlaneForTexture();
 
 private:
 	tkl::Vector3 mPosition;

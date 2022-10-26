@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 
+class FixedCamera;
 class PostureControlCamera;
 class GameManager
 {
@@ -19,5 +20,6 @@ private:
 
 private:
 	static GameManager* sInstance;
-	std::shared_ptr<PostureControlCamera> mCamera;
+	std::shared_ptr<FixedCamera> m2DCamera;
+	std::shared_ptr<PostureControlCamera> m3DCamera;
 };

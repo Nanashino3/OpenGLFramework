@@ -8,5 +8,5 @@ public:
 	virtual ~SpriteRenderer();
 
 private:
-	virtual void ActualDraw(void* drawObject) final;
+	virtual void ActualDraw(std::shared_ptr<Mesh> mesh) final;
 };
