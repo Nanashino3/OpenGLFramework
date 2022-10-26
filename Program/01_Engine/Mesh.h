@@ -34,10 +34,10 @@ public:
 	void SetRenderer(std::shared_ptr<Renderer> renderer){ mRenderer = renderer; }
 	std::shared_ptr<Renderer> GetRenderer() const { return mRenderer; }
 
-	static Mesh* CreateBox(float size);
-	static Mesh* CreateSphere(float radius, int divWidth, int divHeight);
-	static Mesh* CreatePlane(float size);
-	static Mesh* CreateGround(int size, int rowNum);
+	static std::shared_ptr<Mesh> CreateBox(float size);
+	static std::shared_ptr<Mesh> CreateSphere(float radius, int divWidth, int divHeight);
+	static std::shared_ptr<Mesh> CreatePlane(float size);
+	static std::shared_ptr<Mesh> CreateGround(int size, int rowNum);
 
 private:
 	tkl::Vector3 mPosition;

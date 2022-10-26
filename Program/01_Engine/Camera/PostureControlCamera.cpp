@@ -4,7 +4,7 @@
 #include "../../02_Library/Input.h"
 
 PostureControlCamera::PostureControlCamera(int screenWidth, int screenHeight)
-: Camera(screenHeight, screenHeight)
+: Camera(screenWidth, screenHeight)
 , mOnClickPos(tkl::Vector3::ZERO)
 , mMovePos(tkl::Vector3::ZERO)
 , mIsMouseMove(false)
@@ -27,10 +27,11 @@ void PostureControlCamera::Update()
 	mUpVector = tkl::Vector3::TransformCoord(tkl::Vector3::UNITY, mRotation);
 
 	// 行列
-	mViewProjection = tkl::Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
+	mViewProjection  = tkl::Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
 	mViewProjection *= tkl::Matrix::CreateLookAt(mCamPos, mTargetPos, mUpVector);
 }
 
+// 入力処理
 void PostureControlCamera::Input()
 {
 	// クリックした座標を記録する

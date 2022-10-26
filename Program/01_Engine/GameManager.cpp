@@ -7,8 +7,8 @@
 // デバッグ用
 #include <iostream>
 #include "../01_Engine/ResourceManager.h"
-Mesh* gPlane = nullptr;
-Mesh* gGridGround = nullptr;
+std::shared_ptr<Mesh> gPlane = nullptr;
+std::shared_ptr<Mesh> gGridGround = nullptr;
 int gImageHdl = 0;
 //************************************************
 
@@ -18,7 +18,7 @@ GameManager::GameManager()
 	// TODO：常木講師に確認する
 //	tkl::DrawString(100, 100, "あえいうえおあお");	// 文字列表示
 
-	gImageHdl = ResourceManager::GetInstance()->GetTextureHandle("Resource/Ship.png");
+//	gImageHdl = ResourceManager::GetInstance()->GetTextureHandle("Resource/Ship.png");
 
 	// 3D平面
 	gPlane = Mesh::CreatePlane(50);
@@ -28,7 +28,7 @@ GameManager::GameManager()
 	gGridGround = Mesh::CreateGround(50, 20);
 
 	// カメラの作成
-	mCamera = std::make_unique<PostureControlCamera>(1024, 768);
+	mCamera = std::make_shared<PostureControlCamera>(1024, 768);
 	mCamera->SetPosition(tkl::Vector3(500, 500, 500));
 }
 

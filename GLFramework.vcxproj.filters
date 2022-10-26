@@ -164,11 +164,11 @@
     <ClInclude Include="Program\01_Engine\Renderer\WireRenderer.h">
       <Filter>Program\01_Engine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Camera\Camera.h">
-      <Filter>Program\01_Engine\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\GameManager.h">
       <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera\Camera.h">
+      <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
       <Filter>Program\01_Engine\Camera</Filter>

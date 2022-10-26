@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <unordered_map>
 
 class Shader;
@@ -8,7 +9,7 @@ public:
 	static ShaderFactory* GetInstance();
 	static void DestroyInstance();
 
-	Shader* GetShader(std::string shaderName);
+	std::shared_ptr<Shader> GetShader(std::string shaderName);
 
 private:
 	ShaderFactory();
@@ -18,6 +19,5 @@ private:
 
 private:
 	static ShaderFactory* sInstance;
-
-	std::unordered_map<std::string, Shader*> mCacheShaders;
+	std::unordered_map<std::string, std::shared_ptr<Shader>> mCacheShaders;
 };

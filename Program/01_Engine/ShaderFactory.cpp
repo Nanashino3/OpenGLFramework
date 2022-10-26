@@ -23,7 +23,7 @@ void ShaderFactory::DestroyInstance()
 }
 
 // 組み立て
-Shader* ShaderFactory::GetShader(std::string shaderName)
+std::shared_ptr<Shader> ShaderFactory::GetShader(std::string shaderName)
 {
 	// シェーダを生成済か
 	auto iter = mCacheShaders.find(shaderName);
@@ -33,7 +33,7 @@ Shader* ShaderFactory::GetShader(std::string shaderName)
 	std::string vertexFile = "Shader/" + shaderName + "Vert.glsl";
 	std::string fragFile = "Shader/" + shaderName + "Frag.glsl";
 
-	Shader* shader = new Shader();
+	std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 	shader->LoadShader(vertexFile.c_str(), fragFile.c_str());
 	mCacheShaders.emplace(shaderName, shader);
 

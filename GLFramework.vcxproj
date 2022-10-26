@@ -20,7 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp" />
-    <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp" />
+    <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Program\01_Engine\GameManager.cpp" />
     <ClCompile Include="Program\01_Engine\Mesh.cpp" />
     <ClCompile Include="Program\01_Engine\Renderer\MeshRenderer.cpp" />
@@ -51,8 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\00_Game\GameMain.h" />
-    <ClInclude Include="Program\01_Engine\Camera\Camera.h" />
-    <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h" />
+    <ClInclude Include="Program\01_Engine\Camera\Camera.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Program\01_Engine\GameManager.h" />
     <ClInclude Include="Program\01_Engine\Mesh.h" />
     <ClInclude Include="Program\01_Engine\Renderer\MeshRenderer.h" />

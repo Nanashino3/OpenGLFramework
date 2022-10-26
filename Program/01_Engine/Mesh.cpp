@@ -25,9 +25,9 @@ void Mesh::Draw(std::shared_ptr<Camera> camera)
 }
 
 // ボックスの作成
-Mesh* Mesh::CreateBox(float size)
+std::shared_ptr<Mesh> Mesh::CreateBox(float size)
 {
-	Mesh* mesh = new Mesh();
+	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
 	size *= 0.5f;
@@ -85,9 +85,9 @@ Mesh* Mesh::CreateBox(float size)
 }
 
 // 球体の作成
-Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
+std::shared_ptr<Mesh> Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 {
-	Mesh* mesh = new Mesh();
+	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
 	// 頂点座標計算
@@ -135,9 +135,9 @@ Mesh* Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 }
 
 // 平面の作成
-Mesh* Mesh::CreatePlane(float size)
+std::shared_ptr<Mesh> Mesh::CreatePlane(float size)
 {
-	Mesh* mesh = new Mesh();
+	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
 	size *= 0.5f;
@@ -160,9 +160,9 @@ Mesh* Mesh::CreatePlane(float size)
 }
 
 // グリッドの作成
-Mesh* Mesh::CreateGround(int size, int rowNum)
+std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 {
-	Mesh* mesh = new Mesh();
+	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<WireRenderer>());
 
 	float l = size * rowNum * 0.5f;

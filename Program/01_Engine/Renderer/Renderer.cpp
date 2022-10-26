@@ -9,9 +9,7 @@ Renderer::Renderer(const char* shaderName)
 }
 
 Renderer::~Renderer()
-{
-	delete mShader;
-}
+{}
 
 // •`‰æw¦
 void Renderer::Draw(void* drawObject)

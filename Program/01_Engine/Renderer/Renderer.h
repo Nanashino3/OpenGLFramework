@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "../../02_Library/Matrix.h"
 
 class Shader;
@@ -15,7 +16,7 @@ private:
 	virtual void ActualDraw(void* drawObject) = 0;
 
 protected:
-	Shader* mShader;
+	std::shared_ptr<Shader> mShader;
 
 private:
 	tkl::Matrix mViewProjection;
