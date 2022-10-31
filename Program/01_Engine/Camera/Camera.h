@@ -33,6 +33,8 @@ public:
 	void SetRotation(const tkl::Quaternion& q){ mRotation = q; }
 	tkl::Quaternion GetRotation() const{ return mRotation; }
 
+	int GetScreenWidth() const{ return mScreenWidth; }
+	int GetScreenHeight() const{ return mScreenHeight; }
 	tkl::Matrix GetViewProjection() const { return mViewProjection; }
 
 	tkl::Vector3 Front(){ return tkl::Vector3::Normalize(mTargetPos - mCamPos); }

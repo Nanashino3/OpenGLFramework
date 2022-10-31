@@ -24,7 +24,7 @@ void FontManager::DestroyInstance()
 }
 
 // フォントによるテクスチャ作成
-FontManager::Font& FontManager::GetFontTexture(wchar_t once)
+FontManager::Font FontManager::GetFontTexture(wchar_t once)
 {
 	auto iter = mCacheFonts.find(once);
 	if(iter != mCacheFonts.end()){ return iter->second; }

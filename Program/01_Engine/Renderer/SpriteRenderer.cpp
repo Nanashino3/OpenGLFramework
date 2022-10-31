@@ -22,7 +22,8 @@ void SpriteRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 	if(!texture){ return; }
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
-	wm *= tkl::Matrix::CreateScale(tkl::Vector3(texture->GetTextureWidth(), texture->GetTextureHeight(), 1.0f));
+	wm *= tkl::Matrix::CreateScale(tkl::Vector3(mesh->GetScale()));
+
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 	
 	if(texture){ texture->Bind(); }

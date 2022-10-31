@@ -58,7 +58,7 @@ void GameManager::Update(float deltaTime)
 	m3DCamera->Update();
 
 	// TODO：常木講師に確認する
-	tkl::DrawString(100, 100, "あえいうえおあお", m2DCamera);	// 文字列表示
+	tkl::DrawString(0, 0, "漢字も行ける？", m2DCamera);	// 文字列表示
 
 	// オブジェクトの描画
 //	gTexture->Draw(m2DCamera);

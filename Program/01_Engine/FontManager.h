@@ -15,7 +15,7 @@ public:
 	static FontManager* GetInstance();
 	static void DestroyInstance();
 
-	Font& GetFontTexture(wchar_t once);
+	Font GetFontTexture(wchar_t once);
 private:
 	FontManager();
 	~FontManager();
