@@ -2,7 +2,6 @@
 #define _WIRERENDERER_H_
 
 #include "Renderer.h"
-
 namespace tkl
 {
 class WireRenderer : public Renderer

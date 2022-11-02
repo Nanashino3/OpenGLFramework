@@ -1,10 +1,10 @@
-#pragma once
+#ifndef _SHADER_H_
+#define _SHADER_H_
 
-namespace tkl{
-	class Matrix;
-	class Vector3;
-}
-
+namespace tkl
+{
+class Matrix;
+class Vector3;
 class Shader
 {
 public:
@@ -21,3 +21,7 @@ public:
 private:
 	unsigned int mShaderProgram;
 };
+
+} // namespace tkl
+
+#endif

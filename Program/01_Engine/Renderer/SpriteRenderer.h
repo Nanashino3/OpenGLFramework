@@ -2,7 +2,6 @@
 #define _SPRITERENDERER_H_
 
 #include "Renderer.h"
-
 namespace tkl
 {
 class SpriteRenderer : public Renderer

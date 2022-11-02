@@ -8,6 +8,8 @@
 #include "../02_Library/Matrix.h"
 #include "../02_Library/Vector.h"
 
+namespace tkl
+{
 unsigned int Load(const char* vertexFile, const char* flagFile);
 bool ReadShaderFile(const char* fileName, std::vector<char>& buffer);
 unsigned int CreateShader(const char* vertexSrc, const char* fragmentSrc);
@@ -174,3 +176,5 @@ bool PrintProgramInfoLog(unsigned int program)
 
 	return static_cast<bool>(status);
 }
+
+} // namespace tkl

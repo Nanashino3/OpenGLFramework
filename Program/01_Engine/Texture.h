@@ -1,5 +1,8 @@
-#pragma once
+#ifndef _TEXTURE_H_
+#define _TEXTURE_H_
 
+namespace tkl
+{
 class Texture
 {
 public:
@@ -16,3 +19,7 @@ private:
 	int mTextureW;
 	int mTextureH;
 };
+
+} // namespace tkl
+
+#endif

@@ -4,9 +4,9 @@
 #include <memory>
 #include <unordered_map>
 
-class Texture;
 namespace tkl
 {
+class Texture;
 class FontManager
 {
 public:

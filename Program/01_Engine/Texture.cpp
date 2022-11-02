@@ -1,6 +1,8 @@
 #include "Texture.h"
 #include <GL/glew.h>
 
+namespace tkl
+{
 Texture::Texture(int width, int height, void* pixels, int channels)
 {
 	mTextureW = width;
@@ -25,3 +27,5 @@ void Texture::Bind()
 //	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindTexture(GL_TEXTURE_2D, mTextureID);
 }
+
+} // namespace tkl

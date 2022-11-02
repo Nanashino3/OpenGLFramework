@@ -3,6 +3,8 @@
 #include <iostream>
 #include "../02_Library/Input.h"
 
+namespace tkl
+{
 System::System()
 : mWindow(nullptr)
 {}
@@ -66,3 +68,5 @@ void System::Finalize()
 {
 	glfwTerminate();
 }
+
+} // namespace tkl

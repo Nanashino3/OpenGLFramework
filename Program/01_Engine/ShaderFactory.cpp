@@ -1,8 +1,8 @@
 #include "ShaderFactory.h"
-
 #include "Shader.h"
 
-// ƒVƒ“ƒOƒ‹ƒgƒ“
+namespace tkl
+{
 ShaderFactory* ShaderFactory::sInstance = nullptr;
 ShaderFactory::ShaderFactory()
 {}
@@ -39,3 +39,5 @@ std::shared_ptr<Shader> ShaderFactory::GetShader(std::string shaderName)
 
 	return shader;
 }
+
+} // namespace tkl

@@ -1,7 +1,10 @@
-#pragma once
+#ifndef _SHADERFACTORY_H_
+#define _SHADERFACTORY_H_
 #include <memory>
 #include <unordered_map>
 
+namespace tkl
+{
 class Shader;
 class ShaderFactory
 {
@@ -21,3 +24,7 @@ private:
 	static ShaderFactory* sInstance;
 	std::unordered_map<std::string, std::shared_ptr<Shader>> mCacheShaders;
 };
+
+} // namespace tkl
+
+#endif

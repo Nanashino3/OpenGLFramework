@@ -4,20 +4,19 @@
 #include "../02_Library/Vector.h"
 #include "../02_Library/Quaternion.h"
 
-class Texture;
-class VertexArray;
-
 namespace tkl
 {
 class Camera;
 class Renderer;
+class Texture;
+class VertexArray;
 class Mesh : public std::enable_shared_from_this<Mesh>
 {
 public:
 	Mesh();
 	~Mesh();
 
-	void Draw(std::shared_ptr<tkl::Camera> camera);
+	void Draw(std::shared_ptr<Camera> camera);
 
 	void SetPosition(const tkl::Vector3& pos){ mPosition = pos; }
 	tkl::Vector3 GetPosition() const{ return mPosition; }
@@ -34,8 +33,8 @@ public:
 	void SetVertex(std::shared_ptr<VertexArray> vertex){ mVertexArray = vertex; }
 	std::shared_ptr<VertexArray> GetVertex() const { return mVertexArray; }
 
-	void SetRenderer(std::shared_ptr<tkl::Renderer> renderer){ mRenderer = renderer; }
-	std::shared_ptr<tkl::Renderer> GetRenderer() const { return mRenderer; }
+	void SetRenderer(std::shared_ptr<Renderer> renderer){ mRenderer = renderer; }
+	std::shared_ptr<Renderer> GetRenderer() const { return mRenderer; }
 
 	static std::shared_ptr<Mesh> CreateBox(float size);
 	static std::shared_ptr<Mesh> CreateSphere(float radius, int divWidth, int divHeight);
@@ -48,7 +47,7 @@ private:
 	tkl::Quaternion mRotation;
 	tkl::Vector3 mScale;
 
-	std::shared_ptr<tkl::Renderer> mRenderer;
+	std::shared_ptr<Renderer> mRenderer;
 	std::shared_ptr<Texture> mTexture;
 	std::shared_ptr<VertexArray> mVertexArray;
 };

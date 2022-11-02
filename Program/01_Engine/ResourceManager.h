@@ -1,7 +1,10 @@
-#pragma once
+#ifndef _RESOURCEMANAGER_H_
+#define _RESOURCEMANAGER_H_
 #include <memory>
 #include <unordered_map>
 
+namespace tkl
+{
 class Texture;
 class ResourceManager
 {
@@ -23,3 +26,7 @@ private:
 	static ResourceManager* sMyInstance;
 	std::unordered_map<const char*, std::shared_ptr<Texture>> mCacheTextures;		// IDとテクスチャクラスを紐づける
 };
+
+} // namespace tkl
+
+#endif

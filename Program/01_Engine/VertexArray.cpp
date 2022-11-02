@@ -1,6 +1,8 @@
 #include "VertexArray.h"
 #include <GL/glew.h>
 
+namespace tkl
+{
 VertexArray::VertexArray(unsigned int vertexNum, const VERTEX* vertices, unsigned int indexNum, const int* indices)
 : mVertexNum(vertexNum)
 , mIndexNum(indexNum)
@@ -46,3 +48,5 @@ void VertexArray::Bind() const
 {
 	glBindVertexArray(mVertexArray);
 }
+
+} // namespace tkl

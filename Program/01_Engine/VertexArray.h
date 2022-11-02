@@ -1,5 +1,8 @@
-#pragma once
+#ifndef _VERTEXARRAY_H_
+#define _VERTEXARRAY_H_
 
+namespace tkl
+{
 class VertexArray
 {
 public:
@@ -25,3 +28,7 @@ private:
 	unsigned int mVertexBuffer;
 	unsigned int mIndexBuffer;
 };
+
+} // namespace tkl
+
+#endif

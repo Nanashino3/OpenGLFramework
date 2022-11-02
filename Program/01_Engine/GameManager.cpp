@@ -24,20 +24,20 @@ GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
 	// 3Dボックス
-	gCube = tkl::Mesh::CreateBox(50);
+	gCube = Mesh::CreateBox(50);
  
 	// 3D平面
 //	gPlane = Mesh::CreatePlane(50);
 //	gPlane->SetTexture(ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
 
 	// グリッド
-	gGridGround = tkl::Mesh::CreateGround(50, 20);
+	gGridGround = Mesh::CreateGround(50, 20);
 
 	// 2D空間用のカメラ作成
-	m2DCamera = std::make_shared<tkl::FixedCamera>(1024, 768);
+	m2DCamera = std::make_shared<FixedCamera>(1024, 768);
 
 	// 3D空間用のカメラ作成
-	m3DCamera = std::make_shared<tkl::PostureControlCamera>(1024, 768);
+	m3DCamera = std::make_shared<PostureControlCamera>(1024, 768);
 #if 1
 	m3DCamera->SetPosition(tkl::Vector3(500, 500, 500));
 #else

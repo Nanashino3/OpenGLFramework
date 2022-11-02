@@ -3,6 +3,8 @@
 #include <SOIL.h>
 #include "Texture.h"
 
+namespace tkl
+{
 ResourceManager* ResourceManager::sMyInstance = nullptr;
 ResourceManager::ResourceManager()
 {}
@@ -38,3 +40,5 @@ std::shared_ptr<Texture> ResourceManager::CreateTextureFromFile(const char* file
 	SOIL_free_image_data(image);
 	return newTexture;
 }
+
+} // namespace tkl
