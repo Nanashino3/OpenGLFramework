@@ -183,7 +183,7 @@ Matrix Matrix::CreateInverseMatrix(const Matrix& m)
 {
 	Matrix temp;
 	temp.LoadIdentity();
-#if 1
+
 	float* m1 = m.GetData();
 	float* m2 = temp.GetData();
 
@@ -251,102 +251,6 @@ Matrix Matrix::CreateInverseMatrix(const Matrix& m)
 			m2[i * 4 + k] /= plu[i][i];
 		}
 	}
-
-#else
-	float src[16];
-	src[0]  = m2[0];
-	src[4]  = m2[1];
-	src[8]  = m2[2];
-	src[12] = m2[3];
-
-	src[1]  = m2[4];
-	src[5]  = m2[5];
-	src[9]  = m2[6];
-	src[13] = m2[7];
-
-	src[2]  = m2[8];
-	src[6]  = m2[9];
-	src[10] = m2[10];
-	src[14] = m2[11];
-	
-	src[3]  = m2[12];
-	src[7]  = m2[13];
-	src[11] = m2[14];
-	src[15] = m2[15];
-
-	float temp[12];
-	temp[0]  = src[10] * src[15];
-	temp[1]  = src[11] * src[14];
-	temp[2]  = src[9]  * src[15];
-	temp[3]  = src[11] * src[13];
-	temp[4]  = src[9]  * src[14];
-	temp[5]  = src[10] * src[13];
-	temp[6]  = src[8]  * src[15];
-	temp[7]  = src[11] * src[12];
-	temp[8]  = src[8]  * src[14];
-	temp[9]  = src[10] * src[12];
-	temp[10] = src[8]  * src[13];
-	temp[11] = src[9]  * src[12];
-
-	float dest[16];
-	dest[0]  = temp[0] * src[5] + temp[3] * src[6] + temp[4]  * src[7];
-	dest[0] -= temp[1] * src[5] + temp[2] * src[6] + temp[5]  * src[7];
-	dest[1]  = temp[1] * src[4] + temp[6] * src[6] + temp[9]  * src[7];
-	dest[1] -= temp[0] * src[4] + temp[7] * src[6] + temp[8]  * src[7];
-	dest[2]  = temp[2] * src[4] + temp[7] * src[5] + temp[10] * src[7];
-	dest[2] -= temp[3] * src[4] + temp[6] * src[5] + temp[11] * src[7];
-	dest[3]  = temp[5] * src[4] + temp[8] * src[5] + temp[11] * src[6];
-	dest[3] -= temp[4] * src[4] + temp[9] * src[5] + temp[10] * src[6];
-	dest[4]  = temp[1] * src[1] + temp[2] * src[2] + temp[5]  * src[3];
-	dest[4] -= temp[0] * src[1] + temp[3] * src[2] + temp[4]  * src[3];
-	dest[5]  = temp[0] * src[0] + temp[7] * src[2] + temp[8]  * src[3];
-	dest[5] -= temp[1] * src[0] + temp[6] * src[2] + temp[9]  * src[3];
-	dest[6]  = temp[3] * src[0] + temp[6] * src[1] + temp[11] * src[3];
-	dest[6] -= temp[2] * src[0] + temp[7] * src[1] + temp[10] * src[3];
-	dest[7]  = temp[4] * src[0] + temp[9] * src[1] + temp[10] * src[2];
-	dest[7] -= temp[5] * src[0] + temp[8] * src[1] + temp[11] * src[2];
-
-	temp[0]  = src[2] * src[7];
-	temp[1]  = src[3] * src[6];
-	temp[2]  = src[1] * src[7];
-	temp[3]  = src[3] * src[5];
-	temp[4]  = src[1] * src[6];
-	temp[5]  = src[2] * src[5];
-	temp[6]  = src[0] * src[7];
-	temp[7]  = src[3] * src[4];
-	temp[8]  = src[0] * src[6];
-	temp[9]  = src[2] * src[4];
-	temp[10] = src[0] * src[5];
-	temp[11] = src[1] * src[4];
-
-	dest[8]   = temp[0]  * src[13] + temp[3]  * src[14] + temp[4]  * src[15];
-	dest[8]  -= temp[1]  * src[13] + temp[2]  * src[14] + temp[5]  * src[15];
-	dest[9]   = temp[1]  * src[12] + temp[6]  * src[14] + temp[9]  * src[15];
-	dest[9]  -= temp[0]  * src[12] + temp[7]  * src[14] + temp[8]  * src[15];
-	dest[10]  = temp[2]  * src[12] + temp[7]  * src[13] + temp[10] * src[15];
-	dest[10] -= temp[3]  * src[12] + temp[6]  * src[13] + temp[11] * src[15];
-	dest[11]  = temp[5]  * src[12] + temp[8]  * src[13] + temp[11] * src[14];
-	dest[11] -= temp[4]  * src[12] + temp[9]  * src[13] + temp[10] * src[14];
-	dest[12]  = temp[2]  * src[10] + temp[5]  * src[11] + temp[1]  * src[9];
-	dest[12] -= temp[4]  * src[11] + temp[0]  * src[9]  + temp[3]  * src[10];
-	dest[13]  = temp[8]  * src[11] + temp[0]  * src[8]  + temp[7]  * src[10];
-	dest[13] -= temp[6]  * src[10] + temp[9]  * src[11] + temp[1]  * src[8];
-	dest[14]  = temp[6]  * src[9]  + temp[11] * src[11] + temp[3]  * src[8];
-	dest[14] -= temp[10] * src[11] + temp[2]  * src[8]  + temp[7]  * src[9];
-	dest[15]  = temp[10] * src[10] + temp[4]  * src[8]  + temp[9]  * src[9];
-	dest[15] -= temp[8]  * src[9]  + temp[11] * src[10] + temp[5]  * src[8];
-
-	float det = src[0] * dest[0] + src[1] * dest[1] + src[2] * dest[2] + src[3] * dest[3];
-	det = 1.0f / det;
-
-	for(int i = 0; i < 16; ++i){
-		dest[i] *= det;
-	}
-
-	for(int i = 0; i < 16; ++i){
-		m1[i] = dest[i];
-	}
-#endif
 
 	return temp;
 }

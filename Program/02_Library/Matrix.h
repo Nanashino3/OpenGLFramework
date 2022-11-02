@@ -8,6 +8,16 @@ class Quaternion;
 class Matrix
 {
 public:
+	union {
+		struct {
+			float _11, _21, _31, _41;
+			float _12, _22, _32, _42;
+			float _13, _23, _33, _43;
+			float _14, _24, _34, _44;
+		};
+		float mMatrix[16];
+	};
+
 	Matrix();
 	~Matrix();
 
@@ -32,17 +42,6 @@ public:
 
 private:
 	void LoadIdentity();
-
-private:
-	union {
-		struct{
-			float _11, _21, _31, _41;
-			float _12, _22, _32, _42;
-			float _13, _23, _33, _43;
-			float _14, _24, _34, _44;
-		};
-		float mMatrix[16];
-	};
 };
 
 } // namespace tkl

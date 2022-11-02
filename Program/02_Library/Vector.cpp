@@ -118,8 +118,7 @@ Vector3 Vector3::TransformCoord(const Vector3& v, const Matrix& m)
 	tkl::Matrix tm = tkl::Matrix::CreateTranslation(v) ;
 	tkl::Matrix wm = m * tm;
 
-	float* data = wm.GetData() ;
-	return Vector3(data[12], data[13], data[14]);
+	return Vector3(wm._14, wm._24, wm._34);
 }
 
 // スクリーン上にレイを作成

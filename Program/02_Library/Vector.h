@@ -7,7 +7,12 @@ class Quaternion;
 class Vector3
 {
 public:
-	float mX, mY, mZ;
+	union{
+		struct{
+			float mX, mY, mZ;
+		};
+		float mVec[3];
+	};
 
 	Vector3() : mX(0), mY(0), mZ(0){}
 	Vector3(float x, float y, float z) : mX(x), mY(y), mZ(z){}
@@ -25,7 +30,7 @@ public:
 	Vector3& operator*=(float s);
 
 	// ベクトルの配列を返す
-	const float* GetData() const { return reinterpret_cast<const float*>(&mX); }
+	float* GetData() const { return (float*)(&mVec[0]); }
 
 	static Vector3 Cross(const Vector3& v1, const Vector3& v2);
 	static float Dot(const Vector3& v1, const Vector3& v2);
