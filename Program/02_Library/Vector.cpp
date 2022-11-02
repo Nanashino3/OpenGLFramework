@@ -14,6 +14,59 @@ const Vector3 Vector3::NEG_UNITX(-1,  0,  0);
 const Vector3 Vector3::NEG_UNITY( 0, -1,  0);
 const Vector3 Vector3::NEG_UNITZ( 0,  0, -1);
 
+//******************************************************
+// ベクトル同士
+Vector3 Vector3::operator+(const Vector3& a) const
+{
+	return Vector3(mX + a.mX, mY + a.mY, mZ + a.mZ);
+}
+Vector3& Vector3::operator+=(const Vector3& a)
+{
+	*this = *this + a;
+	return *this;
+}
+Vector3 Vector3::operator-(const Vector3& a) const
+{
+	return Vector3(mX - a.mX, mY - a.mY, mZ - a.mZ);
+}
+Vector3& Vector3::operator-=(const Vector3& a)
+{
+	*this = *this - a;
+	return *this;
+}
+//******************************************************
+
+//******************************************************
+// ベクトルと定数計算
+Vector3 Vector3::operator+(float s) const
+{
+	return Vector3(mX + s, mY + s, mZ + s);
+}
+Vector3& Vector3::operator+=(float s)
+{
+	*this = *this + s;
+	return *this;
+}
+Vector3 Vector3::operator-(float s) const
+{
+	return Vector3(mX - s, mY - s, mZ - s);
+}
+Vector3& Vector3::operator-=(float s)
+{
+	*this = *this - s;
+	return *this;
+}
+Vector3 Vector3::operator*(float s) const
+{
+	return Vector3(mX * s, mY * s, mZ * s);
+}
+Vector3& Vector3::operator*=(float s)
+{
+	*this = *this * s;
+	return *this;
+}
+//******************************************************
+
 // ベクトルの正規化
 Vector3 Vector3::Normalize(const Vector3& v)
 {
@@ -26,6 +79,22 @@ Vector3 Vector3::Normalize(const Vector3& v)
 	temp.mZ = v.mZ * length;
 
 	return temp;
+}
+
+// ベクトルの外積
+Vector3 Vector3::Cross(const Vector3& v1, const Vector3& v2)
+{
+	Vector3 temp;
+	temp.mX = v1.mY * v2.mZ - v1.mZ * v2.mY;
+	temp.mY = v1.mZ * v2.mX - v1.mX * v2.mZ;
+	temp.mZ = v1.mX * v2.mY - v1.mY * v2.mX;
+	return temp;
+}
+
+// ベクトルの内積
+float Vector3::Dot(const Vector3& v1, const Vector3& v2)
+{
+	return v1.mX * v2.mX + v1.mY * v2.mY + v1.mZ * v2.mZ;
 }
 
 // ベクトルをクォータニオンに射影する
