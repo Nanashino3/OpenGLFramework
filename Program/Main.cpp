@@ -10,7 +10,7 @@ int main()
 		exit(1);
 	}
 
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	float deltaTime = 0.0f;
 	while(!system.ProcessMessage()){

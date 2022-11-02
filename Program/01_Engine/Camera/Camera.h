@@ -35,6 +35,9 @@ public:
 
 	int GetScreenWidth() const{ return mScreenWidth; }
 	int GetScreenHeight() const{ return mScreenHeight; }
+
+	tkl::Matrix GetView() const { return mView; }
+	tkl::Matrix GetProjection() const { return mProjection; }
 	tkl::Matrix GetViewProjection() const { return mViewProjection; }
 
 	tkl::Vector3 Front(){ return tkl::Vector3::Normalize(mTargetPos - mCamPos); }
@@ -54,5 +57,7 @@ protected:
 	float mNear;	// •\¦”ÍˆÍ(Å‹ß‹——£)
 	float mFar;		// •\¦”ÍˆÍ(Å‰“‹——£)
 
+	tkl::Matrix mView;
+	tkl::Matrix mProjection;
 	tkl::Matrix mViewProjection;
 };

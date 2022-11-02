@@ -7,7 +7,7 @@
 
 namespace tkl
 {
-// TODO：一部の文字がうまく表示できない問題あり
+// TODO：一部の文字がうまく表示できない問題あり(未完成)
 void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera)
 {
 	wchar_t buff[256] = {0};
@@ -40,6 +40,7 @@ void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<
 		mesh->SetScale(tkl::Vector3(currentFont.strWidth, currentFont.strHeight, 1.0f));
 		mesh->Draw(camera);
 
+		// 次の文字位置計算用
 		prevPosX = strPosX;
 		prevFont = currentFont;
 	}

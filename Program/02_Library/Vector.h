@@ -2,6 +2,7 @@
 
 namespace tkl
 {
+class Matrix;
 class Quaternion;
 class Vector3
 {
@@ -35,6 +36,13 @@ public:
 		*this = *this + s;
 		return *this;
 	}
+	friend Vector3 operator-(const Vector3& a, float s) {
+		return Vector3(a.mX - s, a.mY - s, a.mZ - s);
+	}
+	Vector3 operator-=(float s) {
+		*this = *this - s;
+		return *this;
+	}
 	friend Vector3 operator*(const Vector3& v, float scalar)
 	{
 		return Vector3(v.mX * scalar, v.mY * scalar, v.mZ * scalar);
@@ -61,6 +69,8 @@ public:
 
 	static Vector3 Normalize(const Vector3& v);
 	static Vector3 TransformCoord(const Vector3& v, const Quaternion& q);
+	static Vector3 TransformCoord(const Vector3& v, const Matrix& m);
+	static Vector3 CreateScreenRay(int screenX, int screenY, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection);
 
 	static const Vector3 ZERO;
 	static const Vector3 UNITX;

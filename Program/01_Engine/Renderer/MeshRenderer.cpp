@@ -31,6 +31,10 @@ void MeshRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 	std::shared_ptr<Texture> texture = mesh->GetTexture();
 	if(texture){ texture->Bind(); }
 
+	glFrontFace(GL_CCW);
+	glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
+
 	// 描画を有効化する
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();
@@ -40,12 +44,16 @@ void MeshRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 // ライティングの設定
 void MeshRenderer::SetLightUniforms()
 {
+	//*****************************************************
+	// TODO：カメラ位置は外から設定できるようにする
 	tkl::Vector3 camPos = tkl::Vector3(0.0f, 1.0f, 0.0f);
+	mShader->SetVectorUniform("uCameraPos", camPos);
+	//*****************************************************
+
 	tkl::Vector3 ambientLight = tkl::Vector3(0.2f, 0.2f, 0.2f);
 	tkl::Vector3 dirLightDirection = tkl::Vector3(0.0f, -1.0f, 0.0f);
-	tkl::Vector3 dirLightDiffuseColor = tkl::Vector3(1.0f, 1.0f, 1.0f);
+	tkl::Vector3 dirLightDiffuseColor = tkl::Vector3(0.8f, 0.8f, 0.8f);
 
-	mShader->SetVectorUniform("uCameraPos", camPos);
 	mShader->SetVectorUniform("uAmbientColor", ambientLight);
 	mShader->SetVectorUniform("uDirLight.mDirection", dirLightDirection);
 	mShader->SetVectorUniform("uDirLight.mDiffuseColor", dirLightDiffuseColor);

@@ -26,6 +26,7 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\FontManager.cpp" />
     <ClCompile Include="Program\01_Engine\GameManager.cpp" />
+    <ClCompile Include="Program\01_Engine\Intersect.cpp" />
     <ClCompile Include="Program\01_Engine\Mesh.cpp" />
     <ClCompile Include="Program\01_Engine\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="Program\01_Engine\Renderer\Renderer.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="Program\01_Engine\VertexArray.cpp" />
     <ClCompile Include="Program\02_Library\FontTexture.cpp" />
     <ClCompile Include="Program\02_Library\Input.cpp" />
+    <ClCompile Include="Program\02_Library\Math.cpp" />
     <ClCompile Include="Program\02_Library\Matrix.cpp" />
     <ClCompile Include="Program\02_Library\Quaternion.cpp" />
     <ClCompile Include="Program\02_Library\Utility.cpp" />
@@ -65,6 +67,7 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\FontManager.h" />
     <ClInclude Include="Program\01_Engine\GameManager.h" />
+    <ClInclude Include="Program\01_Engine\Intersect.h" />
     <ClInclude Include="Program\01_Engine\Mesh.h" />
     <ClInclude Include="Program\01_Engine\Renderer\MeshRenderer.h" />
     <ClInclude Include="Program\01_Engine\Renderer\Renderer.h" />

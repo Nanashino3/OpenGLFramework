@@ -1,6 +1,7 @@
 #include "Vector.h"
 
 #include <cmath>
+#include "Matrix.h"
 #include "Quaternion.h"
 
 namespace tkl
@@ -27,7 +28,7 @@ Vector3 Vector3::Normalize(const Vector3& v)
 	return temp;
 }
 
-// ベクトルをクォータニオンで回転させる
+// ベクトルをクォータニオンに射影する
 Vector3 Vector3::TransformCoord(const Vector3& v, const Quaternion& q)
 {
 	float w = -q.mX * v.mX - q.mY * v.mY - q.mZ * v.mZ;
@@ -40,6 +41,40 @@ Vector3 Vector3::TransformCoord(const Vector3& v, const Quaternion& q)
 	float vz = x * -q.mY + y * q.mX - w * q.mZ + z * q.mW;
 
 	return Vector3(vx, vy, vz);
+}
+
+// ベクトルをマトリックスに射影する
+Vector3 Vector3::TransformCoord(const Vector3& v, const Matrix& m)
+{
+	tkl::Matrix tm = tkl::Matrix::CreateTranslation(v) ;
+	tkl::Matrix wm = m * tm;
+
+	float* data = wm.GetData() ;
+	return Vector3(data[12], data[13], data[14]);
+}
+
+// スクリーン上にレイを作成
+Vector3 Vector3::CreateScreenRay(int screenX, int screenY, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection)
+{
+	// ビューポート行列を作成
+	Matrix viewport = tkl::Matrix::CreateViewport(screenW, screenH);
+
+	// スクリーン座標からワールド座標を計算
+	Matrix tempView = view;
+	tempView[12] = 0.0f;
+	tempView[13] = 0.0f;
+	tempView[14] = 0.0f;
+	
+	Matrix invViewport = tkl::Matrix::CreateInverseMatrix(viewport);
+	Matrix invProjection = tkl::Matrix::CreateInverseMatrix(projection);
+	Matrix invView = tkl::Matrix::CreateInverseMatrix(tempView);
+	Matrix tempMatrix = invView * invProjection * invViewport;
+
+	Vector3 tempVector = tkl::Vector3(static_cast<float>(screenX),
+									  static_cast<float>(screenY),
+									  0.0f);
+
+	return tkl::Vector3::TransformCoord(tempVector, tempMatrix);
 }
 
 } // namespace tkl
