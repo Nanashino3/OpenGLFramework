@@ -8,6 +8,8 @@
 #include "Renderer/SpriteRenderer.h"
 #include "../02_Library/Math.h"
 
+namespace tkl
+{
 Mesh::Mesh()
 : mPosition(tkl::Vector3(0, 0, 0))
 , mRotation(tkl::Quaternion())
@@ -226,3 +228,5 @@ std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
 	mesh->SetVertex(std::make_shared<VertexArray>(4, vertices, indicesNum, indices));
 	return mesh;
 }
+
+} // namespace tkl

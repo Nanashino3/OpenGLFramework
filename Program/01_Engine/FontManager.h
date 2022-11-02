@@ -1,8 +1,12 @@
-#pragma once
+#ifndef _FONTMANAGER_H_
+#define _FONTMANAGER_H_
+
 #include <memory>
 #include <unordered_map>
 
 class Texture;
+namespace tkl
+{
 class FontManager
 {
 public:
@@ -27,3 +31,7 @@ private:
 	static FontManager* sMyInstance;
 	std::unordered_map<wchar_t, Font> mCacheFonts;
 };
+
+} // namespace tkl
+
+#endif

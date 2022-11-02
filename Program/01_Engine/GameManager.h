@@ -1,12 +1,12 @@
-#pragma once
+#ifndef _GAMEMANAGER_H_
+#define _GAMEMANAGER_H_
 #include <memory>
 #include <vector>
 
-namespace tkl{
+namespace tkl
+{
 class FixedCamera;
 class PostureControlCamera;
-}
-
 class GameManager
 {
 public:
@@ -26,3 +26,7 @@ private:
 	std::shared_ptr<tkl::FixedCamera> m2DCamera;
 	std::shared_ptr<tkl::PostureControlCamera> m3DCamera;
 };
+
+} // namespace tkl
+
+#endif

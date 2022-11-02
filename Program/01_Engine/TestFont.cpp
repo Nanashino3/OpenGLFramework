@@ -13,11 +13,11 @@ void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<
 	wchar_t buff[256] = {0};
 	tkl::ToWChara(buff, 256, str);
 
-	FontManager* manager = FontManager::GetInstance();
+	tkl::FontManager* manager = tkl::FontManager::GetInstance();
 	std::shared_ptr<Mesh> mesh = Mesh::CreatePlaneForTexture();
 
 	float prevPosX = 0.0f;
-	FontManager::Font prevFont = { nullptr, 0, 0 }, currentFont = { nullptr, 0, 0 };
+	tkl::FontManager::Font prevFont = { nullptr, 0, 0 }, currentFont = { nullptr, 0, 0 };
 	for(int i = 0; i < wcslen(buff); ++i){
 		currentFont = manager->GetFontTexture(buff[i]);
 		float prevFontX = static_cast<float>(prevFont.strWidth * 0.5f);

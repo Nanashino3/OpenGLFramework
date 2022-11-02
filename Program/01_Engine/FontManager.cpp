@@ -1,8 +1,9 @@
 #include "FontManager.h"
-
 #include "Texture.h"
 #include "../02_Library/FontTexture.h"
 
+namespace tkl
+{
 FontManager* FontManager::sMyInstance = nullptr;
 FontManager::FontManager()
 {}
@@ -43,3 +44,5 @@ FontManager::Font FontManager::GetFontTexture(wchar_t once)
 
 	return font;
 }
+
+} // namespace tkl

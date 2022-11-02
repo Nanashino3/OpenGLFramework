@@ -4,11 +4,11 @@
 #include <memory>
 #include "../../02_Library/Matrix.h"
 
-class Mesh;
 class Shader;
 
 namespace tkl
 {
+class Mesh;
 class Renderer
 {
 public:

@@ -12,7 +12,7 @@ public:
 	virtual ~MeshRenderer();
 
 private:
-	virtual void ActualDraw(std::shared_ptr<Mesh> mesh) final;
+	virtual void ActualDraw(std::shared_ptr<tkl::Mesh> mesh) final;
 	void SetLightUniforms();
 };
 

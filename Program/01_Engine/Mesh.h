@@ -1,16 +1,16 @@
-#pragma once
+#ifndef _MESH_H_
+#define _MESH_H_
 #include <memory>
 #include "../02_Library/Vector.h"
-#include "../02_Library/Matrix.h"
 #include "../02_Library/Quaternion.h"
 
-namespace tkl{
-class Camera;
-class Renderer;
-}
 class Texture;
 class VertexArray;
 
+namespace tkl
+{
+class Camera;
+class Renderer;
 class Mesh : public std::enable_shared_from_this<Mesh>
 {
 public:
@@ -52,3 +52,7 @@ private:
 	std::shared_ptr<Texture> mTexture;
 	std::shared_ptr<VertexArray> mVertexArray;
 };
+
+} // namespace tkl
+
+#endif

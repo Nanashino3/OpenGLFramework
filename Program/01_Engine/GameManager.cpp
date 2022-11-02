@@ -12,24 +12,26 @@
 #include "../01_Engine/Intersect.h"
 #include "../02_Library/Math.h"
 #include "../02_Library/Input.h"
-std::shared_ptr<Mesh> gCube = nullptr;
-std::shared_ptr<Mesh> gPlane = nullptr;
-std::shared_ptr<Mesh> gGridGround = nullptr;
+std::shared_ptr<tkl::Mesh> gCube = nullptr;
+std::shared_ptr<tkl::Mesh> gPlane = nullptr;
+std::shared_ptr<tkl::Mesh> gGridGround = nullptr;
 tkl::Quaternion gRotation;
 //************************************************
 
+namespace tkl
+{
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
 	// 3Dボックス
-	gCube = Mesh::CreateBox(50);
+	gCube = tkl::Mesh::CreateBox(50);
  
 	// 3D平面
 //	gPlane = Mesh::CreatePlane(50);
 //	gPlane->SetTexture(ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
 
 	// グリッド
-	gGridGround = Mesh::CreateGround(50, 20);
+	gGridGround = tkl::Mesh::CreateGround(50, 20);
 
 	// 2D空間用のカメラ作成
 	m2DCamera = std::make_shared<tkl::FixedCamera>(1024, 768);
@@ -85,3 +87,5 @@ void GameManager::Update(float deltaTime)
 	gCube->Draw(m3DCamera);
 	gGridGround->Draw(m3DCamera);
 }
+
+} // namespace tkl

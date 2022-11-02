@@ -15,7 +15,7 @@ MeshRenderer::MeshRenderer(const char* shaderName)
 MeshRenderer::~MeshRenderer()
 {}
 
-void MeshRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
+void MeshRenderer::ActualDraw(std::shared_ptr<tkl::Mesh> mesh)
 {
 	if (!mesh) { return; }
 
