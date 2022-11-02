@@ -3,6 +3,8 @@
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Input.h"
 
+namespace tkl
+{
 PostureControlCamera::PostureControlCamera(int screenWidth, int screenHeight)
 : Camera(screenWidth, screenHeight)
 , mOnClickPos(tkl::Vector3::ZERO)
@@ -87,3 +89,5 @@ void PostureControlCamera::Move()
 		mRotation *= tkl::Quaternion::RotationAxis({ 0, 1, 0 }, tkl::ToRadian(dx * 5.0f));
 	}
 }
+
+} // namespace tkl

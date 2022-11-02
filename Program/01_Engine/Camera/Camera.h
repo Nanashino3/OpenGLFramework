@@ -1,8 +1,12 @@
-#pragma once
+#ifndef _CAMERA_H_
+#define _CAMERA_H_
+
 #include "../../02_Library/Vector.h"
 #include "../../02_Library/Quaternion.h"
 #include "../../02_Library/Matrix.h"
 
+namespace tkl
+{
 class Camera
 {
 public:
@@ -61,3 +65,7 @@ protected:
 	tkl::Matrix mProjection;
 	tkl::Matrix mViewProjection;
 };
+
+} // namespace tkl
+
+#endif

@@ -2,11 +2,12 @@
 
 #include <GL/glew.h>
 #include "../Mesh.h"
-#include "../Texture.h"
 #include "../Shader.h"
+#include "../Texture.h"
 #include "../VertexArray.h"
-#include "../../02_Library/Vector.h"
 
+namespace tkl
+{
 SpriteRenderer::SpriteRenderer(const char* shaderName)
 : Renderer(shaderName)
 {}
@@ -32,3 +33,5 @@ void SpriteRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 	va->Bind();
 	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
 }
+
+} // namespace tkl

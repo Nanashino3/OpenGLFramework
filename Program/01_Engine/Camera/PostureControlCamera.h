@@ -1,8 +1,12 @@
-#pragma once
+#ifndef _POSTURECONTROLCAMERA_H_
+#define _POSTURECONTROLCAMERA_H_
+
 #include "Camera.h"
 #include "../../02_Library/Vector.h"
 #include "../../02_Library/Quaternion.h"
 
+namespace tkl
+{
 class PostureControlCamera : public Camera
 {
 public:
@@ -20,3 +24,7 @@ private:
 	tkl::Vector3 mMovePos;
 	bool mIsMouseMove;
 };
+
+} // namespace tkl
+
+#endif

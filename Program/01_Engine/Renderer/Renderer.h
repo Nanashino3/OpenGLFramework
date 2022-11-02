@@ -1,9 +1,14 @@
-#pragma once
+#ifndef _RENDERER_H_
+#define _RENDERER_H_
+
 #include <memory>
 #include "../../02_Library/Matrix.h"
 
 class Mesh;
 class Shader;
+
+namespace tkl
+{
 class Renderer
 {
 public:
@@ -18,7 +23,9 @@ private:
 
 protected:
 	std::shared_ptr<Shader> mShader;
-
-private:
 	tkl::Matrix mViewProjection;
 };
+
+} // namespace tkl
+
+#endif

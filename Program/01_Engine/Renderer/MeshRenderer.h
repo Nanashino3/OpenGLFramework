@@ -1,6 +1,10 @@
-#pragma once
+#ifndef _MESHRENDERER_H_
+#define _MESHRENDERER_H_
 
 #include "Renderer.h"
+
+namespace tkl
+{
 class MeshRenderer : public Renderer
 {
 public:
@@ -11,3 +15,7 @@ private:
 	virtual void ActualDraw(std::shared_ptr<Mesh> mesh) final;
 	void SetLightUniforms();
 };
+
+} // namespace tkl
+
+#endif

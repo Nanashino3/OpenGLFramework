@@ -3,6 +3,8 @@
 #include "../Shader.h"
 #include "../ShaderFactory.h"
 
+namespace tkl
+{
 Renderer::Renderer(const char* shaderName)
 {
 	mShader = ShaderFactory::GetInstance()->GetShader(shaderName);
@@ -20,3 +22,5 @@ void Renderer::Draw(std::shared_ptr<Mesh> mesh)
 	// ‹ïÛƒNƒ‰ƒX‘¤‚Ì•`‰æˆ—
 	ActualDraw(mesh);
 }
+
+} // namespace tkl

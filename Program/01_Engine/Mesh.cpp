@@ -19,7 +19,7 @@ Mesh::Mesh()
 Mesh::~Mesh()
 {}
 
-void Mesh::Draw(std::shared_ptr<Camera> camera)
+void Mesh::Draw(std::shared_ptr<tkl::Camera> camera)
 {
 	mRenderer->SetViewProjection(camera->GetViewProjection());
 	mRenderer->Draw(shared_from_this());
@@ -29,7 +29,7 @@ void Mesh::Draw(std::shared_ptr<Camera> camera)
 std::shared_ptr<Mesh> Mesh::CreateBox(float size)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-	mesh->SetRenderer(std::make_shared<MeshRenderer>());
+	mesh->SetRenderer(std::make_shared<tkl::MeshRenderer>());
 
 	size *= 0.5f;
 	VertexArray::VERTEX vertices[] = {
@@ -89,7 +89,7 @@ std::shared_ptr<Mesh> Mesh::CreateBox(float size)
 std::shared_ptr<Mesh> Mesh::CreateSphere(float radius, int divWidth, int divHeight)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-	mesh->SetRenderer(std::make_shared<MeshRenderer>());
+	mesh->SetRenderer(std::make_shared<tkl::MeshRenderer>());
 
 	// ’¸“_À•WŒvZ
 	std::vector<VertexArray::VERTEX> vertices;
@@ -139,7 +139,7 @@ std::shared_ptr<Mesh> Mesh::CreateSphere(float radius, int divWidth, int divHeig
 std::shared_ptr<Mesh> Mesh::CreatePlane(float size)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-	mesh->SetRenderer(std::make_shared<MeshRenderer>());
+	mesh->SetRenderer(std::make_shared<tkl::MeshRenderer>());
 
 	size *= 0.5f;
 
@@ -164,7 +164,7 @@ std::shared_ptr<Mesh> Mesh::CreatePlane(float size)
 std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-	mesh->SetRenderer(std::make_shared<WireRenderer>());
+	mesh->SetRenderer(std::make_shared<tkl::WireRenderer>());
 
 	float l = size * rowNum * 0.5f;
 	float n = -l;
@@ -208,7 +208,7 @@ std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-	mesh->SetRenderer(std::make_shared<SpriteRenderer>());
+	mesh->SetRenderer(std::make_shared<tkl::SpriteRenderer>());
 
 	VertexArray::VERTEX vertices[] = {
 		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},

@@ -32,10 +32,10 @@ GameManager::GameManager()
 	gGridGround = Mesh::CreateGround(50, 20);
 
 	// 2D空間用のカメラ作成
-	m2DCamera = std::make_shared<FixedCamera>(1024, 768);
+	m2DCamera = std::make_shared<tkl::FixedCamera>(1024, 768);
 
 	// 3D空間用のカメラ作成
-	m3DCamera = std::make_shared<PostureControlCamera>(1024, 768);
+	m3DCamera = std::make_shared<tkl::PostureControlCamera>(1024, 768);
 #if 1
 	m3DCamera->SetPosition(tkl::Vector3(500, 500, 500));
 #else
@@ -64,28 +64,24 @@ void GameManager::Update(float deltaTime)
 	m2DCamera->Update();
 	m3DCamera->Update();
 
-//	// TODO：常木講師に確認する
-//	tkl::DrawString(0, 0, "aaaaaa", m2DCamera);	// 文字列表示
+	// TODO：常木講師に確認する
+	tkl::DrawString(0, 0, "aaaaaa", m2DCamera);	// 文字列表示
 
 	int mousePosX = 0, mousePosY = 0;
 	tkl::Input::GetMousePoint(&mousePosX, &mousePosY);
 	tkl::Vector3 ray = tkl::Vector3::CreateScreenRay(mousePosX, mousePosY, 1024, 768, m3DCamera->GetView(), m3DCamera->GetProjection());
+	
 	tkl::Vector3 hit;
-	tkl::Vector3 t = tkl::Vector3::Normalize( m3DCamera->GetTargetPos() - m3DCamera->GetPosition() ) ;
-
 	if(tkl::IsIntersectLinePlane(m3DCamera->GetPosition(), m3DCamera->GetPosition() + (ray * 10000.0f),
 		{10, 0, 10}, {0, 1, 0}, &hit))
 	{
 		gCube->SetPosition(hit);
 	}
-
 	gRotation *= tkl::Quaternion::RotationAxis({1, 0, 0}, tkl::ToRadian(1));
 
 //	gPlane->SetRotation(gRotation);
-//	gPlane->Draw(m3DCamera);
-	
+//	gPlane->Draw(m3DCamera);	
 	gCube->SetRotation(gRotation);
 	gCube->Draw(m3DCamera);
-
 	gGridGround->Draw(m3DCamera);
 }

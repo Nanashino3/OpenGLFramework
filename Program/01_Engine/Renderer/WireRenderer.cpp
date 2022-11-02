@@ -4,8 +4,9 @@
 #include "../Mesh.h"
 #include "../Shader.h"
 #include "../VertexArray.h"
-#include "../../02_Library/Matrix.h"
 
+namespace tkl
+{
 WireRenderer::WireRenderer(const char* shaderName)
 : Renderer(shaderName)
 {}
@@ -24,3 +25,5 @@ void WireRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 	va->Bind();
 	glDrawArrays(GL_LINES, 0, va->GetVertexNum());
 }
+
+} // namespace tkl

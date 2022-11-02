@@ -1,5 +1,7 @@
 #include "FixedCamera.h"
 
+namespace tkl
+{
 FixedCamera::FixedCamera(int screenWidth, int screenHeight)
 : Camera(screenWidth, screenHeight)
 {}
@@ -13,3 +15,5 @@ void FixedCamera::Update()
 	float h = static_cast<float>(mScreenHeight >> 1);
 	mViewProjection = tkl::Matrix::CreateOrthogonalProjection(-w, w, -h, h, 1.0f, -1.0f);
 }
+
+} // namespace tkl

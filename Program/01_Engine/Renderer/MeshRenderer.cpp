@@ -5,8 +5,9 @@
 #include "../Shader.h"
 #include "../Texture.h"
 #include "../VertexArray.h"
-#include "../../02_Library/Vector.h"
-#include "../../02_Library/Matrix.h"
+
+namespace tkl
+{
 MeshRenderer::MeshRenderer(const char* shaderName)
 : Renderer(shaderName)
 {}
@@ -31,14 +32,24 @@ void MeshRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 	std::shared_ptr<Texture> texture = mesh->GetTexture();
 	if(texture){ texture->Bind(); }
 
+#if 0
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	glEnable(GL_DEPTH_TEST);
+//	glDisable(GL_BLEND);
+#else
 	glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
+#endif
 
 	// 描画を有効化する
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();
 	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
+
+//	glDisable(GL_DEPTH_TEST);
+//	glEnable(GL_BLEND);
 }
 
 // ライティングの設定
@@ -58,3 +69,5 @@ void MeshRenderer::SetLightUniforms()
 	mShader->SetVectorUniform("uDirLight.mDirection", dirLightDirection);
 	mShader->SetVectorUniform("uDirLight.mDiffuseColor", dirLightDiffuseColor);
 }
+
+} // namespace tkl
