@@ -14,7 +14,6 @@ WireRenderer::WireRenderer(const char* shaderName)
 WireRenderer::~WireRenderer()
 {}
 
-#if 1
 void WireRenderer::Draw(std::shared_ptr<Mesh> mesh)
 {
 	if(!mesh){ return; }
@@ -28,18 +27,5 @@ void WireRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	va->Bind();
 	glDrawArrays(GL_LINES, 0, va->GetVertexNum());
 }
-#else
-void WireRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
-{
-	if(!mesh){ return; }
-
-	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
-	mShader->SetMatrixUniform("uWorldTransform", wm);
-
-	std::shared_ptr<VertexArray> va = mesh->GetVertex();
-	va->Bind();
-	glDrawArrays(GL_LINES, 0, va->GetVertexNum());
-}
-#endif
 
 } // namespace tkl

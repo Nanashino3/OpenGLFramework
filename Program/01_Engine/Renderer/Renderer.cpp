@@ -18,9 +18,6 @@ void Renderer::Draw(std::shared_ptr<Mesh> mesh)
 {
 	mShader->ActiveShader();
 	mShader->SetMatrixUniform("uViewProjection", mViewProjection);
-
-//	// ‹ïÛƒNƒ‰ƒX‘¤‚Ì•`‰æˆ—
-//	ActualDraw(mesh);
 }
 
 } // namespace tkl

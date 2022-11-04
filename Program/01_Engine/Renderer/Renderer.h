@@ -17,9 +17,6 @@ public:
 	virtual void Draw(std::shared_ptr<Mesh> mesh);
 	void SetViewProjection(const tkl::Matrix& vp){ mViewProjection = vp; }
 
-//private:
-//	virtual void ActualDraw(std::shared_ptr<Mesh> mesh) = 0;
-
 protected:
 	std::shared_ptr<Shader> mShader;
 	tkl::Matrix mViewProjection;

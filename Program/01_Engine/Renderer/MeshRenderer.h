@@ -14,7 +14,6 @@ public:
 	virtual void Draw(std::shared_ptr<Mesh> mesh) final;
 
 private:
-//	virtual void ActualDraw(std::shared_ptr<Mesh> mesh) final;
 	void SetLightUniforms();
 };
 
