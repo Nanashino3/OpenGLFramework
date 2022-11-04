@@ -3,10 +3,7 @@
 #include <memory>
 #include <vector>
 
-namespace tkl
-{
-class FixedCamera;
-class PostureControlCamera;
+class BaseScene;
 class GameManager
 {
 public:
@@ -23,10 +20,8 @@ private:
 
 private:
 	static GameManager* sInstance;
-	std::shared_ptr<FixedCamera> m2DCamera;
-	std::shared_ptr<PostureControlCamera> m3DCamera;
-};
 
-} // namespace tkl
+	std::shared_ptr<BaseScene> mScene;
+};
 
 #endif

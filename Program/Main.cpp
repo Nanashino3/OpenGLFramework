@@ -5,23 +5,24 @@
 
 int main()
 {
-	tkl::System system;
-	if(!system.Initialize(WINDOW_WIDTH, WINDOW_HEIGHT)){
+	tkl::System* system = tkl::System::GetInstance();
+	if(!system->Initialize(WINDOW_WIDTH, WINDOW_HEIGHT)){
 		exit(1);
 	}
 
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
 	float deltaTime = 0.0f;
-	while(!system.ProcessMessage()){
+	while(!system->ProcessMessage()){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		GameMain(deltaTime);
 
-		system.SwapBuffers();
+		system->SwapBuffers();
 	}
 
 	GameEnd();
-	system.Finalize();
+	system->Finalize();
+	tkl::System::DestroyInstance();
 	return 0;
 }

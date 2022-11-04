@@ -5,12 +5,25 @@
 
 namespace tkl
 {
+System* System::sMyInstance = nullptr;
 System::System()
 : mWindow(nullptr)
 {}
 
 System::~System()
 {}
+
+System* System::GetInstance()
+{
+	if(!sMyInstance){
+		sMyInstance = new System();
+	}
+	return sMyInstance;
+}
+void System::DestroyInstance()
+{
+	delete sMyInstance;
+}
 
 bool System::Initialize(int screenWidth, int screenHeight)
 {
@@ -67,6 +80,11 @@ void System::SwapBuffers()
 void System::Finalize()
 {
 	glfwTerminate();
+}
+
+void System::GetWindowSize(int* screenWidth, int* screenHeight)
+{
+	glfwGetWindowSize(mWindow, screenWidth, screenHeight);
 }
 
 } // namespace tkl

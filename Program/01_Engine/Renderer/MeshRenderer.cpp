@@ -38,9 +38,9 @@ void MeshRenderer::ActualDraw(std::shared_ptr<Mesh> mesh)
 //	glEnable(GL_DEPTH_TEST);
 //	glDisable(GL_BLEND);
 #else
-	glFrontFace(GL_CCW);
-	glCullFace(GL_BACK);
-	glEnable(GL_CULL_FACE);
+	//glFrontFace(GL_CCW);
+	//glCullFace(GL_BACK);
+	//glEnable(GL_CULL_FACE);
 #endif
 
 	// •`‰æ‚ð—LŒø‰»‚·‚é

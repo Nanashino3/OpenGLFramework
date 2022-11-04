@@ -11,15 +11,23 @@ namespace tkl
 class System
 {
 public:
-	System();
-	~System();
+	static System* GetInstance();
+	static void DestroyInstance();
 
 	bool Initialize(int screenWidth, int screenHeight);
 	bool ProcessMessage();
 	void SwapBuffers();
+	void GetWindowSize(int* screenWidth, int* screenHeight);
 	void Finalize();
 
 private:
+	System();
+	System(const System& other) {}
+	System& operator=(const System& other) {}
+	~System();
+
+private:
+	static System* sMyInstance;
 	GLFWwindow* mWindow;
 };
 

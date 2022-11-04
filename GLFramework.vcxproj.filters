@@ -22,6 +22,9 @@
     <Filter Include="Program\01_Engine\Renderer">
       <UniqueIdentifier>{a310e053-8c41-4636-862d-de3dd2035280}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\00_Game\Scene">
+      <UniqueIdentifier>{85c65fba-797b-4a88-ae40-483565a6c34e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\Main.cpp" />
@@ -79,16 +82,13 @@
     <ClCompile Include="Program\01_Engine\Renderer\WireRenderer.cpp">
       <Filter>Program\01_Engine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\GameManager.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\TestFont.cpp">
+    <ClCompile Include="Program\01_Engine\Font.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\FontManager.cpp">
@@ -99,6 +99,15 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Intersect.cpp">
       <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\GameManager.cpp">
+      <Filter>Program\00_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp">
+      <Filter>Program\00_Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +188,6 @@
     <ClInclude Include="Program\01_Engine\Renderer\WireRenderer.h">
       <Filter>Program\01_Engine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\GameManager.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Camera\Camera.h">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
@@ -191,7 +197,7 @@
     <ClInclude Include="Program\01_Engine\Camera\FixedCamera.h">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\TestFont.h">
+    <ClInclude Include="Program\01_Engine\Font.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\FontManager.h">
@@ -199,6 +205,21 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Intersect.h">
       <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\02_Library\Sequence.h">
+      <Filter>Program\02_Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\BaseScene.h">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\TitleScene.h">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\GameManager.h">
+      <Filter>Program\00_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\PlayScene.h">
+      <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
