@@ -12,7 +12,6 @@ public:
 	static ResourceManager* GetInstance();
 	static void DestroyInstance();
 
-	std::shared_ptr<Texture> CreateTextureFromFont(wchar_t once);
 	std::shared_ptr<Texture> CreateTextureFromFile(const char* fileName);
 
 private:

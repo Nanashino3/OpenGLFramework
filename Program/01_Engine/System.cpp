@@ -52,14 +52,6 @@ bool System::Initialize(int screenWidth, int screenHeight)
 		return false;
 	}
 
-	// 垂直同期のタイミングを待つ
-	glfwSwapInterval(1);
-
-	// デプスバッファ(Zバッファ)を有効にする
-	glClearDepth(1.0f);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_DEPTH_TEST);
-
 	// 入力デバイスの初期化
 	tkl::Input::Initialize(mWindow, screenWidth, screenHeight);
 	return true;

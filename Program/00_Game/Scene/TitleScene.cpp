@@ -10,7 +10,7 @@ TitleScene::TitleScene()
 TitleScene::~TitleScene()
 {}
 
-std::shared_ptr<BaseScene> TitleScene::Update()
+std::shared_ptr<BaseScene> TitleScene::Update(float deltaTime)
 {
 	std::shared_ptr<BaseScene> nextScene = shared_from_this();
 

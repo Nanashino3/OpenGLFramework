@@ -28,7 +28,7 @@ void GameManager::DestoryInstance()
 
 void GameManager::Update(float deltaTime)
 {
-	std::shared_ptr<BaseScene> nextScene = mScene->Update();
+	std::shared_ptr<BaseScene> nextScene = mScene->Update(deltaTime);
 	if(mScene != nextScene){
 		mScene = nextScene;
 		nextScene = nullptr;

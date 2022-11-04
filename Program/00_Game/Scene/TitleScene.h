@@ -8,7 +8,7 @@ public:
 	TitleScene();
 	virtual ~TitleScene();
 
-	virtual std::shared_ptr<BaseScene> Update() final;
+	virtual std::shared_ptr<BaseScene> Update(float deltaTime) final;
 };
 
 #endif

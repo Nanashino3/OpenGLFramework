@@ -8,7 +8,7 @@ public:
 	BaseScene(){}
 	virtual ~BaseScene(){}
 
-	virtual std::shared_ptr<BaseScene> Update() = 0;
+	virtual std::shared_ptr<BaseScene> Update(float deltaTime) = 0;
 };
 
 #endif
