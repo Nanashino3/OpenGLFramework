@@ -19,8 +19,8 @@ void Renderer::Draw(std::shared_ptr<Mesh> mesh)
 	mShader->ActiveShader();
 	mShader->SetMatrixUniform("uViewProjection", mViewProjection);
 
-	// 具象クラス側の描画処理
-	ActualDraw(mesh);
+//	// 具象クラス側の描画処理
+//	ActualDraw(mesh);
 }
 
 } // namespace tkl

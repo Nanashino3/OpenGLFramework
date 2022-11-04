@@ -20,7 +20,6 @@ private:
 
 private:
 	static GameManager* sInstance;
-
 	std::shared_ptr<BaseScene> mScene;
 };
 

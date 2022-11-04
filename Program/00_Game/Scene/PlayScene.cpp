@@ -29,7 +29,7 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	mCamera->Update();
 	mGrid->Draw(mCamera);
 	mPlane->Draw(mCamera);
-	tkl::Font::DrawString(0, 0, "プレイシーン");
+	tkl::Font::DrawString(0, 0, "漢字もいける？");
 
 	return nextScene;
 }
