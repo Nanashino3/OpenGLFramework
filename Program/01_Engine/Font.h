@@ -10,10 +10,13 @@ class Mesh;
 class Font
 {
 public:
-	Font();
-	~Font();
+	static void DrawStringEx(float x, float y, const char* str, ...);
 
-	static void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<class Camera> camera = nullptr);
+private:
+	Font(){}
+	~Font(){}
+
+	static void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<class Camera> camera);
 
 private:
 	static std::shared_ptr<Camera> sCamera;

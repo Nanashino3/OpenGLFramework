@@ -30,7 +30,7 @@ void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	if(texture){ texture->Bind(); }
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
-	wm *= tkl::Matrix::CreateScale(tkl::Vector3(texture->GetTextureWidth(), texture->GetTextureHeight(), 1.0f));
+	wm *= tkl::Matrix::CreateScale(mesh->GetScale());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
