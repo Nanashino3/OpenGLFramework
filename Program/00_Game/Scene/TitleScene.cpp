@@ -14,7 +14,7 @@ std::shared_ptr<BaseScene> TitleScene::Update(float deltaTime)
 {
 	std::shared_ptr<BaseScene> nextScene = shared_from_this();
 
-	tkl::Font::DrawString(0, 0, "タイトルシーン");
+	tkl::Font::DrawStringEx(0, 0, "タイトルシーン");
 	if(tkl::Input::IsKeyDownTrigger(eKeys::KB_ENTER)){
 		nextScene = std::make_shared<PlayScene>();
 	}

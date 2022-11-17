@@ -7,7 +7,7 @@ int main()
 	tkl::System* system = tkl::System::GetInstance();
 	if(!system->Initialize(WINDOW_WIDTH, WINDOW_HEIGHT)){ exit(1); }
 
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
 	float clockStart = glfwGetTime(), clockEnd = 0.0f;
 	const float interval = 1.0f/60.0f;

@@ -1,6 +1,7 @@
 #ifndef _SHADERFACTORY_H_
 #define _SHADERFACTORY_H_
 #include <memory>
+#include <string>
 #include <unordered_map>
 
 namespace tkl

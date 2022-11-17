@@ -221,5 +221,8 @@
     <ClInclude Include="Program\00_Game\Scene\PlayScene.h">
       <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Program\01_Engine\Algorithm.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

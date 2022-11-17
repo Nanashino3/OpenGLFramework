@@ -33,6 +33,6 @@ void main()
 		Lambert += Diffuse;
 	}
 
-//	outColor = texture(uTexture, fragTexCoord) * vec4(Lambert, 1.0);
-	outColor = vec4(Lambert, 1.0);
+	outColor = texture(uTexture, fragTexCoord) * vec4(Lambert, 1.0);
+//	outColor = vec4(Lambert, 1.0);
 }

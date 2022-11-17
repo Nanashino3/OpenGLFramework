@@ -129,10 +129,10 @@ Vector3 Vector3::CreateScreenRay(int screenX, int screenY, int screenW, int scre
 
 	// スクリーン座標からワールド座標を計算
 	Matrix tempView = view;
-	tempView[12] = 0.0f;
-	tempView[13] = 0.0f;
-	tempView[14] = 0.0f;
-	
+	tempView._14 = 0.0f;
+	tempView._24 = 0.0f;
+	tempView._34 = 0.0f;
+
 	Matrix invViewport = tkl::Matrix::CreateInverseMatrix(viewport);
 	Matrix invProjection = tkl::Matrix::CreateInverseMatrix(projection);
 	Matrix invView = tkl::Matrix::CreateInverseMatrix(tempView);
