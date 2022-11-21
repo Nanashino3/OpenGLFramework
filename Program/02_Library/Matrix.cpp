@@ -112,8 +112,8 @@ Matrix Matrix::CreatePerspectiveProjection(float angle, float aspect, float near
 
 	temp._11 = xScale;
 	temp._22 = yScale;
-	temp._33 = (far + near) / (far - near);
-	temp._34 = far * near / (far - near);
+	temp._33 = -(far + near) / (far - near);
+	temp._34 = -2.0f * far * near / (far - near);
 	temp._43 = -1.0f;
 	temp._44 = 0.0f;
 
