@@ -34,12 +34,6 @@
     <ClCompile Include="Program\01_Engine\Mesh.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Shader.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\ShaderFactory.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Texture.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
@@ -109,6 +103,12 @@
     <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp">
       <Filter>Program\00_Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Program\01_Engine\Shader.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\ShaderFactory.cpp">
+      <Filter>Program\01_Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -135,12 +135,6 @@
       <Filter>Program\00_Game</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Mesh.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Shader.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\ShaderFactory.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Texture.h">
@@ -221,7 +215,10 @@
     <ClInclude Include="Program\00_Game\Scene\PlayScene.h">
       <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Algorithm.h">
+    <ClInclude Include="Program\01_Engine\Shader.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\ShaderFactory.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
   </ItemGroup>

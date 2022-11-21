@@ -10,7 +10,7 @@ public:
 	{
 		float position[3];
 		float normal[3];
-		float uv[3];
+		float uv[2];
 	};
 
 	VertexArray(unsigned int vertexNum, const VERTEX* vertices, unsigned int indexNum, const int* indices);

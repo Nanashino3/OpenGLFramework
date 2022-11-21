@@ -29,9 +29,8 @@ void PostureControlCamera::Update()
 	mUpVector = tkl::Vector3::TransformCoord(tkl::Vector3::UNITY, mRotation);
 
 	// s—ñ
-	mProjection = tkl::Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
 	mView = tkl::Matrix::CreateLookAt(mCamPos, mTargetPos, mUpVector);
-	mViewProjection  = mProjection * mView;
+	mProjection = tkl::Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
 }
 
 // “ü—Íˆ—

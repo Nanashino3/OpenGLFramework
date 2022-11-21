@@ -23,7 +23,8 @@ Mesh::~Mesh()
 
 void Mesh::Draw(std::shared_ptr<Camera> camera)
 {
-	mRenderer->SetViewProjection(camera->GetViewProjection());
+	mRenderer->SetView(camera->GetView());
+	mRenderer->SetProjection(camera->GetProjection());
 	mRenderer->Draw(shared_from_this());
 }
 
@@ -33,57 +34,81 @@ std::shared_ptr<Mesh> Mesh::CreateBox(float size)
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
-	size *= 0.5f;
-	VertexArray::VERTEX vertices[] = {
-		// 左面
-		{ -size, -size, -size, -1.0f,  0.0f,  0.0f },
-		{ -size, -size,  size, -1.0f,  0.0f,  0.0f },
-		{ -size,  size,  size, -1.0f,  0.0f,  0.0f },
-		{ -size,  size, -size, -1.0f,  0.0f,  0.0f },
-
-		// 裏面
-		{  size, -size, -size,  0.0f,  0.0f,  -1.0f },
-		{ -size, -size, -size,  0.0f,  0.0f,  -1.0f },
-		{ -size,  size, -size,  0.0f,  0.0f,  -1.0f },
-		{  size,  size, -size,  0.0f,  0.0f,  -1.0f },
-
-		// 下面
-		{ -size, -size, -size,  0.0f, -1.0f,  0.0f },
-		{  size, -size, -size,  0.0f, -1.0f,  0.0f },
-		{  size, -size,  size,  0.0f, -1.0f,  0.0f },
-		{ -size, -size,  size,  0.0f, -1.0f,  0.0f },
-
-		// 右面
-		{  size, -size,  size,  1.0f,  0.0f,  0.0f },
-		{  size, -size, -size,  1.0f,  0.0f,  0.0f },
-		{  size,  size, -size,  1.0f,  0.0f,  0.0f },
-		{  size,  size,  size,  1.0f,  0.0f,  0.0f },
-
-		// 上面
-		{ -size,  size, -size,  0.0f,  1.0f,  0.0f },
-		{ -size,  size,  size,  0.0f,  1.0f,  0.0f },
-		{  size,  size,  size,  0.0f,  1.0f,  0.0f },
-		{  size,  size, -size,  0.0f,  1.0f,  0.0f },
-
-		// 前面
-		{ -size, -size,  size,  0.0f,  0.0f,  1.0f },
-		{  size, -size,  size,  0.0f,  0.0f,  1.0f },
-		{  size,  size,  size,  0.0f,  0.0f,  1.0f },
-		{ -size,  size,  size,  0.0f,  0.0f,  1.0f }
+	float sx, sy, sz;
+	sx = sy = sz = size * 0.5f;
+	float angles[] = {0, 90, -90, 90, -90, 180};
+	tkl::Vector3 axis[] = {
+		tkl::Vector3::UNITY,	// 前面
+		tkl::Vector3::UNITY,	// 右面
+		tkl::Vector3::UNITX,	// 上面
+		tkl::Vector3::UNITX,	// 下面
+		tkl::Vector3::UNITY,	// 下面
+		tkl::Vector3::UNITX		// 後面
 	};
 
+	// 頂点計算
+	std::vector<VertexArray::VERTEX> vertices;
+	for(int n = 0; n < sizeof(axis) / sizeof(tkl::Vector3); ++n){
+		tkl::Quaternion rot = tkl::Quaternion::RotationAxis(axis[n], tkl::ToRadian(angles[n]));
+
+		for (int i = 0; i < 2; ++i) {
+			for (int j = 0; j < 2; ++j) {
+				tkl::Vector3 pos, norm;
+				pos.mX = -sx + size * j;
+				pos.mY = sy - size * i;
+				pos.mZ = sz;
+
+				pos = tkl::Vector3::TransformCoord(pos, rot);
+				norm = tkl::Vector3::TransformCoord(tkl::Vector3::UNITZ, rot);
+
+				VertexArray::VERTEX vertex = {
+					pos.mX, pos.mY, pos.mZ, norm.mX, norm.mY, norm.mZ, 0, 0
+				};
+				vertices.emplace_back(vertex);
+			}
+		}
+	}
+
+	// UV座標計算
+	std::vector<tkl::Vector3> uv;
+	for(int i = 0; i < 2; ++i){
+		for(int j = 0; j < 3; ++j){
+			float u0 = static_cast<float>(j) / 3.0f;
+			float u1 = static_cast<float>(j + 1) / 3.0f;
+			float v0 = static_cast<float>(i) / 2.0f;
+			float v1 = static_cast<float>(i + 1) / 2.0f;
+
+			tkl::Vector3 uv0 = {u0, v0, 0};
+			tkl::Vector3 uv1 = {u1, v0, 0};
+			tkl::Vector3 uv2 = {u0, v1, 0};
+			tkl::Vector3 uv3 = {u1, v1, 0};
+
+			uv.emplace_back(uv0);
+			uv.emplace_back(uv1);
+			uv.emplace_back(uv2);
+			uv.emplace_back(uv3);
+		}
+	}
+	for(int i = 0; i < vertices.size(); ++i){
+		vertices[i].uv[0] = uv[i].mX;
+		vertices[i].uv[1] = uv[i].mY;
+	}
+
+	// インデックス計算(TODO：計算で出したい)
 	int indices[] = {
-		 0,  1,  2,  0,  2,  3,	// 左面
-		 4,  5,  6,  4,  6,  7,	// 裏面
-		 8,  9, 10,  8, 10, 11,	// 下面
-		12, 13, 14, 12, 14, 15,	// 右面
-		16, 17, 18, 16, 18, 19,	// 上面
-		20, 21, 22, 20, 22, 23	// 前面
+		 0,  2,  3,  0,  3,  1,	// 前面
+		 4,  6,  7,  4,  7,  5,	// 右面
+		 8, 10, 11,  8, 11,  9,	// 上面
+		14, 15, 12, 15, 13, 12,	// 下面
+		16, 18, 19, 16, 19, 17, // 左面
+		22, 23, 20, 23, 21, 20	// 後面
 	};
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
-	mesh->SetVertex(std::make_shared<VertexArray>(24, vertices, indicesNum, indices));
-	
+	mesh->SetVertex(std::make_shared<VertexArray>(
+		static_cast<unsigned int>(vertices.size()), vertices.data(), 
+		indicesNum, indices));
+
 	return mesh;
 }
 
@@ -93,19 +118,20 @@ std::shared_ptr<Mesh> Mesh::CreateSphere(float radius, int divWidth, int divHeig
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
+	radius *= 0.5f;
 	// 頂点座標計算
 	std::vector<VertexArray::VERTEX> vertices;
 	for(int i = 0; i < (divHeight + 1); ++i){
-		float t = static_cast<float>(i) / static_cast<float>(divHeight);
-		float y = cosf(tkl::PI * t) * radius;
-		float r = sinf(tkl::PI * t) * radius;
+		float v = static_cast<float>(i) / static_cast<float>(divHeight);
+		float y = cosf(tkl::PI * v) * radius;
+		float r = sinf(tkl::PI * v) * radius;
 
 		for(int j = 0; j < (divWidth + 1); ++j){
-			float s = static_cast<float>(j) / static_cast<float>(divWidth);
-			float x = r * cosf(2 * tkl::PI * s);
-			float z = r * sinf(2 * tkl::PI * s);
+			float u = static_cast<float>(j) / static_cast<float>(divWidth);
+			float x = r * cosf(2 * tkl::PI * u);
+			float z = r * sinf(2 * tkl::PI * u);
 
-			VertexArray::VERTEX vertex = {x, y, z, x, y, z};
+			VertexArray::VERTEX vertex = {x, y, z, x, y, z, u, v};
 			vertices.emplace_back(vertex);
 		}
 	}
@@ -144,18 +170,13 @@ std::shared_ptr<Mesh> Mesh::CreatePlane(float size)
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
 	size *= 0.5f;
-
 	VertexArray::VERTEX vertices[] = {
-		{-size,  size, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f},
-		{ size,  size, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f},
-		{ size, -size, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f},
-		{-size, -size, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f}
+		{-size,  size, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f},
+		{-size, -size, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f},
+		{ size, -size, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f},
+		{ size,  size, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f}
 	};
-	int indices[] = {
-		0, 1, 2,
-		0, 2, 3
-	};
-
+	int indices[] = { 0, 1, 2, 0, 2, 3 };
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
 	mesh->SetVertex(std::make_shared<VertexArray>(4, vertices, indicesNum, indices));
 

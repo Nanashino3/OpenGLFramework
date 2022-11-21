@@ -39,9 +39,9 @@ VertexArray::VertexArray(unsigned int vertexNum, const VERTEX* vertices, unsigne
 
 VertexArray::~VertexArray()
 {
-	glDeleteVertexArrays(1, &mVertexArray);
 	glDeleteBuffers(1, &mVertexBuffer);
 	glDeleteBuffers(1, &mIndexBuffer);
+	glDeleteVertexArrays(1, &mVertexArray);
 }
 
 void VertexArray::Bind() const

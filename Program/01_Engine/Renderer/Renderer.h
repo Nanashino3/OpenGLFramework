@@ -15,11 +15,13 @@ public:
 	~Renderer();
 
 	virtual void Draw(std::shared_ptr<Mesh> mesh);
-	void SetViewProjection(const tkl::Matrix& vp){ mViewProjection = vp; }
+	void SetView(const tkl::Matrix& view){ mView = view; }
+	void SetProjection(const tkl::Matrix& projection){ mProjection = projection; }
 
 protected:
 	std::shared_ptr<Shader> mShader;
-	tkl::Matrix mViewProjection;
+	tkl::Matrix mView;
+	tkl::Matrix mProjection;
 };
 
 } // namespace tkl

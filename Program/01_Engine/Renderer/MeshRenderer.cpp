@@ -19,6 +19,13 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 {
 	if(!mesh){ return; }
 
+	// 頂点が反時計回りなら三角形は前向き
+	//glFrontFace(GL_CCW);
+
+	// 後ろ向き三角形は描画しない
+	//glCullFace(GL_BACK);
+	//glEnable(GL_CULL_FACE);
+
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
 
@@ -43,16 +50,13 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 // ライティングの設定
 void MeshRenderer::SetLightUniforms()
 {
-	//*****************************************************
-	// TODO：カメラ位置は外から設定できるようにする
-	tkl::Vector3 camPos = tkl::Vector3(0.0f, 1.0f, 0.0f);
-	mShader->SetVectorUniform("uCameraPos", camPos);
-	//*****************************************************
-
+//	tkl::Matrix invView = tkl::Matrix::CreateInverseMatrix(mView);
+//	tkl::Vector3 camPos = tkl::Vector3(invView._14, invView._24, invView._34);
 	tkl::Vector3 ambientLight = tkl::Vector3(0.2f, 0.2f, 0.2f);
-	tkl::Vector3 dirLightDirection = tkl::Vector3(0.0f, -1.0f, 0.0f);
-	tkl::Vector3 dirLightDiffuseColor = tkl::Vector3(0.8f, 0.8f, 0.8f);
+	tkl::Vector3 dirLightDirection = tkl::Vector3(0.0f, -0.707f, -0.707f);
+	tkl::Vector3 dirLightDiffuseColor = tkl::Vector3(0.78f, 0.88f, 1.0f);
 
+//	mShader->SetVectorUniform("uCameraPos", camPos);
 	mShader->SetVectorUniform("uAmbientColor", ambientLight);
 	mShader->SetVectorUniform("uDirLight.mDirection", dirLightDirection);
 	mShader->SetVectorUniform("uDirLight.mDiffuseColor", dirLightDiffuseColor);

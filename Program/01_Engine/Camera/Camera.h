@@ -21,7 +21,6 @@ public:
 	, mAspect(static_cast<float>(screenWidth) / static_cast<float>(screenHeight))
 	, mNear(1.0f)
 	, mFar(5000.0f)
-	, mViewProjection(tkl::Matrix())
 	{}
 
 	virtual ~Camera(){}
@@ -42,7 +41,6 @@ public:
 
 	tkl::Matrix GetView() const { return mView; }
 	tkl::Matrix GetProjection() const { return mProjection; }
-	tkl::Matrix GetViewProjection() const { return mViewProjection; }
 
 	tkl::Vector3 Front(){ return tkl::Vector3::Normalize(mTargetPos - mCamPos); }
 	tkl::Vector3 Left()	{ return tkl::Vector3::Cross(tkl::Vector3::UNITY, Front()); }
@@ -63,7 +61,6 @@ protected:
 
 	tkl::Matrix mView;
 	tkl::Matrix mProjection;
-	tkl::Matrix mViewProjection;
 };
 
 } // namespace tkl

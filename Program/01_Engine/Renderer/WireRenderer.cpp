@@ -18,6 +18,9 @@ void WireRenderer::Draw(std::shared_ptr<Mesh> mesh)
 {
 	if(!mesh){ return; }
 
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+
 	Renderer::Draw(mesh);
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());

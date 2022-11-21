@@ -64,7 +64,6 @@
     <ClInclude Include="Program\00_Game\Scene\BaseScene.h" />
     <ClInclude Include="Program\00_Game\Scene\PlayScene.h" />
     <ClInclude Include="Program\00_Game\Scene\TitleScene.h" />
-    <ClInclude Include="Program\01_Engine\Algorithm.h" />
     <ClInclude Include="Program\01_Engine\Camera\Camera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
