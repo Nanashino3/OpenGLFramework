@@ -27,7 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Program\Main.cpp" />
     <ClCompile Include="Program\00_Game\GameMain.cpp">
       <Filter>Program\00_Game</Filter>
     </ClCompile>
@@ -108,6 +107,12 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\ShaderFactory.cpp">
       <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Main.cpp">
+      <Filter>Program</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\Algorithm.cpp">
+      <Filter>Program</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\ShaderFactory.h">
       <Filter>Program\01_Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Algorithm.h">
+      <Filter>Program</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

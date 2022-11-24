@@ -4,6 +4,8 @@
 #include "../../02_Library/Vector.h"
 #include <vector>
 
+#include "../../Algorithm.h"
+
 namespace tkl{
 class Camera;
 class Mesh;
@@ -20,18 +22,12 @@ private:
 	void PriDrawSelectField(const tkl::Vector3& pos);
 
 private:
-	struct Field
-	{
-		tkl::Vector3 pos;
-		Field* parent;
-	};
-
 	int mScreenW, mScreenH;
 
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<tkl::Mesh> mGrid;
 	std::shared_ptr<tkl::Mesh> mCursor;
 
-	std::vector<std::vector<Field>> mFields;
+	std::vector<std::vector<CELL>> mFields;
 };
 #endif

@@ -48,6 +48,9 @@
     <ClCompile Include="Program\02_Library\Quaternion.cpp" />
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
+    <ClCompile Include="Program\Algorithm.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Program\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +96,7 @@
     <ClInclude Include="Program\02_Library\Sequence.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
+    <ClInclude Include="Program\Algorithm.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
