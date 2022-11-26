@@ -2,9 +2,6 @@
 
 namespace tkl
 {
-int Algorithm::mMapH = 0;
-int Algorithm::mMapV = 0;
-
 std::list<NODE*> Algorithm::mOpenList = {};
 
 // Œo˜H’Tõ

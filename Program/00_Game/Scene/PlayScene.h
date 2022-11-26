@@ -23,11 +23,15 @@ private:
 
 private:
 	int mScreenW, mScreenH;
+	float mFirstPosX, mFirstPosZ;
+	int mRouteCount;
 
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<tkl::Mesh> mGrid;
 	std::shared_ptr<tkl::Mesh> mCursor;
 
+	std::vector<CELL> mRoute;
 	std::vector<std::vector<CELL>> mFields;
+	std::vector<std::shared_ptr<tkl::Mesh>> mRouteMesh;
 };
 #endif

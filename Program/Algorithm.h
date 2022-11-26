@@ -42,7 +42,6 @@ private:
 	static bool IsPossibleOpen(int rowSize, int colSize, int row, int column, std::vector<std::vector<NODE>>& nodes);
 
 private:
-	static int mMapH, mMapV;
 	static std::list<NODE*> mOpenList;
 };
 
