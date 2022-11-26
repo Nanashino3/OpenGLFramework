@@ -2,11 +2,14 @@
 
 namespace tkl
 {
-std::list<NODE*> Algorithm::mOpenList = {};
+std::list<NODE*> Algorithm::sOpenList = {};
 
 // 経路探索
 bool Algorithm::RouteSearch(int rowSize, int colSize, std::vector<std::vector<CELL>>& cells, std::vector<CELL>& route)
 {
+	route.clear();
+	sOpenList.clear();
+
 	// スタートとゴールのセル決め
 	CELL start = {}, goal = {};
 	for(int r = 0; r < rowSize; ++r){
@@ -24,10 +27,9 @@ bool Algorithm::RouteSearch(int rowSize, int colSize, std::vector<std::vector<CE
 			nodes[r].resize(colSize);
 
 			nodes[r][c].cell = cells[r][c];
-			nodes[r][c].heuristCost = abs(goal.column - c) + (goal.row - r);
+			nodes[r][c].heuristCost = abs(goal.column - c) + abs(goal.row - r);
 		}
 	}
-
 	return ASter(rowSize, colSize, nodes, &nodes[start.row][start.column], route);
 }
 
@@ -61,15 +63,15 @@ bool Algorithm::ASter(int rowSize, int colSize, std::vector<std::vector<NODE>>& 
 		nodes[row][column].betweenCost = current->betweenCost + 1;
 		nodes[row][column].totalCost = nodes[row][column].betweenCost + nodes[row][column].heuristCost;
 
-		mOpenList.emplace_back(&nodes[row][column]);
+		sOpenList.emplace_back(&nodes[row][column]);
 	}
 	// 探索が終了したので自分をクローズする
 	if(STATUS::START != current->cell.status){ current->cell.status = STATUS::CLOSE; }
 
 	// 次の探索ノードを取得する(オープン済リストから最小コスト)
-	mOpenList.sort([](const NODE* a, const NODE* b){ return a->totalCost < b->totalCost;  });
-	NODE* next = mOpenList.front();
-	if(next){ mOpenList.erase(mOpenList.begin()); }
+	sOpenList.sort([](const NODE* a, const NODE* b){ return a->totalCost < b->totalCost;  });
+	NODE* next = sOpenList.front();
+	if(next){ sOpenList.erase(sOpenList.begin()); }
 
 	// 再帰的に探索
 	return ASter(rowSize, colSize, nodes, next, route);

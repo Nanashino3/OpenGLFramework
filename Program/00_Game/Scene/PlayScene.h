@@ -32,6 +32,6 @@ private:
 
 	std::vector<CELL> mRoute;
 	std::vector<std::vector<CELL>> mFields;
-	std::vector<std::shared_ptr<tkl::Mesh>> mRouteMesh;
+	std::vector<std::shared_ptr<tkl::Mesh>> mObstacles;
 };
 #endif

@@ -42,7 +42,7 @@ private:
 	static bool IsPossibleOpen(int rowSize, int colSize, int row, int column, std::vector<std::vector<NODE>>& nodes);
 
 private:
-	static std::list<NODE*> mOpenList;
+	static std::list<NODE*> sOpenList;
 };
 
 }
