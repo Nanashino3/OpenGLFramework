@@ -24,6 +24,9 @@ STATUS map[DIV][DIV] = {
 
 PlayScene::PlayScene()
 : mScreenW(0), mScreenH(0)
+, mFirstPosX(0), mFirstPosZ(0)
+, mCamera(nullptr), mCursor(nullptr)
+, mMode(MODE::EDIT_MODE)
 {
 	tkl::System::GetInstance()->GetWindowSize(&mScreenW, &mScreenH);
 
@@ -48,20 +51,19 @@ PlayScene::PlayScene()
 		mFields.emplace_back(fields);
 	}
 	
-	// Å’ZŒo˜HŒŸõ
+	// Œo˜HŒŸõ(‰Šú)
 	tkl::Algorithm::RouteSearch(DIV, DIV, mFields, mRoute);
 	mRouteCount = mRoute.size() - 1;
 
 	mFirstPosX = -SIZE * DIV * 0.5f + (SIZE >> 1);
 	mFirstPosZ = mFirstPosX;
 
-#if 1
-	gMesh = tkl::Mesh::CreateSphere(25, 24, 16);
+	// ‹…‘Ì‚Ì¶¬
+	gMesh = tkl::Mesh::CreateSphere((SIZE >> 1), 24, 16);
 	gMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
 	float posX = mFirstPosX + SIZE * mRoute[mRouteCount].column;
 	float posZ = mFirstPosZ + SIZE * mRoute[mRouteCount].row;
-	gMesh->SetPosition(tkl::Vector3(posX, 0, posZ));
-#endif
+	gMesh->SetPosition(tkl::Vector3(posX, (SIZE >> 1), posZ));
 }
 
 PlayScene::~PlayScene()
@@ -103,35 +105,38 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	
 	//******************************************************************
 	// ’Tõ‚µ‚½Œo˜H‚ği‚Şˆ—
-#if 1
-	tkl::Vector3 pos = gMesh->GetPosition();
-	float targetPosX = mFirstPosX + SIZE * mRoute[mRouteCount - 1].column;
-	float targetPosZ = mFirstPosZ + SIZE * mRoute[mRouteCount - 1].row;
+	if(tkl::Input::IsKeyDownTrigger(eKeys::KB_ENTER)) mMode = MODE::PLAY_MODE;
+	if(mMode == MODE::PLAY_MODE){
+		tkl::Vector3 pos = gMesh->GetPosition();
+		float targetPosX = mFirstPosX + SIZE * mRoute[mRouteCount - 1].column;
+		float targetPosZ = mFirstPosZ + SIZE * mRoute[mRouteCount - 1].row;
 
-	// ˆÚ“®—ÊŒvZ
-	int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
-	int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
+		// ˆÚ“®—ÊŒvZ
+		int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
+		int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
 
-	pos.mX += 0.5f * dx * deltaTime;
-	pos.mZ += 0.5f * dz * deltaTime;
+		pos.mX += 0.5f * dx * deltaTime;
+		pos.mZ += 0.5f * dz * deltaTime;
 
-	if (dx > 0 || dz > 0){
-		if(pos.mX > targetPosX || pos.mZ > targetPosZ){
-			pos.mX = targetPosX; pos.mZ = targetPosZ;
-			if(mRouteCount > 1) mRouteCount--;
-		}	
-	}else if(dx < 0 || dz < 0){
-		if (pos.mX < targetPosX || pos.mZ < targetPosZ) {
-			pos.mX = targetPosX; pos.mZ = targetPosZ;
-			if (mRouteCount > 1) mRouteCount--;
+		if(dx > 0 || dz > 0){
+			if(pos.mX > targetPosX || pos.mZ > targetPosZ){
+				pos.mX = targetPosX; pos.mZ = targetPosZ;
+				if(mRouteCount > 1) mRouteCount--;
+			}
+		}else if(dx < 0 || dz < 0){
+			if(pos.mX < targetPosX || pos.mZ < targetPosZ){
+				pos.mX = targetPosX; pos.mZ = targetPosZ;
+				if(mRouteCount > 1) mRouteCount--;
+			}
 		}
-	}
 
-	gMesh->SetPosition(pos);
+		gMesh->SetPosition(pos);
+	}
 	gMesh->Draw(mCamera);
-#endif
+
 	//******************************************************************
 
+	// áŠQ•¨‚Ì•`‰æ
 	for(int i = 0; i < mObstacles.size(); ++i){
 		mObstacles[i]->Draw(mCamera);
 	}
@@ -144,6 +149,8 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 // ‘I‘ğ‚µ‚Ä‚¢‚éƒtƒB[ƒ‹ƒh‚ğ•`‰æ
 void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 {
+	if(mMode == MODE::PLAY_MODE){ return; }
+
 	for(int h = 0; h < mFields.size(); ++h){
 		for(int w = 0; w < mFields[h].size(); ++w){
 			float posX = mFirstPosX + SIZE * w;
@@ -154,13 +161,13 @@ void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 			mCursor->Draw(mCamera);
 
 			if(tkl::Input::IsMouseDownTrigger(eMouse::MOUSE_LEFT)){
-				// TODOFáŠQ•¨‚Ì¶¬
+				// áŠQ•¨‚Ì¶¬
 				std::shared_ptr<tkl::Mesh> obstacle = tkl::Mesh::CreateBox(SIZE);
 				obstacle->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/saikoro_image.png"));
 				obstacle->SetPosition(tkl::Vector3(posX, (SIZE >> 1), posZ));
 				mObstacles.emplace_back(obstacle);
 
-				// Œo˜H’Tõ
+				// Œo˜HÄ’Tõ
 				int prevSize = mRoute.size();
 				mFields[h][w].status = STATUS::OBSTACLE;
 				tkl::Algorithm::RouteSearch(DIV, DIV, mFields, mRoute);

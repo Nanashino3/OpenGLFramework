@@ -13,6 +13,11 @@ class Mesh;
 class PlayScene : public BaseScene, public std::enable_shared_from_this<PlayScene>
 {
 public:
+	enum class MODE
+	{
+		EDIT_MODE,
+		PLAY_MODE
+	};
 	PlayScene();
 	virtual ~PlayScene();
 
@@ -25,13 +30,15 @@ private:
 	int mScreenW, mScreenH;
 	float mFirstPosX, mFirstPosZ;
 	int mRouteCount;
+	MODE mMode;
 
 	std::shared_ptr<tkl::Camera> mCamera;
-	std::shared_ptr<tkl::Mesh> mGrid;
 	std::shared_ptr<tkl::Mesh> mCursor;
 
 	std::vector<CELL> mRoute;
 	std::vector<std::vector<CELL>> mFields;
 	std::vector<std::shared_ptr<tkl::Mesh>> mObstacles;
+
+	std::shared_ptr<tkl::Mesh> mGrid;
 };
 #endif
