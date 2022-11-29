@@ -8,10 +8,21 @@ namespace tkl
 System* System::sMyInstance = nullptr;
 System::System()
 : mWindow(nullptr)
+, mALCDevice(nullptr), mALCContext(nullptr)
 {}
 
 System::~System()
-{}
+{
+	// オーディオシステムの解除
+	if (!alcMakeContextCurrent(nullptr))
+		std::cerr << "Failed to make context to nullptr." << std::endl;
+
+	alcDestroyContext(mALCContext);
+	if (mALCContext) std::cerr << "Failed to unset during close." << std::endl;
+
+	if (!alcCloseDevice(mALCDevice))
+		std::cerr << "Failed to close device." << std::endl;
+}
 
 System* System::GetInstance()
 {
@@ -54,6 +65,17 @@ bool System::Initialize(int screenWidth, int screenHeight)
 
 	// 入力デバイスの初期化
 	tkl::Input::Initialize(mWindow, screenWidth, screenHeight);
+
+	// オーディオシステムの初期化
+	mALCDevice = alcOpenDevice(nullptr);
+	if (!mALCDevice) std::cerr << "Failed to open device." << std::endl;
+
+	mALCContext = alcCreateContext(mALCDevice, nullptr);
+	if (!mALCContext) std::cerr << "Failed to create context." << std::endl;
+
+	if (!alcMakeContextCurrent(mALCContext))
+		std::cerr << "Failed to make context current." << std::endl;
+
 	return true;
 }
 

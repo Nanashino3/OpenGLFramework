@@ -2,6 +2,7 @@
 #define _SYSTEM_H_
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <AL/alc.h>
 
 const int WINDOW_WIDTH = 1024;
 const int WINDOW_HEIGHT = 768;
@@ -29,6 +30,8 @@ private:
 private:
 	static System* sMyInstance;
 	GLFWwindow* mWindow;
+	ALCdevice* mALCDevice;
+	ALCcontext* mALCContext;
 };
 
 } // namespace tkl
