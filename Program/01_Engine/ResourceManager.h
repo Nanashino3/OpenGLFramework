@@ -13,6 +13,7 @@ public:
 	static void DestroyInstance();
 
 	std::shared_ptr<Texture> CreateTextureFromFile(const char* fileName);
+	void CreateSoundFromFile(const char* fileName);
 
 private:
 	ResourceManager();

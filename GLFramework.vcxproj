@@ -37,6 +37,13 @@
     <ClCompile Include="Program\01_Engine\ResourceManager.cpp" />
     <ClCompile Include="Program\01_Engine\Shader.cpp" />
     <ClCompile Include="Program\01_Engine\ShaderFactory.cpp" />
+    <ClCompile Include="Program\01_Engine\Sound\SoundBuffer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Sound\SoundParser.cpp" />
+    <ClCompile Include="Program\01_Engine\Sound\SoundSource.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Program\01_Engine\System.cpp" />
     <ClCompile Include="Program\01_Engine\Font.cpp" />
     <ClCompile Include="Program\01_Engine\Texture.cpp" />
@@ -84,6 +91,13 @@
     <ClInclude Include="Program\01_Engine\ResourceManager.h" />
     <ClInclude Include="Program\01_Engine\Shader.h" />
     <ClInclude Include="Program\01_Engine\ShaderFactory.h" />
+    <ClInclude Include="Program\01_Engine\Sound\SoundBuffer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Sound\SoundParser.h" />
+    <ClInclude Include="Program\01_Engine\Sound\SoundSource.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Program\01_Engine\System.h" />
     <ClInclude Include="Program\01_Engine\Font.h" />
     <ClInclude Include="Program\01_Engine\Texture.h" />

@@ -25,6 +25,9 @@
     <Filter Include="Program\00_Game\Scene">
       <UniqueIdentifier>{85c65fba-797b-4a88-ae40-483565a6c34e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\01_Engine\Sound">
+      <UniqueIdentifier>{8f058a62-a6e1-4bd0-98f6-cba5c30e9ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
@@ -113,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="Program\Algorithm.cpp">
       <Filter>Program</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Sound\SoundBuffer.cpp">
+      <Filter>Program\01_Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Sound\SoundSource.cpp">
+      <Filter>Program\01_Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Sound\SoundParser.cpp">
+      <Filter>Program\01_Engine\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -228,6 +240,15 @@
     </ClInclude>
     <ClInclude Include="Program\Algorithm.h">
       <Filter>Program</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Sound\SoundBuffer.h">
+      <Filter>Program\01_Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Sound\SoundSource.h">
+      <Filter>Program\01_Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Sound\SoundParser.h">
+      <Filter>Program\01_Engine\Sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

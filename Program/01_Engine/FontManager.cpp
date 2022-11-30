@@ -24,7 +24,7 @@ void FontManager::DestroyInstance()
 	delete sMyInstance;
 }
 
-// フォントによるテクスチャ作成
+// テクスチャ作成(フォント)
 FontManager::Font FontManager::GetFontTexture(wchar_t once)
 {
 	auto iter = mCacheFonts.find(once);
