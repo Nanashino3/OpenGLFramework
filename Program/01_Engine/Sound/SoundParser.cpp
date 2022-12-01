@@ -5,6 +5,16 @@
 
 namespace tkl
 {
+void SoundParser::PrintFmtChunk(const FmtChunk& fmtChunk)
+{
+	printf("データ形式：%u(1 = PCM)\n", fmtChunk.formatID);
+	printf("チャンネル数：%u\n", fmtChunk.channels);
+	printf("サンプリング周波数：%lu[Hz]\n", fmtChunk.samplingRate);
+	printf("バイト数/数：%lu[bytes/sec]\n", fmtChunk.bytesPerSec);
+	printf("バイト数×チャンネル数：%u[bytes]\n", fmtChunk.blockSize);
+	printf("ビット数/サンプル：%u[bits/sample]\n", fmtChunk.bitsPerSec);
+}
+
 bool SoundParser::LoadAudio(const char* filename, SoundInfo& sndInfo)
 {
 	FILE* fp;
@@ -35,8 +45,11 @@ bool SoundParser::LoadAudio(const char* filename, SoundInfo& sndInfo)
 	while(fread(&chunkTag, sizeof(ChunkTag), 1, fp) == 1){
 		long pos = ftell(fp);
 		if(memcmp(chunkTag.fmt, "fmt ", 4) == 0){
-			FmtChank fmtChank;
-			fread(&fmtChank, sizeof(FmtChank), 1, fp);
+			FmtChunk fmtChank;
+			fread(&fmtChank, sizeof(FmtChunk), 1, fp);
+#if 0
+			PrintFmtChunk(fmtChank);
+#endif		
 			sndInfo.frequency = fmtChank.samplingRate;
 			if(fmtChank.channels == 1){
 				sndInfo.format = AL_FORMAT_MONO16;
@@ -56,4 +69,4 @@ bool SoundParser::LoadAudio(const char* filename, SoundInfo& sndInfo)
 	return true;
 }
 
-}
+} // namespace tkl

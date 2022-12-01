@@ -120,10 +120,10 @@
     <ClCompile Include="Program\01_Engine\Sound\SoundBuffer.cpp">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Sound\SoundSource.cpp">
+    <ClCompile Include="Program\01_Engine\Sound\SoundParser.cpp">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Sound\SoundParser.cpp">
+    <ClCompile Include="Program\01_Engine\Sound\Sound.cpp">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClCompile>
   </ItemGroup>
@@ -244,10 +244,10 @@
     <ClInclude Include="Program\01_Engine\Sound\SoundBuffer.h">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Sound\SoundSource.h">
+    <ClInclude Include="Program\01_Engine\Sound\SoundParser.h">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Sound\SoundParser.h">
+    <ClInclude Include="Program\01_Engine\Sound\Sound.h">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClInclude>
   </ItemGroup>

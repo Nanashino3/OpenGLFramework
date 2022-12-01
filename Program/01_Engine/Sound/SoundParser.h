@@ -28,7 +28,7 @@ private:
 		unsigned int fmtSize;
 	};
 
-	struct FmtChank
+	struct FmtChunk
 	{
 		unsigned short formatID;		// フォーマットID
 		unsigned short channels;		// チャンネル数
@@ -38,7 +38,7 @@ private:
 		unsigned short bitsPerSec;		// サンプルあたりのビット数
 	};
 
-	static bool ReadChunk();
+	static void PrintFmtChunk(const FmtChunk& fmtChunk);
 };
 
 using SoundInfo = tkl::SoundParser::SoundInfo;

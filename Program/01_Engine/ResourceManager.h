@@ -6,6 +6,7 @@
 namespace tkl
 {
 class Texture;
+class SoundBuffer;
 class ResourceManager
 {
 public:
@@ -13,7 +14,7 @@ public:
 	static void DestroyInstance();
 
 	std::shared_ptr<Texture> CreateTextureFromFile(const char* fileName);
-	void CreateSoundFromFile(const char* fileName);
+	std::shared_ptr<SoundBuffer> CreateSoundFromFile(const char* fileName);
 
 private:
 	ResourceManager();
