@@ -8,19 +8,12 @@
 #include "../../01_Engine/Intersect.h"
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Input.h"
+#include "../../02_Library/Utility.h"
 
 const int SIZE = 50;
 const int DIV = 5;
 
 std::shared_ptr<tkl::Mesh> gMesh;
-
-STATUS map[DIV][DIV] = {
-	{STATUS::START, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY},
-	{STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::GOAL, STATUS::EMPTY},
-	{STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY},
-	{STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY},
-	{STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY, STATUS::EMPTY},
-};
 
 PlayScene::PlayScene()
 : mScreenW(0), mScreenH(0)
@@ -42,11 +35,13 @@ PlayScene::PlayScene()
 	mCursor->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test2.bmp"));
 	mCursor->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
 
+
+	std::vector<std::vector<std::string>> map = tkl::LoadCsv("Resource/test.csv");
 	// フィールド生成
 	for(int i  = 0; i < DIV; ++i){
 		std::vector<CELL> fields;
 		for(int j = 0; j < DIV; ++j){
-			fields.emplace_back(CELL(i, j, map[i][j]));
+			fields.emplace_back(CELL(i, j, static_cast<STATUS>(std::stoi(map[i][j]))));
 		}
 		mFields.emplace_back(fields);
 	}
@@ -74,7 +69,6 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	std::shared_ptr<BaseScene> nextScene = shared_from_this();
 
 	mCamera->Update();
-	tkl::Font::DrawStringEx(0, 0, "プレイシーン");
 
 	// マウス座標を元にレイを飛ばす
 	int mousePosX = 0, mousePosY = 0;
@@ -107,6 +101,7 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	// 探索した経路を進む処理
 	if(tkl::Input::IsKeyDownTrigger(eKeys::KB_ENTER)) mMode = MODE::PLAY_MODE;
 	if(mMode == MODE::PLAY_MODE){
+		tkl::Font::DrawStringEx(0, 0, "プレイモード");
 		tkl::Vector3 pos = gMesh->GetPosition();
 		float targetPosX = mFirstPosX + SIZE * mRoute[mRouteCount - 1].column;
 		float targetPosZ = mFirstPosZ + SIZE * mRoute[mRouteCount - 1].row;
@@ -131,6 +126,8 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 		}
 
 		gMesh->SetPosition(pos);
+	}else{
+		tkl::Font::DrawStringEx(0, 0, "エディットモード");
 	}
 	gMesh->Draw(mCamera);
 
