@@ -35,13 +35,12 @@ PlayScene::PlayScene()
 	mCursor->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test2.bmp"));
 	mCursor->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
 
-
-	std::vector<std::vector<std::string>> map = tkl::LoadCsv("Resource/test.csv");
 	// フィールド生成
+	std::vector<std::vector<std::string>> map = tkl::LoadCsv("Resource/test.csv");
 	for(int i  = 0; i < DIV; ++i){
-		std::vector<CELL> fields;
+		std::vector<tkl::CELL> fields;
 		for(int j = 0; j < DIV; ++j){
-			fields.emplace_back(CELL(i, j, static_cast<STATUS>(std::stoi(map[i][j]))));
+			fields.emplace_back(tkl::CELL(i, j, static_cast<tkl::STATUS>(std::stoi(map[i][j]))));
 		}
 		mFields.emplace_back(fields);
 	}
@@ -110,8 +109,8 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 		int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
 		int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
 
-		pos.mX += 0.5f * dx * deltaTime;
-		pos.mZ += 0.5f * dz * deltaTime;
+		pos.mX += 3.0f * dx * deltaTime;
+		pos.mZ += 3.0f * dz * deltaTime;
 
 		if(dx > 0 || dz > 0){
 			if(pos.mX > targetPosX || pos.mZ > targetPosZ){
@@ -154,6 +153,8 @@ void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 			float posZ = mFirstPosZ + SIZE * h;
 			if(!tkl::IsIntersectPointRect(pos.mX, pos.mZ, posX, posZ, SIZE)){ continue; }
 
+			if(mFields[h][w].status != tkl::STATUS::EDIT){ continue; }
+
 			mCursor->SetPosition(tkl::Vector3(posX, 0, posZ));
 			mCursor->Draw(mCamera);
 
@@ -166,11 +167,11 @@ void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 
 				// 経路再探索
 				int prevSize = mRoute.size();
-				mFields[h][w].status = STATUS::OBSTACLE;
-				tkl::Algorithm::RouteSearch(DIV, DIV, mFields, mRoute);
+				mFields[h][w].status = tkl::STATUS::UNIT;
+//				tkl::Algorithm::RouteSearch(DIV, DIV, mFields, mRoute);
 
-				int newSize = mRoute.size();
-				mRouteCount = mRouteCount + abs(prevSize - newSize);
+//				int newSize = mRoute.size();
+//				mRouteCount = mRouteCount + abs(prevSize - newSize);
 			}
 		}
 	}

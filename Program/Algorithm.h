@@ -13,7 +13,8 @@ public:
 		OPEN,
 		CLOSE,
 		EMPTY,
-		OBSTACLE,
+		EDIT,
+		UNIT,
 		START,
 		GOAL
 	};
@@ -45,10 +46,10 @@ private:
 	static std::list<NODE*> sOpenList;
 };
 
-}
-
 using STATUS = tkl::Algorithm::STATUS;
 using CELL = tkl::Algorithm::CELL;
 using NODE = tkl::Algorithm::NODE;
+
+}
 
 #endif

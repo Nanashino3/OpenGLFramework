@@ -35,8 +35,8 @@ private:
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<tkl::Mesh> mCursor;
 
-	std::vector<CELL> mRoute;
-	std::vector<std::vector<CELL>> mFields;
+	std::vector<tkl::CELL> mRoute;
+	std::vector<std::vector<tkl::CELL>> mFields;
 	std::vector<std::shared_ptr<tkl::Mesh>> mObstacles;
 
 	std::shared_ptr<tkl::Mesh> mGrid;
