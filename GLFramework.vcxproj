@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp" />
     <ClCompile Include="Program\00_Game\GameManager.cpp" />
+    <ClCompile Include="Program\00_Game\GameObject\AdvanceUnit.cpp" />
     <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp" />
     <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp" />
+    <ClCompile Include="Program\01_Engine\Algorithm.cpp" />
     <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp" />
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -55,9 +57,6 @@
     <ClCompile Include="Program\02_Library\Quaternion.cpp" />
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
-    <ClCompile Include="Program\Algorithm.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="Program\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -71,9 +70,11 @@
   <ItemGroup>
     <ClInclude Include="Program\00_Game\GameMain.h" />
     <ClInclude Include="Program\00_Game\GameManager.h" />
+    <ClInclude Include="Program\00_Game\GameObject\AdvanceUnit.h" />
     <ClInclude Include="Program\00_Game\Scene\BaseScene.h" />
     <ClInclude Include="Program\00_Game\Scene\PlayScene.h" />
     <ClInclude Include="Program\00_Game\Scene\TitleScene.h" />
+    <ClInclude Include="Program\01_Engine\Algorithm.h" />
     <ClInclude Include="Program\01_Engine\Camera\Camera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -107,10 +108,8 @@
     <ClInclude Include="Program\02_Library\Math.h" />
     <ClInclude Include="Program\02_Library\Matrix.h" />
     <ClInclude Include="Program\02_Library\Quaternion.h" />
-    <ClInclude Include="Program\02_Library\Sequence.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
-    <ClInclude Include="Program\Algorithm.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

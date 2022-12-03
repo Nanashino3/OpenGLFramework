@@ -28,6 +28,9 @@
     <Filter Include="Program\01_Engine\Sound">
       <UniqueIdentifier>{8f058a62-a6e1-4bd0-98f6-cba5c30e9ec2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\00_Game\GameObject">
+      <UniqueIdentifier>{c3ef4901-16dd-4bc6-93cb-f92c31d6a759}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
@@ -114,9 +117,6 @@
     <ClCompile Include="Program\Main.cpp">
       <Filter>Program</Filter>
     </ClCompile>
-    <ClCompile Include="Program\Algorithm.cpp">
-      <Filter>Program</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Sound\SoundBuffer.cpp">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClCompile>
@@ -125,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Sound\Sound.cpp">
       <Filter>Program\01_Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\GameObject\AdvanceUnit.cpp">
+      <Filter>Program\00_Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Algorithm.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,9 +223,6 @@
     <ClInclude Include="Program\01_Engine\Intersect.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Program\02_Library\Sequence.h">
-      <Filter>Program\02_Library</Filter>
-    </ClInclude>
     <ClInclude Include="Program\00_Game\Scene\BaseScene.h">
       <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
@@ -238,9 +241,6 @@
     <ClInclude Include="Program\01_Engine\ShaderFactory.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Program\Algorithm.h">
-      <Filter>Program</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Sound\SoundBuffer.h">
       <Filter>Program\01_Engine\Sound</Filter>
     </ClInclude>
@@ -249,6 +249,12 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Sound\Sound.h">
       <Filter>Program\01_Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\GameObject\AdvanceUnit.h">
+      <Filter>Program\00_Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Algorithm.h">
+      <Filter>Program\01_Engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

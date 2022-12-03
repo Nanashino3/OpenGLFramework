@@ -2,7 +2,7 @@
 #define _ALGORITHM_H_
 #include <vector>
 #include <list>
-#include "02_Library/Vector.h"
+#include "../02_Library/Vector.h"
 
 namespace tkl
 {
@@ -10,13 +10,13 @@ class Algorithm
 {
 public:
 	enum class STATUS {
-		OPEN,
-		CLOSE,
-		EMPTY,
-		EDIT,
-		UNIT,
-		START,
-		GOAL
+		OPEN,		// オープン
+		CLOSE,		// クローズ
+		UNEDITABLE,	// 編集不可
+		EDITABLE,	// 編集可
+		UNIT,		// ユニット
+		START,		// スタート
+		GOAL		// ゴール
 	};
 
 	struct CELL

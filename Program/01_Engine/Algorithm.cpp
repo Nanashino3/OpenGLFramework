@@ -84,8 +84,8 @@ bool Algorithm::IsPossibleOpen(int rowSize, int colSize, int row, int column, st
 	if(column >= colSize || column < 0) return false;
 
 	// ó‘ÔŒŸ¸
-	if(STATUS::EMPTY == nodes[row][column].cell.status) return true;
-	if(STATUS::GOAL  == nodes[row][column].cell.status) return true;
+	if(nodes[row][column].cell.status == STATUS::UNEDITABLE)	return true;
+	if(nodes[row][column].cell.status == STATUS::GOAL)			return true;
 
 	return false;
 }

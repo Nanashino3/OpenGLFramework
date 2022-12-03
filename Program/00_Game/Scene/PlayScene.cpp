@@ -10,10 +10,10 @@
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
+#include "../GameObject/AdvanceUnit.h"
+
 const int SIZE = 50;
 const int DIV = 5;
-
-std::shared_ptr<tkl::Mesh> gMesh;
 
 PlayScene::PlayScene()
 : mScreenW(0), mScreenH(0)
@@ -37,9 +37,9 @@ PlayScene::PlayScene()
 
 	// フィールド生成
 	std::vector<std::vector<std::string>> map = tkl::LoadCsv("Resource/test.csv");
-	for(int i  = 0; i < DIV; ++i){
+	for(int i  = 0; i < map.size(); ++i){
 		std::vector<tkl::CELL> fields;
-		for(int j = 0; j < DIV; ++j){
+		for(int j = 0; j < map[i].size(); ++j){
 			fields.emplace_back(tkl::CELL(i, j, static_cast<tkl::STATUS>(std::stoi(map[i][j]))));
 		}
 		mFields.emplace_back(fields);
@@ -52,12 +52,9 @@ PlayScene::PlayScene()
 	mFirstPosX = -SIZE * DIV * 0.5f + (SIZE >> 1);
 	mFirstPosZ = mFirstPosX;
 
-	// 球体の生成
-	gMesh = tkl::Mesh::CreateSphere((SIZE >> 1), 24, 16);
-	gMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
-	float posX = mFirstPosX + SIZE * mRoute[mRouteCount].column;
-	float posZ = mFirstPosZ + SIZE * mRoute[mRouteCount].row;
-	gMesh->SetPosition(tkl::Vector3(posX, (SIZE >> 1), posZ));
+	// 進軍ユニットを生成
+	std::shared_ptr<AdvanceUnit> unit = std::make_shared<AdvanceUnit>(SIZE, DIV, mRoute);
+	mAdvanceList.emplace_back(unit);
 }
 
 PlayScene::~PlayScene()
@@ -97,41 +94,23 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	}
 	
 	//******************************************************************
-	// 探索した経路を進む処理
+	// モード変更
 	if(tkl::Input::IsKeyDownTrigger(eKeys::KB_ENTER)) mMode = MODE::PLAY_MODE;
+
+	std::string str = (mMode == MODE::PLAY_MODE) ? "プレイモード" : "エディットモード";
+	tkl::Font::DrawStringEx(0, 0, str.c_str());
+
 	if(mMode == MODE::PLAY_MODE){
-		tkl::Font::DrawStringEx(0, 0, "プレイモード");
-		tkl::Vector3 pos = gMesh->GetPosition();
-		float targetPosX = mFirstPosX + SIZE * mRoute[mRouteCount - 1].column;
-		float targetPosZ = mFirstPosZ + SIZE * mRoute[mRouteCount - 1].row;
-
-		// 移動量計算
-		int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
-		int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
-
-		pos.mX += 3.0f * dx * deltaTime;
-		pos.mZ += 3.0f * dz * deltaTime;
-
-		if(dx > 0 || dz > 0){
-			if(pos.mX > targetPosX || pos.mZ > targetPosZ){
-				pos.mX = targetPosX; pos.mZ = targetPosZ;
-				if(mRouteCount > 1) mRouteCount--;
-			}
-		}else if(dx < 0 || dz < 0){
-			if(pos.mX < targetPosX || pos.mZ < targetPosZ){
-				pos.mX = targetPosX; pos.mZ = targetPosZ;
-				if(mRouteCount > 1) mRouteCount--;
-			}
+		for(auto iter = mAdvanceList.begin(); iter != mAdvanceList.end(); ++iter){
+			(*iter)->Move(deltaTime);
 		}
-
-		gMesh->SetPosition(pos);
-	}else{
-		tkl::Font::DrawStringEx(0, 0, "エディットモード");
 	}
-	gMesh->Draw(mCamera);
+	for (auto iter = mAdvanceList.begin(); iter != mAdvanceList.end(); ++iter) {
+		(*iter)->Draw(mCamera);
+	}
+
 
 	//******************************************************************
-
 	// 障害物の描画
 	for(int i = 0; i < mObstacles.size(); ++i){
 		mObstacles[i]->Draw(mCamera);
@@ -153,16 +132,16 @@ void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 			float posZ = mFirstPosZ + SIZE * h;
 			if(!tkl::IsIntersectPointRect(pos.mX, pos.mZ, posX, posZ, SIZE)){ continue; }
 
-			if(mFields[h][w].status != tkl::STATUS::EDIT){ continue; }
+			if(mFields[h][w].status != tkl::STATUS::EDITABLE){ continue; }
 
 			mCursor->SetPosition(tkl::Vector3(posX, 0, posZ));
 			mCursor->Draw(mCamera);
 
 			if(tkl::Input::IsMouseDownTrigger(eMouse::MOUSE_LEFT)){
 				// 障害物の生成
-				std::shared_ptr<tkl::Mesh> obstacle = tkl::Mesh::CreateBox(SIZE);
+				std::shared_ptr<tkl::Mesh> obstacle = tkl::Mesh::CreateBox(SIZE >> 1);
 				obstacle->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/saikoro_image.png"));
-				obstacle->SetPosition(tkl::Vector3(posX, (SIZE >> 1), posZ));
+				obstacle->SetPosition(tkl::Vector3(posX, 12.5f, posZ));
 				mObstacles.emplace_back(obstacle);
 
 				// 経路再探索
