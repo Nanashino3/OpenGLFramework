@@ -11,21 +11,24 @@
 #include "../../02_Library/Utility.h"
 
 #include "../GameObject/AdvanceUnit.h"
+#include "../GameObject/DefenseUnit.h"
 
 const int SIZE = 50;
 const int DIV = 5;
+const int CREATE_MAX = 5;
 
 PlayScene::PlayScene()
 : mScreenW(0), mScreenH(0)
 , mFirstPosX(0), mFirstPosZ(0)
 , mCamera(nullptr), mCursor(nullptr)
-, mMode(MODE::EDIT_MODE)
+, mElapsed(0)
+, mMapRow(1), mMapColumn(1)
 {
 	tkl::System::GetInstance()->GetWindowSize(&mScreenW, &mScreenH);
 
 	// 3Dカメラ生成
 	mCamera = std::make_shared<tkl::PostureControlCamera>(mScreenW, mScreenH);
-	mCamera->SetPosition(tkl::Vector3(100, 100, 300));
+	mCamera->SetPosition(tkl::Vector3(0, 100, 300));
 
 	// グリッド生成
 	mGrid = tkl::Mesh::CreateGround(SIZE, DIV);
@@ -37,7 +40,10 @@ PlayScene::PlayScene()
 
 	// フィールド生成
 	std::vector<std::vector<std::string>> map = tkl::LoadCsv("Resource/test.csv");
-	for(int i  = 0; i < map.size(); ++i){
+	mMapRow = map.size();
+	mMapColumn = map[0].size();
+
+	for(int i = 0; i < map.size(); ++i){
 		std::vector<tkl::CELL> fields;
 		for(int j = 0; j < map[i].size(); ++j){
 			fields.emplace_back(tkl::CELL(i, j, static_cast<tkl::STATUS>(std::stoi(map[i][j]))));
@@ -46,15 +52,10 @@ PlayScene::PlayScene()
 	}
 	
 	// 経路検索(初期)
-	tkl::Algorithm::RouteSearch(DIV, DIV, mFields, mRoute);
-	mRouteCount = mRoute.size() - 1;
+	tkl::Algorithm::RouteSearch(mMapRow, mMapColumn, mFields, mRoute);
 
-	mFirstPosX = -SIZE * DIV * 0.5f + (SIZE >> 1);
-	mFirstPosZ = mFirstPosX;
-
-	// 進軍ユニットを生成
-	std::shared_ptr<AdvanceUnit> unit = std::make_shared<AdvanceUnit>(SIZE, DIV, mRoute);
-	mAdvanceList.emplace_back(unit);
+	mFirstPosX = -SIZE * mMapRow * 0.5f + (SIZE >> 1);
+	mFirstPosZ = -SIZE * mMapColumn * 0.5f + (SIZE >> 1);
 }
 
 PlayScene::~PlayScene()
@@ -87,33 +88,39 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 
 		float posX = mFirstPosX + SIZE * mRoute[i].column;
 		float posZ = mFirstPosZ + SIZE * mRoute[i].row;
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_concrete.bmp"));
 		mesh->SetPosition(tkl::Vector3(posX, 0, posZ));
 		mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
 		mesh->Draw(mCamera);
 	}
 	
 	//******************************************************************
-	// モード変更
-	if(tkl::Input::IsKeyDownTrigger(eKeys::KB_ENTER)) mMode = MODE::PLAY_MODE;
+	// 進軍ユニット
+	// TODO：進軍ユニット管理者を作ったほうがいい？
+	tkl::Font::DrawStringEx(0, 0, "プレイモード");
+	mElapsed += deltaTime;
 
-	std::string str = (mMode == MODE::PLAY_MODE) ? "プレイモード" : "エディットモード";
-	tkl::Font::DrawStringEx(0, 0, str.c_str());
+	tkl::Font::DrawStringEx(0, 50, "DeltaTIme：%f", deltaTime);
+	if (mElapsed > 5.0f){
+		mElapsed = 0;
 
-	if(mMode == MODE::PLAY_MODE){
-		for(auto iter = mAdvanceList.begin(); iter != mAdvanceList.end(); ++iter){
-			(*iter)->Move(deltaTime);
-		}
+		// 新しい進軍ユニットを生成
+		std::shared_ptr<AdvanceUnit> unit = std::make_shared<AdvanceUnit>(SIZE, mMapRow, mMapColumn, mRoute);
+		mAdvanceList.emplace_back(unit);
 	}
-	for (auto iter = mAdvanceList.begin(); iter != mAdvanceList.end(); ++iter) {
+
+	for (auto iter = mAdvanceList.begin(); iter != mAdvanceList.end();) {
+		(*iter)->SetNewRoute(mRoute);
+		(*iter)->Move(deltaTime);
 		(*iter)->Draw(mCamera);
+		if((*iter)->IsTargetPoint()){ iter = mAdvanceList.erase(iter); continue; }
+		++iter;
 	}
-
 
 	//******************************************************************
 	// 障害物の描画
-	for(int i = 0; i < mObstacles.size(); ++i){
-		mObstacles[i]->Draw(mCamera);
+	for(auto unit : mDefenseList){
+		unit->Update(deltaTime, mCamera);
 	}
 
 	mGrid->Draw(mCamera);
@@ -124,8 +131,6 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 // 選択しているフィールドを描画
 void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 {
-	if(mMode == MODE::PLAY_MODE){ return; }
-
 	for(int h = 0; h < mFields.size(); ++h){
 		for(int w = 0; w < mFields[h].size(); ++w){
 			float posX = mFirstPosX + SIZE * w;
@@ -138,19 +143,19 @@ void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 			mCursor->Draw(mCamera);
 
 			if(tkl::Input::IsMouseDownTrigger(eMouse::MOUSE_LEFT)){
-				// 障害物の生成
-				std::shared_ptr<tkl::Mesh> obstacle = tkl::Mesh::CreateBox(SIZE >> 1);
-				obstacle->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/saikoro_image.png"));
-				obstacle->SetPosition(tkl::Vector3(posX, 12.5f, posZ));
-				mObstacles.emplace_back(obstacle);
+				mFields[h][w].status = tkl::STATUS::UNIT;
 
 				// 経路再探索
-				int prevSize = mRoute.size();
-				mFields[h][w].status = tkl::STATUS::UNIT;
-//				tkl::Algorithm::RouteSearch(DIV, DIV, mFields, mRoute);
+				std::vector<tkl::CELL> newRoute;
+				if(!tkl::Algorithm::RouteSearch(DIV, DIV, mFields, newRoute)){
+					mFields[h][w].status = tkl::STATUS::EDITABLE;
+					continue;
+				}
+				mRoute = newRoute;
 
-//				int newSize = mRoute.size();
-//				mRouteCount = mRouteCount + abs(prevSize - newSize);
+				// 防衛ユニット生成
+				std::shared_ptr<DefenseUnit> unit = std::make_shared<DefenseUnit>(tkl::Vector3(posX, 0, posZ));
+				mDefenseList.emplace_back(unit);
 			}
 		}
 	}

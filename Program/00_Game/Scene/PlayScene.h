@@ -7,21 +7,18 @@
 #include "../../02_Library/Vector.h"
 #include "../../01_Engine/Algorithm.h"
 
-namespace tkl{
+// ëOï˚êÈåæ
+class AdvanceUnit;
+class DefenseUnit;
+namespace tkl
+{
 class Camera;
 class Mesh;
 }
 
-class AdvanceUnit;
-
 class PlayScene : public BaseScene, public std::enable_shared_from_this<PlayScene>
 {
 public:
-	enum class MODE
-	{
-		EDIT_MODE,
-		PLAY_MODE
-	};
 	PlayScene();
 	virtual ~PlayScene();
 
@@ -33,17 +30,17 @@ private:
 private:
 	int mScreenW, mScreenH;
 	float mFirstPosX, mFirstPosZ;
-	int mRouteCount;
-	MODE mMode;
+	float mElapsed;
+	int mMapRow, mMapColumn;
 
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<tkl::Mesh> mCursor;
 
 	std::list<std::shared_ptr<AdvanceUnit>> mAdvanceList;
+	std::vector<std::shared_ptr<DefenseUnit>> mDefenseList;
 
 	std::vector<tkl::CELL> mRoute;
 	std::vector<std::vector<tkl::CELL>> mFields;
-	std::vector<std::shared_ptr<tkl::Mesh>> mObstacles;
 
 	std::shared_ptr<tkl::Mesh> mGrid;
 };
