@@ -13,11 +13,15 @@ class Camera;
 class AdvanceUnit
 {
 public:
-	AdvanceUnit(int mapSize, int mapDiv, std::vector<tkl::CELL>& route);
+	AdvanceUnit(int mapSize, int mapRow, int mapColumn, std::vector<tkl::CELL>& route, float moveSpeed = 10.0f);
 	~AdvanceUnit();
 
 	void Move(float deltaTime);
 	void Draw(std::shared_ptr<tkl::Camera>& camera);
+
+	bool IsTargetPoint();
+
+	void SetNewRoute(std::vector<tkl::CELL>& newRoute);
 
 private:
 	std::shared_ptr<tkl::Mesh> mMesh;
@@ -26,6 +30,7 @@ private:
 	int mRouteCount;
 	float mFirstPosX, mFirstPosZ;
 	std::vector<tkl::CELL> mRoute;
+	float mMoveSpeed;
 };
 
 #endif
