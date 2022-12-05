@@ -69,6 +69,7 @@ bool Algorithm::ASter(int rowSize, int colSize, std::vector<std::vector<NODE>>& 
 	if(STATUS::START != current->cell.status){ current->cell.status = STATUS::CLOSE; }
 
 	// 次の探索ノードを取得する(オープン済リストから最小コスト)
+	if(sOpenList.empty()){ return false; }
 	sOpenList.sort([](const NODE* a, const NODE* b){ return a->totalCost < b->totalCost;  });
 	NODE* next = sOpenList.front();
 	if(next){ sOpenList.erase(sOpenList.begin()); }
@@ -84,8 +85,8 @@ bool Algorithm::IsPossibleOpen(int rowSize, int colSize, int row, int column, st
 	if(column >= colSize || column < 0) return false;
 
 	// 状態検査
-	if(nodes[row][column].cell.status == STATUS::UNEDITABLE)	return true;
-	if(nodes[row][column].cell.status == STATUS::GOAL)			return true;
+	if(nodes[row][column].cell.status == STATUS::EDITABLE)	return true;
+	if(nodes[row][column].cell.status == STATUS::GOAL)		return true;
 
 	return false;
 }

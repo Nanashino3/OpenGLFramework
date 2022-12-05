@@ -12,11 +12,10 @@ public:
 	enum class STATUS {
 		OPEN,		// オープン
 		CLOSE,		// クローズ
-		UNEDITABLE,	// 編集不可
+		START,		// スタート
+		GOAL,		// ゴール
 		EDITABLE,	// 編集可
 		UNIT,		// ユニット
-		START,		// スタート
-		GOAL		// ゴール
 	};
 
 	struct CELL
