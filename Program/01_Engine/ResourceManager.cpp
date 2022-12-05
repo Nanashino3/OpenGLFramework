@@ -36,7 +36,7 @@ std::shared_ptr<Texture> ResourceManager::CreateTextureFromFile(const char* file
 
 	int channels = 0, textureW = 0, textureH = 0;
 	unsigned char* image = SOIL_load_image(fileName, &textureW, &textureH, &channels, SOIL_LOAD_AUTO);
-	if (image == nullptr) { return nullptr; }
+	if (image == nullptr) { std::cerr << "Failed to LoadImage." << std::endl; return nullptr; }
 
 	std::shared_ptr<Texture> newTexture = std::make_shared<Texture>(textureW, textureH, image, channels);
 	mCacheTextures.emplace(fileName, newTexture);

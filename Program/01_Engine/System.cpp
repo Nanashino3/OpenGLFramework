@@ -14,14 +14,9 @@ System::System()
 System::~System()
 {
 	// オーディオシステムの解除
-	if (!alcMakeContextCurrent(nullptr))
-		std::cerr << "Failed to make context to nullptr." << std::endl;
-
+	alcMakeContextCurrent(nullptr);
 	alcDestroyContext(mALCContext);
-	if (mALCContext) std::cerr << "Failed to unset during close." << std::endl;
-
-	if (!alcCloseDevice(mALCDevice))
-		std::cerr << "Failed to close device." << std::endl;
+	alcCloseDevice(mALCDevice);
 }
 
 System* System::GetInstance()
