@@ -3,7 +3,9 @@
 #define _DEFENSEUNIT_H_
 
 #include <memory>
+#include <list>
 
+class Bullet;
 namespace tkl{
 class Mesh;
 class Camera;
@@ -19,7 +21,10 @@ public:
 	void Update(float deltaTime, std::shared_ptr<tkl::Camera> camera);
 
 private:
+	float mElapsed;
 	std::shared_ptr<tkl::Mesh> mMesh;
+
+	std::list<std::shared_ptr<Bullet>> mBullets;
 };
 
 #endif

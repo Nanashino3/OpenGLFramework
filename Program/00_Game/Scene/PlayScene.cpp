@@ -63,8 +63,11 @@ PlayScene::~PlayScene()
 
 std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 {
+	tkl::Font::DrawStringEx(0, 0, "プレイシーン");
+
 	std::shared_ptr<BaseScene> nextScene = shared_from_this();
 
+	// カメラ更新
 	mCamera->Update();
 
 	// マウス座標を元にレイを飛ばす
@@ -97,7 +100,6 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	//******************************************************************
 	// 進軍ユニット
 	// TODO：進軍ユニット管理者を作ったほうがいい？
-	tkl::Font::DrawStringEx(0, 0, "プレイモード");
 	mElapsed += deltaTime;
 
 	tkl::Font::DrawStringEx(0, 50, "DeltaTIme：%f", deltaTime);
@@ -118,7 +120,7 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	}
 
 	//******************************************************************
-	// 障害物の描画
+	// 防衛ユニット
 	for(auto unit : mDefenseList){
 		unit->Update(deltaTime, mCamera);
 	}
