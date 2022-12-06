@@ -17,7 +17,7 @@ void Bullet::Update(float deltaTime, std::shared_ptr<tkl::Camera> camera)
 {
 	tkl::Vector3 pos = mMesh->GetPosition();
 
-	pos.mX += 10.0f * deltaTime;
+	pos.mX += 100.0f * deltaTime;
 
 	mMesh->SetPosition(pos);
 	mMesh->Draw(camera);

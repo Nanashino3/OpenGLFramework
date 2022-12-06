@@ -22,6 +22,7 @@ void DefenseUnit::Update(float deltaTime, std::shared_ptr<tkl::Camera> camera)
 	if(mElapsed > 2.0f){
 		mElapsed = 0;
 
+		// íeê∂ê¨
 		std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(mMesh->GetPosition());
 		mBullets.emplace_back(bullet);
 	}

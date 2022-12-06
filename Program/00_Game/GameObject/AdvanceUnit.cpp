@@ -25,6 +25,12 @@ AdvanceUnit::AdvanceUnit(int mapSize, int mapRow, int mapColumn, std::vector<tkl
 AdvanceUnit::~AdvanceUnit()
 {}
 
+void AdvanceUnit::Update(float deltaTime, std::shared_ptr<tkl::Camera>& camera)
+{
+	Move(deltaTime);
+	Draw(camera);
+}
+
 void AdvanceUnit::Move(float deltaTime)
 {
 	tkl::Vector3 pos = mMesh->GetPosition();
@@ -62,7 +68,7 @@ void AdvanceUnit::Draw(std::shared_ptr<tkl::Camera>& camera)
 }
 
 // –Ú•W’n“_‚©
-bool AdvanceUnit::IsTargetPoint()
+bool AdvanceUnit::IsAlive()
 {
 	if(mRoute[mRouteCount - 1].status != tkl::STATUS::GOAL) return false;
 
