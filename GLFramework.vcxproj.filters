@@ -138,6 +138,9 @@
     <ClCompile Include="Program\00_Game\GameObject\Bullet.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Program\00_Game\GameObject\AdvanceUnitManager.cpp">
+      <Filter>Program\00_Game\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -266,6 +269,12 @@
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Program\00_Game\GameObject\Bullet.h">
+      <Filter>Program\00_Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\GameObject\ObjectPool.h">
+      <Filter>Program\00_Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\GameObject\AdvanceUnitManager.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

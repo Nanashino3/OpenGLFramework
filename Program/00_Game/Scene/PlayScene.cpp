@@ -10,7 +10,7 @@
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
-#include "../GameObject/AdvanceUnit.h"
+#include "../GameObject/AdvanceUnitManager.h"
 #include "../GameObject/DefenseUnit.h"
 
 const int SIZE = 50;
@@ -107,17 +107,9 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 		mElapsed = 0;
 
 		// 新しい進軍ユニットを生成
-		std::shared_ptr<AdvanceUnit> unit = std::make_shared<AdvanceUnit>(SIZE, mMapRow, mMapColumn, mRoute);
-		mAdvanceList.emplace_back(unit);
+		AdvanceUnitManager::GetInstance()->CreateUnit(SIZE, mMapRow, mMapColumn, mRoute);
 	}
-
-	for (auto iter = mAdvanceList.begin(); iter != mAdvanceList.end();) {
-		(*iter)->SetNewRoute(mRoute);
-		(*iter)->Move(deltaTime);
-		(*iter)->Draw(mCamera);
-		if((*iter)->IsTargetPoint()){ iter = mAdvanceList.erase(iter); continue; }
-		++iter;
-	}
+	AdvanceUnitManager::GetInstance()->Update(deltaTime, mCamera, mRoute);
 
 	//******************************************************************
 	// 防衛ユニット

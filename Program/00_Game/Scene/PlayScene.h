@@ -8,7 +8,6 @@
 #include "../../01_Engine/Algorithm.h"
 
 // ‘O•ûéŒ¾
-class AdvanceUnit;
 class DefenseUnit;
 namespace tkl
 {
@@ -36,7 +35,6 @@ private:
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<tkl::Mesh> mCursor;
 
-	std::list<std::shared_ptr<AdvanceUnit>> mAdvanceList;
 	std::vector<std::shared_ptr<DefenseUnit>> mDefenseList;
 
 	std::vector<tkl::CELL> mRoute;
