@@ -132,13 +132,16 @@
     <ClCompile Include="Program\01_Engine\Algorithm.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\00_Game\GameObject\DefenseUniit.cpp">
+    <ClCompile Include="Program\00_Game\GameObject\DefenseUnit.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Program\00_Game\GameObject\Bullet.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Program\00_Game\GameObject\AdvanceUnitManager.cpp">
+      <Filter>Program\00_Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\GameObject\DefenseUnitManager.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -271,10 +274,10 @@
     <ClInclude Include="Program\00_Game\GameObject\Bullet.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Program\00_Game\GameObject\ObjectPool.h">
+    <ClInclude Include="Program\00_Game\GameObject\AdvanceUnitManager.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Program\00_Game\GameObject\AdvanceUnitManager.h">
+    <ClInclude Include="Program\00_Game\GameObject\DefenseUnitManager.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

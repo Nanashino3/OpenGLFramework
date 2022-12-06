@@ -24,7 +24,8 @@
     <ClCompile Include="Program\00_Game\GameObject\AdvanceUnit.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\AdvanceUnitManager.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\Bullet.cpp" />
-    <ClCompile Include="Program\00_Game\GameObject\DefenseUniit.cpp" />
+    <ClCompile Include="Program\00_Game\GameObject\DefenseUnit.cpp" />
+    <ClCompile Include="Program\00_Game\GameObject\DefenseUnitManager.cpp" />
     <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp" />
     <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp" />
     <ClCompile Include="Program\01_Engine\Algorithm.cpp" />
@@ -76,8 +77,8 @@
     <ClInclude Include="Program\00_Game\GameObject\AdvanceUnit.h" />
     <ClInclude Include="Program\00_Game\GameObject\AdvanceUnitManager.h" />
     <ClInclude Include="Program\00_Game\GameObject\Bullet.h" />
+    <ClInclude Include="Program\00_Game\GameObject\DefenseUnitManager.h" />
     <ClInclude Include="Program\00_Game\GameObject\DefenseUnit.h" />
-    <ClInclude Include="Program\00_Game\GameObject\ObjectPool.h" />
     <ClInclude Include="Program\00_Game\Scene\BaseScene.h" />
     <ClInclude Include="Program\00_Game\Scene\PlayScene.h" />
     <ClInclude Include="Program\00_Game\Scene\TitleScene.h" />

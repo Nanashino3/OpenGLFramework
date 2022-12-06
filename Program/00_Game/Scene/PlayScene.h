@@ -8,7 +8,6 @@
 #include "../../01_Engine/Algorithm.h"
 
 // ‘O•ûéŒ¾
-class DefenseUnit;
 namespace tkl
 {
 class Camera;
@@ -34,8 +33,6 @@ private:
 
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<tkl::Mesh> mCursor;
-
-	std::vector<std::shared_ptr<DefenseUnit>> mDefenseList;
 
 	std::vector<tkl::CELL> mRoute;
 	std::vector<std::vector<tkl::CELL>> mFields;

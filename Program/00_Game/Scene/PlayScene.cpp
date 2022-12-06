@@ -11,7 +11,7 @@
 #include "../../02_Library/Utility.h"
 
 #include "../GameObject/AdvanceUnitManager.h"
-#include "../GameObject/DefenseUnit.h"
+#include "../GameObject/DefenseUnitManager.h"
 
 const int SIZE = 50;
 const int DIV = 5;
@@ -99,23 +99,21 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	
 	//******************************************************************
 	// 進軍ユニット
-	// TODO：進軍ユニット管理者を作ったほうがいい？
 	mElapsed += deltaTime;
-
 	tkl::Font::DrawStringEx(0, 50, "DeltaTIme：%f", deltaTime);
+
 	if (mElapsed > 5.0f){
 		mElapsed = 0;
 
-		// 新しい進軍ユニットを生成
+		// 進軍ユニット生成
 		AdvanceUnitManager::GetInstance()->CreateUnit(SIZE, mMapRow, mMapColumn, mRoute);
 	}
+	// 進軍ユニット更新
 	AdvanceUnitManager::GetInstance()->Update(deltaTime, mCamera, mRoute);
 
 	//******************************************************************
-	// 防衛ユニット
-	for(auto unit : mDefenseList){
-		unit->Update(deltaTime, mCamera);
-	}
+	// 防衛ユニット更新
+	DefenseUnitManager::GetInstance()->Update(deltaTime, mCamera);
 
 	mGrid->Draw(mCamera);
 
@@ -148,8 +146,7 @@ void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 				mRoute = newRoute;
 
 				// 防衛ユニット生成
-				std::shared_ptr<DefenseUnit> unit = std::make_shared<DefenseUnit>(tkl::Vector3(posX, 0, posZ));
-				mDefenseList.emplace_back(unit);
+				DefenseUnitManager::GetInstance()->CreateUnit(tkl::Vector3(posX, 0, posZ));
 			}
 		}
 	}

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _ADVANCEUNITMANAGER_H_
+#define _ADVANCEUNITMANAGER_H_
 
 #include "ObjectPool.h"
 #include "AdvanceUnit.h"
@@ -19,3 +20,5 @@ private:
 	static AdvanceUnitManager* sMyInstance;
 	std::list<std::shared_ptr<AdvanceUnit>> mList;
 };
+
+#endif
