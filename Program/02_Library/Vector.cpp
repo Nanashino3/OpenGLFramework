@@ -67,6 +67,11 @@ Vector3& Vector3::operator*=(float s)
 }
 //******************************************************
 
+bool Vector3::operator==(const Vector3& a)
+{
+	return mX == a.mX && mY == a.mY && mZ == a.mZ;
+}
+
 // ベクトルの正規化
 Vector3 Vector3::Normalize(const Vector3& v)
 {
@@ -143,6 +148,22 @@ Vector3 Vector3::CreateScreenRay(int screenX, int screenY, int screenW, int scre
 									  0.0f);
 
 	return tkl::Vector3::TransformCoord(tempVector, tempMatrix);
+}
+
+// 2点間の距離を求める
+float Vector3::Distance(const Vector3& v1, const Vector3& v2)
+{
+	float dx = v1.mX - v2.mX;
+	float dy = v1.mY - v2.mY;
+	float dz = v1.mZ - v2.mZ;
+
+	return sqrtf(dx * dx + dy * dy + dz * dz);
+}
+
+// 長さを求める
+float Vector3::Magnitude(const Vector3& v1)
+{
+	return sqrtf(v1.mX * v1.mX + v1.mY * v1.mY + v1.mZ * v1.mZ);
 }
 
 } // namespace tkl

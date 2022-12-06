@@ -29,6 +29,8 @@ public:
 	Vector3 operator*(float s) const;
 	Vector3& operator*=(float s);
 
+	bool operator==(const Vector3& a);
+
 	// ベクトルの配列を返す
 	float* GetData() const { return (float*)(&mVec[0]); }
 
@@ -38,6 +40,8 @@ public:
 	static Vector3 TransformCoord(const Vector3& v, const Quaternion& q);
 	static Vector3 TransformCoord(const Vector3& v, const Matrix& m);
 	static Vector3 CreateScreenRay(int screenX, int screenY, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection);
+	static float Distance(const Vector3& v1, const Vector3& v2);
+	static float Magnitude(const Vector3& v1);
 
 	static const Vector3 ZERO;
 	static const Vector3 UNITX;

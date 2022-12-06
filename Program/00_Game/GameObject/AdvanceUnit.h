@@ -20,6 +20,7 @@ public:
 	void Update(float deltaTime, std::shared_ptr<tkl::Camera>& camera);
 	bool IsAlive();
 	void SetNewRoute(std::vector<tkl::CELL>& newRoute);
+	tkl::Vector3 GetUnitPosition() const;
 
 private:
 	void Move(float deltaTime);

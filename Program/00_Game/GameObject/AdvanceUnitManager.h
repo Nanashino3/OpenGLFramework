@@ -11,6 +11,7 @@ public:
 
 	void CreateUnit(int mapSize, int mapRow, int mapColumn, std::vector<tkl::CELL>& route, float moveSpeed = 10.0f);
 	void Update(float deltaTime, std::shared_ptr<tkl::Camera>& camera, std::vector<tkl::CELL>& newRoute);
+	tkl::Vector3 GetNearUnit(const tkl::Vector3& pos);
 
 private:
 	AdvanceUnitManager();

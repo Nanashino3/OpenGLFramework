@@ -31,10 +31,20 @@ void AdvanceUnitManager::Update(float deltaTime, std::shared_ptr<tkl::Camera>& c
 	for (auto iter = mList.begin(); iter != mList.end();) {
 		(*iter)->SetNewRoute(newRoute);
 		(*iter)->Update(deltaTime, camera);
-		if ((*iter)->IsAlive()) {
-			iter = mList.erase(iter);
-			continue;
-		}
+		if ((*iter)->IsAlive()) { iter = mList.erase(iter); continue; }
 		++iter;
 	}
+}
+
+tkl::Vector3 AdvanceUnitManager::GetNearUnit(const tkl::Vector3& pos)
+{
+	tkl::Vector3 nearPos;
+	for(auto iter = mList.begin(); iter != mList.end(); ++iter){
+		tkl::Vector3 unitPos = (*iter)->GetUnitPosition();
+		float distance = tkl::Vector3::Distance(unitPos, pos);
+		if(distance <= 55.0f){
+			nearPos = unitPos;
+		}
+	}
+	return nearPos;
 }

@@ -67,7 +67,7 @@ void AdvanceUnit::Draw(std::shared_ptr<tkl::Camera>& camera)
 	mMesh->Draw(camera);
 }
 
-// –Ú•W’n“_‚©
+// ¶‘¶‚µ‚Ä‚¢‚é‚©
 bool AdvanceUnit::IsAlive()
 {
 	if(mRoute[mRouteCount - 1].status != tkl::STATUS::GOAL) return false;
@@ -87,4 +87,9 @@ void AdvanceUnit::SetNewRoute(std::vector<tkl::CELL>& newRoute)
 
 	mRoute = newRoute;
 	mRouteCount = mRouteCount + abs(prevSize - currentSize);
+}
+
+tkl::Vector3 AdvanceUnit::GetUnitPosition() const
+{
+	return mMesh->GetPosition();
 }

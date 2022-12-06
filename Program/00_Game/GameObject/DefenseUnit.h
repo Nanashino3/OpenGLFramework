@@ -6,6 +6,9 @@
 #include <list>
 
 class Bullet;
+class BulletManager;
+class AdvanceUnitManager;
+
 namespace tkl{
 class Mesh;
 class Camera;
@@ -22,8 +25,9 @@ public:
 
 private:
 	float mElapsed;
+	BulletManager* mBulletManager;
+	AdvanceUnitManager* mAdvanceManager;
 	std::shared_ptr<tkl::Mesh> mMesh;
-
 	std::list<std::shared_ptr<Bullet>> mBullets;
 };
 

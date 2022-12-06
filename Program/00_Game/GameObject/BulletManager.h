@@ -16,8 +16,9 @@ public:
 	static BulletManager* GetInstance();
 	static void DestroyInstance();
 
-	void Create(const tkl::Vector3& pos);
+	void Create(const tkl::Vector3& pos, float radian);
 	void Update(float deltaTime, std::shared_ptr<tkl::Camera> camera);
+	bool IsAlive(const tkl::Vector3& pos);
 
 private:
 	BulletManager();
