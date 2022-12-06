@@ -9,7 +9,7 @@ DefenseUnitManager::~DefenseUnitManager()
 
 DefenseUnitManager* DefenseUnitManager::GetInstance()
 {
-	if(!sMyInstance){ sMyInstance = new DefenseUnitManager(); }
+	if(!sMyInstance) sMyInstance = new DefenseUnitManager;
 	return sMyInstance;
 }
 

@@ -1,6 +1,6 @@
 #include "DefenseUnit.h"
 
-#include "Bullet.h"
+#include "BulletManager.h"
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
 
@@ -23,14 +23,10 @@ void DefenseUnit::Update(float deltaTime, std::shared_ptr<tkl::Camera> camera)
 		mElapsed = 0;
 
 		// íeê∂ê¨
-		std::shared_ptr<Bullet> bullet = std::make_shared<Bullet>(mMesh->GetPosition());
-		mBullets.emplace_back(bullet);
+		BulletManager::GetInstance()->Create(mMesh->GetPosition());
 	}
-
 	// íeçXêV
-	for(auto iter = mBullets.begin(); iter != mBullets.end(); ++iter){
-		(*iter)->Update(deltaTime, camera);
-	}
+	BulletManager::GetInstance()->Update(deltaTime, camera);
 
 	mMesh->Draw(camera);
 }

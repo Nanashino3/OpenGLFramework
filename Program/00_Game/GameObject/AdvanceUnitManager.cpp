@@ -9,7 +9,7 @@ AdvanceUnitManager::~AdvanceUnitManager()
 
 AdvanceUnitManager* AdvanceUnitManager::GetInstance()
 {
-	if(!sMyInstance){ sMyInstance = new AdvanceUnitManager(); }
+	if(!sMyInstance) sMyInstance = new AdvanceUnitManager;
 	return sMyInstance;
 }
 
@@ -31,7 +31,10 @@ void AdvanceUnitManager::Update(float deltaTime, std::shared_ptr<tkl::Camera>& c
 	for (auto iter = mList.begin(); iter != mList.end();) {
 		(*iter)->SetNewRoute(newRoute);
 		(*iter)->Update(deltaTime, camera);
-		if ((*iter)->IsAlive()) { iter = mList.erase(iter); continue; }
+		if ((*iter)->IsAlive()) {
+			iter = mList.erase(iter);
+			continue;
+		}
 		++iter;
 	}
 }
