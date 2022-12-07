@@ -4,36 +4,36 @@
 
 #include <memory>
 #include <vector>
+#include "GameObject.h"
 #include "../../01_Engine/Algorithm.h"
 
-namespace tkl{
-class Mesh;
-class Camera;
-}
+class GameParameter;
+namespace tkl{ class Mesh; }
 
-class AdvanceUnit
+class AdvanceUnit : public GameObject
 {
 public:
-	AdvanceUnit(int mapSize, int mapRow, int mapColumn, std::vector<tkl::CELL>& route, float moveSpeed = 10.0f);
-	~AdvanceUnit();
+	AdvanceUnit(std::shared_ptr<GameParameter> param);
+	virtual ~AdvanceUnit();
 
-	void Update(float deltaTime, std::shared_ptr<tkl::Camera>& camera);
-	bool IsAlive();
+	virtual void Update(std::shared_ptr<GameParameter> param) final;
+	virtual bool IsAlive() final;
+	
 	void SetNewRoute(std::vector<tkl::CELL>& newRoute);
 	tkl::Vector3 GetUnitPosition() const;
 
 private:
-	void Move(float deltaTime);
-	void Draw(std::shared_ptr<tkl::Camera>& camera);
+	void Move(std::shared_ptr<GameParameter> param);
+	void Draw(std::shared_ptr<GameParameter> param);
 
 private:
-	std::shared_ptr<tkl::Mesh> mMesh;
-
 	int mMapSize;
 	int mRouteCount;
 	float mFirstPosX, mFirstPosZ;
-	std::vector<tkl::CELL> mRoute;
 	float mMoveSpeed;
+
+	std::shared_ptr<tkl::Mesh> mMesh;
+	std::vector<tkl::CELL> mRoute;
 };
 
 #endif

@@ -8,6 +8,7 @@
 #include "../../01_Engine/Algorithm.h"
 
 // ‘O•ûéŒ¾
+class GameParameter;
 namespace tkl
 {
 class Camera;
@@ -30,6 +31,7 @@ private:
 	float mFirstPosX, mFirstPosZ;
 	float mElapsed;
 	int mMapRow, mMapColumn;
+	std::shared_ptr<GameParameter> mParam;
 
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<tkl::Mesh> mCursor;

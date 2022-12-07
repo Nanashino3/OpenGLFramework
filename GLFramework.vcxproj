@@ -22,11 +22,9 @@
     <ClCompile Include="Program\00_Game\GameMain.cpp" />
     <ClCompile Include="Program\00_Game\GameManager.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\AdvanceUnit.cpp" />
-    <ClCompile Include="Program\00_Game\GameObject\AdvanceUnitManager.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\Bullet.cpp" />
-    <ClCompile Include="Program\00_Game\GameObject\BulletManager.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\DefenseUnit.cpp" />
-    <ClCompile Include="Program\00_Game\GameObject\DefenseUnitManager.cpp" />
+    <ClCompile Include="Program\00_Game\GameObject\ObjectManager.cpp" />
     <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp" />
     <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp" />
     <ClCompile Include="Program\01_Engine\Algorithm.cpp" />
@@ -76,11 +74,11 @@
     <ClInclude Include="Program\00_Game\GameMain.h" />
     <ClInclude Include="Program\00_Game\GameManager.h" />
     <ClInclude Include="Program\00_Game\GameObject\AdvanceUnit.h" />
-    <ClInclude Include="Program\00_Game\GameObject\AdvanceUnitManager.h" />
     <ClInclude Include="Program\00_Game\GameObject\Bullet.h" />
-    <ClInclude Include="Program\00_Game\GameObject\BulletManager.h" />
-    <ClInclude Include="Program\00_Game\GameObject\DefenseUnitManager.h" />
+    <ClInclude Include="Program\00_Game\GameObject\GameParameter.h" />
     <ClInclude Include="Program\00_Game\GameObject\DefenseUnit.h" />
+    <ClInclude Include="Program\00_Game\GameObject\GameObject.h" />
+    <ClInclude Include="Program\00_Game\GameObject\ObjectManager.h" />
     <ClInclude Include="Program\00_Game\Scene\BaseScene.h" />
     <ClInclude Include="Program\00_Game\Scene\PlayScene.h" />
     <ClInclude Include="Program\00_Game\Scene\TitleScene.h" />

@@ -138,13 +138,7 @@
     <ClCompile Include="Program\00_Game\GameObject\Bullet.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Program\00_Game\GameObject\AdvanceUnitManager.cpp">
-      <Filter>Program\00_Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\00_Game\GameObject\DefenseUnitManager.cpp">
-      <Filter>Program\00_Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\00_Game\GameObject\BulletManager.cpp">
+    <ClCompile Include="Program\00_Game\GameObject\ObjectManager.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
@@ -277,13 +271,13 @@
     <ClInclude Include="Program\00_Game\GameObject\Bullet.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Program\00_Game\GameObject\AdvanceUnitManager.h">
+    <ClInclude Include="Program\00_Game\GameObject\ObjectManager.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Program\00_Game\GameObject\DefenseUnitManager.h">
+    <ClInclude Include="Program\00_Game\GameObject\GameObject.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Program\00_Game\GameObject\BulletManager.h">
+    <ClInclude Include="Program\00_Game\GameObject\GameParameter.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
   </ItemGroup>

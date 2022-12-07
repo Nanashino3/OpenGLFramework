@@ -1,39 +1,46 @@
-// 進軍ユニット
 #include "AdvanceUnit.h"
 
+#include "GameParameter.h"
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
 
-AdvanceUnit::AdvanceUnit(int mapSize, int mapRow, int mapColumn, std::vector<tkl::CELL>& route, float moveSpeed)
-: mMesh(nullptr)
-, mMapSize(mapSize)
+AdvanceUnit::AdvanceUnit(std::shared_ptr<GameParameter> param)
+: mMapSize(param->GetMapSize())
 , mRouteCount(0)
 , mFirstPosX(0), mFirstPosZ(0)
-, mRoute(route)
-, mMoveSpeed(moveSpeed)
+, mMoveSpeed(10.0f)
+, mMesh(nullptr)
+, mRoute(param->GetRoute())
 {
-	mRouteCount = route.size() - 1;	// 0オリジン
+	int mapSize = param->GetMapSize();
+	int mapRow = param->GetMapRow();
+	int mapColumn = param->GetMapColumn();
+
+	mRouteCount = param->GetRoute().size() - 1;
 	mMesh = tkl::Mesh::CreateBox(25);
 
 	// 初期座標計算
-	mFirstPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
-	mFirstPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
-	mMesh->SetPosition(tkl::Vector3(mFirstPosX, (mapSize >> 1), mFirstPosZ));
+	mFirstPosX = -mMapSize * mapRow * 0.5f + (mMapSize >> 1);
+	mFirstPosZ = -mMapSize * mapColumn * 0.5f + (mMapSize >> 1);
+
+	mMesh->SetPosition(tkl::Vector3(mFirstPosX, (mMapSize >> 1), mFirstPosZ));
 	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
 }
 
 AdvanceUnit::~AdvanceUnit()
 {}
 
-void AdvanceUnit::Update(float deltaTime, std::shared_ptr<tkl::Camera>& camera)
+void AdvanceUnit::Update(std::shared_ptr<GameParameter> param)
 {
-	Move(deltaTime);
-	Draw(camera);
+	SetNewRoute(param->GetRoute());
+	Move(param);
+	Draw(param);
 }
 
-void AdvanceUnit::Move(float deltaTime)
+void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 {
 	tkl::Vector3 pos = mMesh->GetPosition();
+
 	float targetPosX = mFirstPosX + mMapSize * mRoute[mRouteCount - 1].column;
 	float targetPosZ = mFirstPosZ + mMapSize * mRoute[mRouteCount - 1].row;
 
@@ -43,8 +50,8 @@ void AdvanceUnit::Move(float deltaTime)
 
 	//******************************************************************
 	// 探索した経路を進む処理
-	pos.mX += mMoveSpeed * dx * deltaTime;
-	pos.mZ += mMoveSpeed * dz * deltaTime;
+	pos.mX += mMoveSpeed * dx * param->GetDeltaTime();
+	pos.mZ += mMoveSpeed * dz * param->GetDeltaTime();
 
 	if (dx > 0 || dz > 0) {
 		if (pos.mX > targetPosX || pos.mZ > targetPosZ) {
@@ -62,21 +69,21 @@ void AdvanceUnit::Move(float deltaTime)
 	mMesh->SetPosition(pos);
 }
 
-void AdvanceUnit::Draw(std::shared_ptr<tkl::Camera>& camera)
+void AdvanceUnit::Draw(std::shared_ptr<GameParameter> param)
 {
-	mMesh->Draw(camera);
+	mMesh->Draw(param->GetCamera());
 }
 
 // 生存しているか
 bool AdvanceUnit::IsAlive()
 {
-	if(mRoute[mRouteCount - 1].status != tkl::STATUS::GOAL) return false;
+	if(mRoute[mRouteCount - 1].status != tkl::STATUS::GOAL) return true;
 
 	tkl::Vector3 pos = mMesh->GetPosition();
 	float targetPosX = mFirstPosX + mMapSize * mRoute[mRouteCount - 1].column;
 	float targetPosZ = mFirstPosZ + mMapSize * mRoute[mRouteCount - 1].row;
 
-	return pos.mX == targetPosX && pos.mZ == targetPosZ;
+	return !(pos.mX == targetPosX && pos.mZ == targetPosZ);
 }
 
 // 最新ルート設定

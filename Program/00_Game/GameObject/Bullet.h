@@ -2,27 +2,25 @@
 #define _BULLET_H_
 
 #include <memory>
+#include "GameObject.h"
 #include "../../02_Library/Vector.h"
 
-namespace tkl {
-class Mesh;
-class Camera;
-}
-
-class Bullet
+namespace tkl { class Mesh; }
+class Bullet : public GameObject
 {
 public:
-	Bullet(const tkl::Vector3& pos, float radian);
-	~Bullet();
+	Bullet(std::shared_ptr<GameParameter> param);
+	virtual ~Bullet();
 
-	void Update(float deltaTime, std::shared_ptr<tkl::Camera> camera);
-	bool IsAlive() const { return mIsAlive; }
+	virtual void Update(std::shared_ptr<GameParameter> param) final;
+	virtual bool IsAlive() final { return mIsAlive; }
 	tkl::Vector3 GetLauncherPos() const { return mLauncherPos; }
 
 private:
 	float mRadian;
 	bool mIsAlive;
 	tkl::Vector3 mLauncherPos;
+	tkl::Vector3 mDiffPos;
 	std::shared_ptr<tkl::Mesh> mMesh;
 };
 

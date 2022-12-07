@@ -10,8 +10,10 @@
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
-#include "../GameObject/AdvanceUnitManager.h"
-#include "../GameObject/DefenseUnitManager.h"
+#include "../GameObject/AdvanceUnit.h"
+#include "../GameObject/DefenseUnit.h"
+#include "../GameObject/GameParameter.h"
+#include "../GameObject/ObjectManager.h"
 
 const int SIZE = 50;
 const int DIV = 5;
@@ -56,6 +58,8 @@ PlayScene::PlayScene()
 
 	mFirstPosX = -SIZE * mMapRow * 0.5f + (SIZE >> 1);
 	mFirstPosZ = -SIZE * mMapColumn * 0.5f + (SIZE >> 1);
+
+	mParam = std::make_shared<GameParameter>();
 }
 
 PlayScene::~PlayScene()
@@ -69,6 +73,8 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 
 	// カメラ更新
 	mCamera->Update();
+	mParam->SetCamera(mCamera);
+	mParam->SetDeltaTime(deltaTime);
 
 	// マウス座標を元にレイを飛ばす
 	int mousePosX = 0, mousePosY = 0;
@@ -105,15 +111,20 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	if (mElapsed > 5.0f){
 		mElapsed = 0;
 
-		// 進軍ユニット生成
-		AdvanceUnitManager::GetInstance()->CreateUnit(SIZE, mMapRow, mMapColumn, mRoute);
+		auto list = ObjectManager::GetInstance()->GetObjectList<AdvanceUnit>();
+		if(list->size() != CREATE_MAX){
+			// 進軍ユニット生成
+			mParam->SetMapSize(SIZE);
+			mParam->SetMapRow(mMapRow);
+			mParam->SetMapColumn(mMapColumn);
+			mParam->SetRoute(mRoute);
+			ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
+		}
 	}
-	// 進軍ユニット更新
-	AdvanceUnitManager::GetInstance()->Update(deltaTime, mCamera, mRoute);
 
 	//******************************************************************
-	// 防衛ユニット更新
-	DefenseUnitManager::GetInstance()->Update(deltaTime, mCamera);
+	// オブジェクト描画
+	ObjectManager::GetInstance()->Update(mParam);
 
 	mGrid->Draw(mCamera);
 
@@ -146,7 +157,8 @@ void PlayScene::PriDrawSelectField(const tkl::Vector3& pos)
 				mRoute = newRoute;
 
 				// 防衛ユニット生成
-				DefenseUnitManager::GetInstance()->CreateUnit(tkl::Vector3(posX, 0, posZ));
+				mParam->SetClickPos(tkl::Vector3(posX, 0, posZ));
+				ObjectManager::GetInstance()->Create<DefenseUnit>(mParam);
 			}
 		}
 	}

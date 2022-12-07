@@ -1,43 +1,45 @@
 #include "DefenseUnit.h"
 
-#include "AdvanceUnitManager.h"
-#include "BulletManager.h"
+#include "Bullet.h"
+#include "AdvanceUnit.h"
+#include "GameParameter.h"
+#include "ObjectManager.h"
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
 
-DefenseUnit::DefenseUnit(const tkl::Vector3& pos)
-: mElapsed(0)
-, mMesh(nullptr)
+DefenseUnit::DefenseUnit(std::shared_ptr<GameParameter> param)
+: mMesh(nullptr)
 {
 	mMesh = tkl::Mesh::CreateSphere(25, 24, 16);
 	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_water.bmp"));
-	mMesh->SetPosition(tkl::Vector3(pos.mX, 12.5f, pos.mZ));
 
-	mBulletManager = BulletManager::GetInstance();
-	mAdvanceManager = AdvanceUnitManager::GetInstance();
+	tkl::Vector3 clickPos = param->GetClickPos();
+	mMesh->SetPosition(tkl::Vector3(clickPos.mX, 12.5f, clickPos.mZ));
 }
 
 DefenseUnit::~DefenseUnit()
 {}
 
-void DefenseUnit::Update(float deltaTime, std::shared_ptr<tkl::Camera> camera)
+void DefenseUnit::Update(std::shared_ptr<GameParameter> param)
 {
-	mMesh->Draw(camera);
+	// Ž©g‚ð•`‰æ
+	mMesh->Draw(param->GetCamera());
+	if(!mBullet.expired()){ return; }
+	
+	// ¶‘¶‚µ‚Ä‚¢‚È‚¢ê‡‚Í’e¶¬
+	auto list = ObjectManager::GetInstance()->GetObjectList<AdvanceUnit>();
+	if(list->size() != 0){
+		tkl::Vector3 nearPos;
+		for(auto it = list->begin(); it != list->end(); ++it){
+			std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
+			tkl::Vector3 pos = unit->GetUnitPosition();
+			float distance = tkl::Vector3::Distance(pos, mMesh->GetPosition());
+			if(distance <= 55.0f){ nearPos = pos; break; }
+		}
+		if(tkl::Vector3::Magnitude(nearPos) == 0){ return; }
 
-	// 1”Ô‹ß‚¢iŒRƒ†ƒjƒbƒg‚ðŽæ“¾
-	tkl::Vector3 nearUnit = mAdvanceManager->GetNearUnit(mMesh->GetPosition());
-	if(tkl::Vector3::Magnitude(nearUnit) == 0){ return;	}
-
-	tkl::Vector3 diff = nearUnit - mMesh->GetPosition();
-	float radian = atan2f(diff.mX, diff.mZ);
-
-	// ¶‘¶‚µ‚Ä‚¢‚È‚¢ê‡’e¶¬
-	if(!mBulletManager->IsAlive(mMesh->GetPosition())){ mBulletManager->Create(mMesh->GetPosition(), radian); }
-	// ’eXV
-	mBulletManager->Update(deltaTime, camera);
-
-//	mElapsed += deltaTime;
-//	if(mElapsed > 2.0f){
-//		mElapsed = 0;
-//	}
+		param->SetTargetPos(nearPos);
+		param->SetLauncherPos(mMesh->GetPosition());
+		mBullet = ObjectManager::GetInstance()->Create<Bullet>(param);
+	}
 }
