@@ -19,16 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Program\00_Game\Field.cpp" />
     <ClCompile Include="Program\00_Game\GameMain.cpp" />
     <ClCompile Include="Program\00_Game\GameManager.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\AdvanceUnit.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\Bullet.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\DefenseUnit.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\ObjectManager.cpp" />
+    <ClCompile Include="Program\00_Game\NotifyService\AdvanceUnitObserver.cpp" />
+    <ClCompile Include="Program\00_Game\NotifyService\DefenseUnitObserver.cpp" />
+    <ClCompile Include="Program\00_Game\NotifyService\Notifier.cpp" />
+    <ClCompile Include="Program\00_Game\NotifyService\Observer.h" />
     <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp" />
     <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp" />
     <ClCompile Include="Program\01_Engine\Algorithm.cpp" />
     <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp" />
+    <ClCompile Include="Program\01_Engine\Camera\ScreenCamera.cpp" />
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -71,6 +77,7 @@
     <None Include="Shader\SpriteVert.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Program\00_Game\Field.h" />
     <ClInclude Include="Program\00_Game\GameMain.h" />
     <ClInclude Include="Program\00_Game\GameManager.h" />
     <ClInclude Include="Program\00_Game\GameObject\AdvanceUnit.h" />
@@ -79,6 +86,9 @@
     <ClInclude Include="Program\00_Game\GameObject\DefenseUnit.h" />
     <ClInclude Include="Program\00_Game\GameObject\GameObject.h" />
     <ClInclude Include="Program\00_Game\GameObject\ObjectManager.h" />
+    <ClInclude Include="Program\00_Game\NotifyService\AdvanceUnitObserver.h" />
+    <ClInclude Include="Program\00_Game\NotifyService\DefenseUnitObserver.h" />
+    <ClInclude Include="Program\00_Game\NotifyService\Notifier.h" />
     <ClInclude Include="Program\00_Game\Scene\BaseScene.h" />
     <ClInclude Include="Program\00_Game\Scene\PlayScene.h" />
     <ClInclude Include="Program\00_Game\Scene\TitleScene.h" />
@@ -87,6 +97,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Camera\FixedCamera.h" />
+    <ClInclude Include="Program\01_Engine\Camera\ScreenCamera.h" />
     <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

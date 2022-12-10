@@ -17,7 +17,6 @@ public:
 	virtual ~AdvanceUnit();
 
 	virtual void Update(std::shared_ptr<GameParameter> param) final;
-	virtual bool IsAlive() final;
 	
 	void SetNewRoute(std::vector<tkl::CELL>& newRoute);
 	tkl::Vector3 GetUnitPosition() const;
@@ -27,7 +26,6 @@ private:
 	void Draw(std::shared_ptr<GameParameter> param);
 
 private:
-	int mMapSize;
 	int mRouteCount;
 	float mFirstPosX, mFirstPosZ;
 	float mMoveSpeed;

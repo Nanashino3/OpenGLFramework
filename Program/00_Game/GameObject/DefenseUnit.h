@@ -17,10 +17,6 @@ public:
 	virtual ~DefenseUnit();
 
 	virtual void Update(std::shared_ptr<GameParameter> param) final;
-
-private:
-
-
 private:
 	std::shared_ptr<tkl::Mesh> mMesh;
 	std::weak_ptr<Bullet> mBullet;

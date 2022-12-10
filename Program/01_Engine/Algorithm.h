@@ -1,5 +1,6 @@
 #ifndef _ALGORITHM_H_
 #define _ALGORITHM_H_
+
 #include <vector>
 #include <list>
 #include "../02_Library/Vector.h"
@@ -15,7 +16,8 @@ public:
 		START,		// スタート
 		GOAL,		// ゴール
 		EDITABLE,	// 編集可
-		UNIT,		// ユニット
+		UNEDITABLE,	// 編集不可
+		UNIT		// ユニット
 	};
 
 	struct CELL

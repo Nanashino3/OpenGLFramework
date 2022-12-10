@@ -13,12 +13,10 @@ public:
 	virtual ~Bullet();
 
 	virtual void Update(std::shared_ptr<GameParameter> param) final;
-	virtual bool IsAlive() final { return mIsAlive; }
 	tkl::Vector3 GetLauncherPos() const { return mLauncherPos; }
 
 private:
 	float mRadian;
-	bool mIsAlive;
 	tkl::Vector3 mLauncherPos;
 	tkl::Vector3 mDiffPos;
 	std::shared_ptr<tkl::Mesh> mMesh;

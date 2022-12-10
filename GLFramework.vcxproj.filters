@@ -31,6 +31,9 @@
     <Filter Include="Program\00_Game\GameObject">
       <UniqueIdentifier>{c3ef4901-16dd-4bc6-93cb-f92c31d6a759}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\00_Game\NotifyService">
+      <UniqueIdentifier>{f1522289-17b4-4584-8069-46c28d0fd81d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
@@ -84,7 +87,7 @@
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp">
+    <ClCompile Include="Program\01_Engine\Camera\ScreenCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Font.cpp">
@@ -140,6 +143,24 @@
     </ClCompile>
     <ClCompile Include="Program\00_Game\GameObject\ObjectManager.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp">
+      <Filter>Program\01_Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Field.cpp">
+      <Filter>Program\00_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\NotifyService\Notifier.cpp">
+      <Filter>Program\00_Game\NotifyService</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\NotifyService\Observer.h">
+      <Filter>Program\00_Game\NotifyService</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\NotifyService\AdvanceUnitObserver.cpp">
+      <Filter>Program\00_Game\NotifyService</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\NotifyService\DefenseUnitObserver.cpp">
+      <Filter>Program\00_Game\NotifyService</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,7 +241,7 @@
     <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Camera\FixedCamera.h">
+    <ClInclude Include="Program\01_Engine\Camera\ScreenCamera.h">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Font.h">
@@ -279,6 +300,21 @@
     </ClInclude>
     <ClInclude Include="Program\00_Game\GameObject\GameParameter.h">
       <Filter>Program\00_Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Camera\FixedCamera.h">
+      <Filter>Program\01_Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Field.h">
+      <Filter>Program\00_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\NotifyService\Notifier.h">
+      <Filter>Program\00_Game\NotifyService</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\NotifyService\AdvanceUnitObserver.h">
+      <Filter>Program\00_Game\NotifyService</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\NotifyService\DefenseUnitObserver.h">
+      <Filter>Program\00_Game\NotifyService</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

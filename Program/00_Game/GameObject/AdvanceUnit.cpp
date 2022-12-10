@@ -5,26 +5,31 @@
 #include "../../01_Engine/ResourceManager.h"
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<GameParameter> param)
-: mMapSize(param->GetMapSize())
-, mRouteCount(0)
+: mRouteCount(0)
 , mFirstPosX(0), mFirstPosZ(0)
-, mMoveSpeed(10.0f)
+, mMoveSpeed(15.0f)
 , mMesh(nullptr)
-, mRoute(param->GetRoute())
 {
 	int mapSize = param->GetMapSize();
 	int mapRow = param->GetMapRow();
 	int mapColumn = param->GetMapColumn();
+	auto field = param->GetFields();
 
-	mRouteCount = param->GetRoute().size() - 1;
+	// 経路検索(初期)
+	tkl::Algorithm::RouteSearch(mapRow, mapColumn, field, mRoute);
+
+	mRouteCount = mRoute.size() - 1;
 	mMesh = tkl::Mesh::CreateBox(25);
 
 	// 初期座標計算
-	mFirstPosX = -mMapSize * mapRow * 0.5f + (mMapSize >> 1);
-	mFirstPosZ = -mMapSize * mapColumn * 0.5f + (mMapSize >> 1);
+	mFirstPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
+	mFirstPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
 
-	mMesh->SetPosition(tkl::Vector3(mFirstPosX, (mMapSize >> 1), mFirstPosZ));
+	mMesh->SetPosition(tkl::Vector3(mFirstPosX, (mapSize >> 1), mFirstPosZ));
 	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
+
+	// パラメータ設定
+	param->SetRoute(mRoute);
 }
 
 AdvanceUnit::~AdvanceUnit()
@@ -39,10 +44,13 @@ void AdvanceUnit::Update(std::shared_ptr<GameParameter> param)
 
 void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 {
-	tkl::Vector3 pos = mMesh->GetPosition();
+	if(mRouteCount == 0 && mRoute[mRouteCount].status == tkl::STATUS::GOAL){ mIsAlive = false; return; }
 
-	float targetPosX = mFirstPosX + mMapSize * mRoute[mRouteCount - 1].column;
-	float targetPosZ = mFirstPosZ + mMapSize * mRoute[mRouteCount - 1].row;
+	tkl::Vector3 pos = mMesh->GetPosition();
+	int mapSize = param->GetMapSize();
+
+	float targetPosX = mFirstPosX + mapSize * mRoute[mRouteCount - 1].column;
+	float targetPosZ = mFirstPosZ + mapSize * mRoute[mRouteCount - 1].row;
 
 	// 移動量計算
 	int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
@@ -56,12 +64,12 @@ void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 	if (dx > 0 || dz > 0) {
 		if (pos.mX > targetPosX || pos.mZ > targetPosZ) {
 			pos.mX = targetPosX; pos.mZ = targetPosZ;
-			if (mRouteCount > 1) mRouteCount--;
+			if (mRouteCount > 0) mRouteCount--;
 		}
 	} else if (dx < 0 || dz < 0) {
 		if (pos.mX < targetPosX || pos.mZ < targetPosZ) {
 			pos.mX = targetPosX; pos.mZ = targetPosZ;
-			if (mRouteCount > 1) mRouteCount--;
+			if (mRouteCount > 0) mRouteCount--;
 		}
 	}
 	//******************************************************************
@@ -72,18 +80,6 @@ void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 void AdvanceUnit::Draw(std::shared_ptr<GameParameter> param)
 {
 	mMesh->Draw(param->GetCamera());
-}
-
-// 生存しているか
-bool AdvanceUnit::IsAlive()
-{
-	if(mRoute[mRouteCount - 1].status != tkl::STATUS::GOAL) return true;
-
-	tkl::Vector3 pos = mMesh->GetPosition();
-	float targetPosX = mFirstPosX + mMapSize * mRoute[mRouteCount - 1].column;
-	float targetPosZ = mFirstPosZ + mMapSize * mRoute[mRouteCount - 1].row;
-
-	return !(pos.mX == targetPosX && pos.mZ == targetPosZ);
 }
 
 // 最新ルート設定

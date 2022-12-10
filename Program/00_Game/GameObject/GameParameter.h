@@ -28,8 +28,6 @@ public:
 	int GetMapRow() const { return mMapRow; }
 	void SetMapColumn(int value){ mMapColumn = value; }
 	int GetMapColumn() const { return mMapColumn; }
-	void SetRoute(std::vector<tkl::CELL> route){ mRoute = route; }
-	std::vector<tkl::CELL>& GetRoute(){ return mRoute; }
 	void SetCamera(std::shared_ptr<tkl::Camera> camera) { mCamera = camera; }
 	std::shared_ptr<tkl::Camera> GetCamera() { return mCamera; }
 	void SetClickPos(const tkl::Vector3& pos){ mClickPos = pos; }
@@ -38,17 +36,23 @@ public:
 	const tkl::Vector3& GetLauncherPos() { return mLauncherPos; }
 	void SetTargetPos(const tkl::Vector3& pos) { mTargetPos = pos; }
 	const tkl::Vector3& GetTargetPos() { return mTargetPos; }
+	void SetRoute(std::vector<tkl::CELL>& route) { mRoute = route; }
+	std::vector<tkl::CELL>& GetRoute() { return mRoute; }
+	void SetFields(std::vector<std::vector<tkl::CELL>>& fields){ mFields = fields; }
+	std::vector<std::vector<tkl::CELL>>& GetFields() { return mFields; }
 
 private:
 	float mDeltaTime;
 	int mMapSize;
 	int mMapRow, mMapColumn;
-	std::vector<tkl::CELL> mRoute;
 	std::shared_ptr<tkl::Camera> mCamera;
 
 	tkl::Vector3 mClickPos;		// クリック座標
 	tkl::Vector3 mLauncherPos;	// 発射元座標
 	tkl::Vector3 mTargetPos;	// 目標座標
+
+	std::vector<tkl::CELL> mRoute;
+	std::vector<std::vector<tkl::CELL>> mFields;
 };
 
 #endif

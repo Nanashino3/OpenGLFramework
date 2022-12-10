@@ -8,11 +8,12 @@
 #include "../../01_Engine/Algorithm.h"
 
 // ‘O•ûéŒ¾
+class Field;
+class GameObject;
 class GameParameter;
-namespace tkl
-{
-class Camera;
+namespace tkl{
 class Mesh;
+class Camera;
 }
 
 class PlayScene : public BaseScene, public std::enable_shared_from_this<PlayScene>
@@ -24,21 +25,9 @@ public:
 	virtual std::shared_ptr<BaseScene> Update(float deltaTime) final;
 
 private:
-	void PriDrawSelectField(const tkl::Vector3& pos);
-
-private:
-	int mScreenW, mScreenH;
-	float mFirstPosX, mFirstPosZ;
 	float mElapsed;
-	int mMapRow, mMapColumn;
 	std::shared_ptr<GameParameter> mParam;
-
 	std::shared_ptr<tkl::Camera> mCamera;
-	std::shared_ptr<tkl::Mesh> mCursor;
-
-	std::vector<tkl::CELL> mRoute;
-	std::vector<std::vector<tkl::CELL>> mFields;
-
-	std::shared_ptr<tkl::Mesh> mGrid;
+	std::shared_ptr<Field> mField;
 };
 #endif

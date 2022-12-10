@@ -1,5 +1,4 @@
-#ifndef _FIXED_CAMERA_H_
-#define _FIXED_CAMERA_H_
+#pragma once
 
 #include "Camera.h"
 namespace tkl
@@ -13,6 +12,4 @@ public:
 	virtual void Update() final;
 };
 
-} // namespace tkl
-
-#endif
+}

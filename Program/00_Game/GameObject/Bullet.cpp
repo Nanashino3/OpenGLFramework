@@ -4,9 +4,11 @@
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
 
+const int BULLET_SIZE = 5;
+const float DESTROY_POS = 70.0f;
+
 Bullet::Bullet(std::shared_ptr<GameParameter> param)
 : mRadian(0)
-, mIsAlive(true)
 , mMesh(nullptr)
 , mLauncherPos(tkl::Vector3::ZERO)
 , mDiffPos(tkl::Vector3::ZERO)
@@ -19,7 +21,7 @@ Bullet::Bullet(std::shared_ptr<GameParameter> param)
 
 	mRadian = atan2f(mDiffPos.mZ, mDiffPos.mX);
 
-	mMesh = tkl::Mesh::CreateSphere(5, 24, 16);
+	mMesh = tkl::Mesh::CreateSphere(BULLET_SIZE, 24, 16);
 	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_concrete.bmp"));
 	mMesh->SetPosition(mLauncherPos);
 }
@@ -32,13 +34,13 @@ void Bullet::Update(std::shared_ptr<GameParameter> param)
 	tkl::Vector3 pos = mMesh->GetPosition();
 
 	// i‚Þ•ûŒüŒvŽZ
-	pos.mX += cosf(mRadian) * 25.0f * param->GetDeltaTime();
-	pos.mZ += sinf(mRadian) * 25.0f * param->GetDeltaTime();
+	pos.mX += cosf(mRadian) * 50.0f * param->GetDeltaTime();
+	pos.mZ += sinf(mRadian) * 50.0f * param->GetDeltaTime();
 
 	mMesh->SetPosition(pos);
 	mMesh->Draw(param->GetCamera());
 
 	// ˆê’è‹——£‚Ü‚Ås‚Á‚½‚ç’eíœ
 	float d = tkl::Vector3::Distance(mLauncherPos, pos);
-	if (d > 70.0f) { mIsAlive = false; }
+	if (d > DESTROY_POS) { mIsAlive = false; }
 }

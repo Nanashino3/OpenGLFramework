@@ -5,7 +5,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "FontManager.h"
-#include "Camera/FixedCamera.h"
+#include "Camera/ScreenCamera.h"
 #include "../02_Library/Utility.h"
 
 namespace tkl
@@ -23,7 +23,7 @@ void Font::DrawStringEx(float x, float y, const char* str, ...)
 
 	int screenWidth = 0, screenHeight = 0;
 	tkl::System::GetInstance()->GetWindowSize(&screenWidth, &screenHeight);
-	sCamera = std::make_shared<FixedCamera>(screenWidth, screenHeight);
+	sCamera = std::make_shared<ScreenCamera>(screenWidth, screenHeight);
 	DrawString(x, y, buff, sCamera);
 }
 

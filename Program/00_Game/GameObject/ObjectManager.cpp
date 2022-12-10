@@ -8,9 +8,9 @@
 ObjectManager* ObjectManager::sMyInstance = nullptr;
 ObjectManager::ObjectManager()
 {
+	mListMap[typeid(Bullet).name()] = &mBulletList;
 	mListMap[typeid(AdvanceUnit).name()] = &mAdvanceList;
 	mListMap[typeid(DefenseUnit).name()] = &mDefenseList;
-	mListMap[typeid(Bullet).name()] = &mBulletList;
 }
 
 ObjectManager::~ObjectManager()
@@ -24,19 +24,6 @@ ObjectManager* ObjectManager::GetInstance()
 void ObjectManager::DestroyInstance()
 {
 	delete sMyInstance;
-}
-
-void ObjectManager::PriAddObject(std::shared_ptr<AdvanceUnit> obj)
-{
-	mAdvanceList.emplace_back(obj);
-}
-void ObjectManager::PriAddObject(std::shared_ptr<DefenseUnit> obj)
-{
-	mDefenseList.emplace_back(obj);
-}
-void ObjectManager::PriAddObject(std::shared_ptr<Bullet> obj)
-{
-	mBulletList.emplace_back(obj);
 }
 
 void ObjectManager::Update(std::shared_ptr<GameParameter> param)
