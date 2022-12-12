@@ -3,22 +3,27 @@
 
 #include <memory>
 #include "GameObject.h"
-#include "../../02_Library/Vector.h"
+//#include "../../02_Library/Vector.h"
 
-namespace tkl { class Mesh; }
+namespace tkl {
+class Mesh;
+}
+
 class Bullet : public GameObject
 {
 public:
 	Bullet(std::shared_ptr<GameParameter> param);
 	virtual ~Bullet();
 
+	void Preparation();
 	virtual void Update(std::shared_ptr<GameParameter> param) final;
-	tkl::Vector3 GetLauncherPos() const { return mLauncherPos; }
+	void SetLauncherPos(const tkl::Vector3& pos){ mLauncherPos = pos; }
+	void SetTargetPos(const tkl::Vector3& pos){ mTargetPos = pos; }
 
 private:
 	float mRadian;
+	tkl::Vector3 mTargetPos;
 	tkl::Vector3 mLauncherPos;
-	tkl::Vector3 mDiffPos;
 	std::shared_ptr<tkl::Mesh> mMesh;
 };
 

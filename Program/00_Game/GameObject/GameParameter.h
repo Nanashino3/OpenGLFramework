@@ -17,6 +17,7 @@ public:
 	, mMapSize(0)
 	, mMapRow(0), mMapColumn(0)
 	, mCamera(nullptr)
+	, mClickPos(tkl::Vector3::ZERO)
 	{}
 	~GameParameter(){}
 
@@ -32,10 +33,6 @@ public:
 	std::shared_ptr<tkl::Camera> GetCamera() { return mCamera; }
 	void SetClickPos(const tkl::Vector3& pos){ mClickPos = pos; }
 	const tkl::Vector3& GetClickPos() { return mClickPos; }
-	void SetLauncherPos(const tkl::Vector3& pos) { mLauncherPos = pos; }
-	const tkl::Vector3& GetLauncherPos() { return mLauncherPos; }
-	void SetTargetPos(const tkl::Vector3& pos) { mTargetPos = pos; }
-	const tkl::Vector3& GetTargetPos() { return mTargetPos; }
 	void SetRoute(std::vector<tkl::CELL>& route) { mRoute = route; }
 	std::vector<tkl::CELL>& GetRoute() { return mRoute; }
 	void SetFields(std::vector<std::vector<tkl::CELL>>& fields){ mFields = fields; }
@@ -47,9 +44,7 @@ private:
 	int mMapRow, mMapColumn;
 	std::shared_ptr<tkl::Camera> mCamera;
 
-	tkl::Vector3 mClickPos;		// クリック座標
-	tkl::Vector3 mLauncherPos;	// 発射元座標
-	tkl::Vector3 mTargetPos;	// 目標座標
+	tkl::Vector3 mClickPos;
 
 	std::vector<tkl::CELL> mRoute;
 	std::vector<std::vector<tkl::CELL>> mFields;

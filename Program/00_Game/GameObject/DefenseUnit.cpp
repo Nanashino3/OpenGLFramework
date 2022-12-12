@@ -38,8 +38,11 @@ void DefenseUnit::Update(std::shared_ptr<GameParameter> param)
 		}
 		if(tkl::Vector3::Magnitude(nearPos) == 0){ return; }
 
-		param->SetTargetPos(nearPos);
-		param->SetLauncherPos(mMesh->GetPosition());
+		// ’eŠÖ˜Aˆ—
 		mBullet = ObjectManager::GetInstance()->Create<Bullet>(param);
+		std::shared_ptr<Bullet> bullet = mBullet.lock();
+		bullet->SetLauncherPos(mMesh->GetPosition());
+		bullet->SetTargetPos(nearPos);
+		bullet->Preparation();
 	}
 }

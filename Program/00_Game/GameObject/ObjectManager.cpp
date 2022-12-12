@@ -8,9 +8,9 @@
 ObjectManager* ObjectManager::sMyInstance = nullptr;
 ObjectManager::ObjectManager()
 {
-	mListMap[typeid(Bullet).name()] = &mBulletList;
 	mListMap[typeid(AdvanceUnit).name()] = &mAdvanceList;
 	mListMap[typeid(DefenseUnit).name()] = &mDefenseList;
+	mListMap[typeid(Bullet).name()] = &mBulletList;
 }
 
 ObjectManager::~ObjectManager()
@@ -28,19 +28,14 @@ void ObjectManager::DestroyInstance()
 
 void ObjectManager::Update(std::shared_ptr<GameParameter> param)
 {
-	for(auto it = mAdvanceList.begin(); it != mAdvanceList.end();){
-		(*it)->Update(param);
-		if(!(*it)->IsAlive()) { it = mAdvanceList.erase(it); continue; }
-		++it;
-	}
-
-	for(auto it = mDefenseList.begin(); it != mDefenseList.end(); ++it){
-		(*it)->Update(param);
-	}
-
-	for(auto it = mBulletList.begin(); it != mBulletList.end();){
-		(*it)->Update(param);
-		if(!(*it)->IsAlive()){ it = mBulletList.erase(it); continue; }
-		++it;
+	for(auto map : mListMap){
+		auto list = map.second;
+		if(list->empty()) continue;
+		
+		for(auto it = list->begin(); it != list->end();){
+			(*it)->Update(param);
+			if (!(*it)->IsAlive()) { it = list->erase(it); continue; }
+			++it;
+		}
 	}
 }
