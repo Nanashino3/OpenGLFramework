@@ -57,7 +57,6 @@ void Font::DrawString(float posX, float posY, const std::string& str, std::share
 		// テクスチャ用メッシュに情報を設定
 		sMesh->SetTexture(texture);
 		sMesh->SetPosition(tkl::Vector3(screenPosX, screenPoxY, 0.0f));
-		sMesh->SetScale(tkl::Vector3(texture->GetTextureWidth(), texture->GetTextureHeight(), 1.0f));
 		sMesh->Draw(camera);
 
 		// 次の文字位置計算用
