@@ -27,16 +27,16 @@ void DefenseUnit::Update(std::shared_ptr<GameParameter> param)
 	if(!mBullet.expired()){ return; }
 	
 	// ¶‘¶‚µ‚Ä‚¢‚È‚¢ê‡‚Í’e¶¬
-	auto list = ObjectManager::GetInstance()->GetObjectList<AdvanceUnit>();
-	if(list->size() != 0){
+	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+	if (list.size() != 0) {
 		tkl::Vector3 nearPos;
-		for(auto it = list->begin(); it != list->end(); ++it){
+		for (auto it = list.begin(); it != list.end(); ++it) {
 			std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
 			tkl::Vector3 pos = unit->GetUnitPosition();
 			float distance = tkl::Vector3::Distance(pos, mMesh->GetPosition());
-			if(distance <= 55.0f){ nearPos = pos; break; }
+			if (distance <= 55.0f) { nearPos = pos; break; }
 		}
-		if(tkl::Vector3::Magnitude(nearPos) == 0){ return; }
+		if (tkl::Vector3::Magnitude(nearPos) == 0) { return; }
 
 		// ’eŠÖ˜Aˆ—
 		mBullet = ObjectManager::GetInstance()->Create<Bullet>(param);
