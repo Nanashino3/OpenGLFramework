@@ -84,6 +84,10 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	}
 
 	//******************************************************************
+	// オブジェクトの衝突判定
+	ObjectManager::GetInstance()->Collision();
+
+	//******************************************************************
 	// オブジェクト描画
 	ObjectManager::GetInstance()->Update(mParam);
 

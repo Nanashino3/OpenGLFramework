@@ -11,6 +11,7 @@ AdvanceUnit::AdvanceUnit(std::shared_ptr<GameParameter> param)
 : mRouteCount(0)
 , mFirstPosX(0), mFirstPosZ(0)
 , mMoveSpeed(15.0f)
+, mHitPoint(100)
 , mMesh(nullptr)
 {
 	int mapSize = param->GetMapSize();
@@ -120,6 +121,12 @@ void AdvanceUnit::SetNewRoute(std::vector<tkl::CELL>& newRoute)
 
 	mRoute = newRoute;
 	mRouteCount = mRouteCount + abs(prevSize - currentSize);
+}
+
+void AdvanceUnit::ReceiveDamage(int damage)
+{
+	mHitPoint -= damage;
+	if(mHitPoint < 0){ mIsAlive = false; }
 }
 
 //****************************************************************************

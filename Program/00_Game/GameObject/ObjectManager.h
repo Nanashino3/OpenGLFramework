@@ -58,6 +58,7 @@ public:
 		return mListMap[typeid(T).name()];
 	}
 
+	void Collision();
 	void Update(std::shared_ptr<GameParameter>& param);
 
 private:

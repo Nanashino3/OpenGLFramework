@@ -4,7 +4,17 @@
 
 namespace tkl
 {
-// 点と矩形の衝突判定
+//****************************************************************************
+// 関数名：IsIntersectPointRect
+// 概　要：衝突検知(点と矩形)
+// 引　数：arg1 横方向成分の点
+// 　　　：arg2 縦方向成分の点
+// 　　　：arg3 横方向成分の矩形中心
+// 　　　：arg4 縦方向成分の矩形中心
+// 　　　：arg4 矩形のサイズ
+// 戻り値： [衝突している : true]   [衝突していない : false]
+// 詳　細：点と矩形の衝突検知を行い結果を返す
+//****************************************************************************
 bool IsIntersectPointRect(float ph, float pv, float rh, float rv, int size)
 {
 	float left	 = rh - (size >> 1);
@@ -20,7 +30,18 @@ bool IsIntersectPointRect(float ph, float pv, float rh, float rv, int size)
 	return true;
 }
 
-// 線分と平面の衝突判定
+//****************************************************************************
+// 関数名：IsIntersectLinePlane
+// 概　要：衝突検知(線分と平面)
+// 引　数：arg1 線分の始点
+// 　　　：arg2 線分の終点
+// 　　　：arg3 平面上の座標 ( 0, 0, 0 以外 )
+// 　　　：arg4 平面の法線
+// 　　　：arg4 衝突点の受け取り用( 必要なければ省略可 )
+// 戻り値： [衝突している : true]   [衝突していない : false]
+// 詳　細：線分と矩形の衝突検知を行い結果を返す
+// 　　　：衝突していない場合 arg5 で渡した引数は変化なし
+//****************************************************************************
 bool IsIntersectLinePlane(const Vector3& lineStart, const Vector3& lineEnd,
 						  const Vector3& planePos, const Vector3& planeNormal,
 						  Vector3* intersectPos)
@@ -38,6 +59,18 @@ bool IsIntersectLinePlane(const Vector3& lineStart, const Vector3& lineEnd,
 	if(intersectPos) *intersectPos = lineStart + ln * (na / (na + nb));
 
 	return true;
+}
+
+bool IsIntersectAABB(const Vector3& v1, float v1Size, const Vector3& v2, float v2Size)
+{
+	tkl::Vector3 v1Min = tkl::Vector3(v1.mX - v1Size, v1.mY - v1Size, v1.mZ - v1Size);
+	tkl::Vector3 v1Max = tkl::Vector3(v1.mX + v1Size, v1.mY + v1Size, v1.mZ + v1Size);
+	tkl::Vector3 v2Min = tkl::Vector3(v2.mX - v2Size, v2.mY - v2Size, v2.mZ - v2Size);
+	tkl::Vector3 v2Max = tkl::Vector3(v2.mX + v2Size, v2.mY + v2Size, v2.mZ + v2Size);
+
+	return (v1Min.mX <= v2Max.mX && v1Max.mX >= v2Min.mX) && 
+		   (v1Min.mY <= v2Max.mY && v1Max.mY >= v2Min.mY) && 
+		   (v1Min.mZ <= v2Max.mZ && v1Max.mZ >= v2Min.mZ);
 }
 
 } // namespace tkl

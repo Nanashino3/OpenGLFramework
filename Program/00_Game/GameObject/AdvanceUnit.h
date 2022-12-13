@@ -19,6 +19,7 @@ public:
 	virtual ~AdvanceUnit();
 
 	virtual void Update(std::shared_ptr<GameParameter>& param) final;
+	void ReceiveDamage(int damage);
 	tkl::Vector3 GetUnitPosition() const;
 
 private:
@@ -30,6 +31,7 @@ private:
 	int mRouteCount;
 	float mFirstPosX, mFirstPosZ;
 	float mMoveSpeed;
+	int mHitPoint;
 
 	std::shared_ptr<tkl::Mesh> mMesh;
 	std::vector<tkl::CELL> mRoute;

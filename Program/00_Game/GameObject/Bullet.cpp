@@ -51,15 +51,20 @@ void Bullet::Collision()
 {
 	tkl::Vector3 pos = mMesh->GetPosition();
 
-	//// 進軍ユニットリストを取得
-	//auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
-	//for(auto it = list.begin(); it != list.end(); ++it){
-	//	std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
-	//	tkl::Vector3 unitPos = unit->GetUnitPosition();
+	// 進軍ユニットリストを取得
+	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+	for(auto it = list.begin(); it != list.end(); ++it){
+		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
+		tkl::Vector3 unitPos = unit->GetUnitPosition();
 
-	//	// 進軍ユニットと衝突していたら弾削除
-	//	if(tkl::IsIntersectRect(pos, unitPos)) { mIsAlive = false; break; }
-	//}
+		// 進軍ユニットと衝突していたら弾削除
+		if(tkl::IsIntersectAABB(pos, 12.5f, unitPos, 5.0f)){
+			mIsAlive = false;
+			// TODO：与えるダメージは可変にしたい
+			unit->ReceiveDamage(10);
+			break; 
+		}
+	}
 }
 
 //****************************************************************************
