@@ -16,7 +16,8 @@ public:
 	virtual ~Bullet();
 
 	void Preparation();
-	virtual void Update(std::shared_ptr<GameParameter> param) final;
+	virtual void Collision() final;
+	virtual void Update(std::shared_ptr<GameParameter>& param) final;
 	void SetLauncherPos(const tkl::Vector3& pos){ mLauncherPos = pos; }
 	void SetTargetPos(const tkl::Vector3& pos){ mTargetPos = pos; }
 

@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：DefenseUnit(防衛ユニットクラス)
+// 作　成　日：2022/12/5
 #include "DefenseUnit.h"
 
 #include "Bullet.h"
@@ -20,13 +23,20 @@ DefenseUnit::DefenseUnit(std::shared_ptr<GameParameter> param)
 DefenseUnit::~DefenseUnit()
 {}
 
-void DefenseUnit::Update(std::shared_ptr<GameParameter> param)
+//****************************************************************************
+// 関数名：Update
+// 概　要：更新処理
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：防衛ユニットクラスの更新処理
+//****************************************************************************
+void DefenseUnit::Update(std::shared_ptr<GameParameter>& param)
 {
-	// 自身を描画
+	// 自身(防衛ユニット)を描画
 	mMesh->Draw(param->GetCamera());
-	if(!mBullet.expired()){ return; }
 	
 	// 生存していない場合は弾生成
+	if (!mBullet.expired()) { return; }
 	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 	if (list.size() != 0) {
 		tkl::Vector3 nearPos;

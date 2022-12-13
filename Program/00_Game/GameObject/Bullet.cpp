@@ -1,8 +1,14 @@
+//****************************************************************************
+// ファイル名：Bullet(弾クラス)
+// 作　成　日：2022/12/6
 #include "Bullet.h"
 
+#include "AdvanceUnit.h"
 #include "GameParameter.h"
+#include "ObjectManager.h"
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
+#include "../../01_Engine/Intersect.h"
 
 // TODO：定数はどこかにまとめる？
 const int BULLET_SIZE = 5;
@@ -19,6 +25,13 @@ Bullet::Bullet(std::shared_ptr<GameParameter> param)
 Bullet::~Bullet()
 {}
 
+//****************************************************************************
+// 関数名：Preparation
+// 概　要：事前準備
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：弾クラスの事前準備を行う
+//****************************************************************************
 void Bullet::Preparation()
 {
 	tkl::Vector3 diff = mTargetPos - mLauncherPos;
@@ -27,7 +40,36 @@ void Bullet::Preparation()
 	mMesh->SetPosition(mLauncherPos);
 }
 
-void Bullet::Update(std::shared_ptr<GameParameter> param)
+//****************************************************************************
+// 関数名：Collision
+// 概　要：衝突判定
+// 引　数：
+// 戻り値：
+// 詳　細：弾クラスの衝突判定
+//****************************************************************************
+void Bullet::Collision()
+{
+	tkl::Vector3 pos = mMesh->GetPosition();
+
+	//// 進軍ユニットリストを取得
+	//auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+	//for(auto it = list.begin(); it != list.end(); ++it){
+	//	std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
+	//	tkl::Vector3 unitPos = unit->GetUnitPosition();
+
+	//	// 進軍ユニットと衝突していたら弾削除
+	//	if(tkl::IsIntersectRect(pos, unitPos)) { mIsAlive = false; break; }
+	//}
+}
+
+//****************************************************************************
+// 関数名：Update
+// 概　要：更新処理
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：弾クラスの更新処理
+//****************************************************************************
+void Bullet::Update(std::shared_ptr<GameParameter>& param)
 {
 	tkl::Vector3 pos = mMesh->GetPosition();
 

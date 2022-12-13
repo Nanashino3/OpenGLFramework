@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：AdvanceUnit(進軍ユニットクラス)
+// 作　成　日：2022/12/4
 #include "AdvanceUnit.h"
 
 #include "GameParameter.h"
@@ -35,13 +38,27 @@ AdvanceUnit::AdvanceUnit(std::shared_ptr<GameParameter> param)
 AdvanceUnit::~AdvanceUnit()
 {}
 
-void AdvanceUnit::Update(std::shared_ptr<GameParameter> param)
+//****************************************************************************
+// 関数名：Update
+// 概　要：更新処理
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：進軍ユニットクラスの更新処理
+//****************************************************************************
+void AdvanceUnit::Update(std::shared_ptr<GameParameter>& param)
 {
 	SetNewRoute(param->GetRoute());
 	Move(param);
 	Draw(param);
 }
 
+//****************************************************************************
+// 関数名：Move(private)
+// 概　要：移動
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：進軍ユニットクラスの移動処理
+//****************************************************************************
 void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 {
 	if(mRouteCount == 0 && mRoute[mRouteCount].status == tkl::STATUS::GOAL){ mIsAlive = false; return; }
@@ -77,12 +94,25 @@ void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 	mMesh->SetPosition(pos);
 }
 
+//****************************************************************************
+// 関数名：Draw(private)
+// 概　要：描画
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：進軍ユニットクラスの描画処理
+//****************************************************************************
 void AdvanceUnit::Draw(std::shared_ptr<GameParameter> param)
 {
 	mMesh->Draw(param->GetCamera());
 }
 
-// 最新ルート設定
+//****************************************************************************
+// 関数名：SetNewRoute(private)
+// 概　要：最新ルート設定
+// 引　数：arg1 最新ルート
+// 戻り値：なし
+// 詳　細：最新のルートを設定する
+//****************************************************************************
 void AdvanceUnit::SetNewRoute(std::vector<tkl::CELL>& newRoute)
 {
 	int prevSize = mRoute.size();
@@ -92,6 +122,13 @@ void AdvanceUnit::SetNewRoute(std::vector<tkl::CELL>& newRoute)
 	mRouteCount = mRouteCount + abs(prevSize - currentSize);
 }
 
+//****************************************************************************
+// 関数名：GetUnitPosition
+// 概　要：ユニット位置を取得
+// 引　数：なし
+// 戻り値：ユニットの位置
+// 詳　細：進軍ユニット自身の位置を返す
+//****************************************************************************
 tkl::Vector3 AdvanceUnit::GetUnitPosition() const
 {
 	return mMesh->GetPosition();

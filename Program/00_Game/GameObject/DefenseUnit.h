@@ -1,4 +1,6 @@
-// 防衛ユニット
+//****************************************************************************
+// ファイル名：DefenseUnit(防衛ユニットクラス)
+// 作　成　日：2022/12/5
 #ifndef _DEFENSEUNIT_H_
 #define _DEFENSEUNIT_H_
 
@@ -16,7 +18,7 @@ public:
 	DefenseUnit(std::shared_ptr<GameParameter> param);
 	virtual ~DefenseUnit();
 
-	virtual void Update(std::shared_ptr<GameParameter> param) final;
+	virtual void Update(std::shared_ptr<GameParameter>& param) final;
 private:
 	std::shared_ptr<tkl::Mesh> mMesh;
 	std::weak_ptr<Bullet> mBullet;

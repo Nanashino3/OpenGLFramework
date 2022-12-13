@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：GameObject(ゲームオブジェクトクラス)
+// 作　成　日：2022/12/8
 #ifndef _GAMEOBJECT_H_
 #define _GAMEOBJECT_H_
 
@@ -11,7 +14,7 @@ public:
 	GameObject() : mIsAlive(true){}
 	virtual ~GameObject(){}
 
-	virtual void Update(std::shared_ptr<GameParameter> param) = 0;
+	virtual void Update(std::shared_ptr<GameParameter>& param) = 0;
 	virtual void Collision(){}
 	virtual bool IsAlive(){ return mIsAlive; }
 
