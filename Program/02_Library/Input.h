@@ -1,4 +1,8 @@
-#pragma once
+//***************************************************
+// ファイル名：Input(入力クラス)
+// 作　成　日：2022/10/6
+#ifndef _INPUT_H_
+#define _INPUT_H_
 
 #include <GLFW/glfw3.h>
 namespace tkl
@@ -71,8 +75,11 @@ public:
 		MOUSE_MAX
 	};
 
+	// 入力システムの初期化
 	static void Initialize(GLFWwindow* const window, int screenWidth, int screenHeight);
+	// 入力システムの更新
 	static void Update();
+	// マウス座標取得
 	static void GetMousePoint(int* posX, int* posY);
 
 	// キー押下検知
@@ -165,7 +172,9 @@ private:
 	static int sMouses[static_cast<int>(Input::eMouse::MOUSE_MAX)];
 };
 
-} // namespace tkl
-
 using eKeys = tkl::Input::eKeys;
 using eMouse = tkl::Input::eMouse;
+
+} // namespace tk
+
+#endif

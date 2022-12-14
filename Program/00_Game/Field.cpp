@@ -122,7 +122,7 @@ void Field::PriSelectField(std::shared_ptr<GameParameter> param, const tkl::Vect
 				mCursor->SetPosition(tkl::Vector3(posX, 0, posZ));
 				mCursor->Draw(param->GetCamera());
 
-				if(!tkl::Input::IsMouseDownTrigger(eMouse::MOUSE_LEFT)) { continue; }
+				if(!tkl::Input::IsMouseDownTrigger(tkl::eMouse::MOUSE_LEFT)) { continue; }
 
 				// フィールド状態変化通知
 				param->SetClickPos(tkl::Vector3(posX, 0, posZ));

@@ -1,6 +1,9 @@
+//***************************************************
+// ファイル名：Input(入力クラス)
+// 作　成　日：2022/10/6
 #include "Input.h"
-
 #include <string>
+
 namespace tkl
 {
 GLFWwindow* Input::sWindow = nullptr;
@@ -76,6 +79,7 @@ int Input::sMouses[static_cast<int>(Input::eMouse::MOUSE_MAX)] =
 	GLFW_MOUSE_BUTTON_MIDDLE
 };
 
+// 入力システムの初期化
 void Input::Initialize(GLFWwindow* const window, int screenWidth, int screenHeight)
 {
 	sWindow = window;
@@ -86,6 +90,7 @@ void Input::Initialize(GLFWwindow* const window, int screenWidth, int screenHeig
 	glfwSetScrollCallback(window, CallbackMouseScroll);
 }
 
+// 入力システムの更新
 void Input::Update()
 {
 	// キー入力状態更新
