@@ -4,6 +4,7 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
 #include "GameParameter.h"
+#include "../../02_Library/Utility.h"
 
 ObjectManager* ObjectManager::sMyInstance = nullptr;
 ObjectManager::ObjectManager()
@@ -19,16 +20,9 @@ ObjectManager* ObjectManager::GetInstance()
 }
 void ObjectManager::DestroyInstance()
 {
-	delete sMyInstance;
+	TKL_SAFE_DELETE(sMyInstance) ;
 }
 
-//****************************************************************************
-// 関数名：Collision
-// 概　要：衝突判定(オブジェクト)
-// 引　数：なし
-// 戻り値：なし
-// 詳　細：マップに登録済のオブジェクトリストに対して衝突判定を行う
-//****************************************************************************
 void ObjectManager::Collision()
 {
 	for (auto map : mListMap) {
@@ -39,13 +33,6 @@ void ObjectManager::Collision()
 	}
 }
 
-//****************************************************************************
-// 関数名：Update
-// 概　要：更新処理(オブジェクト)
-// 引　数：arg1 ゲームパラメータ
-// 戻り値：なし
-// 詳　細：マップに登録済のオブジェクトリストに対して更新処理をかける
-//****************************************************************************
 void ObjectManager::Update(std::shared_ptr<GameParameter>& param)
 {
 	for(auto map : mListMap){
@@ -58,13 +45,6 @@ void ObjectManager::Update(std::shared_ptr<GameParameter>& param)
 	}
 }
 
-//****************************************************************************
-// 関数名：Collision
-// 概　要：衝突判定(オブジェクト)
-// 引　数：なし
-// 戻り値：なし
-// 詳　細：マップに登録済のオブジェクトリストに対して衝突判定を行う
-//****************************************************************************
 void ObjectManager::Draw(std::shared_ptr<GameParameter>& param)
 {
 	for (auto map : mListMap) {

@@ -86,7 +86,7 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 			mElapsed = 0;
 
 			auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
-			if(list.size() != CREATE_MAX){
+			if(list->size() != CREATE_MAX){
 				// 進軍ユニット生成
 				ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
 			}

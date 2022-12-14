@@ -61,6 +61,16 @@ bool IsIntersectLinePlane(const Vector3& lineStart, const Vector3& lineEnd,
 	return true;
 }
 
+//****************************************************************************
+// 関数名：IsIntersectAABB
+// 概　要：衝突検知(AABB同士)
+// 引　数：arg1 1つ目の対象の位置
+// 　　　：arg2 1つ目の対象のサイズ
+// 　　　：arg3 2つ目の対象の位置
+// 　　　：arg4 2つ目の対象のサイズ
+// 戻り値： [衝突している : true]   [衝突していない : false]
+// 詳　細：AABBとAABBの衝突検知を行い結果を返す
+//****************************************************************************
 bool IsIntersectAABB(const Vector3& v1, float v1Size, const Vector3& v2, float v2Size)
 {
 	tkl::Vector3 v1Min = tkl::Vector3(v1.mX - v1Size, v1.mY - v1Size, v1.mZ - v1Size);

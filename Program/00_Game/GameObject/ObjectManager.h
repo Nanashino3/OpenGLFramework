@@ -31,12 +31,6 @@ public:
 	{
 		std::shared_ptr<T> newObject = std::make_shared<T>(param);
 
-		// 新しいリストを作成
-		if(mListMap.count(typeid(T).name()) == 0){
-			std::list<std::shared_ptr<GameObject>> newList;
-			mListMap[typeid(T).name()] = newList;
-		}
-
 		// リストにオブジェクトを詰める
 		auto list = mListMap[typeid(T).name()];
 		list.emplace_back(newObject);
@@ -53,13 +47,36 @@ public:
 	// 詳　細：指定したオブジェクトのリストを返す
 	//****************************************************************************
 	template <class T>
-	std::list<std::shared_ptr<GameObject>>& GetList()
+	const std::list<std::shared_ptr<GameObject>>* GetList()
 	{
-		return mListMap[typeid(T).name()];
+		return &mListMap[typeid(T).name()];
 	}
 
+	//****************************************************************************
+	// 関数名：Collision
+	// 概　要：衝突判定(オブジェクト)
+	// 引　数：なし
+	// 戻り値：なし
+	// 詳　細：マップに登録済のオブジェクトリストに対して衝突判定を行う
+	//****************************************************************************
 	void Collision();
+
+	//****************************************************************************
+	// 関数名：Update
+	// 概　要：更新処理(オブジェクト)
+	// 引　数：arg1 ゲームパラメータ
+	// 戻り値：なし
+	// 詳　細：マップに登録済のオブジェクトリストに対して更新処理を行う
+	//****************************************************************************
 	void Update(std::shared_ptr<GameParameter>& param);
+
+	//****************************************************************************
+	// 関数名：Draw
+	// 概　要：描画処理(オブジェクト)
+	// 引　数：arg1 ゲームパラメータ
+	// 戻り値：なし
+	// 詳　細：マップに登録済のオブジェクトリストに対して描画処理を行う
+	//****************************************************************************
 	void Draw(std::shared_ptr<GameParameter>& param);
 
 private:

@@ -53,8 +53,8 @@ void Bullet::Collision()
 
 	// 進軍ユニットリストを取得
 	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
-	for(auto it = list.begin(); it != list.end(); ++it){
-		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
+	for(auto it = list->begin(); it != list->end(); ++it){
+		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);		
 		tkl::Vector3 unitPos = unit->GetUnitPosition();
 
 		// 進軍ユニットと衝突していたら弾削除
