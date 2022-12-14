@@ -1,4 +1,8 @@
+//****************************************************************************
+// ファイル名：FontTexture(フォント画像クラス)
+// 導　入　日：2022/10/24
 #pragma once
+
 #include <cstdint>
 #include <memory>
 #include <string>
