@@ -57,3 +57,20 @@ void ObjectManager::Update(std::shared_ptr<GameParameter>& param)
 		}
 	}
 }
+
+//****************************************************************************
+// 関数名：Collision
+// 概　要：衝突判定(オブジェクト)
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：マップに登録済のオブジェクトリストに対して衝突判定を行う
+//****************************************************************************
+void ObjectManager::Draw(std::shared_ptr<GameParameter>& param)
+{
+	for (auto map : mListMap) {
+		auto list = &mListMap[map.first];
+		for (auto it = list->begin(); it != list->end(); ++it) {
+			(*it)->Draw(param);
+		}
+	}
+}

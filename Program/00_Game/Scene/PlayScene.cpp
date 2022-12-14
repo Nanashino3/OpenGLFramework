@@ -36,6 +36,8 @@ PlayScene::PlayScene()
 	// オブザーバー登録
 	Notifier::GetInstance()->AddObserver(std::make_shared<AdvanceUnitObserver>());
 	Notifier::GetInstance()->AddObserver(std::make_shared<DefenseUnitObserver>());
+
+	mEndurance = 1;
 }
 
 PlayScene::~PlayScene()
@@ -52,8 +54,10 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 	mParam->SetCamera(mCamera);
 	mParam->SetDeltaTime(deltaTime);
 
-	// フィールドの更新
-	mField->Update(mParam);
+	// TODO：暫定で耐久を設ける
+	if(mEndurance != 0){
+		// フィールドの更新
+		mField->Update(mParam);
 
 //	//******************************************************************
 //	// TODO：最短経路表示用(デバッグとして呼び出したい)
@@ -68,28 +72,38 @@ std::shared_ptr<BaseScene> PlayScene::Update(float deltaTime)
 //		mesh->Draw(mCamera);
 //	}
 	
-	//******************************************************************
-	// 進軍ユニット
-	mElapsed += deltaTime;
-	tkl::Font::DrawStringEx(0, 50, "DeltaTime：%f", deltaTime);
-
-	if (mElapsed > 5.0f){
-		mElapsed = 0;
-
-		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
-		if(list.size() != CREATE_MAX){
-			// 進軍ユニット生成
-			ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
+		tkl::Font::DrawStringEx(0, 100, "耐久値：%d", mEndurance);
+		if(mParam->GetIsArrival()){
+			if(mEndurance != 0) mEndurance -= 1;
+			mParam->SetIsArrival(false);
 		}
+
+		// 進軍ユニット
+		mElapsed += deltaTime;
+		tkl::Font::DrawStringEx(0, 50, "DeltaTime：%f", deltaTime);
+
+		if (mElapsed > 5.0f){
+			mElapsed = 0;
+
+			auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+			if(list.size() != CREATE_MAX){
+				// 進軍ユニット生成
+				ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
+			}
+		}
+
+		// オブジェクトの衝突判定
+		ObjectManager::GetInstance()->Collision();
+
+		// オブジェクトの更新処理
+		ObjectManager::GetInstance()->Update(mParam);
 	}
 
-	//******************************************************************
-	// オブジェクトの衝突判定
-	ObjectManager::GetInstance()->Collision();
+	// フィールドの更新
+	mField->Draw(mParam);
 
-	//******************************************************************
-	// オブジェクト描画
-	ObjectManager::GetInstance()->Update(mParam);
+	// オブジェクトの描画処理
+	ObjectManager::GetInstance()->Draw(mParam);
 
 	return nextScene;
 }

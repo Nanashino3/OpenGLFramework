@@ -60,6 +60,7 @@ public:
 
 	void Collision();
 	void Update(std::shared_ptr<GameParameter>& param);
+	void Draw(std::shared_ptr<GameParameter>& param);
 
 private:
 	ObjectManager();

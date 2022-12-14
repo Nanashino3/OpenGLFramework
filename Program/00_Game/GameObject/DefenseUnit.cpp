@@ -32,11 +32,9 @@ DefenseUnit::~DefenseUnit()
 //****************************************************************************
 void DefenseUnit::Update(std::shared_ptr<GameParameter>& param)
 {
-	// 自身(防衛ユニット)を描画
-	mMesh->Draw(param->GetCamera());
-	
-	// 生存していない場合は弾生成
 	if (!mBullet.expired()) { return; }
+
+	// 生存していない場合は弾生成
 	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 	if (list.size() != 0) {
 		tkl::Vector3 nearPos;
@@ -55,4 +53,16 @@ void DefenseUnit::Update(std::shared_ptr<GameParameter>& param)
 		bullet->SetTargetPos(nearPos);
 		bullet->Preparation();
 	}
+}
+
+//****************************************************************************
+// 関数名：Draw
+// 概　要：描画
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：防衛ユニットクラスの描画処理
+//****************************************************************************
+void DefenseUnit::Draw(std::shared_ptr<GameParameter>& param)
+{
+	mMesh->Draw(param->GetCamera());
 }

@@ -26,6 +26,7 @@ public:
 
 private:
 	float mElapsed;
+	int mEndurance;
 	std::shared_ptr<GameParameter> mParam;
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<Field> mField;

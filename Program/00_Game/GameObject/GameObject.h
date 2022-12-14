@@ -14,8 +14,9 @@ public:
 	GameObject() : mIsAlive(true){}
 	virtual ~GameObject(){}
 
+	virtual void Collision() {}
 	virtual void Update(std::shared_ptr<GameParameter>& param) = 0;
-	virtual void Collision(){}
+	virtual void Draw(std::shared_ptr<GameParameter>& param) = 0;
 	virtual bool IsAlive(){ return mIsAlive; }
 
 protected:

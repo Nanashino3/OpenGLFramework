@@ -50,7 +50,6 @@ void AdvanceUnit::Update(std::shared_ptr<GameParameter>& param)
 {
 	SetNewRoute(param->GetRoute());
 	Move(param);
-	Draw(param);
 }
 
 //****************************************************************************
@@ -62,7 +61,11 @@ void AdvanceUnit::Update(std::shared_ptr<GameParameter>& param)
 //****************************************************************************
 void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 {
-	if(mRouteCount == 0 && mRoute[mRouteCount].status == tkl::STATUS::GOAL){ mIsAlive = false; return; }
+	if(mRouteCount == 0 && mRoute[mRouteCount].status == tkl::STATUS::GOAL){
+		mIsAlive = false;
+		param->SetIsArrival(true);
+		return;
+	}
 
 	tkl::Vector3 pos = mMesh->GetPosition();
 	int mapSize = param->GetMapSize();
@@ -96,13 +99,13 @@ void AdvanceUnit::Move(std::shared_ptr<GameParameter> param)
 }
 
 //****************************************************************************
-// 関数名：Draw(private)
+// 関数名：Draw
 // 概　要：描画
 // 引　数：arg1 ゲームパラメータ
 // 戻り値：なし
 // 詳　細：進軍ユニットクラスの描画処理
 //****************************************************************************
-void AdvanceUnit::Draw(std::shared_ptr<GameParameter> param)
+void AdvanceUnit::Draw(std::shared_ptr<GameParameter>& param)
 {
 	mMesh->Draw(param->GetCamera());
 }

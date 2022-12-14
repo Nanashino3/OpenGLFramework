@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：Field(フィールドクラス)
+// 作　成　日：2022/12/11
 #include "Field.h"
 
 #include "../00_Game/GameObject/GameParameter.h"
@@ -58,7 +61,14 @@ Field::Field(std::shared_ptr<GameParameter> param)
 Field::~Field()
 {}
 
-void Field::Update(std::shared_ptr<GameParameter> param)
+//****************************************************************************
+// 関数名：Update
+// 概　要：更新処理
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：フィールドクラスの更新処理
+//****************************************************************************
+void Field::Update(std::shared_ptr<GameParameter>& param)
 {
 	std::shared_ptr<tkl::Camera> camera = param->GetCamera();
 
@@ -75,12 +85,29 @@ void Field::Update(std::shared_ptr<GameParameter> param)
 	{
 		PriSelectField(param, hit);
 	}
+}
 
+//****************************************************************************
+// 関数名：Draw
+// 概　要：描画
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：フィールドクラスの描画処理
+//****************************************************************************
+void Field::Draw(std::shared_ptr<GameParameter>& param)
+{
 	// グリッド生成
 	mGrid->Draw(param->GetCamera());
 }
 
-// フィールドを選択する
+//****************************************************************************
+// 関数名：PriSelectField(private)
+// 概　要：フィールド選択
+// 引　数：arg1 ゲームパラメータ
+//       ：arg2 レイと平面の当たった位置
+// 戻り値：なし
+// 詳　細：フィールドのどの位置に防衛ユニットを置くか選択する
+//****************************************************************************
 void Field::PriSelectField(std::shared_ptr<GameParameter> param, const tkl::Vector3& pos)
 {
 	for (int r = 0; r < mFields.size(); ++r) {

@@ -19,6 +19,7 @@ public:
 	: mDeltaTime(0)
 	, mMapSize(0)
 	, mMapRow(0), mMapColumn(0)
+	, mIsArrival(false)
 	, mCamera(nullptr)
 	, mClickPos(tkl::Vector3::ZERO)
 	{}
@@ -32,6 +33,8 @@ public:
 	int GetMapRow() const { return mMapRow; }
 	void SetMapColumn(int value){ mMapColumn = value; }
 	int GetMapColumn() const { return mMapColumn; }
+	void SetIsArrival(bool value){ mIsArrival = value; }
+	bool GetIsArrival() const { return mIsArrival; }
 	void SetCamera(std::shared_ptr<tkl::Camera> camera) { mCamera = camera; }
 	std::shared_ptr<tkl::Camera> GetCamera() { return mCamera; }
 	void SetClickPos(const tkl::Vector3& pos){ mClickPos = pos; }
@@ -45,6 +48,7 @@ private:
 	float mDeltaTime;
 	int mMapSize;
 	int mMapRow, mMapColumn;
+	bool mIsArrival;
 	std::shared_ptr<tkl::Camera> mCamera;
 
 	tkl::Vector3 mClickPos;

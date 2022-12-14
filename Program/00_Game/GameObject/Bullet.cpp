@@ -87,5 +87,16 @@ void Bullet::Update(std::shared_ptr<GameParameter>& param)
 	if (d > DESTROY_POS) { mIsAlive = false; }
 
 	mMesh->SetPosition(pos);
+}
+
+//****************************************************************************
+// 関数名：Draw
+// 概　要：描画
+// 引　数：arg1 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：弾クラスの描画処理
+//****************************************************************************
+void Bullet::Draw(std::shared_ptr<GameParameter>& param)
+{
 	mMesh->Draw(param->GetCamera());
 }

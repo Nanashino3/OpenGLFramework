@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：Field(フィールドクラス)
+// 作　成　日：2022/12/11
 #ifndef _FIELD_H_
 #define _FIELD_H_
 
@@ -15,7 +18,8 @@ public:
 	Field(std::shared_ptr<GameParameter> param);
 	~Field();
 
-	void Update(std::shared_ptr<GameParameter> param);
+	void Update(std::shared_ptr<GameParameter>& param);
+	void Draw(std::shared_ptr<GameParameter>& param);
 
 private:
 	void PriSelectField(std::shared_ptr<GameParameter> param, const tkl::Vector3& pos);

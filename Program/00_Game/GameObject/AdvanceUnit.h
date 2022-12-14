@@ -19,6 +19,7 @@ public:
 	virtual ~AdvanceUnit();
 
 	virtual void Update(std::shared_ptr<GameParameter>& param) final;
+	virtual void Draw(std::shared_ptr<GameParameter>& param) final;
 	void ReceiveDamage(int damage);
 	tkl::Vector3 GetUnitPosition() const;
 
