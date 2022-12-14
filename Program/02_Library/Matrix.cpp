@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：Matrix(行列クラス)
+// 作　成　日：2022/10/7
 #include "Matrix.h"
 
 #include <cmath>
@@ -100,7 +103,7 @@ Matrix Matrix::CreateRotationFromQuaternion(const Quaternion& q)
 	return temp;
 }
 
-// 透視射影行列の作成
+// 透視射影行列を作成
 Matrix Matrix::CreatePerspectiveProjection(float angle, float aspect, float near, float far)
 {
 	Matrix temp;
@@ -120,7 +123,7 @@ Matrix Matrix::CreatePerspectiveProjection(float angle, float aspect, float near
 	return temp;
 }
 
-// 正射影行列
+// 正射影行列を作成
 Matrix Matrix::CreateOrthogonalProjection(float left, float right, float bottom, float top, float near, float far)
 {
 	Matrix temp;
