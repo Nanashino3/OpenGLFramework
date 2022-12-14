@@ -1,11 +1,17 @@
-#pragma once
+//****************************************************************************
+// ファイル名：Math(計算)
+// 作　成　日：2022/10/6
+#ifndef _MATH_H_
+#define _MATH_H_
 
 #include "Vector.h"
 namespace tkl
 {
 	const float PI = 3.14159265358979f;
 
+	// ラジアン変換
 	inline float ToRadian(float degree){ return degree * PI / 180.0f; }
+	// 度数変換
 	inline float ToDegree(float radian){ return radian * 180.0f / PI; }
 
 	//********************************************************************************
@@ -18,3 +24,5 @@ namespace tkl
 	// tips... none
 	int GetSidesPointAndPlane(const Vector3& v, const Vector3& pn, const Vector3& pv);
 }
+
+#endif/
