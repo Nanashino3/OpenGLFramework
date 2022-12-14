@@ -1,9 +1,8 @@
 #ifndef _GAMEMANAGER_H_
 #define _GAMEMANAGER_H_
 #include <memory>
-#include <vector>
 
-class BaseScene;
+class SceneManager;
 class GameManager
 {
 public:
@@ -12,6 +11,7 @@ public:
 	static void DestoryInstance();
 
 	void Update(float deltaTime);
+
 private:
 	GameManager();
 	~GameManager();
@@ -20,7 +20,7 @@ private:
 
 private:
 	static GameManager* sInstance;
-	std::shared_ptr<BaseScene> mScene;
+	std::shared_ptr<SceneManager> mSceneManager;
 };
 
 #endif

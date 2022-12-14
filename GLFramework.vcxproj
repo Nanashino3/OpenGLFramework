@@ -30,7 +30,10 @@
     <ClCompile Include="Program\00_Game\NotifyService\DefenseUnitObserver.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\Notifier.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\Observer.h" />
-    <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp" />
+    <ClCompile Include="Program\00_Game\Scene\GameScene.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp" />
     <ClCompile Include="Program\01_Engine\Algorithm.cpp" />
     <ClCompile Include="Program\01_Engine\Camera\FixedCamera.cpp" />
@@ -89,8 +92,11 @@
     <ClInclude Include="Program\00_Game\NotifyService\AdvanceUnitObserver.h" />
     <ClInclude Include="Program\00_Game\NotifyService\DefenseUnitObserver.h" />
     <ClInclude Include="Program\00_Game\NotifyService\Notifier.h" />
-    <ClInclude Include="Program\00_Game\Scene\BaseScene.h" />
-    <ClInclude Include="Program\00_Game\Scene\PlayScene.h" />
+    <ClInclude Include="Program\00_Game\Scene\GameScene.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\SceneBase.h" />
+    <ClInclude Include="Program\00_Game\Scene\SceneManager.h" />
     <ClInclude Include="Program\00_Game\Scene\TitleScene.h" />
     <ClInclude Include="Program\01_Engine\Algorithm.h" />
     <ClInclude Include="Program\01_Engine\Camera\Camera.h">

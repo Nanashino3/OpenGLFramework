@@ -1,14 +1,13 @@
 #include "GameManager.h"
 
-#include "Scene/BaseScene.h"
 #include "Scene/TitleScene.h"
-
-#include "../01_Engine/Font.h"
+#include "Scene/SceneManager.h"
 
 GameManager* GameManager::sInstance = nullptr;
 GameManager::GameManager()
 {
-	mScene = std::make_shared<TitleScene>();
+	mSceneManager = std::make_shared<SceneManager>();
+	mSceneManager->LoadScene<TitleScene>();
 }
 
 GameManager::~GameManager()
@@ -28,9 +27,5 @@ void GameManager::DestoryInstance()
 
 void GameManager::Update(float deltaTime)
 {
-	std::shared_ptr<BaseScene> nextScene = mScene->Update(deltaTime);
-	if(mScene != nextScene){
-		mScene = nextScene;
-		nextScene = nullptr;
-	}
+	mSceneManager->SceneUpdate(deltaTime);
 }

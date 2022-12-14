@@ -102,14 +102,8 @@
     <ClCompile Include="Program\01_Engine\Intersect.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp">
-      <Filter>Program\00_Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Program\00_Game\GameManager.cpp">
       <Filter>Program\00_Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\00_Game\Scene\PlayScene.cpp">
-      <Filter>Program\00_Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Shader.cpp">
       <Filter>Program\01_Engine</Filter>
@@ -161,6 +155,15 @@
     </ClCompile>
     <ClCompile Include="Program\00_Game\NotifyService\DefenseUnitObserver.cpp">
       <Filter>Program\00_Game\NotifyService</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\GameScene.cpp">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\SceneManager.cpp">
+      <Filter>Program\00_Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,17 +256,11 @@
     <ClInclude Include="Program\01_Engine\Intersect.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Program\00_Game\Scene\BaseScene.h">
-      <Filter>Program\00_Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\00_Game\Scene\TitleScene.h">
+    <ClInclude Include="Program\00_Game\Scene\SceneBase.h">
       <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Program\00_Game\GameManager.h">
       <Filter>Program\00_Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\00_Game\Scene\PlayScene.h">
-      <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Shader.h">
       <Filter>Program\01_Engine</Filter>
@@ -315,6 +312,15 @@
     </ClInclude>
     <ClInclude Include="Program\00_Game\NotifyService\DefenseUnitObserver.h">
       <Filter>Program\00_Game\NotifyService</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\TitleScene.h">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\GameScene.h">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\SceneManager.h">
+      <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
