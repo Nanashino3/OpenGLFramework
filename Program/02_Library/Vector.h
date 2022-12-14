@@ -1,4 +1,8 @@
-#pragma once
+//****************************************************************************
+// ファイル名：Vector(ベクトルクラス)
+// 作　成　日：2022/10/6
+#ifndef _VECTOR_H_
+#define _VECTOR_H_
 
 namespace tkl
 {
@@ -17,30 +21,43 @@ public:
 	Vector3() : mX(0), mY(0), mZ(0){}
 	Vector3(float x, float y, float z) : mX(x), mY(y), mZ(z){}
 
+	//******************************************************
+	// ベクトル同士の計算
 	Vector3 operator+(const Vector3& a) const;
 	Vector3& operator+=(const Vector3& a);
 	Vector3 operator-(const Vector3& a) const;
 	Vector3& operator-=(const Vector3& a);
+	bool operator==(const Vector3& a);
+	//******************************************************
 
+	//******************************************************
+	// ベクトルとスカラーの計算
 	Vector3 operator+(float s) const;
 	Vector3& operator+=(float s);
 	Vector3 operator-(float s) const;
 	Vector3& operator-=(float s);
 	Vector3 operator*(float s) const;
 	Vector3& operator*=(float s);
-
-	bool operator==(const Vector3& a);
+	//******************************************************
 
 	// ベクトルの配列を返す
 	float* GetData() const { return (float*)(&mVec[0]); }
 
-	static Vector3 Cross(const Vector3& v1, const Vector3& v2);
-	static float Dot(const Vector3& v1, const Vector3& v2);
+	// ベクトルの正規化
 	static Vector3 Normalize(const Vector3& v);
+	// ベクトルの外積
+	static Vector3 Cross(const Vector3& v1, const Vector3& v2);
+	// ベクトルの内積
+	static float Dot(const Vector3& v1, const Vector3& v2);
+	// ベクトルをクォータニオンに射影する
 	static Vector3 TransformCoord(const Vector3& v, const Quaternion& q);
+	// ベクトルをマトリックスに射影する
 	static Vector3 TransformCoord(const Vector3& v, const Matrix& m);
+	// スクリーン上にレイを作成
 	static Vector3 CreateScreenRay(int screenX, int screenY, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection);
+	// 2点間の距離を求める
 	static float Distance(const Vector3& v1, const Vector3& v2);
+	// 長さを求める
 	static float Magnitude(const Vector3& v1);
 
 	static const Vector3 ZERO;
@@ -53,3 +70,5 @@ public:
 };
 
 } // namespace tkl
+
+#endif

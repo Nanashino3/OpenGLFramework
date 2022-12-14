@@ -34,10 +34,14 @@ Vector3& Vector3::operator-=(const Vector3& a)
 	*this = *this - a;
 	return *this;
 }
+bool Vector3::operator==(const Vector3& a)
+{
+	return mX == a.mX && mY == a.mY && mZ == a.mZ;
+}
 //******************************************************
 
 //******************************************************
-// ベクトルと定数計算
+// スカラーとの計算
 Vector3 Vector3::operator+(float s) const
 {
 	return Vector3(mX + s, mY + s, mZ + s);
@@ -66,11 +70,6 @@ Vector3& Vector3::operator*=(float s)
 	return *this;
 }
 //******************************************************
-
-bool Vector3::operator==(const Vector3& a)
-{
-	return mX == a.mX && mY == a.mY && mZ == a.mZ;
-}
 
 // ベクトルの正規化
 Vector3 Vector3::Normalize(const Vector3& v)
