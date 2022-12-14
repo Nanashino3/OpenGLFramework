@@ -42,7 +42,7 @@ void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	wm *= tkl::Matrix::CreateScale(tkl::Vector3(scaleX, scaleY, scale.mZ));
 	mShader->SetMatrixUniform("uWorldTransform", wm);
-	//mShader->SetFloatUniform("uFade", 1.0f);
+	mShader->SetFloatUniform("uAlpha", mesh->GetAlpha());
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();

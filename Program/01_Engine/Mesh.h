@@ -18,6 +18,9 @@ public:
 
 	void Draw(std::shared_ptr<Camera> camera);
 
+	void SetAlpha(float value){ mAlpha = value; }
+	float GetAlpha() const{ return mAlpha; }
+
 	void SetPosition(const tkl::Vector3& pos){ mPosition = pos; }
 	tkl::Vector3 GetPosition() const{ return mPosition; }
 
@@ -44,6 +47,7 @@ public:
 	static std::shared_ptr<Mesh> CreatePlaneForTexture();
 
 private:
+	float mAlpha;
 	tkl::Vector3 mPosition;
 	tkl::Quaternion mRotation;
 	tkl::Vector3 mScale;
