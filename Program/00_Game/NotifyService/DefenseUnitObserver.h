@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：DefenseUnitObserver(防衛ユニットオブザーバー)
+// 作　成　日：2022/12/11
 #ifndef _DEFENSEUNITOBSERVER_H_
 #define _DEFENSEUNITOBSERVER_H_
 

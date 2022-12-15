@@ -1,4 +1,6 @@
-// 進軍ユニットオブザーバー
+//****************************************************************************
+// ファイル名：AdvanceUnitObserver(進軍ユニットオブザーバー)
+// 作　成　日：2022/12/11
 #ifndef _ADVANCEUNITOBSERVER_H_
 #define _ADVANCEUNITOBSERVER_H_
 

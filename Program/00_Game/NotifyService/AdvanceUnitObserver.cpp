@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：AdvanceUnitObserver(進軍ユニットオブザーバー)
+// 作　成　日：2022/12/11
 #include "AdvanceUnitObserver.h"
 
 #include "../GameObject/AdvanceUnit.h"
@@ -10,6 +13,15 @@ AdvanceUnitObserver::AdvanceUnitObserver()
 AdvanceUnitObserver::~AdvanceUnitObserver()
 {}
 
+//****************************************************************************
+// 関数名：FieldStateChange
+// 概　要：フィールド状態変化
+// 引　数：arg1 フィールドの行
+//       ：arg2 フィールドの列
+//       ：arg3 ゲームパラメータ
+// 戻り値：なし
+// 詳　細：フィールドの状態が変化したことを通知する
+//****************************************************************************
 void AdvanceUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<GameParameter> param)
 {
 	int mapRow = param->GetMapRow();
