@@ -10,13 +10,18 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	// 全てのシーンを削除し追加する
 	template <class T>
 	void LoadScene()
 	{
-		mScene = std::make_shared<T>(shared_from_this());
-		mScene->Initialize();
-		mSceneList.push(mScene);
+		mNextScene = std::make_shared<T>(shared_from_this());
+		mNextScene->Initialize();
+	}
+
+	template <class T>
+	void CallScene()
+	{
+		if(mNowScene) mPrevScene.push(mNowScene);
+		LoadScene<T>();
 	}
 
 	// 元のシーンに戻る
@@ -26,6 +31,7 @@ public:
 	void SceneUpdate(float deltaTime);
 
 private:
-	std::shared_ptr<SceneBase> mScene;
-	std::stack<std::shared_ptr<SceneBase>> mSceneList;
+	std::shared_ptr<SceneBase> mNextScene;
+	std::shared_ptr<SceneBase> mNowScene;
+	std::stack<std::shared_ptr<SceneBase>> mPrevScene;
 };

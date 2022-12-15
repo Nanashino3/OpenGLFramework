@@ -1,6 +1,5 @@
 #include "PauseScene.h"
 
-#include "TitleScene.h"
 #include "SceneManager.h"
 #include "../../01_Engine/Font.h"
 #include "../../02_Library/Input.h"
@@ -17,7 +16,7 @@ void PauseScene::Initialize()
 
 void PauseScene::Update(float deltaTime)
 {
-	// ゲーム画面に戻りたい
+	// 前のシーンに戻る
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_B)){
 		mSceneManager->ReturnScene();
 	}

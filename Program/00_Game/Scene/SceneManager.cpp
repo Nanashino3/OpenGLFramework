@@ -8,13 +8,22 @@ SceneManager::~SceneManager()
 
 void SceneManager::ReturnScene()
 {
-	if(mSceneList.empty()) return ;
-	mSceneList.pop();
-	mScene = mSceneList.top();
+	if(mPrevScene.empty()) return ;
+	mNextScene = mPrevScene.top();
+	mPrevScene.pop();
 }
 
 void SceneManager::SceneUpdate(float deltaTime)
 {
-	mScene->Update(deltaTime);
-	mScene->Draw();
+	// シーンのインスタンスを更新
+	if(mNowScene != mNextScene){ mNowScene = mNextScene; }
+
+	// 現在のシーンの処理
+	mNowScene->Update(deltaTime);
+	mNowScene->Draw();
+
+	if(mPrevScene.empty()){ return; }
+	
+	auto prevScene = mPrevScene.top();
+	prevScene->Draw();
 }
