@@ -14,10 +14,12 @@
 const int BULLET_SIZE = 5;
 const float DESTROY_POS = 70.0f;
 
-Bullet::Bullet(std::shared_ptr<GameParameter> param)
+Bullet::Bullet(std::shared_ptr<Parameter> param)
 : mRadian(0)
 , mMesh(nullptr)
 {
+	mParam = std::dynamic_pointer_cast<GameParameter>(param);
+
 	mMesh = tkl::Mesh::CreateSphere(BULLET_SIZE, 24, 16);
 	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_concrete.bmp"));
 }
@@ -32,7 +34,7 @@ Bullet::~Bullet()
 // 戻り値：なし
 // 詳　細：弾クラスの事前準備を行う
 //****************************************************************************
-void Bullet::Preparation()
+void Bullet::Initialize()
 {
 	tkl::Vector3 diff = mTargetPos - mLauncherPos;
 	mRadian = atan2f(diff.mZ, diff.mX);
@@ -74,13 +76,13 @@ void Bullet::Collision()
 // 戻り値：なし
 // 詳　細：弾クラスの更新処理
 //****************************************************************************
-void Bullet::Update(std::shared_ptr<GameParameter>& param)
+void Bullet::Update()
 {
 	tkl::Vector3 pos = mMesh->GetPosition();
 
 	// 進む方向計算
-	pos.mX += cosf(mRadian) * 50.0f * param->GetDeltaTime();
-	pos.mZ += sinf(mRadian) * 50.0f * param->GetDeltaTime();
+	pos.mX += cosf(mRadian) * 50.0f * mParam->GetDeltaTime();
+	pos.mZ += sinf(mRadian) * 50.0f * mParam->GetDeltaTime();
 
 	// 一定距離まで行ったら弾削除
 	float d = tkl::Vector3::Distance(mLauncherPos, pos);
@@ -96,7 +98,7 @@ void Bullet::Update(std::shared_ptr<GameParameter>& param)
 // 戻り値：なし
 // 詳　細：弾クラスの描画処理
 //****************************************************************************
-void Bullet::Draw(std::shared_ptr<GameParameter>& param)
+void Bullet::Draw()
 {
-	mMesh->Draw(param->GetCamera());
+	mMesh->Draw(mParam->GetCamera());
 }

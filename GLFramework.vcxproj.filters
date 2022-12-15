@@ -328,5 +328,8 @@
     <ClInclude Include="Program\00_Game\Scene\PauseScene.h">
       <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Program\00_Game\GameObject\Parameter.h">
+      <Filter>Program\00_Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

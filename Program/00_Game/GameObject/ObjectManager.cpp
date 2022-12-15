@@ -2,8 +2,6 @@
 // ファイル名：ObjectManager(オブジェクト管理者)
 // 作　成　日：2022/12/8
 #include "ObjectManager.h"
-#include "GameObject.h"
-#include "GameParameter.h"
 #include "../../02_Library/Utility.h"
 
 ObjectManager* ObjectManager::sMyInstance = nullptr;
@@ -47,12 +45,12 @@ void ObjectManager::Collision()
 // 戻り値：なし
 // 詳　細：マップに登録済のオブジェクトリストに対して更新処理を行う
 //****************************************************************************
-void ObjectManager::Update(std::shared_ptr<GameParameter>& param)
+void ObjectManager::Update()
 {
 	for(auto map : mListMap){
 		auto list = &mListMap[map.first];
 		for(auto it = list->begin(); it != list->end();){
-			(*it)->Update(param);
+			(*it)->Update();
 			if (!(*it)->IsAlive()){ it = list->erase(it); continue; }
 			++it;
 		}
@@ -66,12 +64,12 @@ void ObjectManager::Update(std::shared_ptr<GameParameter>& param)
 // 戻り値：なし
 // 詳　細：マップに登録済のオブジェクトリストに対して描画処理を行う
 //****************************************************************************
-void ObjectManager::Draw(std::shared_ptr<GameParameter>& param)
+void ObjectManager::Draw()
 {
 	for (auto map : mListMap) {
 		auto list = &mListMap[map.first];
 		for (auto it = list->begin(); it != list->end(); ++it) {
-			(*it)->Draw(param);
+			(*it)->Draw();
 		}
 	}
 }

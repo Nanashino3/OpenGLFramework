@@ -77,6 +77,9 @@ void GameScene::Update(float deltaTime)
 	mParam->SetDeltaTime(deltaTime);
 
 	tkl::Font::DrawStringEx(0, 100, "耐久値：%d", mEndurance);
+	tkl::Font::DrawStringEx(0, 50, "DeltaTime：%f", deltaTime);
+	tkl::Font::DrawStringEx(0, 150, "残金：%d", mParam->GetTotalCost());
+
 	if (mParam->GetIsArrival()) {
 		if (mEndurance != 0) mEndurance -= 1;
 		mParam->SetIsArrival(false);
@@ -84,15 +87,14 @@ void GameScene::Update(float deltaTime)
 
 	// 進軍ユニット
 	mElapsed += deltaTime;
-	tkl::Font::DrawStringEx(0, 50, "DeltaTime：%f", deltaTime);
-
 	if (mElapsed > 5.0f) {
 		mElapsed = 0;
 
 		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 		if (list->size() != CREATE_MAX) {
 			// 進軍ユニット生成
-			ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
+			auto newUnit = ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
+			newUnit->Initialize();
 		}
 	}
 
@@ -102,7 +104,7 @@ void GameScene::Update(float deltaTime)
 	// オブジェクトの衝突判定
 	ObjectManager::GetInstance()->Collision();
 	// オブジェクトの更新処理
-	ObjectManager::GetInstance()->Update(mParam);
+	ObjectManager::GetInstance()->Update();
 
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSceneManager->CallScene<PauseScene>();
@@ -124,5 +126,5 @@ void GameScene::Draw()
 	mField->Draw(mParam);
 
 	// オブジェクトの描画処理
-	ObjectManager::GetInstance()->Draw(mParam);
+	ObjectManager::GetInstance()->Draw();
 }

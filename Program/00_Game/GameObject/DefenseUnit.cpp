@@ -10,18 +10,23 @@
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
 
-DefenseUnit::DefenseUnit(std::shared_ptr<GameParameter> param)
+DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
 : mMesh(nullptr)
 {
-	mMesh = tkl::Mesh::CreateSphere(25, 24, 16);
-	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_water.bmp"));
-
-	tkl::Vector3 clickPos = param->GetClickPos();
-	mMesh->SetPosition(tkl::Vector3(clickPos.mX, 12.5f, clickPos.mZ));
+	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 }
 
 DefenseUnit::~DefenseUnit()
 {}
+
+void DefenseUnit::Initialize()
+{
+	mMesh = tkl::Mesh::CreateSphere(25, 24, 16);
+	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_water.bmp"));
+
+	tkl::Vector3 clickPos = mParam->GetClickPos();
+	mMesh->SetPosition(tkl::Vector3(clickPos.mX, 12.5f, clickPos.mZ));
+}
 
 //****************************************************************************
 // 関数名：Update
@@ -30,7 +35,7 @@ DefenseUnit::~DefenseUnit()
 // 戻り値：なし
 // 詳　細：防衛ユニットクラスの更新処理
 //****************************************************************************
-void DefenseUnit::Update(std::shared_ptr<GameParameter>& param)
+void DefenseUnit::Update()
 {
 	if (!mBullet.expired()) { return; }
 
@@ -46,11 +51,11 @@ void DefenseUnit::Update(std::shared_ptr<GameParameter>& param)
 	if (tkl::Vector3::Magnitude(nearPos) == 0) { return; }
 
 	// 弾関連処理
-	mBullet = ObjectManager::GetInstance()->Create<Bullet>(param);
+	mBullet = ObjectManager::GetInstance()->Create<Bullet>(mParam);
 	std::shared_ptr<Bullet> bullet = mBullet.lock();
 	bullet->SetLauncherPos(mMesh->GetPosition());
 	bullet->SetTargetPos(nearPos);
-	bullet->Preparation();
+	bullet->Initialize();
 }
 
 //****************************************************************************
@@ -60,7 +65,7 @@ void DefenseUnit::Update(std::shared_ptr<GameParameter>& param)
 // 戻り値：なし
 // 詳　細：防衛ユニットクラスの描画処理
 //****************************************************************************
-void DefenseUnit::Draw(std::shared_ptr<GameParameter>& param)
+void DefenseUnit::Draw()
 {
-	mMesh->Draw(param->GetCamera());
+	mMesh->Draw(mParam->GetCamera());
 }

@@ -15,18 +15,17 @@ namespace tkl{ class Mesh; }
 class AdvanceUnit : public GameObject
 {
 public:
-	AdvanceUnit(std::shared_ptr<GameParameter> param);
+	AdvanceUnit(std::shared_ptr<Parameter> param);
 	virtual ~AdvanceUnit();
 
-	virtual void Update(std::shared_ptr<GameParameter>& param) final;
-	virtual void Draw(std::shared_ptr<GameParameter>& param) final;
-	void ReceiveDamage(int damage);
-	tkl::Vector3 GetUnitPosition() const;
+	virtual void Initialize() final;
+	virtual void Update() final;
+	virtual void Draw() final;
 
-private:
-	void Move(std::shared_ptr<GameParameter> param);
-	void Draw(std::shared_ptr<GameParameter> param);
-	void SetNewRoute(std::vector<tkl::CELL>& newRoute);
+	void ReceiveDamage(int damage);
+
+	void SetNewRoute(const std::vector<tkl::CELL>& newRoute);
+	tkl::Vector3 GetUnitPosition() const;
 
 private:
 	int mRouteCount;
@@ -35,6 +34,7 @@ private:
 	int mHitPoint;
 
 	std::shared_ptr<tkl::Mesh> mMesh;
+	std::shared_ptr<GameParameter> mParam;
 	std::vector<tkl::CELL> mRoute;
 };
 

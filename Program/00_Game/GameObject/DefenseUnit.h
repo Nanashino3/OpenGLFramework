@@ -15,13 +15,15 @@ namespace tkl{ class Mesh; }
 class DefenseUnit : public GameObject
 {
 public:
-	DefenseUnit(std::shared_ptr<GameParameter> param);
+	DefenseUnit(std::shared_ptr<Parameter> param);
 	virtual ~DefenseUnit();
 
-	virtual void Update(std::shared_ptr<GameParameter>& param) final;
-	virtual void Draw(std::shared_ptr<GameParameter>& param) final;
+	virtual void Initialize() final;
+	virtual void Update() final;
+	virtual void Draw() final;
 private:
 	std::shared_ptr<tkl::Mesh> mMesh;
+	std::shared_ptr<GameParameter> mParam;
 	std::weak_ptr<Bullet> mBullet;
 };
 

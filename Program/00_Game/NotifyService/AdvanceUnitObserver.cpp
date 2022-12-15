@@ -34,7 +34,11 @@ void AdvanceUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 	// Œo˜HÄ’Tõ
 	std::vector<tkl::CELL> newRoute;
 	if(tkl::Algorithm::RouteSearch(mapRow, mapColumn, fields, newRoute)) {
-		param->SetRoute(newRoute);
+		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+		for(auto it = list->begin(); it != list->end(); ++it){
+			std::shared_ptr<AdvanceUnit> unit = std::dynamic_pointer_cast<AdvanceUnit>(*it);
+			unit->SetNewRoute(newRoute);
+		}
 	}else{
 		fields[row][column].status = tkl::STATUS::EDITABLE;
 	}

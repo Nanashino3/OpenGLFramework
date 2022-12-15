@@ -34,7 +34,7 @@ void PauseScene::Initialize()
 void PauseScene::Update(float deltaTime)
 {
 	// ‘O‚ÌƒV[ƒ“‚É–ß‚é
-	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_B)){
+	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSceneManager->ReturnScene();
 	}
 }

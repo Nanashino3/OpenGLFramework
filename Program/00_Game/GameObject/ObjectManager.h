@@ -7,9 +7,8 @@
 #include <list>
 #include <memory>
 #include <unordered_map>
+#include "GameObject.h"
 
-class GameObject;
-class GameParameter;
 class ObjectManager
 {
 public:
@@ -25,9 +24,10 @@ public:
 	//       　※作成するオブジェクトのリストがなければ一緒に作成
 	//****************************************************************************
 	template <class T>
-	std::shared_ptr<T> Create(std::shared_ptr<GameParameter>& param)
+	std::shared_ptr<T> Create(std::shared_ptr<Parameter> param)
 	{
 		std::shared_ptr<T> newObject = std::make_shared<T>(param);
+		newObject->Initialize();
 
 		// リストにオブジェクトを詰める
 		auto list = mListMap[typeid(T).name()];
@@ -50,8 +50,8 @@ public:
 		return &mListMap[typeid(T).name()];
 	}
 	void Collision();
-	void Update(std::shared_ptr<GameParameter>& param);
-	void Draw(std::shared_ptr<GameParameter>& param);
+	void Update();
+	void Draw();
 
 private:
 	ObjectManager();
