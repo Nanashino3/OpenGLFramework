@@ -10,8 +10,6 @@
 
 class GameObject;
 class GameParameter;
-namespace tkl{ class Camera; }
-
 class ObjectManager
 {
 public:

@@ -5,6 +5,7 @@
 #include "Texture.h"
 #include "Sound/SoundParser.h"
 #include "Sound/SoundBuffer.h"
+#include "../02_Library/Utility.h"
 
 namespace tkl
 {
@@ -17,15 +18,13 @@ ResourceManager::~ResourceManager()
 
 ResourceManager* ResourceManager::GetInstance()
 {
-	if(!sMyInstance){
-		sMyInstance = new ResourceManager();
-	}
+	if(!sMyInstance) sMyInstance = new ResourceManager();
 	return sMyInstance;
 }
 
 void ResourceManager::DestroyInstance()
 {
-	delete sMyInstance;
+	TKL_SAFE_DELETE(sMyInstance);
 }
 
 // テクスチャ生成(ファイル名)

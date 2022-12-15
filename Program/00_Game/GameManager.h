@@ -19,7 +19,7 @@ private:
 	GameManager& operator=(const GameManager&){}
 
 private:
-	static GameManager* sInstance;
+	static GameManager* sMyInstance;
 	std::shared_ptr<SceneManager> mSceneManager;
 };
 
