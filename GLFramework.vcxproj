@@ -33,6 +33,7 @@
     <ClCompile Include="Program\00_Game\Scene\GameScene.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\PauseScene.cpp" />
     <ClCompile Include="Program\00_Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Program\00_Game\Scene\TitleScene.cpp" />
     <ClCompile Include="Program\01_Engine\Algorithm.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Program\00_Game\Scene\GameScene.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\PauseScene.h" />
     <ClInclude Include="Program\00_Game\Scene\SceneBase.h" />
     <ClInclude Include="Program\00_Game\Scene\SceneManager.h" />
     <ClInclude Include="Program\00_Game\Scene\TitleScene.h" />

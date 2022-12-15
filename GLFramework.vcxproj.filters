@@ -165,6 +165,9 @@
     <ClCompile Include="Program\00_Game\Scene\SceneManager.cpp">
       <Filter>Program\00_Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\PauseScene.cpp">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -320,6 +323,9 @@
       <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Program\00_Game\Scene\SceneManager.h">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\PauseScene.h">
       <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>

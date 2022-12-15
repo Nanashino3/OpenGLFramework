@@ -1,5 +1,6 @@
 #include "GameScene.h"
 
+#include "PauseScene.h"
 #include "SceneManager.h"
 #include "../../01_Engine/Font.h"
 #include "../../02_Library/Input.h"
@@ -16,12 +17,12 @@ void GameScene::Initialize()
 
 void GameScene::Update(float deltaTime)
 {
-//	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_ENTER)) {
-//		mSceneManager->BackScene();
-//	}
+	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
+		mSceneManager->LoadScene<PauseScene>();
+	}
 }
 
 void GameScene::Draw()
 {
-	tkl::Font::DrawStringEx(0, 0, "ゲームシーン");
+	tkl::Font::DrawStringEx(0, 0, "ゲーム画面");
 }

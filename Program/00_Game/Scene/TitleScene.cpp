@@ -24,5 +24,5 @@ void TitleScene::Update(float deltaTime)
 
 void TitleScene::Draw()
 {
-	tkl::Font::DrawStringEx(0, 0, "タイトルシーン");
+	tkl::Font::DrawStringEx(0, 0, "タイトル画面");
 }
