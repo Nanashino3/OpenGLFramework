@@ -126,6 +126,13 @@ void AdvanceUnit::SetNewRoute(std::vector<tkl::CELL>& newRoute)
 	mRouteCount = mRouteCount + abs(prevSize - currentSize);
 }
 
+//****************************************************************************
+// 関数名：ReceiveDamage
+// 概　要：ダメージを受ける
+// 引　数：arg1 受けるダメージ数
+// 戻り値：なし
+// 詳　細：ダメージの処理をする(TODO：もっといい方法があれば作り変える)
+//****************************************************************************
 void AdvanceUnit::ReceiveDamage(int damage)
 {
 	mHitPoint -= damage;
