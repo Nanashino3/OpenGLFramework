@@ -14,15 +14,11 @@ int main()
 	tkl::System* system = tkl::System::GetInstance();
 	if(!system->Initialize(WINDOW_WIDTH, WINDOW_HEIGHT)){ exit(1); }
 
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-//	float clockStart = static_cast<float>(glfwGetTime()), clockEnd = 0.0f;
-//	const float interval = 1.0f/60.0f;
+	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
 	while(!system->ProcessMessage()){
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-#if 1
 		clock_end = std::chrono::system_clock::now();
 		double micro_seconds = static_cast<double>(std::chrono::duration_cast<std::chrono::microseconds>(clock_end - clock_start).count());
 		float deltaTime = static_cast<float>(micro_seconds / 1000.0 / 1000.0);
@@ -46,16 +42,6 @@ int main()
 			Sleep(DWORD(fps_lim - fps_mils));
 			timeEndPeriod(1);
 		}
-#else
-		// ÉtÉåÅ[ÉÄä‘ÇÃåoâﬂéûä‘
-		clockEnd = static_cast<float>(glfwGetTime());
-		float deltaTime = clockEnd - clockStart;
-		if (deltaTime >= interval) { clockStart = clockEnd; }
-
-		GameMain(deltaTime);
-
-		system->SwapBuffers();
-#endif
 	}
 
 	GameEnd();

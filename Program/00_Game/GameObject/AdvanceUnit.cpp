@@ -109,7 +109,10 @@ void AdvanceUnit::Draw()
 void AdvanceUnit::ReceiveDamage(int damage)
 {
 	mHitPoint -= damage;
-	if(mHitPoint < 0){ mIsAlive = false; }
+	if(mHitPoint < 0){
+		mIsAlive = false;
+		mParam->SetTotalCost( mParam->GetTotalCost() + 25 );
+	}
 }
 
 //****************************************************************************
