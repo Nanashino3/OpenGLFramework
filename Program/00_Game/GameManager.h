@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：GameManager(ゲーム管理者クラス)
+// 作　成　日：2022/10/6
 #ifndef _GAMEMANAGER_H_
 #define _GAMEMANAGER_H_
 #include <memory>
