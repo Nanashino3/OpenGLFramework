@@ -1,4 +1,8 @@
-#pragma once
+//****************************************************************************
+// ファイル名：FixedCamera(固定カメラクラス)
+// 作　成　日：2022/10/26
+#ifndef _FIXEDCAMERA_H_
+#define _FIXEDCAMERA_H_
 
 #include "Camera.h"
 namespace tkl
@@ -12,4 +16,6 @@ public:
 	virtual void Update() final;
 };
 
-}
+} // namespace tkl
+
+#endif

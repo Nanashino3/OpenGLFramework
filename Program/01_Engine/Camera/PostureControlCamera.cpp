@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：PostureControlCamera(姿勢制御カメラクラス)
+// 作　成　日：2022/10/26
 #include "PostureControlCamera.h"
 
 #include "../../02_Library/Math.h"
@@ -15,6 +18,13 @@ PostureControlCamera::PostureControlCamera(int screenWidth, int screenHeight)
 PostureControlCamera::~PostureControlCamera()
 {}
 
+//****************************************************************************
+// 関数名：Update
+// 概　要：更新処理
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：更新処理を行う
+//****************************************************************************
 void PostureControlCamera::Update()
 {
 	// カメラズームイン・アウト(係数をかける)
@@ -33,7 +43,13 @@ void PostureControlCamera::Update()
 	mProjection = tkl::Matrix::CreatePerspectiveProjection(mAngle, mAspect, mNear, mFar);
 }
 
-// 入力処理
+//****************************************************************************
+// 関数名：Input
+// 概　要：入力処理
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：入力による処理を行う
+//****************************************************************************
 void PostureControlCamera::Input()
 {
 	// クリックした座標を記録する
@@ -65,7 +81,13 @@ void PostureControlCamera::Input()
 	}
 }
 
-// 移動処理
+//****************************************************************************
+// 関数名：Move
+// 概　要：移動処理
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：ガメラの移動制御
+//****************************************************************************
 void PostureControlCamera::Move()
 {
 	float dx = 0.0f, dy = 0.0f;

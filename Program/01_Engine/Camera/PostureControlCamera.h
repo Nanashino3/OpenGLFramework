@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：PostureControlCamera(姿勢制御カメラクラス)
+// 作　成　日：2022/10/26
 #ifndef _POSTURECONTROLCAMERA_H_
 #define _POSTURECONTROLCAMERA_H_
 
