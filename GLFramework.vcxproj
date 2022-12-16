@@ -30,6 +30,7 @@
     <ClCompile Include="Program\00_Game\NotifyService\DefenseUnitObserver.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\Notifier.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\Observer.h" />
+    <ClCompile Include="Program\00_Game\Scene\GameOverScene.cpp" />
     <ClCompile Include="Program\00_Game\Scene\GameScene.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -94,6 +95,7 @@
     <ClInclude Include="Program\00_Game\NotifyService\AdvanceUnitObserver.h" />
     <ClInclude Include="Program\00_Game\NotifyService\DefenseUnitObserver.h" />
     <ClInclude Include="Program\00_Game\NotifyService\Notifier.h" />
+    <ClInclude Include="Program\00_Game\Scene\GameOverScene.h" />
     <ClInclude Include="Program\00_Game\Scene\GameScene.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>

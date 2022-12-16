@@ -168,6 +168,9 @@
     <ClCompile Include="Program\00_Game\Scene\PauseScene.cpp">
       <Filter>Program\00_Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Program\00_Game\Scene\GameOverScene.cpp">
+      <Filter>Program\00_Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -330,6 +333,9 @@
     </ClInclude>
     <ClInclude Include="Program\00_Game\GameObject\Parameter.h">
       <Filter>Program\00_Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Scene\GameOverScene.h">
+      <Filter>Program\00_Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

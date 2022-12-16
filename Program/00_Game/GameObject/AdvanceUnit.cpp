@@ -6,14 +6,17 @@
 #include "GameParameter.h"
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
+#include "../../02_Library/Utility.h"
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 : mRouteCount(0)
 , mFirstPosX(0), mFirstPosZ(0)
-, mMoveSpeed(15.0f)
-, mHitPoint(100)
+, mMoveSpeed(0)
+, mHitPoint(0)
+, mAddCoin(0)
 , mMesh(nullptr)
 {
+	mUnitInfo = tkl::LoadCsv(CSV_PATH);
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 }
 
@@ -38,7 +41,16 @@ void AdvanceUnit::Initialize()
 	mFirstPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
 
 	mMesh->SetPosition(tkl::Vector3(mFirstPosX, (mapSize >> 1), mFirstPosZ));
-	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test.jpg"));
+	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FILE));
+
+	int level = mParam->GetAdvenceLevel();
+	if(stoi(mUnitInfo[level][0]) <= mParam->GetTotalDefeat() && (level + 1) < mUnitInfo.size()){
+		mParam->SetAdvanceLevel(level + 1);
+		mParam->SetTotalDefeat(0);
+	}
+	mHitPoint = stoi(mUnitInfo[level][1]);
+	mMoveSpeed = stoi(mUnitInfo[level][2]);
+	mAddCoin = stoi(mUnitInfo[level][3]);
 }
 
 //****************************************************************************
@@ -100,6 +112,22 @@ void AdvanceUnit::Draw()
 }
 
 //****************************************************************************
+// 関数名：IsAlive
+// 概　要：生存しているか
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：生存しているかの確認
+//****************************************************************************
+bool AdvanceUnit::IsAlive()
+{
+	if(!mIsAlive && mHitPoint <= 0){
+		mParam->SetTotalCost(mParam->GetTotalCost() + mAddCoin);
+		mParam->SetTotalDefeat(mParam->GetTotalDefeat() + 1);
+	}
+	return mIsAlive;
+}
+
+//****************************************************************************
 // 関数名：ReceiveDamage
 // 概　要：ダメージを受ける
 // 引　数：arg1 受けるダメージ数
@@ -109,10 +137,7 @@ void AdvanceUnit::Draw()
 void AdvanceUnit::ReceiveDamage(int damage)
 {
 	mHitPoint -= damage;
-	if(mHitPoint < 0){
-		mIsAlive = false;
-		mParam->SetTotalCost( mParam->GetTotalCost() + 25 );
-	}
+	if(mHitPoint <= 0){ mIsAlive = false; }
 }
 
 //****************************************************************************

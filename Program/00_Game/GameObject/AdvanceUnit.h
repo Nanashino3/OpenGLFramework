@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 #include "GameObject.h"
 #include "../../01_Engine/Algorithm.h"
 
@@ -14,6 +15,8 @@ namespace tkl{ class Mesh; }
 
 class AdvanceUnit : public GameObject
 {
+	const char* CSV_PATH = "Resource/AdvanceInfo.csv";
+	const char* TEXTURE_FILE = "Resource/test.jpg";
 public:
 	AdvanceUnit(std::shared_ptr<Parameter> param);
 	virtual ~AdvanceUnit();
@@ -21,6 +24,7 @@ public:
 	virtual void Initialize() final;
 	virtual void Update() final;
 	virtual void Draw() final;
+	virtual bool IsAlive() final;
 
 	void ReceiveDamage(int damage);
 
@@ -32,10 +36,12 @@ private:
 	float mFirstPosX, mFirstPosZ;
 	float mMoveSpeed;
 	int mHitPoint;
+	int mAddCoin;
 
 	std::shared_ptr<tkl::Mesh> mMesh;
 	std::shared_ptr<GameParameter> mParam;
 	std::vector<tkl::CELL> mRoute;
+	std::vector<std::vector<std::string>> mUnitInfo;
 };
 
 #endif

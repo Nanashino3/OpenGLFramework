@@ -11,12 +11,15 @@
 class GameParameter : public Parameter
 {
 	const int INIT_TOTAL_COST = 125;
+	const int INIT_LEVEL = 1;
 public:
 	GameParameter()
 	: mMapSize(0)
 	, mMapRow(0), mMapColumn(0)
 	, mIsArrival(false)
 	, mTotalCost(INIT_TOTAL_COST)
+	, mAdvanceLevel(INIT_LEVEL)
+	, mTotalDefeat(0)
 	, mClickPos(tkl::Vector3::ZERO)
 	{}
 	~GameParameter(){}
@@ -31,6 +34,10 @@ public:
 	bool GetIsArrival() const { return mIsArrival; }
 	void SetTotalCost(int value){ mTotalCost = value; }
 	int GetTotalCost() const { return mTotalCost; }
+	void SetAdvanceLevel(int value) { mAdvanceLevel = value; }
+	int GetAdvenceLevel() const { return mAdvanceLevel; }
+	void SetTotalDefeat(int value) { mTotalDefeat = value; }
+	int GetTotalDefeat() const { return mTotalDefeat; }
 	void SetClickPos(const tkl::Vector3& pos){ mClickPos = pos; }
 	const tkl::Vector3& GetClickPos() { return mClickPos; }
 	void SetFields(std::vector<std::vector<tkl::CELL>>& fields){ mFields = fields; }
@@ -41,6 +48,8 @@ private:
 	int mMapRow, mMapColumn;
 	bool mIsArrival;
 	int mTotalCost;
+	int mAdvanceLevel;
+	int mTotalDefeat;
 	tkl::Vector3 mClickPos;
 	std::vector<std::vector<tkl::CELL>> mFields;
 };

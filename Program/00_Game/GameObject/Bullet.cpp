@@ -10,10 +10,6 @@
 #include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Intersect.h"
 
-// TODO：定数はどこかにまとめる？
-const int BULLET_SIZE = 5;
-const float DESTROY_POS = 70.0f;
-
 Bullet::Bullet(std::shared_ptr<Parameter> param)
 : mRadian(0)
 , mMesh(nullptr)
@@ -63,7 +59,7 @@ void Bullet::Collision()
 		if(tkl::IsIntersectAABB(pos, 12.5f, unitPos, 5.0f)){
 			mIsAlive = false;
 			// TODO：与えるダメージは可変にしたい
-			unit->ReceiveDamage(10);
+			unit->ReceiveDamage(DAMAGE);
 			break; 
 		}
 	}
@@ -81,12 +77,12 @@ void Bullet::Update()
 	tkl::Vector3 pos = mMesh->GetPosition();
 
 	// 進む方向計算
-	pos.mX += cosf(mRadian) * 50.0f * mParam->GetDeltaTime();
-	pos.mZ += sinf(mRadian) * 50.0f * mParam->GetDeltaTime();
+	pos.mX += cosf(mRadian) * MOVE_SPEED * mParam->GetDeltaTime();
+	pos.mZ += sinf(mRadian) * MOVE_SPEED * mParam->GetDeltaTime();
 
 	// 一定距離まで行ったら弾削除
-	float d = tkl::Vector3::Distance(mLauncherPos, pos);
-	if (d > DESTROY_POS) { mIsAlive = false; }
+	float dist = tkl::Vector3::Distance(mLauncherPos, pos);
+	if (dist > DESTROY_POS) { mIsAlive = false; }
 
 	mMesh->SetPosition(pos);
 }

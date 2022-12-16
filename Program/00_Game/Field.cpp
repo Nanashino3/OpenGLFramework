@@ -16,8 +16,6 @@
 #include "../02_Library/Utility.h"
 #include "../02_Library/Math.h"
 
-const int MAP_SIZE = 50;
-
 Field::Field(std::shared_ptr<GameParameter> param)
 : mScreenW(0), mScreenH(0)
 , mStartPosX(0), mStartPosZ(0)
@@ -68,7 +66,7 @@ Field::~Field()
 // 戻り値：なし
 // 詳　細：フィールドクラスの更新処理
 //****************************************************************************
-void Field::Update(std::shared_ptr<GameParameter>& param)
+void Field::Update(std::shared_ptr<GameParameter> param)
 {
 	std::shared_ptr<tkl::Camera> camera = param->GetCamera();
 
@@ -94,7 +92,7 @@ void Field::Update(std::shared_ptr<GameParameter>& param)
 // 戻り値：なし
 // 詳　細：フィールドクラスの描画処理
 //****************************************************************************
-void Field::Draw(std::shared_ptr<GameParameter>& param)
+void Field::Draw(std::shared_ptr<GameParameter> param)
 {
 	// グリッド生成
 	mGrid->Draw(param->GetCamera());

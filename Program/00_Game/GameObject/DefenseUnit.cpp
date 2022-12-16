@@ -26,6 +26,8 @@ void DefenseUnit::Initialize()
 
 	tkl::Vector3 clickPos = mParam->GetClickPos();
 	mMesh->SetPosition(tkl::Vector3(clickPos.mX, 12.5f, clickPos.mZ));
+
+	mParam->SetTotalCost(mParam->GetTotalCost() - CONSUME_COST);
 }
 
 //****************************************************************************
@@ -45,8 +47,8 @@ void DefenseUnit::Update()
 	for (auto it = list->begin(); it != list->end(); ++it) {
 		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
 		tkl::Vector3 pos = unit->GetUnitPosition();
-		float distance = tkl::Vector3::Distance(pos, mMesh->GetPosition());
-		if (distance <= 55.0f) { nearPos = pos; break; }
+		float dist = tkl::Vector3::Distance(pos, mMesh->GetPosition());
+		if (dist <= CREATE_DISTANCE) { nearPos = pos; break; }
 	}
 	if (tkl::Vector3::Magnitude(nearPos) == 0) { return; }
 

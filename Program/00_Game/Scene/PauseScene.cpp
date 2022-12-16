@@ -48,5 +48,5 @@ void PauseScene::Update(float deltaTime)
 //****************************************************************************
 void PauseScene::Draw()
 {
-	tkl::Font::DrawStringEx(0, 50, "ポーズ画面");
+	tkl::Font::DrawStringEx(0, 0, "ポーズ画面");
 }

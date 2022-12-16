@@ -24,6 +24,7 @@ public:
 	template <class T>
 	void LoadScene()
 	{
+		while(!mPrevScene.empty()){ mPrevScene.pop(); }
 		mNextScene = std::make_shared<T>(shared_from_this());
 		mNextScene->Initialize();
 	}
@@ -33,13 +34,14 @@ public:
 	// 概　要：画面の呼び出し
 	// 引　数：なし
 	// 戻り値：なし
-	// 詳　細：指定した画面を呼び出す
+	// 詳　細：指定した画面を呼び出す(モーダルに近い)
 	//****************************************************************************
 	template <class T>
 	void CallScene()
 	{
 		if(mNowScene) mPrevScene.push(mNowScene);
-		LoadScene<T>();
+		mNextScene = std::make_shared<T>(shared_from_this());
+		mNextScene->Initialize();
 	}
 
 	// 元のシーンに戻る

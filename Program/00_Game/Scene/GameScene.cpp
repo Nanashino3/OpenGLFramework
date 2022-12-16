@@ -4,6 +4,7 @@
 #include "GameScene.h"
 
 #include "PauseScene.h"
+#include "GameOverScene.h"
 #include "SceneManager.h"
 
 #include "../Field.h"
@@ -22,12 +23,17 @@
 
 GameScene::GameScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
-, mCamera(nullptr)
 , mElapsed(0)
+, mDurability(MAX_DURABILITY)
+, mParam(nullptr)
+, mCamera(nullptr)
+, mField(nullptr)
 {}
 
 GameScene::~GameScene()
-{}
+{
+	ObjectManager::GetInstance()->DestroyInstance();
+}
 
 //****************************************************************************
 // 関数名：Initialize
@@ -55,8 +61,6 @@ void GameScene::Initialize()
 	// オブザーバー登録
 	Notifier::GetInstance()->AddObserver(std::make_shared<AdvanceUnitObserver>());
 	Notifier::GetInstance()->AddObserver(std::make_shared<DefenseUnitObserver>());
-
-	mEndurance = 1;
 }
 
 //****************************************************************************
@@ -69,19 +73,19 @@ void GameScene::Initialize()
 void GameScene::Update(float deltaTime)
 {
 	// TODO：暫定で耐久を設ける
-	if(mEndurance == 0){ return; }
+	if(mDurability == 0){
+		mSceneManager->CallScene<GameOverScene>();
+		return;
+	}
+	tkl::Font::DrawStringEx(0, 0, "ゲーム画面");
 
 	// カメラ更新
 	mCamera->Update();
 	mParam->SetCamera(mCamera);
 	mParam->SetDeltaTime(deltaTime);
 
-	tkl::Font::DrawStringEx(0, 100, "耐久値：%d", mEndurance);
-	tkl::Font::DrawStringEx(0, 50, "DeltaTime：%f", deltaTime);
-	tkl::Font::DrawStringEx(0, 150, "残金：%d", mParam->GetTotalCost());
-
 	if (mParam->GetIsArrival()) {
-		if (mEndurance != 0) mEndurance -= 1;
+		if (mDurability != 0) mDurability -= 1;
 		mParam->SetIsArrival(false);
 	}
 
@@ -91,7 +95,7 @@ void GameScene::Update(float deltaTime)
 		mElapsed = 0;
 
 		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
-		if (list->size() != CREATE_MAX) {
+		if (list->size() != MAX_CREATE) {
 			// 進軍ユニット生成
 			auto newUnit = ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
 			newUnit->Initialize();
@@ -120,7 +124,9 @@ void GameScene::Update(float deltaTime)
 //****************************************************************************
 void GameScene::Draw()
 {
-	tkl::Font::DrawStringEx(0, 0, "ゲーム画面");
+	tkl::Font::DrawStringEx(0, 50, "耐久度 : %d", mDurability);
+	tkl::Font::DrawStringEx(0, 100, "残金 : %d", mParam->GetTotalCost());
+	tkl::Font::DrawStringEx(0, 150, "進軍レベル : %2d", mParam->GetAdvenceLevel());
 
 	// フィールドの更新
 	mField->Draw(mParam);

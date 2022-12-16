@@ -14,6 +14,8 @@ namespace tkl{ class Mesh; }
 
 class DefenseUnit : public GameObject
 {
+	const float CREATE_DISTANCE = 55.0f;
+	const int CONSUME_COST = 25;
 public:
 	DefenseUnit(std::shared_ptr<Parameter> param);
 	virtual ~DefenseUnit();

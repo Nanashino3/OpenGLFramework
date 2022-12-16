@@ -14,12 +14,13 @@ class Mesh;
 
 class Field
 {
+	const int MAP_SIZE = 50;
 public:
 	Field(std::shared_ptr<GameParameter> param);
 	~Field();
 
-	void Update(std::shared_ptr<GameParameter>& param);
-	void Draw(std::shared_ptr<GameParameter>& param);
+	void Update(std::shared_ptr<GameParameter> param);
+	void Draw(std::shared_ptr<GameParameter> param);
 
 private:
 	void PriSelectField(std::shared_ptr<GameParameter> param, const tkl::Vector3& pos);

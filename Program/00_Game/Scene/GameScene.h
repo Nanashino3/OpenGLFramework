@@ -8,12 +8,11 @@
 
 class Field;
 class GameParameter;
-namespace tkl {
-class Camera;
-}
+namespace tkl { class Camera; }
 class GameScene : public SceneBase
 {
-	const int CREATE_MAX = 5;
+	const int MAX_CREATE = 5;
+	const int MAX_DURABILITY = 1;
 public:
 	GameScene(std::shared_ptr<SceneManager> manager);
 	virtual ~GameScene();
@@ -24,7 +23,7 @@ public:
 
 private:
 	float mElapsed;
-	int mEndurance;
+	int mDurability;
 	std::shared_ptr<GameParameter> mParam;
 	std::shared_ptr<tkl::Camera> mCamera;
 
