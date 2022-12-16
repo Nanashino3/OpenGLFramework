@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：SpriteRenderer(スプライトレンダラークラス)
+// 作　成　日：2022/10/26
 #include "SpriteRenderer.h"
 
 #include <iostream>
@@ -16,6 +19,13 @@ SpriteRenderer::SpriteRenderer(const char* shaderName)
 SpriteRenderer::~SpriteRenderer()
 {}
 
+//****************************************************************************
+// 関数名：Draw
+// 概　要：描画処理
+// 引　数：arg1 メッシュ
+// 戻り値：なし
+// 詳　細：描画指示を行う
+//****************************************************************************
 void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 {
 	if(!mesh){ return; }

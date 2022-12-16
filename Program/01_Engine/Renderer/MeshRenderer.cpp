@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：MeshRenderer(メッシュレンダラークラス)
+// 作　成　日：2022/10/13
 #include "MeshRenderer.h"
 
 #include <GL/glew.h>
@@ -15,16 +18,16 @@ MeshRenderer::MeshRenderer(const char* shaderName)
 MeshRenderer::~MeshRenderer()
 {}
 
+//****************************************************************************
+// 関数名：Draw
+// 概　要：描画処理
+// 引　数：arg1 メッシュ
+// 戻り値：なし
+// 詳　細：描画指示を行う
+//****************************************************************************
 void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 {
 	if(!mesh){ return; }
-
-	// 頂点が反時計回りなら三角形は前向き
-	//glFrontFace(GL_CCW);
-
-	// 後ろ向き三角形は描画しない
-	//glCullFace(GL_BACK);
-	//glEnable(GL_CULL_FACE);
 
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
@@ -47,7 +50,13 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
 }
 
-// ライティングの設定
+//****************************************************************************
+// 関数名：SetLightUniforms
+// 概　要：ライティングの設定
+// 引　数：arg1 メッシュ
+// 戻り値：なし
+// 詳　細：ライディングを設定する(現状固定)
+//****************************************************************************
 void MeshRenderer::SetLightUniforms()
 {
 //	tkl::Matrix invView = tkl::Matrix::CreateInverseMatrix(mView);
