@@ -24,6 +24,7 @@
     <ClCompile Include="Program\00_Game\GameManager.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\AdvanceUnit.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\Bullet.cpp" />
+    <ClCompile Include="Program\00_Game\GameObject\Cell.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\DefenseUnit.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\ObjectManager.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\AdvanceUnitObserver.cpp" />
@@ -87,6 +88,7 @@
     <ClInclude Include="Program\00_Game\GameManager.h" />
     <ClInclude Include="Program\00_Game\GameObject\AdvanceUnit.h" />
     <ClInclude Include="Program\00_Game\GameObject\Bullet.h" />
+    <ClInclude Include="Program\00_Game\GameObject\Cell.h" />
     <ClInclude Include="Program\00_Game\GameObject\GameParameter.h" />
     <ClInclude Include="Program\00_Game\GameObject\DefenseUnit.h" />
     <ClInclude Include="Program\00_Game\GameObject\GameObject.h" />

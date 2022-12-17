@@ -27,7 +27,6 @@ public:
 	std::shared_ptr<T> Create(std::shared_ptr<Parameter> param)
 	{
 		std::shared_ptr<T> newObject = std::make_shared<T>(param);
-		newObject->Initialize();
 
 		// リストにオブジェクトを詰める
 		auto list = mListMap[typeid(T).name()];

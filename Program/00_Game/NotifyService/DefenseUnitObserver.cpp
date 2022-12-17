@@ -30,7 +30,8 @@ void DefenseUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 	if((fields[row][column].status == tkl::STATUS::UNEDITABLE) && 
 	   (param->GetTotalCost() >= 25)) {
 		fields[row][column].status = tkl::STATUS::UNIT;
-		ObjectManager::GetInstance()->Create<DefenseUnit>(param);
+		std::shared_ptr<DefenseUnit> unit = ObjectManager::GetInstance()->Create<DefenseUnit>(param);
+		unit->Initialize();
 	}
 	param->SetFields(fields);
 }

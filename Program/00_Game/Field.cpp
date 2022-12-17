@@ -3,57 +3,42 @@
 // 作　成　日：2022/12/11
 #include "Field.h"
 
-#include "../00_Game/GameObject/GameParameter.h"
-#include "../00_Game/NotifyService/Notifier.h"
+#include "GameObject/Cell.h"
+#include "GameObject/ObjectManager.h"
+#include "GameObject/GameParameter.h"
 
 #include "../01_Engine/Camera/Camera.h"
-#include "../01_Engine/Mesh.h"
 #include "../01_Engine/System.h"
 #include "../01_Engine/Intersect.h"
-#include "../01_Engine/ResourceManager.h"
 
 #include "../02_Library/Input.h"
 #include "../02_Library/Utility.h"
-#include "../02_Library/Math.h"
 
-Field::Field(std::shared_ptr<GameParameter> param)
-: mScreenW(0), mScreenH(0)
-, mStartPosX(0), mStartPosZ(0)
-, mCursor(nullptr)
-, mGrid(nullptr)
+Field::Field(std::shared_ptr<Parameter> param)
 {
-	// グリッド生成
-	mGrid = tkl::Mesh::CreateGround(50, 5);
-
-	// ウィンドウサイズを取得
-	tkl::System::GetInstance()->GetWindowSize(&mScreenW, &mScreenH);
-
-	// カーソル生成
-	mCursor = tkl::Mesh::CreatePlane(50);
-	mCursor->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/test2.bmp"));
-	mCursor->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
+	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 
 	// フィールド情報読み込み
 	auto readField = tkl::LoadCsv("Resource/test.csv");
+	mParam->SetMapSize(MAP_SIZE);
+	mParam->SetMapRow(readField.size());
+	mParam->SetMapColumn(readField[0].size());
+
+	// フィールド生成
+	std::vector<std::vector<tkl::CELL>> fields;
 	for(int r = 0; r < readField.size(); ++r){
-		std::vector<tkl::CELL> fields;
+		std::vector<tkl::CELL> cells;
 		for(int c = 0; c < readField[r].size(); ++c){
-			fields.emplace_back(tkl::CELL(r, c, static_cast<tkl::STATUS>(std::stoi(readField[r][c]))));
+			tkl::CELL cell = {r, c, static_cast<tkl::STATUS>(stoi(readField[r][c]))};
+			cells.emplace_back(cell);
+
+			std::shared_ptr<Cell> object = ObjectManager::GetInstance()->Create<Cell>(param);
+			object->SetCellInfo(cell);
+			object->Initialize();
 		}
-		mFields.emplace_back(fields);
+		fields.emplace_back(cells);
 	}
-
-	int mapRow = readField.size();
-	int mapColumn = readField[0].size();
-
-	// スタート位置を計算
-	mStartPosX = -MAP_SIZE * mapRow * 0.5f + (MAP_SIZE >> 1);
-	mStartPosZ = -MAP_SIZE * mapColumn * 0.5f + (MAP_SIZE >> 1);
-
-	param->SetMapSize(MAP_SIZE);
-	param->SetMapRow(mapRow);
-	param->SetMapColumn(mapColumn);
-	param->SetFields(mFields);
+	mParam->SetFields(fields);
 }
 
 Field::~Field()
@@ -62,70 +47,59 @@ Field::~Field()
 //****************************************************************************
 // 関数名：Update
 // 概　要：更新処理
-// 引　数：arg1 ゲームパラメータ
+// 引　数：なし
 // 戻り値：なし
 // 詳　細：フィールドクラスの更新処理
 //****************************************************************************
-void Field::Update(std::shared_ptr<GameParameter> param)
+void Field::Update()
 {
-	std::shared_ptr<tkl::Camera> camera = param->GetCamera();
+	UpdateMousePos();
 
-	// マウス座標を元にレイを飛ばす
-	int mousePosX = 0, mousePosY = 0;
-	tkl::Input::GetMousePoint(&mousePosX, &mousePosY);
-	tkl::Vector3 ray = tkl::Vector3::CreateScreenRay(mousePosX, mousePosY,
-		mScreenW, mScreenH, camera->GetView(), camera->GetProjection());
+	// セルの状態を更新
+	auto fields = mParam->GetFields();
+	auto list = ObjectManager::GetInstance()->GetList<Cell>();
+	for(auto it = list->begin(); it != list->end(); ++it){
+		auto cell = std::dynamic_pointer_cast<Cell>(*it);
+		tkl::CELL info = cell->GetCellInfo();
 
-	// レイと平面の当たり判定
-	tkl::Vector3 hit;
-	if (tkl::IsIntersectLinePlane(camera->GetPosition(), camera->GetPosition() + ray * 1000.0f,
-		{ 1, 0, 0 }, tkl::Vector3::UNITY, &hit))
-	{
-		PriSelectField(param, hit);
+		cell->SetCellInfo(fields[info.row][info.column]);
 	}
 }
 
 //****************************************************************************
 // 関数名：Draw
 // 概　要：描画
-// 引　数：arg1 ゲームパラメータ
+// 引　数：なし
 // 戻り値：なし
 // 詳　細：フィールドクラスの描画処理
 //****************************************************************************
-void Field::Draw(std::shared_ptr<GameParameter> param)
-{
-	// グリッド生成
-	mGrid->Draw(param->GetCamera());
-}
+void Field::Draw()
+{}
 
 //****************************************************************************
-// 関数名：PriSelectField(private)
-// 概　要：フィールド選択
-// 引　数：arg1 ゲームパラメータ
-//       ：arg2 レイと平面の当たった位置
+// 関数名：UpdateMousePos(private)
+// 概　要：描画
+// 引　数：なし
 // 戻り値：なし
-// 詳　細：フィールドのどの位置に防衛ユニットを置くか選択する
+// 詳　細：マウス座標を更新(2D画面座標→3D座標を求めている)
 //****************************************************************************
-void Field::PriSelectField(std::shared_ptr<GameParameter> param, const tkl::Vector3& pos)
+void Field::UpdateMousePos()
 {
-	for (int r = 0; r < mFields.size(); ++r) {
-		for (int c = 0; c < mFields[r].size(); ++c) {
-			float posX = mStartPosX + MAP_SIZE * c;
-			float posZ = mStartPosZ + MAP_SIZE * r;
-			if (!tkl::IsIntersectPointRect(pos.mX, pos.mZ, posX, posZ, MAP_SIZE)) { continue; }
+	// ウィンドウサイズを取得
+	int screenW, screenH;
+	tkl::System::GetInstance()->GetWindowSize(&screenW, &screenH);
 
-			// 編集可状態のみ処理する
-			if(mFields[r][c].status == tkl::STATUS::EDITABLE){
+	// マウス座標を元にレイを飛ばす
+	int screenMouseX = 0, screenMouseY = 0;
+	tkl::Input::GetMousePoint(&screenMouseX, &screenMouseY);
 
-				mCursor->SetPosition(tkl::Vector3(posX, 0, posZ));
-				mCursor->Draw(param->GetCamera());
+	std::shared_ptr<tkl::Camera> camera = mParam->GetCamera();
+	tkl::Vector3 ray = tkl::Vector3::CreateScreenRay(screenMouseX, screenMouseY,
+		screenW, screenH, camera->GetView(), camera->GetProjection());
 
-				if(!tkl::Input::IsMouseDownTrigger(tkl::eMouse::MOUSE_LEFT)) { continue; }
-
-				// フィールド状態変化通知
-				param->SetClickPos(tkl::Vector3(posX, 0, posZ));
-				Notifier::GetInstance()->FieldStateChange(r, c, param);
-			}
-		}
-	}
+	// レイと平面の衝突判定
+	tkl::Vector3 mousePos;
+	tkl::IsIntersectLinePlane(camera->GetPosition(), camera->GetPosition() + ray * 1000.0f,
+		{ 1, 0, 0 }, tkl::Vector3::UNITY, &mousePos);
+	mParam->SetMousePos(mousePos);
 }

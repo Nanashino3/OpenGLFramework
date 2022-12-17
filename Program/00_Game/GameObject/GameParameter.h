@@ -20,6 +20,7 @@ public:
 	, mTotalCost(INIT_TOTAL_COST)
 	, mAdvanceLevel(INIT_LEVEL)
 	, mTotalDefeat(0)
+	, mMousePos(tkl::Vector3::ZERO)
 	, mClickPos(tkl::Vector3::ZERO)
 	{}
 	~GameParameter(){}
@@ -38,6 +39,8 @@ public:
 	int GetAdvenceLevel() const { return mAdvanceLevel; }
 	void SetTotalDefeat(int value) { mTotalDefeat = value; }
 	int GetTotalDefeat() const { return mTotalDefeat; }
+	void SetMousePos(const tkl::Vector3& pos){ mMousePos = pos; }
+	const tkl::Vector3& GetMousePos() { return mMousePos; }
 	void SetClickPos(const tkl::Vector3& pos){ mClickPos = pos; }
 	const tkl::Vector3& GetClickPos() { return mClickPos; }
 	void SetFields(std::vector<std::vector<tkl::CELL>>& fields){ mFields = fields; }
@@ -50,6 +53,7 @@ private:
 	int mTotalCost;
 	int mAdvanceLevel;
 	int mTotalDefeat;
+	tkl::Vector3 mMousePos;
 	tkl::Vector3 mClickPos;
 	std::vector<std::vector<tkl::CELL>> mFields;
 };

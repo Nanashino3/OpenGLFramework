@@ -15,7 +15,7 @@ public:
 
 	virtual void Initialize(){}
 	virtual void Collision(){}
-	virtual void Update() = 0;
+	virtual void Update(){}
 	virtual void Draw() = 0;
 
 	virtual bool IsAlive(){ return mIsAlive; }

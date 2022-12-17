@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 
 #include "../Field.h"
+#include "../GameObject/Cell.h"
 #include "../GameObject/AdvanceUnit.h"
 #include "../GameObject/GameParameter.h"
 #include "../GameObject/ObjectManager.h"
@@ -20,6 +21,7 @@
 #include "../../01_Engine/Font.h"
 #include "../../01_Engine/Camera/FixedCamera.h"
 #include "../../02_Library/Input.h"
+#include "../../02_Library/Utility.h"
 
 GameScene::GameScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
@@ -54,6 +56,7 @@ void GameScene::Initialize()
 
 	// パラメータ生成
 	mParam = std::make_shared<GameParameter>();
+	mParam->SetCamera(mCamera);
 
 	// フィールド生成
 	mField = std::make_shared<Field>(mParam);
@@ -81,7 +84,6 @@ void GameScene::Update(float deltaTime)
 
 	// カメラ更新
 	mCamera->Update();
-	mParam->SetCamera(mCamera);
 	mParam->SetDeltaTime(deltaTime);
 
 	if (mParam->GetIsArrival()) {
@@ -103,7 +105,7 @@ void GameScene::Update(float deltaTime)
 	}
 
 	// フィールドの更新
-	mField->Update(mParam);
+	mField->Update();
 
 	// オブジェクトの衝突判定
 	ObjectManager::GetInstance()->Collision();
@@ -129,7 +131,7 @@ void GameScene::Draw()
 	tkl::Font::DrawStringEx(0, 150, "進軍レベル : %2d", mParam->GetAdvenceLevel());
 
 	// フィールドの更新
-	mField->Draw(mParam);
+	mField->Draw();
 
 	// オブジェクトの描画処理
 	ObjectManager::GetInstance()->Draw();

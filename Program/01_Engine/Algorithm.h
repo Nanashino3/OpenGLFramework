@@ -51,6 +51,6 @@ using STATUS = tkl::Algorithm::STATUS;
 using CELL = tkl::Algorithm::CELL;
 using NODE = tkl::Algorithm::NODE;
 
-}
+} // namespace tkl
 
 #endif
