@@ -19,7 +19,7 @@ Field::Field(std::shared_ptr<Parameter> param)
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 
 	// フィールド情報読み込み
-	auto readField = tkl::LoadCsv("Resource/test.csv");
+	auto readField = tkl::LoadCsv("Resource/debug/test.csv");
 	mParam->SetMapSize(MAP_SIZE);
 	mParam->SetMapRow(readField.size());
 	mParam->SetMapColumn(readField[0].size());

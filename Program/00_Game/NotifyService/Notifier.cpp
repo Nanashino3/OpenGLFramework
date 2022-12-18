@@ -4,6 +4,7 @@
 #include "Notifier.h"
 
 #include "Observer.h"
+#include "../../02_Library/Utility.h"
 
 Notifier* Notifier::sMyInstance = nullptr;
 Notifier::Notifier()
@@ -20,7 +21,7 @@ Notifier* Notifier::GetInstance()
 
 void Notifier::DestroyInstance()
 {
-	delete sMyInstance;
+	TKL_SAFE_DELETE(sMyInstance);
 }
 
 //****************************************************************************

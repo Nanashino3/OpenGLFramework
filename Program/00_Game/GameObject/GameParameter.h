@@ -10,7 +10,7 @@
 
 class GameParameter : public Parameter
 {
-	const int INIT_TOTAL_COST = 125;
+	const int INIT_TOTAL_COST = 375;
 	const int INIT_LEVEL = 1;
 public:
 	GameParameter()
