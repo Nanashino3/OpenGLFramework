@@ -8,12 +8,20 @@
 #include "GameParameter.h"
 #include "ObjectManager.h"
 #include "../../01_Engine/Mesh.h"
+#include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
 
 DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
-: mMesh(nullptr)
+: mParam(nullptr)
+, mMesh(nullptr)
+, mSound(nullptr)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
+	
+	mMesh = tkl::Mesh::CreateSphere(25, 24, 16);
+	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(DEFENSE_TEXTURE));
+	
+	mSound = tkl::Sound::CreateSound("Resource/sound/shot.wav");
 }
 
 DefenseUnit::~DefenseUnit()
@@ -28,9 +36,6 @@ DefenseUnit::~DefenseUnit()
 //****************************************************************************
 void DefenseUnit::Initialize()
 {
-	mMesh = tkl::Mesh::CreateSphere(25, 24, 16);
-	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_water.bmp"));
-
 	tkl::Vector3 clickPos = mParam->GetClickPos();
 	mMesh->SetPosition(tkl::Vector3(clickPos.mX, 12.5f, clickPos.mZ));
 
@@ -65,6 +70,8 @@ void DefenseUnit::Update()
 	bullet->SetLauncherPos(mMesh->GetPosition());
 	bullet->SetTargetPos(nearPos);
 	bullet->Initialize();
+
+	mSound->Play();
 }
 
 //****************************************************************************

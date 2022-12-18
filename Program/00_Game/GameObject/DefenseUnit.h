@@ -10,12 +10,16 @@
 
 class Bullet;
 class GameParameter;
-namespace tkl{ class Mesh; }
+namespace tkl{
+class Mesh;
+class Sound;
+}
 
 class DefenseUnit : public GameObject
 {
+	const char* DEFENSE_TEXTURE = "Resource/panel_water.bmp";
 	const float CREATE_DISTANCE = 55.0f;
-	const int CONSUME_COST = 25;
+	const int CONSUME_COST = 75;
 public:
 	DefenseUnit(std::shared_ptr<Parameter> param);
 	virtual ~DefenseUnit();
@@ -24,9 +28,11 @@ public:
 	virtual void Update() final;
 	virtual void Draw() final;
 private:
-	std::shared_ptr<tkl::Mesh> mMesh;
 	std::shared_ptr<GameParameter> mParam;
 	std::weak_ptr<Bullet> mBullet;
+
+	std::shared_ptr<tkl::Mesh> mMesh;
+	std::shared_ptr<tkl::Sound> mSound;
 };
 
 #endif

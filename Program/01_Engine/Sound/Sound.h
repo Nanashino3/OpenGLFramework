@@ -13,6 +13,7 @@ public:
 	
 	void Play();
 	void Stop();
+	bool IsPlay();
 
 	void SetBuffer(std::shared_ptr<SoundBuffer> buffer){ mBuffer = buffer; }
 

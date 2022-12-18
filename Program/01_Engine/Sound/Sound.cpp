@@ -21,7 +21,18 @@ void Sound::Play()
 }
 
 void Sound::Stop()
-{}
+{
+	mBuffer->Active(mSource);
+	alSourceStop(mSource);
+}
+
+bool Sound::IsPlay()
+{
+	int state = AL_STOPPED;
+	alGetSourcei(mSource, AL_SOURCE_STATE, &state);
+
+	return state == AL_PLAYING;
+}
 
 std::shared_ptr<Sound> Sound::CreateSound(const char* filename)
 {

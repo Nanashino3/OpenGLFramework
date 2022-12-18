@@ -17,28 +17,27 @@ public:
 private:
 	struct Header
 	{
-		unsigned char riff[4];	// RIFFヘッダ
-		unsigned int fileSize;	// ファイルサイズ
-		unsigned char wave[4];	// WAVEヘッダ
+		char riff[4];	// RIFFヘッダ
+		int fileSize;	// ファイルサイズ
+		char wave[4];	// WAVEヘッダ
 	};
 
 	struct ChunkTag
 	{
-		unsigned char fmt[4];
-		unsigned int fmtSize;
+		char fmt[4];
+		int fmtSize;
 	};
 
-	struct FmtChunk
-	{
-		unsigned short formatID;		// フォーマットID
+	struct WAVEFORMATEX {
+		unsigned short formatTag;		// フォーマットタイプ
 		unsigned short channels;		// チャンネル数
-		unsigned int samplingRate;		// サンプリング周波数(Hz)
-		unsigned int bytesPerSec;		// データ速度(Bytes/Sec)
-		unsigned short blockSize;		// ブロックサイズ
-		unsigned short bitsPerSec;		// サンプルあたりのビット数
+		unsigned long samplesPerSec;	// サンプルレート(Hz)
+		unsigned long avgBytesPerSec;	// 平均データ転送レート(バイト/秒)
+		unsigned short blockAlign;		// ブロックアラインメント(バイト)
+		unsigned short bitsPerSample;	// 1サンプルあたりのビット数
+		unsigned short cbSize;			// 拡張データサイズ
 	};
-
-	static void PrintFmtChunk(const FmtChunk& fmtChunk);
+	static void PrintFmtChunk(const WAVEFORMATEX& waveFormTex);
 };
 
 using SoundInfo = tkl::SoundParser::SoundInfo;

@@ -5,6 +5,7 @@
 
 #include "GameParameter.h"
 #include "../../01_Engine/Mesh.h"
+#include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../02_Library/Utility.h"
 
@@ -18,6 +19,7 @@ AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 {
 	mUnitInfo = tkl::LoadCsv(CSV_PATH);
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
+	mSound = tkl::Sound::CreateSound(DISAPPER_SOUND);
 }
 
 AdvanceUnit::~AdvanceUnit()
@@ -130,6 +132,7 @@ bool AdvanceUnit::IsAlive()
 	if(!mIsAlive && mHitPoint <= 0){
 		mParam->SetTotalCost(mParam->GetTotalCost() + mAddCoin);
 		mParam->SetTotalDefeat(mParam->GetTotalDefeat() + 1);
+		mSound->Play();
 	}
 	return mIsAlive;
 }

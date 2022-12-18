@@ -25,7 +25,8 @@ private:
 
 private:
 	static ResourceManager* sMyInstance;
-	std::unordered_map<const char*, std::shared_ptr<Texture>> mCacheTextures;		// IDとテクスチャクラスを紐づける
+	std::unordered_map<const char*, std::shared_ptr<Texture>> mCacheTextures;
+	std::unordered_map<const char*, std::shared_ptr<SoundBuffer>> mCacheSounds;
 };
 
 } // namespace tkl

@@ -11,12 +11,16 @@
 #include "../../01_Engine/Algorithm.h"
 
 class GameParameter;
-namespace tkl{ class Mesh; }
+namespace tkl{
+class Mesh;
+class Sound;
+}
 
 class AdvanceUnit : public GameObject
 {
 	const char* CSV_PATH = "Resource/AdvanceInfo.csv";
-	const char* TEXTURE_FILE = "Resource/test.jpg";
+	const char* TEXTURE_FILE = "Resource/debug/test.jpg";
+	const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
 public:
 	AdvanceUnit(std::shared_ptr<Parameter> param);
 	virtual ~AdvanceUnit();
@@ -39,6 +43,7 @@ private:
 	int mAddCoin;
 
 	std::shared_ptr<tkl::Mesh> mMesh;
+	std::shared_ptr<tkl::Sound> mSound;
 	std::shared_ptr<GameParameter> mParam;
 	std::vector<tkl::CELL> mRoute;
 	std::vector<std::vector<std::string>> mUnitInfo;
