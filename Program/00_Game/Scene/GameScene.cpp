@@ -20,6 +20,7 @@
 #include "../../01_Engine/System.h"
 #include "../../01_Engine/Font.h"
 #include "../../01_Engine/Camera/FixedCamera.h"
+#include "../../01_Engine/Sound/Sound.h"
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
@@ -30,11 +31,15 @@ GameScene::GameScene(std::shared_ptr<SceneManager> manager)
 , mParam(nullptr)
 , mCamera(nullptr)
 , mField(nullptr)
-{}
+, mSound(nullptr)
+{
+	mSound = tkl::Sound::CreateSound("Resource/sound/gamebgm.wav");
+}
 
 GameScene::~GameScene()
 {
 	ObjectManager::GetInstance()->DestroyInstance();
+	Notifier::GetInstance()->DestroyInstance();
 }
 
 //****************************************************************************
@@ -52,7 +57,7 @@ void GameScene::Initialize()
 
 	// 3Dカメラ生成
 	mCamera = std::make_shared<tkl::FixedCamera>(screenW, screenH);
-	mCamera->SetPosition(tkl::Vector3(0, 400, 200));
+	mCamera->SetPosition(tkl::Vector3(0, 350, 180));
 
 	// パラメータ生成
 	mParam = std::make_shared<GameParameter>();
@@ -78,9 +83,11 @@ void GameScene::Update(float deltaTime)
 	// TODO：暫定で耐久を設ける
 	if(mDurability == 0){
 		mSceneManager->CallScene<GameOverScene>();
+		mSound->Stop();
 		return;
 	}
 	tkl::Font::DrawStringEx(0, 0, "ゲーム画面");
+	if(!mSound->IsPlay()) mSound->Play();
 
 	// カメラ更新
 	mCamera->Update();
@@ -126,7 +133,7 @@ void GameScene::Update(float deltaTime)
 //****************************************************************************
 void GameScene::Draw()
 {
-	tkl::Font::DrawStringEx(0, 50, "耐久度 : %d", mDurability);
+	tkl::Font::DrawStringEx(0,  50, "耐久度 : %d", mDurability);
 	tkl::Font::DrawStringEx(0, 100, "残金 : %d", mParam->GetTotalCost());
 	tkl::Font::DrawStringEx(0, 150, "進軍レベル : %2d", mParam->GetAdvenceLevel());
 

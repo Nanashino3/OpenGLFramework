@@ -8,7 +8,10 @@
 
 class Field;
 class GameParameter;
-namespace tkl { class Camera; }
+namespace tkl{
+class Camera;
+class Sound;
+}
 class GameScene : public SceneBase
 {
 	const int MAX_CREATE = 5;
@@ -28,6 +31,7 @@ private:
 	std::shared_ptr<tkl::Camera> mCamera;
 
 	std::shared_ptr<Field> mField;
+	std::shared_ptr<tkl::Sound> mSound;
 };
 
 #endif
