@@ -82,7 +82,7 @@ void Bullet::Update()
 
 	// ˆê’è‹——£‚Ü‚Ås‚Á‚½‚ç’eíœ
 	float dist = tkl::Vector3::Distance(mLauncherPos, pos);
-	if (dist > DESTROY_POS) { mIsAlive = false; }
+	if(dist > DESTROY_POS){ mIsAlive = false; }
 
 	mMesh->SetPosition(pos);
 }

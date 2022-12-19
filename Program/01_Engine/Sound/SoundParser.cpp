@@ -50,7 +50,7 @@ bool SoundParser::LoadAudio(const char* filename, SoundInfo& sndInfo)
 			WAVEFORMATEX waveForm;
 			fread(&waveForm, sizeof(WAVEFORMATEX), 1, fp);
 
-			PrintFmtChunk(waveForm);
+//			PrintFmtChunk(waveForm);
 
 			sndInfo.frequency = waveForm.samplesPerSec;
 			if(waveForm.channels == 1){
@@ -63,7 +63,7 @@ bool SoundParser::LoadAudio(const char* filename, SoundInfo& sndInfo)
 			sndInfo.data = new char[chunkTag.fmtSize];
 			fread(sndInfo.data, chunkTag.fmtSize, 1, fp);
 
-			printf("data‚Ì’·‚³ : %d\n\n", chunkTag.fmtSize);
+//			printf("data‚Ì’·‚³ : %d\n\n", chunkTag.fmtSize);
 
 			break;
 		}

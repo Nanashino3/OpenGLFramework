@@ -12,9 +12,7 @@ ShaderFactory::~ShaderFactory()
 
 ShaderFactory* ShaderFactory::GetInstance()
 {
-	if(!sInstance){
-		sInstance = new ShaderFactory;
-	}
+	if(!sInstance){ sInstance = new ShaderFactory; }
 	return sInstance;
 }
 void ShaderFactory::DestroyInstance()

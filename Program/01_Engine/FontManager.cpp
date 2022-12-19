@@ -14,7 +14,7 @@ FontManager::~FontManager()
 
 FontManager* FontManager::GetInstance()
 {
-	if(!sMyInstance) sMyInstance = new FontManager();
+	if(!sMyInstance){ sMyInstance = new FontManager; }
 	return sMyInstance;
 }
 

@@ -21,9 +21,7 @@ System::~System()
 
 System* System::GetInstance()
 {
-	if(!sMyInstance){
-		sMyInstance = new System();
-	}
+	if(!sMyInstance){ sMyInstance = new System; }
 	return sMyInstance;
 }
 void System::DestroyInstance()
@@ -63,13 +61,18 @@ bool System::Initialize(int screenWidth, int screenHeight)
 
 	// オーディオシステムの初期化
 	mALCDevice = alcOpenDevice(nullptr);
-	if (!mALCDevice) std::cerr << "Failed to open device." << std::endl;
+	if(!mALCDevice){
+		std::cerr << "Failed to open device." << std::endl;
+	}
 
 	mALCContext = alcCreateContext(mALCDevice, nullptr);
-	if (!mALCContext) std::cerr << "Failed to create context." << std::endl;
+	if(!mALCContext){
+		std::cerr << "Failed to create context." << std::endl;
+	}
 
-	if (!alcMakeContextCurrent(mALCContext))
+	if(!alcMakeContextCurrent(mALCContext)){
 		std::cerr << "Failed to make context current." << std::endl;
+	}
 
 	return true;
 }

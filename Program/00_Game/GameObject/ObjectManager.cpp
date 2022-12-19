@@ -13,7 +13,7 @@ ObjectManager::~ObjectManager()
 
 ObjectManager* ObjectManager::GetInstance()
 {
-	if(!sMyInstance) sMyInstance = new ObjectManager;
+	if(!sMyInstance){ sMyInstance = new ObjectManager; }
 	return sMyInstance;
 }
 void ObjectManager::DestroyInstance()
@@ -51,7 +51,10 @@ void ObjectManager::Update()
 		auto list = &mListMap[map.first];
 		for(auto it = list->begin(); it != list->end();){
 			(*it)->Update();
-			if (!(*it)->IsAlive()){ it = list->erase(it); continue; }
+			if(!(*it)->IsAlive()){
+				it = list->erase(it);
+				continue;
+			}
 			++it;
 		}
 	}

@@ -18,7 +18,7 @@ ResourceManager::~ResourceManager()
 
 ResourceManager* ResourceManager::GetInstance()
 {
-	if(!sMyInstance) sMyInstance = new ResourceManager();
+	if(!sMyInstance){ sMyInstance = new ResourceManager; }
 	return sMyInstance;
 }
 
@@ -31,7 +31,7 @@ void ResourceManager::DestroyInstance()
 std::shared_ptr<Texture> ResourceManager::CreateTextureFromFile(const char* fileName)
 {
 	auto iter = mCacheTextures.find(fileName);
-	if(iter != mCacheTextures.end()) return iter->second;
+	if(iter != mCacheTextures.end()){ return iter->second; }
 
 	int channels = 0, textureW = 0, textureH = 0;
 	unsigned char* image = SOIL_load_image(fileName, &textureW, &textureH, &channels, SOIL_LOAD_AUTO);
@@ -50,7 +50,7 @@ std::shared_ptr<Texture> ResourceManager::CreateTextureFromFile(const char* file
 std::shared_ptr<SoundBuffer> ResourceManager::CreateSoundFromFile(const char* fileName)
 {
 	auto iter = mCacheSounds.find(fileName);
-	if(iter != mCacheSounds.end()) return iter->second;
+	if(iter != mCacheSounds.end()){ return iter->second; }
 
 	// オーディオをロード
 	tkl::SoundInfo sndInfo;

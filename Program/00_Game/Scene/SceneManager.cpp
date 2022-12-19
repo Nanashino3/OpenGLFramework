@@ -18,7 +18,7 @@ SceneManager::~SceneManager()
 //****************************************************************************
 void SceneManager::ReturnScene()
 {
-	if(mPrevScene.empty()) return ;
+	if(mPrevScene.empty()){ return; }
 	mNextScene = mPrevScene.top();
 	mPrevScene.pop();
 }

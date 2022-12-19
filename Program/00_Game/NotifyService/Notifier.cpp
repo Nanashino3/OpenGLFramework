@@ -15,7 +15,7 @@ Notifier::~Notifier()
 
 Notifier* Notifier::GetInstance()
 {
-	if(!sMyInstance) sMyInstance = new Notifier;
+	if(!sMyInstance){ sMyInstance = new Notifier; }
 	return sMyInstance;
 }
 

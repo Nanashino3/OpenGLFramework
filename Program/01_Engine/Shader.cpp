@@ -66,7 +66,7 @@ unsigned int Load(const char* vertexFile, const char* flagFile)
 // シェーダファイルの読み込み
 bool ReadShaderFile(const char* fileName, std::vector<char>& buffer)
 {
-	if (fileName == 0) { return false; }
+	if(fileName == 0){ return false; }
 
 	std::ifstream file(fileName, std::ios::binary);
 	if(file.fail()){
@@ -115,7 +115,7 @@ unsigned int CreateShader(const char* vertexSrc, const char* fragmentSrc)
 	}
 
 	// 画素シェーダを作成
-	if (vertexSrc) {
+	if(fragmentSrc){
 		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragmentShader, 1, &fragmentSrc, nullptr);
 		glCompileShader(fragmentShader);

@@ -43,7 +43,7 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
 	std::shared_ptr<Texture> texture = mesh->GetTexture();
-	if (texture) { texture->Bind(); }
+	if(texture){ texture->Bind(); }
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();

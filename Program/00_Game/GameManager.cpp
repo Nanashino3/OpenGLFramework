@@ -19,7 +19,7 @@ GameManager::~GameManager()
 
 GameManager* GameManager::GetInstance()
 {
-	if(!sMyInstance) sMyInstance = new GameManager();
+	if(!sMyInstance){ sMyInstance = new GameManager(); }
 	return sMyInstance;
 }
 void GameManager::DestoryInstance()

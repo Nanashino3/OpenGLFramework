@@ -87,24 +87,24 @@ void GameScene::Update(float deltaTime)
 		return;
 	}
 	tkl::Font::DrawStringEx(0, 0, "ゲーム画面");
-	if(!mSound->IsPlay()) mSound->Play();
+	if(!mSound->IsPlay()){ mSound->Play(); }
 
 	// カメラ更新
 	mCamera->Update();
 	mParam->SetDeltaTime(deltaTime);
 
-	if (mParam->GetIsArrival()) {
-		if (mDurability != 0) mDurability -= 1;
+	if(mParam->GetIsArrival()){
+		if(mDurability != 0){ mDurability -= 1; }
 		mParam->SetIsArrival(false);
 	}
 
 	// 進軍ユニット
 	mElapsed += deltaTime;
-	if (mElapsed > 5.0f) {
+	if(mElapsed > 5.0f){
 		mElapsed = 0;
 
 		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
-		if (list->size() != MAX_CREATE) {
+		if(list->size() != MAX_CREATE){
 			// 進軍ユニット生成
 			auto newUnit = ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
 			newUnit->Initialize();
