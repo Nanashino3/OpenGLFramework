@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：Algorithm(アルゴリズムクラス)
+// 作　成　日：2022/11/24
 #ifndef _ALGORITHM_H_
 #define _ALGORITHM_H_
 
@@ -16,6 +19,8 @@ public:
 		START,		// スタート
 		GOAL,		// ゴール
 		EDITABLE,	// 編集可
+		OBSTACLE,	// 障害物
+
 		UNEDITABLE,	// 編集不可
 		UNIT		// ユニット
 	};

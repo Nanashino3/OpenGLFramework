@@ -18,7 +18,7 @@ class Sound;
 class DefenseUnit : public GameObject
 {
 	const char* DEFENSE_TEXTURE = "Resource/panel_water.bmp";
-	const float CREATE_DISTANCE = 55.0f;
+	const float DIST_MAX = 60.0f;
 	const int CONSUME_COST = 75;
 public:
 	DefenseUnit(std::shared_ptr<Parameter> param);
@@ -28,6 +28,7 @@ public:
 	virtual void Update() final;
 	virtual void Draw() final;
 private:
+	float mElapsed;
 	std::shared_ptr<GameParameter> mParam;
 	std::weak_ptr<Bullet> mBullet;
 

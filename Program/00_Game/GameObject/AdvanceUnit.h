@@ -36,6 +36,9 @@ public:
 	tkl::Vector3 GetUnitPosition() const;
 
 private:
+	void PrintRoute();
+
+private:
 	int mRouteCount;
 	float mFirstPosX, mFirstPosZ;
 	float mMoveSpeed;
@@ -47,6 +50,10 @@ private:
 	std::shared_ptr<GameParameter> mParam;
 	std::vector<tkl::CELL> mRoute;
 	std::vector<std::vector<std::string>> mUnitInfo;
+
+	int mPrevRouteCount;
+	bool mIsRetNewRoute;
+	std::vector<tkl::CELL> mPrevRoute;
 };
 
 #endif

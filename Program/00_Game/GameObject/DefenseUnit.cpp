@@ -12,7 +12,8 @@
 #include "../../01_Engine/ResourceManager.h"
 
 DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
-: mParam(nullptr)
+: mElapsed(0)
+, mParam(nullptr)
 , mMesh(nullptr)
 , mSound(nullptr)
 {
@@ -51,7 +52,12 @@ void DefenseUnit::Initialize()
 //****************************************************************************
 void DefenseUnit::Update()
 {
-	if (!mBullet.expired()) { return; }
+	if(!mBullet.expired()){ return; }
+
+	// ’e‚ªÁ–Å‚µ‚Ä‚©‚ç•bŒã‚É”­ŽË‚·‚é
+	mElapsed += mParam->GetDeltaTime();
+	if(mElapsed < 1.0f){ return; }
+	mElapsed = 0;
 
 	// ¶‘¶‚µ‚Ä‚¢‚È‚¢ê‡‚Í’e¶¬
 	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
@@ -60,9 +66,13 @@ void DefenseUnit::Update()
 		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
 		tkl::Vector3 pos = unit->GetUnitPosition();
 		float dist = tkl::Vector3::Distance(pos, mMesh->GetPosition());
-		if (dist <= CREATE_DISTANCE) { nearPos = pos; break; }
+
+		if(dist <= DIST_MAX){
+			nearPos = pos;
+			break;
+		}
 	}
-	if (tkl::Vector3::Magnitude(nearPos) == 0) { return; }
+	if(tkl::Vector3::Magnitude(nearPos) == 0){ return; }
 
 	// ’eŠÖ˜Aˆ—
 	mBullet = ObjectManager::GetInstance()->Create<Bullet>(mParam);

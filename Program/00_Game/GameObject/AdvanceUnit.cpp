@@ -3,11 +3,16 @@
 // 作　成　日：2022/12/4
 #include "AdvanceUnit.h"
 
+#include <functional>
 #include "GameParameter.h"
 #include "../../01_Engine/Mesh.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
+#include "../../02_Library/Math.h"
 #include "../../02_Library/Utility.h"
+
+
+#include <iostream>
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 : mRouteCount(0)
@@ -20,6 +25,9 @@ AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 	mUnitInfo = tkl::LoadCsv(CSV_PATH);
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 	mSound = tkl::Sound::CreateSound(DISAPPER_SOUND);
+
+	mIsRetNewRoute = false;
+	mPrevRouteCount = 0;
 }
 
 AdvanceUnit::~AdvanceUnit()
@@ -76,32 +84,34 @@ void AdvanceUnit::Update()
 		mParam->SetIsArrival(true);
 		return;
 	}
-
 	tkl::Vector3 pos = mMesh->GetPosition();
-	int mapSize = mParam->GetMapSize();
-
-	float targetPosX = mFirstPosX + mapSize * mRoute[mRouteCount - 1].column;
-	float targetPosZ = mFirstPosZ + mapSize * mRoute[mRouteCount - 1].row;
 
 	// 移動量計算
-	int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
-	int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
+	int column = (mIsRetNewRoute) ? mPrevRoute[mPrevRouteCount - 1].column : mRoute[mRouteCount].column;
+	int row = (mIsRetNewRoute) ? mPrevRoute[mPrevRouteCount - 1].row : mRoute[mRouteCount].row;
+
+	int dx = mRoute[mRouteCount - 1].column - column;
+	int dz = mRoute[mRouteCount - 1].row - row;
 
 	//******************************************************************
 	// 探索した経路を進む処理
+	int mapSize = mParam->GetMapSize();
+	float targetPosX = mFirstPosX + mapSize * mRoute[mRouteCount - 1].column;
+	float targetPosZ = mFirstPosZ + mapSize * mRoute[mRouteCount - 1].row;
+
 	pos.mX += mMoveSpeed * dx * mParam->GetDeltaTime();
 	pos.mZ += mMoveSpeed * dz * mParam->GetDeltaTime();
 
-	if(dx > 0 || dz > 0){
-		if(pos.mX > targetPosX || pos.mZ > targetPosZ){
-			pos.mX = targetPosX; pos.mZ = targetPosZ;
-			if(mRouteCount > 0) mRouteCount--;
-		}
-	}else if(dx < 0 || dz < 0){
-		if(pos.mX < targetPosX || pos.mZ < targetPosZ){
-			pos.mX = targetPosX; pos.mZ = targetPosZ;
-			if(mRouteCount > 0) mRouteCount--;
-		}
+	bool retX = (dx > 0) ? pos.mX > targetPosX : pos.mX < targetPosX;
+	if(retX){ pos.mX = targetPosX; }
+
+	bool retZ = (dz > 0) ? pos.mZ > targetPosZ : pos.mZ < targetPosZ;
+	if(retZ){ pos.mZ = targetPosZ; }
+
+	bool isIncrement = (dx == 0 || dz == 0) ? retX || retZ : retX && retZ;
+	if(isIncrement && mRouteCount > 0){
+		mRouteCount--;
+		if(mIsRetNewRoute){ mIsRetNewRoute = false;}
 	}
 	//******************************************************************
 
@@ -117,6 +127,8 @@ void AdvanceUnit::Update()
 //****************************************************************************
 void AdvanceUnit::Draw()
 {
+	PrintRoute();
+
 	mMesh->Draw(mParam->GetCamera());
 }
 
@@ -171,9 +183,34 @@ tkl::Vector3 AdvanceUnit::GetUnitPosition() const
 //****************************************************************************
 void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 {
-	int prevSize = mRoute.size();
-	int currentSize = newRoute.size();
+	// ルート数を計算
+	int prevSize = mRoute.size(), currentSize = newRoute.size();
+	int diffSize = abs(prevSize - currentSize);
+	mRouteCount = mRouteCount + diffSize;
 
+	// 新ルートに戻るか確認
+	if((mRoute[mRouteCount - diffSize - 1].row != newRoute[mRouteCount - 1].row) ||
+	   (mRoute[mRouteCount - diffSize - 1].column != newRoute[mRouteCount - 1].column))
+	{
+		mPrevRoute = mRoute;
+		mPrevRouteCount = mRouteCount - diffSize;
+		mIsRetNewRoute = true;
+	}
+
+	// ルート更新
 	mRoute = newRoute;
-	mRouteCount = mRouteCount + abs(prevSize - currentSize);
+}
+
+void AdvanceUnit::PrintRoute()
+{
+	for (int i = 0; i < mRoute.size(); ++i) {
+		std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(50);
+
+        float posX = mFirstPosX + 50 * mRoute[i].column;
+        float posZ = mFirstPosZ + 50 * mRoute[i].row;
+        mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/debug/test.jpg"));
+        mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
+        mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
+        mesh->Draw(mParam->GetCamera());
+	}
 }

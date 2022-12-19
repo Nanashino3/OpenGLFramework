@@ -29,11 +29,6 @@ Cell::~Cell()
 //****************************************************************************
 void Cell::Initialize()
 {
-	// TODO：マスに何を生成するかを状態で決める
-	mMesh = tkl::Mesh::CreatePlane(50);
-	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
-	mMesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
-
 	// 座標計算
 	int mapSize = mParam->GetMapSize();
 	int mapRow = mParam->GetMapRow();
@@ -45,7 +40,19 @@ void Cell::Initialize()
 	float posX = initPosX + mapSize * mCellInfo.column;
 	float posZ = initPosZ + mapSize * mCellInfo.row;
 
-	mMesh->SetPosition(tkl::Vector3(posX, 0, posZ));
+	// TODO：マスに何を生成するかを状態で決める
+	std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
+	mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
+	mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
+	mesh->SetPosition(tkl::Vector3(posX, 0, posZ));
+	mMeshList.emplace_back(mesh);
+
+	if(mCellInfo.status == tkl::STATUS::OBSTACLE){
+		mesh = tkl::Mesh::CreateBox(BLOCK_SIZE);
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_BLOCK));
+		mesh->SetPosition(tkl::Vector3(posX, BLOCK_SIZE >> 1, posZ));
+		mMeshList.emplace_back(mesh);
+	}
 
 	// カーソル生成
 	mCursor = tkl::Mesh::CreatePlane(50);
@@ -65,11 +72,11 @@ void Cell::Collision()
 	tkl::Vector3 mousePos = mParam->GetMousePos();
 
 	// 自分が選択されているか確認
-	tkl::Vector3 pos = mMesh->GetPosition();
+	tkl::Vector3 pos = mMeshList.at(0)->GetPosition();
 	if(tkl::IsIntersectPointRect(mousePos.mX, mousePos.mZ, pos.mX, pos.mZ, mParam->GetMapSize())){
 		if(mCellInfo.status != tkl::STATUS::EDITABLE){ return; }
 
-		mCursor->SetPosition(tkl::Vector3(pos.mX, 0, pos.mZ));
+		mCursor->SetPosition(tkl::Vector3(pos.mX, 0.5f, pos.mZ));
 		mCursor->Draw(mParam->GetCamera());
 
 		if(tkl::Input::IsMouseDownTrigger(tkl::eMouse::MOUSE_LEFT)){
@@ -90,5 +97,7 @@ void Cell::Collision()
 //****************************************************************************
 void Cell::Draw()
 {
-	mMesh->Draw(mParam->GetCamera());
+	for(auto mesh : mMeshList){
+		mesh->Draw(mParam->GetCamera());
+	}
 }

@@ -28,12 +28,12 @@ void AdvanceUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 	int mapColumn = param->GetMapColumn();
 	auto fields = param->GetFields();
 
-	// •ÒW•s‰Âó‘Ô‚É‚µ‚Ä‚¨‚­
-	fields[row][column].status = tkl::STATUS::UNEDITABLE;
+	// áŠQ•¨‚ª‚ ‚éó‘Ô‚É‚µ‚Ä‚¨‚­
+	fields[row][column].status = tkl::STATUS::OBSTACLE;
 
 	// Œo˜HÄ’Tõ
 	std::vector<tkl::CELL> newRoute;
-	if(tkl::Algorithm::RouteSearch(mapRow, mapColumn, fields, newRoute)) {
+	if(tkl::Algorithm::RouteSearch(mapRow, mapColumn, fields, newRoute)){
 		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 		for(auto it = list->begin(); it != list->end(); ++it){
 			std::shared_ptr<AdvanceUnit> unit = std::dynamic_pointer_cast<AdvanceUnit>(*it);
