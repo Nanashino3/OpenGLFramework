@@ -5,6 +5,7 @@
 #define _TITLESCENE_H_
 
 #include "SceneBase.h"
+namespace tkl{ class Sound; }
 class TitleScene : public SceneBase
 {
 public:
@@ -16,7 +17,7 @@ public:
 	virtual void Draw() final;
 
 private:
-
+	std::shared_ptr<tkl::Sound> mSndDecide;
 };
 
 #endif

@@ -5,11 +5,14 @@
 
 #include "SceneManager.h"
 #include "../../01_Engine/Font.h"
+#include "../../01_Engine/Sound/Sound.h"
 #include "../../02_Library/Input.h"
 
 PauseScene::PauseScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
-{}
+{
+	mSndCancel = tkl::Sound::CreateSound("Resource/sound/cancel.wav");
+}
 
 PauseScene::~PauseScene()
 {}
@@ -36,6 +39,7 @@ void PauseScene::Update(float deltaTime)
 	// ‘O‚ÌƒV[ƒ“‚É–ß‚é
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSceneManager->ReturnScene();
+		mSndCancel->Play();
 	}
 }
 

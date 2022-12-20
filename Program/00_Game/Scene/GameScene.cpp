@@ -31,9 +31,10 @@ GameScene::GameScene(std::shared_ptr<SceneManager> manager)
 , mParam(nullptr)
 , mCamera(nullptr)
 , mField(nullptr)
-, mSound(nullptr)
+, mSndBgm(nullptr)
 {
-	mSound = tkl::Sound::CreateSound("Resource/sound/gamebgm.wav");
+	mSndBgm = tkl::Sound::CreateSound("Resource/sound/gamebgm.wav");
+	mSndPause = tkl::Sound::CreateSound("Resource/sound/pause.wav");
 }
 
 GameScene::~GameScene()
@@ -83,11 +84,11 @@ void GameScene::Update(float deltaTime)
 	// TODOFŽb’è‚Å‘Ï‹v‚ðÝ‚¯‚é
 	if(mDurability == 0){
 		mSceneManager->CallScene<GameOverScene>();
-		mSound->Stop();
+		mSndBgm->Stop();
 		return;
 	}
 	tkl::Font::DrawStringEx(0, 0, "ƒQ[ƒ€‰æ–Ê");
-	if(!mSound->IsPlay()){ mSound->Play(); }
+	if(!mSndBgm->IsPlay()){ mSndBgm->Play(); }
 
 	// ƒJƒƒ‰XV
 	mCamera->Update();
@@ -121,6 +122,7 @@ void GameScene::Update(float deltaTime)
 
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSceneManager->CallScene<PauseScene>();
+		mSndPause->Play();
 	}
 }
 

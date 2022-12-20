@@ -6,11 +6,14 @@
 #include "GameScene.h"
 #include "SceneManager.h"
 #include "../../01_Engine/Font.h"
+#include "../../01_Engine/Sound/Sound.h"
 #include "../../02_Library/Input.h"
 
 TitleScene::TitleScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
-{}
+{
+	mSndDecide = tkl::Sound::CreateSound("Resource/sound/decide.wav");
+}
 
 TitleScene::~TitleScene()
 {}
@@ -36,6 +39,7 @@ void TitleScene::Update(float deltaTime)
 {
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_ENTER)){
 		mSceneManager->LoadScene<GameScene>();
+		mSndDecide->Play();
 	}
 }
 

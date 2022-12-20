@@ -14,8 +14,8 @@ class Sound;
 }
 class GameScene : public SceneBase
 {
-	const int MAX_CREATE = 1;
-	const int MAX_DURABILITY = 1;
+	const int MAX_CREATE = 5;
+	const int MAX_DURABILITY = 5;
 public:
 	GameScene(std::shared_ptr<SceneManager> manager);
 	virtual ~GameScene();
@@ -31,7 +31,8 @@ private:
 	std::shared_ptr<tkl::Camera> mCamera;
 
 	std::shared_ptr<Field> mField;
-	std::shared_ptr<tkl::Sound> mSound;
+	std::shared_ptr<tkl::Sound> mSndBgm;
+	std::shared_ptr<tkl::Sound> mSndPause;
 };
 
 #endif
