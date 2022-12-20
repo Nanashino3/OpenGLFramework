@@ -127,7 +127,7 @@ void AdvanceUnit::Update()
 //****************************************************************************
 void AdvanceUnit::Draw()
 {
-	PrintRoute();
+//	PrintRoute();
 
 	mMesh->Draw(mParam->GetCamera());
 }
@@ -183,24 +183,50 @@ tkl::Vector3 AdvanceUnit::GetUnitPosition() const
 //****************************************************************************
 void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 {
-	// ルート数を計算
+	if(IsPassing()){
+		printf("通り過ぎています\n"); 
+		return;
+	}
+	printf("通り過ぎていません\n");
+
+	// 進行済ルートカウントの再計算
 	int prevSize = mRoute.size(), currentSize = newRoute.size();
 	int diffSize = abs(prevSize - currentSize);
-	mRouteCount = mRouteCount + diffSize;
+	int newRoutCount = mRouteCount + diffSize;
 
 	// 新ルートに戻るか確認
-	if((mRoute[mRouteCount - diffSize - 1].row != newRoute[mRouteCount - 1].row) ||
-	   (mRoute[mRouteCount - diffSize - 1].column != newRoute[mRouteCount - 1].column))
+	if((mRoute[mRouteCount - 1].row != newRoute[newRoutCount - 1].row) ||
+		(mRoute[mRouteCount - 1].column != newRoute[newRoutCount - 1].column))
 	{
+		printf("新ルートに戻ります\n");
 		mPrevRoute = mRoute;
-		mPrevRouteCount = mRouteCount - diffSize;
+		mPrevRouteCount = mRouteCount;
 		mIsRetNewRoute = true;
 	}
 
 	// ルート更新
+	mRouteCount = newRoutCount;
 	mRoute = newRoute;
 }
 
+// 通過しているか
+bool AdvanceUnit::IsPassing()
+{
+	// 移動方向計算
+	int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
+	int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
+
+	tkl::Vector3 pos = mMesh->GetPosition();
+	tkl::Vector3 clickPos = mParam->GetClickPos();
+
+	bool retX = false, retZ = false;
+	if(dx != 0){ retX = (dx > 0) ? pos.mX > clickPos.mX : pos.mX < clickPos.mX; }
+	if(dz != 0){ retZ = (dz > 0) ? pos.mZ > clickPos.mZ : pos.mZ < clickPos.mZ; }
+
+	return (dx == 0 || dz == 0) ? retX || retZ : retX && retZ;
+}
+
+// ルート表示(デバッグ用)
 void AdvanceUnit::PrintRoute()
 {
 	for (int i = 0; i < mRoute.size(); ++i) {

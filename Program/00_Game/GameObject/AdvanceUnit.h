@@ -36,6 +36,7 @@ public:
 	tkl::Vector3 GetUnitPosition() const;
 
 private:
+	bool IsPassing();
 	void PrintRoute();
 
 private:
