@@ -7,7 +7,7 @@
 #include "Vector.h"
 namespace tkl
 {
-	const float PI = 3.14159265358979f;
+	static constexpr float PI = 3.14159265358979f;
 
 	// ƒ‰ƒWƒAƒ“•ÏŠ·
 	inline float ToRadian(float degree){ return degree * PI / 180.0f; }

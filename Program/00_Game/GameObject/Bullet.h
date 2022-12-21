@@ -10,10 +10,10 @@ namespace tkl{ class Mesh; }
 
 class Bullet : public GameObject
 {
-	const int BULLET_SIZE = 5;
-	const float DESTROY_POS = 70.0f;
-	const float MOVE_SPEED = 50.0f;
-	const int DAMAGE = 5;
+	static constexpr int BULLET_SIZE = 5;
+	static constexpr float DESTROY_POS = 70.0f;
+	static constexpr float MOVE_SPEED = 50.0f;
+	static constexpr int DAMAGE = 5;
 
 public:
 	Bullet(std::shared_ptr<Parameter> param);

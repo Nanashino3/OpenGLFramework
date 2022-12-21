@@ -14,8 +14,8 @@ class Sound;
 }
 class GameScene : public SceneBase
 {
-	const int MAX_CREATE = 5;
-	const int MAX_DURABILITY = 5;
+	static constexpr int MAX_CREATE = 5;
+	static constexpr int MAX_DURABILITY = 1;
 public:
 	GameScene(std::shared_ptr<SceneManager> manager);
 	virtual ~GameScene();

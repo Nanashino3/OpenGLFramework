@@ -8,7 +8,7 @@
 
 class DefenseUnitObserver : public Observer
 {
-	const int CONSUME_COST = 75;
+	static constexpr int CONSUME_COST = 75;
 public:
 	DefenseUnitObserver();
 	virtual ~DefenseUnitObserver();

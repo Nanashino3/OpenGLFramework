@@ -10,8 +10,8 @@
 
 class GameParameter : public Parameter
 {
-	const int INIT_TOTAL_COST = 375;
-	const int INIT_LEVEL = 1;
+	static constexpr int INIT_TOTAL_COST = 375;
+	static constexpr int INIT_LEVEL = 1;
 public:
 	GameParameter()
 	: mMapSize(0)

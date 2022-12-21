@@ -128,7 +128,6 @@ void AdvanceUnit::Update()
 void AdvanceUnit::Draw()
 {
 //	PrintRoute();
-
 	mMesh->Draw(mParam->GetCamera());
 }
 
@@ -209,7 +208,14 @@ void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 	mRoute = newRoute;
 }
 
-// 通過しているか
+//****************************************************************************
+// 関数名：IsPassing(private)
+// 概　要：通過しているか
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：新ルートを設定する際に指定したセルを通過しているかどうかで
+//       ：新ルートに戻るかどうかを判定する
+//****************************************************************************
 bool AdvanceUnit::IsPassing()
 {
 	// 移動方向計算

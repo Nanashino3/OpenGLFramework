@@ -19,7 +19,7 @@ DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 	
-	mMesh = tkl::Mesh::CreateSphere(25, 24, 16);
+	mMesh = tkl::Mesh::CreateSphere(CREATE_SIZE, 24, 16);
 	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(DEFENSE_TEXTURE));
 	
 	mSound = tkl::Sound::CreateSound("Resource/sound/shot.wav");
@@ -38,7 +38,7 @@ DefenseUnit::~DefenseUnit()
 void DefenseUnit::Initialize()
 {
 	tkl::Vector3 clickPos = mParam->GetClickPos();
-	mMesh->SetPosition(tkl::Vector3(clickPos.mX, 12.5f, clickPos.mZ));
+	mMesh->SetPosition(tkl::Vector3(clickPos.mX, CREATE_SIZE * 0.5f, clickPos.mZ));
 
 	mParam->SetTotalCost(mParam->GetTotalCost() - CONSUME_COST);
 }
@@ -55,8 +55,9 @@ void DefenseUnit::Update()
 	if(!mBullet.expired()){ return; }
 
 	// ’e‚ªÁ–Å‚µ‚Ä‚©‚ç•bŒã‚É”­ŽË‚·‚é
+	// TODOFƒCƒ“ƒ^[ƒoƒ‹‚Í‰Â•Ï‚É‚µ‚½‚¢
 	mElapsed += mParam->GetDeltaTime();
-	if(mElapsed < 1.0f){ return; }
+	if(mElapsed < 0.8f){ return; }
 	mElapsed = 0;
 
 	// ¶‘¶‚µ‚Ä‚¢‚È‚¢ê‡‚Í’e¶¬

@@ -11,7 +11,7 @@ class Parameter;
 class GameParameter;
 class Field
 {
-	const int MAP_SIZE = 50;
+	static constexpr int MAP_SIZE = 50;
 public:
 	Field(std::shared_ptr<Parameter> param);
 	~Field();
