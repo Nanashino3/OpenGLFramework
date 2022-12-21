@@ -17,9 +17,10 @@ class Sound;
 
 class DefenseUnit : public GameObject
 {
-	const char* DEFENSE_TEXTURE = "Resource/panel_water.bmp";
-	const float DIST_MAX = 60.0f;
-	const int CONSUME_COST = 75;
+	static constexpr float CREATE_SIZE = 25;
+	static constexpr const char* DEFENSE_TEXTURE = "Resource/panel_water.bmp";
+	static constexpr float DIST_MAX = 60.0f;
+	static constexpr int CONSUME_COST = 75;
 public:
 	DefenseUnit(std::shared_ptr<Parameter> param);
 	virtual ~DefenseUnit();

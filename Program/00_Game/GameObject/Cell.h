@@ -12,11 +12,11 @@ namespace tkl{ class Mesh; }
 
 class Cell : public GameObject
 {
-	const int PLANE_SIZE = 50;
-	const int BLOCK_SIZE = 30;
-	const char* TEXTURE_FIELD = "Resource/panel_soil.bmp";
-	const char* TEXTURE_BLOCK = "Resource/panel_grass.bmp";
-	const char* TEXTURE_CURSOR = "Resource/debug/test2.bmp";
+	static constexpr int PLANE_SIZE = 50;
+	static constexpr int BLOCK_SIZE = 30;
+	static constexpr const char* TEXTURE_FIELD = "Resource/panel_soil.bmp";
+	static constexpr const char* TEXTURE_BLOCK = "Resource/panel_grass.bmp";
+	static constexpr const char* TEXTURE_CURSOR = "Resource/debug/test2.bmp";
 public:
 	Cell(std::shared_ptr<Parameter> param);
 	virtual ~Cell();

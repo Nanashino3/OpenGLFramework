@@ -18,9 +18,9 @@ class Sound;
 
 class AdvanceUnit : public GameObject
 {
-	const char* CSV_PATH = "Resource/AdvanceInfo.csv";
-	const char* TEXTURE_FILE = "Resource/debug/test.jpg";
-	const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
+	static constexpr const char* CSV_PATH = "Resource/AdvanceInfo.csv";
+	static constexpr const char* TEXTURE_FILE = "Resource/debug/test.jpg";
+	static constexpr const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
 public:
 	AdvanceUnit(std::shared_ptr<Parameter> param);
 	virtual ~AdvanceUnit();
