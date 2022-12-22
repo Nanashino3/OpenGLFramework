@@ -174,6 +174,12 @@
     <ClCompile Include="Program\00_Game\GameObject\Cell.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Program\TestObjectFile.cpp">
+      <Filter>Program</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\OBJLoader.cpp">
+      <Filter>Program</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -342,6 +348,12 @@
     </ClInclude>
     <ClInclude Include="Program\00_Game\GameObject\Cell.h">
       <Filter>Program\00_Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\TestObjectFile.h">
+      <Filter>Program</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\OBJLoader.h">
+      <Filter>Program</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
