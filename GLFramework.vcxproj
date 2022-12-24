@@ -73,6 +73,7 @@
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
+    <ClCompile Include="Program\ObjFileParser.cpp" />
     <ClCompile Include="Program\OBJLoader.cpp" />
     <ClCompile Include="Program\TestObjectFile.cpp" />
   </ItemGroup>
@@ -144,6 +145,7 @@
     <ClInclude Include="Program\02_Library\Quaternion.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
+    <ClInclude Include="Program\ObjFileParser.h" />
     <ClInclude Include="Program\OBJLoader.h" />
     <ClInclude Include="Program\TestObjectFile.h" />
   </ItemGroup>
