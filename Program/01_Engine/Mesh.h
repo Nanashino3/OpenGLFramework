@@ -9,6 +9,7 @@ namespace tkl
 class Camera;
 class Renderer;
 class Texture;
+class Material;
 class VertexArray;
 class Mesh : public std::enable_shared_from_this<Mesh>
 {
@@ -39,6 +40,9 @@ public:
 	void SetRenderer(std::shared_ptr<Renderer> renderer){ mRenderer = renderer; }
 	std::shared_ptr<Renderer> GetRenderer() const { return mRenderer; }
 
+	void SetMaterial(std::shared_ptr<Material> material){ mMaterial = material; }
+	std::shared_ptr<Material> GetMaterial() const { return mMaterial; }
+
 	static std::shared_ptr<Mesh> CreateBox(float size);
 	static std::shared_ptr<Mesh> CreateSphere(float radius, int divWidth, int divHeight);
 	static std::shared_ptr<Mesh> CreatePlane(float size);
@@ -55,6 +59,7 @@ private:
 	std::shared_ptr<Renderer> mRenderer;
 	std::shared_ptr<Texture> mTexture;
 	std::shared_ptr<VertexArray> mVertexArray;
+	std::shared_ptr<Material> mMaterial;
 };
 
 } // namespace tkl

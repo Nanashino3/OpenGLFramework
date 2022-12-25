@@ -361,5 +361,8 @@
     <ClInclude Include="Program\ObjFileParser.h">
       <Filter>Program</Filter>
     </ClInclude>
+    <ClInclude Include="Program\01_Engine\Material.h">
+      <Filter>Program\01_Engine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

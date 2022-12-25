@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "VertexArray.h"
+#include "Material.h"
 #include "Camera/Camera.h"
 #include "Renderer/MeshRenderer.h"
 #include "Renderer/WireRenderer.h"
@@ -34,6 +35,7 @@ std::shared_ptr<Mesh> Mesh::CreateBox(float size)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
+	mesh->SetMaterial(std::make_shared<Material>());
 
 	float sx, sy, sz;
 	sx = sy = sz = size * 0.5f;
@@ -97,12 +99,12 @@ std::shared_ptr<Mesh> Mesh::CreateBox(float size)
 
 	// インデックス計算(TODO：計算で出したい)
 	int indices[] = {
-		 0,  2,  3,  0,  3,  1,	// 前面
-		 4,  6,  7,  4,  7,  5,	// 右面
-		 8, 10, 11,  8, 11,  9,	// 上面
-		14, 15, 12, 15, 13, 12,	// 下面
-		16, 18, 19, 16, 19, 17, // 左面
-		22, 23, 20, 23, 21, 20	// 後面
+		 0,  1,  2,  1,  3,  2,	// 前面
+		 4,  5,  6,  5,  7,  6,	// 右面
+		 8,  9, 10,  9, 11, 10,	// 上面
+		12, 13, 14, 13, 15, 14,	// 下面
+		16, 17, 18, 17, 19, 18,	// 左面
+		20, 21, 22, 21, 23, 22	// 後面
 	};
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
@@ -118,6 +120,7 @@ std::shared_ptr<Mesh> Mesh::CreateSphere(float radius, int divWidth, int divHeig
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
+	mesh->SetMaterial(std::make_shared<Material>());
 
 	radius *= 0.5f;
 	// 頂点座標計算
@@ -169,6 +172,7 @@ std::shared_ptr<Mesh> Mesh::CreatePlane(float size)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<MeshRenderer>());
+	mesh->SetMaterial(std::make_shared<Material>());
 
 	size *= 0.5f;
 	VertexArray::VERTEX vertices[] = {
@@ -189,6 +193,7 @@ std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<WireRenderer>());
+	mesh->SetMaterial(std::make_shared<Material>());
 
 	float l = size * rowNum * 0.5f;
 	float n = -l;
@@ -233,6 +238,7 @@ std::shared_ptr<Mesh> Mesh::CreatePlaneForWireFrame(int size)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<WireRenderer>());
+	mesh->SetMaterial(std::make_shared<Material>());
 
 	size *= 0.5f;
 
@@ -258,6 +264,7 @@ std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<SpriteRenderer>());
+	mesh->SetMaterial(std::make_shared<Material>());
 
 	VertexArray::VERTEX vertices[] = {
 		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},

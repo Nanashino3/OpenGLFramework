@@ -17,7 +17,7 @@ public:
 	virtual void Draw(std::shared_ptr<Mesh> mesh) final;
 
 private:
-	void SetLightUniforms();
+	void SetLightUniforms(std::shared_ptr<Mesh> mesh);
 };
 
 } // namespace tkl

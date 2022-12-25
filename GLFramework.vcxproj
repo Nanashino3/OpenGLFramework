@@ -119,6 +119,7 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\FontManager.h" />
     <ClInclude Include="Program\01_Engine\Intersect.h" />
+    <ClInclude Include="Program\01_Engine\Material.h" />
     <ClInclude Include="Program\01_Engine\Mesh.h" />
     <ClInclude Include="Program\01_Engine\Renderer\MeshRenderer.h" />
     <ClInclude Include="Program\01_Engine\Renderer\Renderer.h" />

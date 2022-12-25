@@ -8,6 +8,7 @@
 #include "../Shader.h"
 #include "../Texture.h"
 #include "../VertexArray.h"
+#include "../Material.h"
 
 namespace tkl
 {
@@ -35,7 +36,7 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	Renderer::Draw(mesh);
 
 	// 光源設定
-	SetLightUniforms();
+	SetLightUniforms(mesh);
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	wm *= tkl::Matrix::CreateRotationFromQuaternion(mesh->GetRotation());
@@ -47,6 +48,8 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();
+	// TODO：これでワイヤーフレームが出せるっぽい
+//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
 }
 
@@ -57,18 +60,17 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 // 戻り値：なし
 // 詳　細：ライディングを設定する(現状固定)
 //****************************************************************************
-void MeshRenderer::SetLightUniforms()
+void MeshRenderer::SetLightUniforms(std::shared_ptr<Mesh> mesh)
 {
-//	tkl::Matrix invView = tkl::Matrix::CreateInverseMatrix(mView);
-//	tkl::Vector3 camPos = tkl::Vector3(invView._14, invView._24, invView._34);
-	tkl::Vector3 ambientLight = tkl::Vector3(0.2f, 0.2f, 0.2f);
-	tkl::Vector3 dirLightDirection = tkl::Vector3(0.0f, -0.707f, -0.707f);
-	tkl::Vector3 dirLightDiffuseColor = tkl::Vector3(0.78f, 0.88f, 1.0f);
+	// マテリアルを設定
+	std::shared_ptr<Material> mtl = mesh->GetMaterial();
+	mShader->SetVectorUniform("uMaterial.mAmbient", mtl->GetAmbient());
+	mShader->SetVectorUniform("uMaterial.mDiffuse", mtl->GetDiffuse());
 
-//	mShader->SetVectorUniform("uCameraPos", camPos);
-	mShader->SetVectorUniform("uAmbientColor", ambientLight);
-	mShader->SetVectorUniform("uDirLight.mDirection", dirLightDirection);
-	mShader->SetVectorUniform("uDirLight.mDiffuseColor", dirLightDiffuseColor);
+	// 光源の設定
+	mShader->SetVectorUniform("uAmbientColor", tkl::Vector3(0.2f, 0.2f, 0.2f));
+	mShader->SetVectorUniform("uDirLight.mDirection", tkl::Vector3(0.0f, -0.707f, -0.707f));
+	mShader->SetVectorUniform("uDirLight.mDiffuseColor", tkl::Vector3(0.78f, 0.88f, 1.0f));
 }
 
 } // namespace tkl

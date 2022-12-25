@@ -9,7 +9,7 @@ namespace tkl
 class TestObjectFile
 {
 public:
-	static std::vector<std::shared_ptr<Mesh>> CreateFromObjFile();
+	static std::vector<std::shared_ptr<Mesh>> CreateFromObjFile(const char* filepath);
 };
 
 } // namespace tkl
