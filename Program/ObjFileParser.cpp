@@ -7,6 +7,7 @@
 
 namespace tkl
 {
+//**********************************************************************
 // 指定文字で文字列を分割する
 std::vector<std::string> Split(const std::string& str, char delimiter)
 {
@@ -40,6 +41,7 @@ void ParseAndConvert(T* list, const std::string& buf, char delimiter)
 		counter++;
 	}
 }
+//**********************************************************************
 
 //**********************************************************************
 // OBJVEC2
@@ -67,8 +69,6 @@ ObjFileParser::ObjFileParser()
 
 ObjFileParser::~ObjFileParser()
 {}
-
-
 
 // TODO：三角形で構成されていれば表示できる
 bool ObjFileParser::LoadFile(const char* filename)
@@ -232,6 +232,34 @@ bool ObjFileParser::ParseMtlFile(const std::string filepath, const std::vector<s
 				float r, g, b;
 				iss >> r >> g >> b;
 				mCacheMaterial[mtlName].diffuse = OBJVEC3(r, g, b);
+			}
+			// ambientテクスチャマップ
+			else if(line.substr(0, 6) == "map_Ka"){
+				size_t length = line.find_first_of(' ');
+				std::string imgName = line.substr(length + 1, line.length());
+				std::string imgFile = filepath + "/" + imgName;
+				mCacheMaterial[mtlName].ambientMapName = imgFile;
+			}
+			// diffuseテクスチャマップ
+			else if(line.substr(0, 6) == "map_Kd"){
+				size_t length = line.find_first_of(' ');
+				std::string imgName = line.substr(length + 1, line.length());
+				std::string imgFile = filepath + "/" + imgName;
+				mCacheMaterial[mtlName].diffuseMapName = imgFile;
+			}
+			// specularテクスチャマップ
+			else if(line.substr(0, 6) == "map_Ns"){
+				size_t length = line.find_first_of(' ');
+				std::string imgName = line.substr(length + 1, line.length());
+				std::string imgFile = filepath + "/" + imgName;
+				mCacheMaterial[mtlName].specularMapName = imgFile;
+			}
+			// bumpテクスチャマップ
+			else if(line.substr(0, 6) == "map_bump"){
+				size_t length = line.find_first_of(' ');
+				std::string imgName = line.substr(length + 1, line.length());
+				std::string imgFile = filepath + "/" + imgName;
+				mCacheMaterial[mtlName].bumpMapName = imgFile;
 			}
 		}
 

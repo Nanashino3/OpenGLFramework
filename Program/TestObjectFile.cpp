@@ -1,6 +1,6 @@
 #include "TestObjectFile.h"
 
-#if 1
+#if 0
 #include "ObjFileParser.h"
 #include "01_Engine/Mesh.h"
 #include "01_Engine/Material.h"
@@ -10,6 +10,7 @@
 #else
 #include "OBJLoader.h"
 #include "01_Engine/Mesh.h"
+#include "01_Engine/Material.h"
 #include "01_Engine/VertexArray.h"
 #include "01_Engine/Texture.h"
 #include "01_Engine/Renderer/WireRenderer.h"
@@ -22,15 +23,13 @@ namespace tkl
 {
 std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char* filepath)
 {
-#if 1
+#if 0
 	ObjFileParser* parser = new ObjFileParser();
 	parser->LoadFile(filepath);
 
 	std::vector<std::shared_ptr<Mesh>> createMeshs;
 
 	OBJVERTEX* vertices = parser->GetVertices();
-	std::vector<VertexArray::VERTEX> meshVertices;
-
 	auto subsets = parser->GetSubsets();
 	for(auto subset : subsets){
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
@@ -43,13 +42,33 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 		material->SetDiffuse(Vector3(mtl.diffuse.x, mtl.diffuse.y, mtl.diffuse.z));
 		mesh->SetMaterial(material);
 
+		// テクスチャ設定
+		std::string texFile = "";
+		if (!std::string(mtl.ambientMapName).empty()) {
+			texFile = mtl.ambientMapName;
+		}
+		else if (!std::string(mtl.specularMapName).empty()) {
+			texFile = mtl.specularMapName;
+		}
+		else if (!std::string(mtl.bumpMapName).empty()) {
+			texFile = mtl.bumpMapName;
+		}
+		else if (!std::string(mtl.diffuseMapName).empty()) {
+			texFile = mtl.diffuseMapName;
+		}
+		if(texFile.empty()){ texFile = "Resource/texture/white.bmp"; }
+
+		std::shared_ptr<tkl::Texture> texture = tkl::ResourceManager::GetInstance()->CreateTextureFromFile(texFile.c_str());
+		mesh->SetTexture(texture);
+
 		// 頂点データを作成
+		std::vector<VertexArray::VERTEX> meshVertices;
 		auto indices = parser->GetIndices(subset);
 		for(auto index : indices){
 			OBJVERTEX vtx = parser->GetVertex(index);
 			VertexArray::VERTEX vertex = { vtx.position.x, vtx.position.y, vtx.position.z,
 											vtx.normal.x, vtx.normal.y, vtx.normal.z,
-											vtx.texcoord.x, vtx.texcoord.y };	
+											vtx.texcoord.x, 1.0f - vtx.texcoord.y };	
 
 			meshVertices.emplace_back(vertex);
 		}
@@ -57,10 +76,10 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 			static_cast<unsigned int>(meshVertices.size()), meshVertices.data(),
 			static_cast<unsigned int>(indices.size()), indices.data()));
 
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/texture/white.bmp"));
 		createMeshs.emplace_back(mesh);
 	}
 
+	delete parser;
 	return createMeshs;
 #else
 	// Objファイル読み込み用
@@ -81,8 +100,13 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		mesh->SetRenderer(std::make_shared<MeshRenderer>());
 
-		std::shared_ptr<tkl::Texture> texture;
 		OBJMATERIAL* mtls = &obj->GetMaterials()[subset->materialIndex];
+		std::shared_ptr<Material> mtl = std::make_shared<Material>();
+		mtl->SetAmbient(tkl::Vector3(mtls->ambient.x, mtls->ambient.y, mtls->ambient.z));
+		mtl->SetDiffuse(tkl::Vector3(mtls->diffuse.x, mtls->diffuse.y, mtls->diffuse.z));
+		mesh->SetMaterial(mtl);
+
+		std::shared_ptr<tkl::Texture> texture;
 		if(!std::string(mtls->ambientMapName).empty()){
 			printf("AmbientMap : %s\n", mtls->ambientMapName);
 			std::string temp = path + "/" + std::string(mtls->ambientMapName);
@@ -100,7 +124,10 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 			std::string temp = path + "/" + std::string(mtls->diffuseMapName);
 			texture = tkl::ResourceManager::GetInstance()->CreateTextureFromFile(temp.c_str());
 		}
-		texture = tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/texture/white.bmp");
+
+		if(texture == nullptr){
+			texture = tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/texture/white.bmp");
+		}
 		mesh->SetTexture(texture);
 
 		std::vector<VertexArray::VERTEX> meshVertices;
@@ -115,11 +142,9 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 			for(unsigned int n = 0; n < 3; ++n){
 				int idx = (k * 3) + n;
 				OBJVERTEX vtx = obj->GetVertex(indices[idx]);
-				float tx = vtx.texcoord.x * 0.8f;
-				float ty = (1.0f - vtx.texcoord.y);
 				VertexArray::VERTEX vertex = {	vtx.position.x, vtx.position.y, vtx.position.z, 
 												vtx.normal.x, vtx.normal.y, vtx.normal.z, 
-												tx, ty  };
+												vtx.texcoord.x, 1.0f - vtx.texcoord.y };
 
 				meshVertices.emplace_back(vertex);
 				meshIndices.emplace_back(idx);

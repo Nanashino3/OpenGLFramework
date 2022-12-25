@@ -31,6 +31,10 @@ struct OBJMATERIAL
 	OBJVEC3 ambient;
 	OBJVEC3 diffuse;
 	OBJVEC3 specular;
+	std::string ambientMapName;
+	std::string diffuseMapName;
+	std::string specularMapName;
+	std::string bumpMapName;
 };
 
 class ObjFileParser
