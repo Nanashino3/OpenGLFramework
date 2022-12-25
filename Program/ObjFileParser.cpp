@@ -115,24 +115,30 @@ bool ObjFileParser::ParseObjFile(const char* filename, std::vector<std::string>&
 
 		// 頂点座標をまとめる
 		if(line.substr(0, 2) == "v "){
-			std::istringstream iss(line.substr(2));
+			size_t startNum = line.find_first_of(" ");
+			std::istringstream iss(line.substr(startNum + 1, line.length()));
+
 			float vx, vy, vz;
 			iss >> vx >> vy >> vz;
 			posList.emplace_back(OBJVEC3(vx, vy, vz));
 		}
 		// 法線ベクトルをまとめる
-		else if(line.substr(0, 3) == "vn "){
-			std::istringstream iss(line.substr(3));
+		else if(line.substr(0, 2) == "vn"){
+			size_t startNum = line.find_first_of(" ");
+			std::istringstream iss(line.substr(startNum + 1, line.length()));
+
 			float nx, ny, nz;
 			iss >> nx >> ny >> nz;
 			normList.emplace_back(OBJVEC3(nx, ny, nz));
 		}
 		// テクスチャ座標をまとめる
-		else if(line.substr(0, 3) == "vt "){
-			std::istringstream iss(line.substr(3));
+		else if(line.substr(0, 2) == "vt"){
+			size_t startNum = line.find_first_of(" ");
+			std::istringstream iss(line.substr(startNum + 1, line.length()));
+
 			float tx, ty;
 			iss >> tx >> ty;
-			texList.emplace_back(OBJVEC2(tx, ty));
+			texList.emplace_back(OBJVEC2(tx, 1.0f - ty));
 		}
 		// 面情報から頂点データを作成しまとめる
 		else if(line.substr(0, 2) == "f "){
@@ -166,13 +172,13 @@ bool ObjFileParser::ParseObjFile(const char* filename, std::vector<std::string>&
 			}
 		}
 		// 読み込むマテリアルファイル
-		else if(line.substr(0, 7) == "mtllib "){
+		else if(line.substr(0, 6) == "mtllib"){
 			size_t startNum = line.find_first_of(" ");
 			std::string data = line.substr(startNum + 1, line.length());
 			mtlList.emplace_back(data);
 		}
 		// 使用するマテリアルファイル
-		else if(line.substr(0, 7) == "usemtl "){
+		else if(line.substr(0, 6) == "usemtl"){
 			size_t startNum = line.find_first_of(" ");
 			mtlName = line.substr(startNum + 1, line.length());
 			mSubsets.emplace_back(mtlName);
@@ -213,21 +219,23 @@ bool ObjFileParser::ParseMtlFile(const std::string filepath, const std::vector<s
 		// 1行ずつ解析
 		std::string line = "", mtlName = "";
 		while(getline(ifs, line)){
-			if(line.substr(0, 7) == "newmtl "){
+			if(line.substr(0, 6) == "newmtl"){
 				size_t length = line.find_first_of(' ');
 				mtlName = line.substr(length + 1, line.length());
 			}
 			// ambientカラー
-			else if(line.substr(0, 3) == "Ka "){
-				std::istringstream iss(line.substr(3));
+			else if(line.substr(0, 2) == "Ka"){
+				size_t startNum = line.find_first_of(" ");
+				std::istringstream iss(line.substr(startNum + 1, line.length()));
 
 				float r, g, b;
 				iss >> r >> g >> b;
 				mCacheMaterial[mtlName].ambient = OBJVEC3(r, g, b);
 			}
 			// diffuseカラー
-			else if(line.substr(0, 3) == "Kd "){
-				std::istringstream iss(line.substr(3));
+			else if(line.substr(0, 2) == "Kd"){
+				size_t startNum = line.find_first_of(" ");
+				std::istringstream iss(line.substr(startNum + 1, line.length()));
 
 				float r, g, b;
 				iss >> r >> g >> b;
