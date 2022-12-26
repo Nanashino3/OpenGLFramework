@@ -9,7 +9,7 @@ class Material
 {
 public:
 	Material()
-	: mAmbient(1.0f, 1.0f, 1.0f)
+	: mAmbient(0.2f, 0.2f, 0.2f)
 	, mDiffuse(1.0f, 1.0f, 1.0f)
 	{}
 	~Material(){}

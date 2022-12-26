@@ -180,9 +180,6 @@
     <ClCompile Include="Program\OBJLoader.cpp">
       <Filter>Program</Filter>
     </ClCompile>
-    <ClCompile Include="Program\ObjFileParser.cpp">
-      <Filter>Program</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -356,9 +353,6 @@
       <Filter>Program</Filter>
     </ClInclude>
     <ClInclude Include="Program\OBJLoader.h">
-      <Filter>Program</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\ObjFileParser.h">
       <Filter>Program</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Material.h">

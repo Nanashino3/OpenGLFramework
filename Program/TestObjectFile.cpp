@@ -1,87 +1,17 @@
 #include "TestObjectFile.h"
 
-#if 0
-#include "ObjFileParser.h"
-#include "01_Engine/Mesh.h"
-#include "01_Engine/Material.h"
-#include "01_Engine/VertexArray.h"
-#include "01_Engine/Renderer/MeshRenderer.h"
-#include "01_Engine/ResourceManager.h"
-#else
 #include "OBJLoader.h"
 #include "01_Engine/Mesh.h"
 #include "01_Engine/Material.h"
 #include "01_Engine/VertexArray.h"
 #include "01_Engine/Texture.h"
-#include "01_Engine/Renderer/WireRenderer.h"
 #include "01_Engine/Renderer/MeshRenderer.h"
 #include "01_Engine/ResourceManager.h"
-#include "02_Library/Utility.h"
-#endif
 
 namespace tkl
 {
 std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char* filepath)
 {
-#if 0
-	ObjFileParser* parser = new ObjFileParser();
-	parser->LoadFile(filepath);
-
-	std::vector<std::shared_ptr<Mesh>> createMeshs;
-
-	OBJVERTEX* vertices = parser->GetVertices();
-	auto subsets = parser->GetSubsets();
-	for(auto subset : subsets){
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-		mesh->SetRenderer(std::make_shared<MeshRenderer>());
-
-		// マテリアル情報の設定
-		OBJMATERIAL mtl = parser->GetMaterial(subset);
-		std::shared_ptr<Material> material = std::make_shared<Material>();
-		material->SetAmbient(Vector3(mtl.ambient.x, mtl.ambient.y, mtl.ambient.z));
-		material->SetDiffuse(Vector3(mtl.diffuse.x, mtl.diffuse.y, mtl.diffuse.z));
-		mesh->SetMaterial(material);
-
-		// テクスチャ設定
-		std::string texFile = "";
-		if (!std::string(mtl.ambientMapName).empty()) {
-			texFile = mtl.ambientMapName;
-		}
-		else if (!std::string(mtl.specularMapName).empty()) {
-			texFile = mtl.specularMapName;
-		}
-		else if (!std::string(mtl.bumpMapName).empty()) {
-			texFile = mtl.bumpMapName;
-		}
-		else if (!std::string(mtl.diffuseMapName).empty()) {
-			texFile = mtl.diffuseMapName;
-		}
-		if(texFile.empty()){ texFile = "Resource/texture/white.bmp"; }
-
-		std::shared_ptr<tkl::Texture> texture = tkl::ResourceManager::GetInstance()->CreateTextureFromFile(texFile.c_str());
-		mesh->SetTexture(texture);
-
-		// 頂点データを作成
-		std::vector<VertexArray::VERTEX> meshVertices;
-		auto indices = parser->GetIndices(subset);
-		for(auto index : indices){
-			OBJVERTEX vtx = parser->GetVertex(index);
-			VertexArray::VERTEX vertex = { vtx.position.x, vtx.position.y, vtx.position.z,
-											vtx.normal.x, vtx.normal.y, vtx.normal.z,
-											vtx.texcoord.x, 1.0f - vtx.texcoord.y };	
-
-			meshVertices.emplace_back(vertex);
-		}
-		mesh->SetVertex(std::make_shared<VertexArray>(
-			static_cast<unsigned int>(meshVertices.size()), meshVertices.data(),
-			static_cast<unsigned int>(indices.size()), indices.data()));
-
-		createMeshs.emplace_back(mesh);
-	}
-
-	delete parser;
-	return createMeshs;
-#else
 	// Objファイル読み込み用
 	std::shared_ptr<OBJMESH> obj = std::make_shared<OBJMESH>();
 	obj->LoadFile(filepath);
@@ -159,7 +89,6 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 	}
 
 	return createMeshs;
-#endif
 }
 
 } // namespace tkl
