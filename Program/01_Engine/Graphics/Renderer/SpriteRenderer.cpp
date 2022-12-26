@@ -5,10 +5,10 @@
 
 #include <iostream>
 #include <GL/glew.h>
-#include "../../Graphics/Mesh.h"
-#include "../../Graphics/Shader.h"
-#include "../Texture.h"
-#include "../VertexArray.h"
+#include "../Shader.h"
+#include "../Geometry/Mesh.h"
+#include "../Geometry/Texture.h"
+#include "../Geometry/VertexArray.h"
 
 namespace tkl
 {

@@ -1,9 +1,9 @@
 #include "Font.h"
 
 #include <stdarg.h>
-#include "Mesh.h"
-#include "Texture.h"
 #include "FontManager.h"
+#include "Geometry/Mesh.h"
+#include "Geometry/Texture.h"
 
 #include "../System.h"
 #include "../Camera/ScreenCamera.h"

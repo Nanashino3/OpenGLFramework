@@ -6,9 +6,9 @@
 #include "AdvanceUnit.h"
 #include "GameParameter.h"
 #include "ObjectManager.h"
-#include "../../01_Engine/Graphics/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Intersect.h"
+#include "../../01_Engine/Graphics/Geometry/Mesh.h"
 
 Bullet::Bullet(std::shared_ptr<Parameter> param)
 : mRadian(0)

@@ -4,9 +4,9 @@
 #include "WireRenderer.h"
 
 #include <GL/glew.h>
-#include "../../Graphics/Mesh.h"
-#include "../../Graphics/Shader.h"
-#include "../../Graphics/VertexArray.h"
+#include "../Shader.h"
+#include "../Geometry/Mesh.h"
+#include "../Geometry/VertexArray.h"
 
 namespace tkl
 {
