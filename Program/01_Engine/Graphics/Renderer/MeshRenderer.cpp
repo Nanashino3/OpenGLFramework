@@ -4,11 +4,11 @@
 #include "MeshRenderer.h"
 
 #include <GL/glew.h>
-#include "../Mesh.h"
+#include "../../Graphics/Mesh.h"
 #include "../Shader.h"
 #include "../Texture.h"
 #include "../VertexArray.h"
-#include "../Material.h"
+#include "../../Graphics/Material.h"
 
 namespace tkl
 {

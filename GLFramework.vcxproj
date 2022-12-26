@@ -44,16 +44,21 @@
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\FontManager.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Font.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Mesh.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\OBJLoader.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\Renderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\WireRenderer.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Shader.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\ShaderFactory.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\TestObjectFile.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Texture.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\VertexArray.cpp" />
     <ClCompile Include="Program\01_Engine\Intersect.cpp" />
-    <ClCompile Include="Program\01_Engine\Mesh.cpp" />
-    <ClCompile Include="Program\01_Engine\Renderer\MeshRenderer.cpp" />
-    <ClCompile Include="Program\01_Engine\Renderer\Renderer.cpp" />
-    <ClCompile Include="Program\01_Engine\Renderer\SpriteRenderer.cpp" />
-    <ClCompile Include="Program\01_Engine\Renderer\WireRenderer.cpp" />
     <ClCompile Include="Program\01_Engine\ResourceManager.cpp" />
-    <ClCompile Include="Program\01_Engine\Shader.cpp" />
-    <ClCompile Include="Program\01_Engine\ShaderFactory.cpp" />
     <ClCompile Include="Program\01_Engine\Sound\Sound.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -62,9 +67,6 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Sound\SoundParser.cpp" />
     <ClCompile Include="Program\01_Engine\System.cpp" />
-    <ClCompile Include="Program\01_Engine\Font.cpp" />
-    <ClCompile Include="Program\01_Engine\Texture.cpp" />
-    <ClCompile Include="Program\01_Engine\VertexArray.cpp" />
     <ClCompile Include="Program\02_Library\FontTexture.cpp" />
     <ClCompile Include="Program\02_Library\Input.cpp" />
     <ClCompile Include="Program\02_Library\Math.cpp" />
@@ -73,8 +75,6 @@
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
-    <ClCompile Include="Program\OBJLoader.cpp" />
-    <ClCompile Include="Program\TestObjectFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\BasicFrag.glsl" />
@@ -116,17 +116,22 @@
     <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\FontManager.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Font.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\FontManager.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Material.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Mesh.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\OBJLoader.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\Renderer.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\WireRenderer.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Shader.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\ShaderFactory.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\TestObjectFile.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Texture.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\VertexArray.h" />
     <ClInclude Include="Program\01_Engine\Intersect.h" />
-    <ClInclude Include="Program\01_Engine\Material.h" />
-    <ClInclude Include="Program\01_Engine\Mesh.h" />
-    <ClInclude Include="Program\01_Engine\Renderer\MeshRenderer.h" />
-    <ClInclude Include="Program\01_Engine\Renderer\Renderer.h" />
-    <ClInclude Include="Program\01_Engine\Renderer\SpriteRenderer.h" />
-    <ClInclude Include="Program\01_Engine\Renderer\WireRenderer.h" />
     <ClInclude Include="Program\01_Engine\ResourceManager.h" />
-    <ClInclude Include="Program\01_Engine\Shader.h" />
-    <ClInclude Include="Program\01_Engine\ShaderFactory.h" />
     <ClInclude Include="Program\01_Engine\Sound\Sound.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -135,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Sound\SoundParser.h" />
     <ClInclude Include="Program\01_Engine\System.h" />
-    <ClInclude Include="Program\01_Engine\Font.h" />
-    <ClInclude Include="Program\01_Engine\Texture.h" />
-    <ClInclude Include="Program\01_Engine\VertexArray.h" />
     <ClInclude Include="Program\02_Library\FontTexture.h" />
     <ClInclude Include="Program\02_Library\Input.h" />
     <ClInclude Include="Program\02_Library\Math.h" />
@@ -145,8 +147,6 @@
     <ClInclude Include="Program\02_Library\Quaternion.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
-    <ClInclude Include="Program\OBJLoader.h" />
-    <ClInclude Include="Program\TestObjectFile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

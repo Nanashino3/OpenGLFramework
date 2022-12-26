@@ -1,12 +1,12 @@
 #include "TestObjectFile.h"
 
 #include "OBJLoader.h"
-#include "01_Engine/Mesh.h"
-#include "01_Engine/Material.h"
-#include "01_Engine/VertexArray.h"
-#include "01_Engine/Texture.h"
-#include "01_Engine/Renderer/MeshRenderer.h"
-#include "01_Engine/ResourceManager.h"
+#include "Mesh.h"
+#include "Material.h"
+#include "VertexArray.h"
+#include "Texture.h"
+#include "Renderer/MeshRenderer.h"
+#include "../ResourceManager.h"
 
 namespace tkl
 {

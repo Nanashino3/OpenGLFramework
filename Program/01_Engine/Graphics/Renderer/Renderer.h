@@ -5,7 +5,7 @@
 #define _RENDERER_H_
 
 #include <memory>
-#include "../../02_Library/Matrix.h"
+#include "../../../02_Library/Matrix.h"
 
 namespace tkl
 {

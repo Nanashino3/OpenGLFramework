@@ -5,7 +5,7 @@
 
 #include <functional>
 #include "GameParameter.h"
-#include "../../01_Engine/Mesh.h"
+#include "../../01_Engine/Graphics/Mesh.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../02_Library/Math.h"

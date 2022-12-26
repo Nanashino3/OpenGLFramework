@@ -5,8 +5,8 @@
 
 #include <iostream>
 #include <GL/glew.h>
-#include "../Mesh.h"
-#include "../Shader.h"
+#include "../../Graphics/Mesh.h"
+#include "../../Graphics/Shader.h"
 #include "../Texture.h"
 #include "../VertexArray.h"
 

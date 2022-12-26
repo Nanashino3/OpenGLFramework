@@ -19,9 +19,6 @@
     <Filter Include="Program\01_Engine\Camera">
       <UniqueIdentifier>{513ab0b8-cdae-4703-a9d1-42a49873ff69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Program\01_Engine\Renderer">
-      <UniqueIdentifier>{a310e053-8c41-4636-862d-de3dd2035280}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Program\00_Game\Scene">
       <UniqueIdentifier>{85c65fba-797b-4a88-ae40-483565a6c34e}</UniqueIdentifier>
     </Filter>
@@ -34,19 +31,16 @@
     <Filter Include="Program\00_Game\NotifyService">
       <UniqueIdentifier>{f1522289-17b4-4584-8069-46c28d0fd81d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\01_Engine\Graphics">
+      <UniqueIdentifier>{4adea110-c0d9-4c7b-aa6d-03cfa7aa483b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Program\01_Engine\Graphics\Renderer">
+      <UniqueIdentifier>{27fa6da7-34d8-4d6b-bdaf-5923049f0e65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
       <Filter>Program\00_Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Mesh.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Texture.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\VertexArray.cpp">
-      <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\02_Library\FontTexture.cpp">
       <Filter>Program\02_Library</Filter>
@@ -72,29 +66,11 @@
     <ClCompile Include="Program\01_Engine\ResourceManager.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Renderer\MeshRenderer.cpp">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Renderer\Renderer.cpp">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Renderer\SpriteRenderer.cpp">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Renderer\WireRenderer.cpp">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Camera\ScreenCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Font.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\FontManager.cpp">
-      <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\02_Library\Math.cpp">
       <Filter>Program\02_Library</Filter>
@@ -104,12 +80,6 @@
     </ClCompile>
     <ClCompile Include="Program\00_Game\GameManager.cpp">
       <Filter>Program\00_Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Shader.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\ShaderFactory.cpp">
-      <Filter>Program\01_Engine</Filter>
     </ClCompile>
     <ClCompile Include="Program\Main.cpp">
       <Filter>Program</Filter>
@@ -174,11 +144,44 @@
     <ClCompile Include="Program\00_Game\GameObject\Cell.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Program\TestObjectFile.cpp">
-      <Filter>Program</Filter>
+    <ClCompile Include="Program\01_Engine\Graphics\Font.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Program\OBJLoader.cpp">
-      <Filter>Program</Filter>
+    <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Mesh.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Shader.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\ShaderFactory.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Texture.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\VertexArray.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\OBJLoader.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\TestObjectFile.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.cpp">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\Renderer.cpp">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\SpriteRenderer.cpp">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Renderer\WireRenderer.cpp">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,15 +207,6 @@
   <ItemGroup>
     <ClInclude Include="Program\00_Game\GameMain.h">
       <Filter>Program\00_Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Mesh.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Texture.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\VertexArray.h">
-      <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\02_Library\FontTexture.h">
       <Filter>Program\02_Library</Filter>
@@ -241,18 +235,6 @@
     <ClInclude Include="Program\01_Engine\ResourceManager.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Renderer\MeshRenderer.h">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Renderer\Renderer.h">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Renderer\SpriteRenderer.h">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Renderer\WireRenderer.h">
-      <Filter>Program\01_Engine\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Camera\Camera.h">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
@@ -262,12 +244,6 @@
     <ClInclude Include="Program\01_Engine\Camera\ScreenCamera.h">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Font.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\FontManager.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Intersect.h">
       <Filter>Program\01_Engine</Filter>
     </ClInclude>
@@ -276,12 +252,6 @@
     </ClInclude>
     <ClInclude Include="Program\00_Game\GameManager.h">
       <Filter>Program\00_Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Shader.h">
-      <Filter>Program\01_Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\ShaderFactory.h">
-      <Filter>Program\01_Engine</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Sound\SoundBuffer.h">
       <Filter>Program\01_Engine\Sound</Filter>
@@ -349,14 +319,47 @@
     <ClInclude Include="Program\00_Game\GameObject\Cell.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Program\TestObjectFile.h">
-      <Filter>Program</Filter>
+    <ClInclude Include="Program\01_Engine\Graphics\Font.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Program\OBJLoader.h">
-      <Filter>Program</Filter>
+    <ClInclude Include="Program\01_Engine\Graphics\FontManager.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Material.h">
-      <Filter>Program\01_Engine</Filter>
+    <ClInclude Include="Program\01_Engine\Graphics\Material.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Mesh.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Shader.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\ShaderFactory.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Texture.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\VertexArray.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\OBJLoader.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\TestObjectFile.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.h">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\Renderer.h">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\SpriteRenderer.h">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Renderer\WireRenderer.h">
+      <Filter>Program\01_Engine\Graphics\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

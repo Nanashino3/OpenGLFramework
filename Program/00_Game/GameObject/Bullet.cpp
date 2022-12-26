@@ -6,7 +6,7 @@
 #include "AdvanceUnit.h"
 #include "GameParameter.h"
 #include "ObjectManager.h"
-#include "../../01_Engine/Mesh.h"
+#include "../../01_Engine/Graphics/Mesh.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Intersect.h"
 

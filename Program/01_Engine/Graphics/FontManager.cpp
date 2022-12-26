@@ -1,7 +1,8 @@
 #include "FontManager.h"
 #include "Texture.h"
-#include "../02_Library/FontTexture.h"
-#include "../02_Library/Utility.h"
+
+#include "../../02_Library/FontTexture.h"
+#include "../../02_Library/Utility.h"
 
 namespace tkl
 {

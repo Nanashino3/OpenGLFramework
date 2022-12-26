@@ -18,7 +18,7 @@
 #include "../NotifyService/DefenseUnitObserver.h"
 
 #include "../../01_Engine/System.h"
-#include "../../01_Engine/Font.h"
+#include "../../01_Engine/Graphics/Font.h"
 #include "../../01_Engine/Camera/FixedCamera.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../02_Library/Input.h"

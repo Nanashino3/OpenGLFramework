@@ -1,8 +1,8 @@
 #ifndef _MESH_H_
 #define _MESH_H_
 #include <memory>
-#include "../02_Library/Vector.h"
-#include "../02_Library/Quaternion.h"
+#include "../../02_Library/Vector.h"
+#include "../../02_Library/Quaternion.h"
 
 namespace tkl
 {

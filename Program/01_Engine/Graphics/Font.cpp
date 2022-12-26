@@ -1,12 +1,13 @@
 #include "Font.h"
 
 #include <stdarg.h>
-#include "System.h"
 #include "Mesh.h"
 #include "Texture.h"
 #include "FontManager.h"
-#include "Camera/ScreenCamera.h"
-#include "../02_Library/Utility.h"
+
+#include "../System.h"
+#include "../Camera/ScreenCamera.h"
+#include "../../02_Library/Utility.h"
 
 namespace tkl
 {

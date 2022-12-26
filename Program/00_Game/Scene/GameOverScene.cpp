@@ -3,7 +3,7 @@
 #include "TitleScene.h"
 #include "SceneManager.h"
 #include "../../01_Engine/Sound/Sound.h"
-#include "../../01_Engine/Font.h"
+#include "../../01_Engine/Graphics/Font.h"
 #include "../../02_Library/Input.h"
 
 GameOverScene::GameOverScene(std::shared_ptr<SceneManager> manager)

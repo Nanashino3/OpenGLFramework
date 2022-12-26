@@ -6,7 +6,7 @@
 #include "../../00_Game/GameObject/GameParameter.h"
 #include "../../00_Game/NotifyService/Notifier.h"
 
-#include "../../01_Engine/Mesh.h"
+#include "../../01_Engine/Graphics/Mesh.h"
 #include "../../01_Engine/Intersect.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../02_Library/Math.h"

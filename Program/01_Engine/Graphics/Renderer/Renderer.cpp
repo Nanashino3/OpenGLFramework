@@ -3,8 +3,8 @@
 // ì@¬@“úF2022/10/7
 #include "Renderer.h"
 
-#include "../Shader.h"
-#include "../ShaderFactory.h"
+#include "../../Graphics/Shader.h"
+#include "../../Graphics/ShaderFactory.h"
 
 namespace tkl
 {
