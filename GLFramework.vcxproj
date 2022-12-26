@@ -46,17 +46,17 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Font.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\Mesh.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\OBJLoader.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\Mesh.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\OBJLoader.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\TestObjectFile.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\Texture.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\VertexArray.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Renderer\Renderer.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Renderer\WireRenderer.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Shader.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\ShaderFactory.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\TestObjectFile.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\Texture.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\VertexArray.cpp" />
     <ClCompile Include="Program\01_Engine\Intersect.cpp" />
     <ClCompile Include="Program\01_Engine\ResourceManager.cpp" />
     <ClCompile Include="Program\01_Engine\Sound\Sound.cpp">
@@ -118,18 +118,18 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Font.h" />
     <ClInclude Include="Program\01_Engine\Graphics\FontManager.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\Material.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\Mesh.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\OBJLoader.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Material.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Mesh.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\OBJLoader.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\TestObjectFile.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Texture.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\VertexArray.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Renderer\Renderer.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Renderer\WireRenderer.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Shader.h" />
     <ClInclude Include="Program\01_Engine\Graphics\ShaderFactory.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\TestObjectFile.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\Texture.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\VertexArray.h" />
     <ClInclude Include="Program\01_Engine\Intersect.h" />
     <ClInclude Include="Program\01_Engine\ResourceManager.h" />
     <ClInclude Include="Program\01_Engine\Sound\Sound.h">

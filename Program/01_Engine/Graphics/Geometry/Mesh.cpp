@@ -3,11 +3,11 @@
 #include <vector>
 #include "VertexArray.h"
 #include "Material.h"
-#include "../Camera/Camera.h"
-#include "../Graphics/Renderer/MeshRenderer.h"
-#include "../Graphics/Renderer/WireRenderer.h"
-#include "../Graphics/Renderer/SpriteRenderer.h"
-#include "../../02_Library/Math.h"
+#include "../../Camera/Camera.h"
+#include "../Renderer/MeshRenderer.h"
+#include "../Renderer/WireRenderer.h"
+#include "../Renderer/SpriteRenderer.h"
+#include "../../../02_Library/Math.h"
 
 namespace tkl
 {

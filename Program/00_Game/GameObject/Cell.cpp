@@ -3,12 +3,13 @@
 // çÏÅ@ê¨Å@ì˙ÅF2022/12/17
 #include "Cell.h"
 
-#include "../../00_Game/GameObject/GameParameter.h"
-#include "../../00_Game/NotifyService/Notifier.h"
+#include "../GameObject/GameParameter.h"
+#include "../NotifyService/Notifier.h"
 
-#include "../../01_Engine/Graphics/Mesh.h"
 #include "../../01_Engine/Intersect.h"
 #include "../../01_Engine/ResourceManager.h"
+#include "../../01_Engine/Graphics/Geometry/Mesh.h"
+
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Input.h"
 

@@ -1,5 +1,5 @@
 #include "FontManager.h"
-#include "Texture.h"
+#include "Geometry/Texture.h"
 
 #include "../../02_Library/FontTexture.h"
 #include "../../02_Library/Utility.h"

@@ -37,6 +37,9 @@
     <Filter Include="Program\01_Engine\Graphics\Renderer">
       <UniqueIdentifier>{27fa6da7-34d8-4d6b-bdaf-5923049f0e65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\01_Engine\Graphics\Geometry">
+      <UniqueIdentifier>{f52efef9-ba99-4710-b8c2-2b93275c37e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
@@ -150,25 +153,10 @@
     <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\Mesh.cpp">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Shader.cpp">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\ShaderFactory.cpp">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\Texture.cpp">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\VertexArray.cpp">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\OBJLoader.cpp">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\TestObjectFile.cpp">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.cpp">
@@ -182,6 +170,21 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Renderer\WireRenderer.cpp">
       <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\Mesh.cpp">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\OBJLoader.cpp">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\TestObjectFile.cpp">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\Texture.cpp">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\VertexArray.cpp">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,28 +328,10 @@
     <ClInclude Include="Program\01_Engine\Graphics\FontManager.h">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\Material.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\Mesh.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Shader.h">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\ShaderFactory.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\Texture.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\VertexArray.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\OBJLoader.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\TestObjectFile.h">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.h">
@@ -360,6 +345,24 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Renderer\WireRenderer.h">
       <Filter>Program\01_Engine\Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Material.h">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Mesh.h">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\OBJLoader.h">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\TestObjectFile.h">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Texture.h">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\VertexArray.h">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,16 +3,15 @@
 // çÏÅ@ê¨Å@ì˙ÅF2022/12/4
 #include "AdvanceUnit.h"
 
-#include <functional>
+#include <iostream>
 #include "GameParameter.h"
-#include "../../01_Engine/Graphics/Mesh.h"
+
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
+#include "../../01_Engine/Graphics/Geometry/Mesh.h"
+
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Utility.h"
-
-
-#include <iostream>
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 : mRouteCount(0)

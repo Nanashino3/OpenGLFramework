@@ -5,8 +5,8 @@
 #include "Material.h"
 #include "VertexArray.h"
 #include "Texture.h"
-#include "Renderer/MeshRenderer.h"
-#include "../ResourceManager.h"
+#include "../Renderer/MeshRenderer.h"
+#include "../../ResourceManager.h"
 
 namespace tkl
 {

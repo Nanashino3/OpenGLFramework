@@ -7,9 +7,9 @@
 #include "AdvanceUnit.h"
 #include "GameParameter.h"
 #include "ObjectManager.h"
-#include "../../01_Engine/Graphics/Mesh.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
+#include "../../01_Engine/Graphics/Geometry/Mesh.h"
 
 DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
 : mElapsed(0)
