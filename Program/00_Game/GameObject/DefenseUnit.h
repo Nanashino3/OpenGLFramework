@@ -11,16 +11,13 @@
 class Bullet;
 class GameParameter;
 namespace tkl{
-class Mesh;
+//class Mesh;
+class Model;
 class Sound;
 }
 
 class DefenseUnit : public GameObject
 {
-	static constexpr float CREATE_SIZE = 25;
-	static constexpr const char* DEFENSE_TEXTURE = "Resource/panel_water.bmp";
-	static constexpr float DIST_MAX = 60.0f;
-	static constexpr int CONSUME_COST = 75;
 public:
 	DefenseUnit(std::shared_ptr<Parameter> param);
 	virtual ~DefenseUnit();
@@ -33,7 +30,8 @@ private:
 	std::shared_ptr<GameParameter> mParam;
 	std::weak_ptr<Bullet> mBullet;
 
-	std::shared_ptr<tkl::Mesh> mMesh;
+	//std::shared_ptr<tkl::Mesh> mMesh;
+	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Sound> mSound;
 };
 

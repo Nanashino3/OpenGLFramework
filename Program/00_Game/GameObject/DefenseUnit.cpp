@@ -9,20 +9,22 @@
 #include "ObjectManager.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
-#include "../../01_Engine/Graphics/Geometry/Mesh.h"
+#include "../../01_Engine/Graphics/Geometry/Model.h"
+
+static constexpr const char* MODEL_FILE = "Resource/Model/Turret/1/Turret.obj";
+static constexpr const char* SOUND_FILE = "Resource/sound/shot.wav";
+static constexpr float CREATE_SIZE = 25;
+static constexpr float DIST_MAX = 60.0f;
+static constexpr int CONSUME_COST = 75;
 
 DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
 : mElapsed(0)
 , mParam(nullptr)
-, mMesh(nullptr)
+, mModel(nullptr)
 , mSound(nullptr)
 {
-	mParam = std::dynamic_pointer_cast<GameParameter>(param);
-	
-	mMesh = tkl::Mesh::CreateSphere(CREATE_SIZE, 24, 16);
-	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(DEFENSE_TEXTURE));
-	
-	mSound = tkl::Sound::CreateSound("Resource/sound/shot.wav");
+	mParam = std::dynamic_pointer_cast<GameParameter>(param);	
+	mSound = tkl::Sound::CreateSound(SOUND_FILE);
 }
 
 DefenseUnit::~DefenseUnit()
@@ -38,7 +40,10 @@ DefenseUnit::~DefenseUnit()
 void DefenseUnit::Initialize()
 {
 	tkl::Vector3 clickPos = mParam->GetClickPos();
-	mMesh->SetPosition(tkl::Vector3(clickPos.mX, CREATE_SIZE * 0.5f, clickPos.mZ));
+
+	mModel = tkl::Model::CreateModelFromObjFile(MODEL_FILE);
+	mModel->SetPosition(clickPos);
+	mModel->SetScale(tkl::Vector3(15, 15, 15));
 
 	mParam->SetTotalCost(mParam->GetTotalCost() - CONSUME_COST);
 }
@@ -66,7 +71,7 @@ void DefenseUnit::Update()
 	for (auto it = list->begin(); it != list->end(); ++it) {
 		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
 		tkl::Vector3 pos = unit->GetUnitPosition();
-		float dist = tkl::Vector3::Distance(pos, mMesh->GetPosition());
+		float dist = tkl::Vector3::Distance(pos, mModel->GetPosition());
 
 		if(dist <= DIST_MAX){
 			nearPos = pos;
@@ -78,7 +83,7 @@ void DefenseUnit::Update()
 	// ’eŠÖ˜Aˆ—
 	mBullet = ObjectManager::GetInstance()->Create<Bullet>(mParam);
 	std::shared_ptr<Bullet> bullet = mBullet.lock();
-	bullet->SetLauncherPos(mMesh->GetPosition());
+	bullet->SetLauncherPos(mModel->GetPosition());
 	bullet->SetTargetPos(nearPos);
 	bullet->Initialize();
 
@@ -94,5 +99,5 @@ void DefenseUnit::Update()
 //****************************************************************************
 void DefenseUnit::Draw()
 {
-	mMesh->Draw(mParam->GetCamera());
+	mModel->Draw(mParam->GetCamera());
 }

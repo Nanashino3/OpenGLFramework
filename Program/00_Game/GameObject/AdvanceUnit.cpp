@@ -14,7 +14,7 @@
 #include "../../02_Library/Utility.h"
 
 static constexpr const char* CSV_PATH = "Resource/AdvanceInfo.csv";
-static constexpr const char* OBJECT_FILE = "Resource/obj/model/UFO/TriangleUFO.obj";
+static constexpr const char* OBJECT_FILE = "Resource/model/UFO/TriangleUFO.obj";
 static constexpr const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
