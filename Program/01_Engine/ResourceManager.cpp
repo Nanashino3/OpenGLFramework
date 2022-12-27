@@ -2,9 +2,9 @@
 
 #include <iostream>
 #include <SOIL.h>
-#include "Texture.h"
 #include "Sound/SoundParser.h"
 #include "Sound/SoundBuffer.h"
+#include "Graphics/Geometry/Texture.h"
 #include "../02_Library/Utility.h"
 
 namespace tkl

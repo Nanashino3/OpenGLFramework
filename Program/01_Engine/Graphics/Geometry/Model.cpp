@@ -1,29 +1,61 @@
-#include "TestObjectFile.h"
+#include "Model.h"
 
-#include "OBJLoader.h"
-#include "Mesh.h"
 #include "Material.h"
 #include "VertexArray.h"
 #include "Texture.h"
+#include "OBJLoader.h"
 #include "../Renderer/MeshRenderer.h"
 #include "../../ResourceManager.h"
 
+static constexpr int TRIANGLE_NUM = 3;
+
 namespace tkl
 {
-std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char* filepath)
+Model::Model()
+{}
+
+Model::~Model()
+{}
+
+//****************************************************************************
+// 関数名：Draw
+// 概　要：描画する
+// 引　数：使用するカメラのインスタンス
+// 戻り値：なし
+// 詳　細：モデルの描画
+//****************************************************************************
+void Model::Draw(std::shared_ptr<tkl::Camera> camera)
+{
+	for(int i = 0; i < mParts.size(); ++i){
+		mParts[i]->Draw(camera);
+	}
+}
+
+//****************************************************************************
+// 関数名：CreateModelFromObjFile
+// 概　要：オブジェクトファイルからモデルを生成する
+// 引　数：ファイルパス
+// 戻り値：モデルを返す
+// 詳　細：Objファイルからモデルを生成する
+//		 ：TODO：将来的には自作の解析クラスを適用する
+//****************************************************************************
+std::shared_ptr<Model> Model::CreateModelFromObjFile(const char* filepath)
 {
 	// Objファイル読み込み用
 	std::shared_ptr<OBJMESH> obj = std::make_shared<OBJMESH>();
-	obj->LoadFile(filepath);
+	if(!obj->LoadFile(filepath)){
+		return nullptr;
+	}
 
-	std::vector<std::shared_ptr<Mesh>> createMeshs;
-
+	// ファイル名からパスを分割する
 	unsigned int endNum = std::string(filepath).find_last_of("/");
 	std::string path = std::string(filepath).substr(0, endNum);
 
+	std::shared_ptr<Model> model = std::make_shared<Model>();
+
+	// オブジェクトのメッシュ分ループする
 	OBJVERTEX* objVertices = obj->GetVertices();
 	for(unsigned int i = 0; i < obj->GetNumSubsets(); ++i){
-		// 登録されているサブセットを取得
 		OBJSUBSET* subset = &obj->GetSubsets()[i];
 		if(subset->faceCount == 0){ continue; }
 
@@ -53,19 +85,20 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 			std::string imgFile = path + "/" + std::string(mtls->diffuseMapName);
 			texture = tkl::ResourceManager::GetInstance()->CreateTextureFromFile(imgFile.c_str());
 		}
+
 		if(texture == nullptr){ texture = tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/texture/white.bmp"); }
 		mesh->SetTexture(texture);
 
 		// 1Meshを構成する面情報数
-		unsigned int faceNum = subset->faceCount / 3;
+		unsigned int faceNum = subset->faceCount / TRIANGLE_NUM;
 
 		// 1行に複数の情報がある
 		std::vector<VertexArray::VERTEX> meshVertices;
 		std::vector<int> meshIndices;
 		unsigned int* indices = &obj->GetIndices()[subset->faceStart];
 		for(unsigned int k = 0; k < faceNum; ++k){
-			for(unsigned int n = 0; n < 3; ++n){
-				int idx = (k * 3) + n;
+			for(unsigned int n = 0; n < TRIANGLE_NUM; ++n){
+				int idx = (k * TRIANGLE_NUM) + n;
 				OBJVERTEX vtx = obj->GetVertex(indices[idx]);
 				VertexArray::VERTEX vertex = {	vtx.position.x, vtx.position.y, vtx.position.z, 
 												vtx.normal.x, vtx.normal.y, vtx.normal.z, 
@@ -81,10 +114,9 @@ std::vector<std::shared_ptr<Mesh>> TestObjectFile::CreateFromObjFile(const char*
 			static_cast<unsigned int>(meshVertices.size()), meshVertices.data(),
 			static_cast<unsigned int>(meshIndices.size()), meshIndices.data()));
 
-		createMeshs.emplace_back(mesh);
+		model->AddPart(mesh);
 	}
-
-	return createMeshs;
+	return model;
 }
 
 } // namespace tkl
