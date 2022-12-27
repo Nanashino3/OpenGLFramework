@@ -8,10 +8,14 @@
 
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
-#include "../../01_Engine/Graphics/Geometry/Mesh.h"
+#include "../../01_Engine/Graphics/Geometry/Model.h"
 
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Utility.h"
+
+static constexpr const char* CSV_PATH = "Resource/AdvanceInfo.csv";
+static constexpr const char* OBJECT_FILE = "Resource/obj/model/UFO/TriangleUFO.obj";
+static constexpr const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 : mRouteCount(0)
@@ -19,7 +23,7 @@ AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 , mMoveSpeed(0)
 , mHitPoint(0)
 , mAddCoin(0)
-, mMesh(nullptr)
+, mModel(nullptr)
 {
 	mUnitInfo = tkl::LoadCsv(CSV_PATH);
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
@@ -50,15 +54,18 @@ void AdvanceUnit::Initialize()
 	tkl::Algorithm::RouteSearch(mapRow, mapColumn, field, mRoute);
 
 	mRouteCount = mRoute.size() - 1;
-	mMesh = tkl::Mesh::CreateBox(25);
 
 	// 初期座標計算
 	mFirstPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
 	mFirstPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
 
-	mMesh->SetPosition(tkl::Vector3(mFirstPosX, (mapSize >> 1), mFirstPosZ));
-	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FILE));
+	// モデルの生成と設定
+	mModel = tkl::Model::CreateModelFromObjFile(OBJECT_FILE);
+	mModel->SetPosition(tkl::Vector3(mFirstPosX, (mapSize >> 1), mFirstPosZ));
+	mModel->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(90)));
+	mModel->SetScale(tkl::Vector3(3.5f, 3.5f, 3.5f));
 
+	// 進軍ユニットのレベル設定
 	int level = mParam->GetAdvenceLevel();
 	if(stoi(mUnitInfo[level][0]) <= mParam->GetTotalDefeat() && (level + 1) < mUnitInfo.size()){
 		mParam->SetAdvanceLevel(level + 1);
@@ -83,7 +90,7 @@ void AdvanceUnit::Update()
 		mParam->SetIsArrival(true);
 		return;
 	}
-	tkl::Vector3 pos = mMesh->GetPosition();
+	tkl::Vector3 pos = mModel->GetPosition();
 
 	// 移動量計算
 	int column = (mIsRetNewRoute) ? mPrevRoute[mPrevRouteCount - 1].column : mRoute[mRouteCount].column;
@@ -114,7 +121,7 @@ void AdvanceUnit::Update()
 	}
 	//******************************************************************
 
-	mMesh->SetPosition(pos);
+	mModel->SetPosition(pos);
 }
 
 //****************************************************************************
@@ -127,7 +134,7 @@ void AdvanceUnit::Update()
 void AdvanceUnit::Draw()
 {
 //	PrintRoute();
-	mMesh->Draw(mParam->GetCamera());
+	mModel->Draw(mParam->GetCamera());
 }
 
 //****************************************************************************
@@ -169,7 +176,7 @@ void AdvanceUnit::ReceiveDamage(int damage)
 //****************************************************************************
 tkl::Vector3 AdvanceUnit::GetUnitPosition() const
 {
-	return mMesh->GetPosition();
+	return mModel->GetPosition();
 }
 
 //****************************************************************************
@@ -221,7 +228,7 @@ bool AdvanceUnit::IsPassing()
 	int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
 	int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
 
-	tkl::Vector3 pos = mMesh->GetPosition();
+	tkl::Vector3 pos = mModel->GetPosition();
 	tkl::Vector3 clickPos = mParam->GetClickPos();
 
 	bool retX = false, retZ = false;

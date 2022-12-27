@@ -12,15 +12,12 @@
 
 class GameParameter;
 namespace tkl{
-class Mesh;
+class Model;
 class Sound;
 }
 
 class AdvanceUnit : public GameObject
 {
-	static constexpr const char* CSV_PATH = "Resource/AdvanceInfo.csv";
-	static constexpr const char* TEXTURE_FILE = "Resource/debug/test.jpg";
-	static constexpr const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
 public:
 	AdvanceUnit(std::shared_ptr<Parameter> param);
 	virtual ~AdvanceUnit();
@@ -46,7 +43,7 @@ private:
 	int mHitPoint;
 	int mAddCoin;
 
-	std::shared_ptr<tkl::Mesh> mMesh;
+	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Sound> mSound;
 	std::shared_ptr<GameParameter> mParam;
 	std::vector<tkl::CELL> mRoute;
