@@ -1,8 +1,12 @@
+//****************************************************************************
+// ファイル名：FontManager(フォント管理者クラス)
+// 作　成　日：2022/10/27
 #ifndef _FONTMANAGER_H_
 #define _FONTMANAGER_H_
 
 #include <memory>
 #include <unordered_map>
+#include "../../02_Library/Vector.h"
 
 namespace tkl
 {
@@ -10,16 +14,18 @@ class Texture;
 class FontManager
 {
 public:
-	struct Font{
+	struct Character{
 		std::shared_ptr<Texture> texture;
-		int strWidth;
-		int strHeight;
+		Vector3 offset;
+		unsigned int horiOffset;
 	};
 
 	static FontManager* GetInstance();
 	static void DestroyInstance();
 
-	Font GetFontTexture(wchar_t once);
+	Character GetFontFromCreate(wchar_t once);
+	Character GetFontFromTTF(unsigned char ch);
+
 private:
 	FontManager();
 	~FontManager();
@@ -29,8 +35,10 @@ private:
 
 private:
 	static FontManager* sMyInstance;
-	std::unordered_map<wchar_t, Font> mCacheFonts;
+	std::unordered_map<wchar_t, Character> mCacheFonts;
 };
+
+using Character = tkl::FontManager::Character;
 
 } // namespace tkl
 

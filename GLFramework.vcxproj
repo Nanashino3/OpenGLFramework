@@ -173,7 +173,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -234,15 +234,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\WorkSpace\Study\Library\glfw\include;C:\WorkSpace\Study\Library\glew\include;C:\WorkSpace\Study\Library\SOIL\SOIL\include;C:\WorkSpace\Study\Library\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\WorkSpace\Study\Library\freetype\include;C:\WorkSpace\Study\Library\glfw\include;C:\WorkSpace\Study\Library\glew\include;C:\WorkSpace\Study\Library\SOIL\SOIL\include;C:\WorkSpace\Study\Library\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\WorkSpace\Study\Library\glfw\lib-vc2022;C:\WorkSpace\Study\Library\glew\lib\Release\x64;C:\WorkSpace\Study\Library\SOIL\SOIL\lib;C:\WorkSpace\Study\Library\openal\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;winmm.lib;SOIL.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\WorkSpace\Study\Library\freetype\lib\win64;C:\WorkSpace\Study\Library\glfw\lib-vc2022;C:\WorkSpace\Study\Library\glew\lib\Release\x64;C:\WorkSpace\Study\Library\SOIL\SOIL\lib;C:\WorkSpace\Study\Library\openal\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;glfw3.lib;glew32s.lib;winmm.lib;SOIL.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

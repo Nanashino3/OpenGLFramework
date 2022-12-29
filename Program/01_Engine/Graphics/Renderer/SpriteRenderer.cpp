@@ -42,12 +42,11 @@ void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 		std::cerr << "Failed No Texture." << std::endl;
 		exit(1);
 	}
-
 	texture->Bind();
 
 	tkl::Vector3 scale = mesh->GetScale();
-	float scaleX = static_cast<float>(texture->GetTextureWidth() * scale.mX);
-	float scaleY = static_cast<float>(texture->GetTextureHeight() * scale.mY);
+	float scaleX = static_cast<float>(texture->GetWidth() * scale.mX);
+	float scaleY = static_cast<float>(texture->GetHeight() * scale.mY);
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	wm *= tkl::Matrix::CreateScale(tkl::Vector3(scaleX, scaleY, scale.mZ));

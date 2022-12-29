@@ -1,6 +1,7 @@
 #include "System.h"
 
 #include <iostream>
+#include "ResourceManager.h"
 #include "../02_Library/Input.h"
 
 namespace tkl
@@ -58,6 +59,9 @@ bool System::Initialize(int screenWidth, int screenHeight)
 
 	// 入力デバイスの初期化
 	tkl::Input::Initialize(mWindow, screenWidth, screenHeight);
+
+	// TTFファイルからフォントを読み込む
+	tkl::ResourceManager::GetInstance()->LoadFontFromTTF("Resource/font/Paintball_Beta_3.ttf");
 
 	// オーディオシステムの初期化
 	mALCDevice = alcOpenDevice(nullptr);

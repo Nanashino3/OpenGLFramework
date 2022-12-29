@@ -66,9 +66,6 @@
     <ClCompile Include="Program\01_Engine\System.cpp">
       <Filter>Program\01_Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\ResourceManager.cpp">
-      <Filter>Program\01_Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <Filter>Program\01_Engine\Camera</Filter>
     </ClCompile>
@@ -177,14 +174,15 @@
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\OBJLoader.cpp">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\Geometry\TestObjectFile.cpp">
-      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Texture.cpp">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\VertexArray.cpp">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\Model.cpp" />
+    <ClCompile Include="Program\01_Engine\ResourceManager.cpp">
+      <Filter>Program\01_Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -355,14 +353,12 @@
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\OBJLoader.h">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\Geometry\TestObjectFile.h">
-      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Texture.h">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\VertexArray.h">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Model.h" />
   </ItemGroup>
 </Project>

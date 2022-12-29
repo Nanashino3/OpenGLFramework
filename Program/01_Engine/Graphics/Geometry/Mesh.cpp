@@ -193,7 +193,6 @@ std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<WireRenderer>());
-	mesh->SetMaterial(std::make_shared<Material>());
 
 	float l = size * rowNum * 0.5f;
 	float n = -l;
@@ -238,7 +237,6 @@ std::shared_ptr<Mesh> Mesh::CreatePlaneForWireFrame(int size)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<WireRenderer>());
-	mesh->SetMaterial(std::make_shared<Material>());
 
 	size *= 0.5f;
 
@@ -264,7 +262,6 @@ std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 	mesh->SetRenderer(std::make_shared<SpriteRenderer>());
-	mesh->SetMaterial(std::make_shared<Material>());
 
 	VertexArray::VERTEX vertices[] = {
 		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},
@@ -275,7 +272,7 @@ std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
 
 	int indices[] = {
 		0, 1, 2,
-		2, 3, 0
+		0, 2, 3
 	};
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
