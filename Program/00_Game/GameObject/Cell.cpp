@@ -13,6 +13,12 @@
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Input.h"
 
+static constexpr int PLANE_SIZE = 50;
+static constexpr int BLOCK_SIZE = 30;
+static constexpr const char* TEXTURE_FIELD = "Resource/panel_soil.bmp";
+static constexpr const char* TEXTURE_BLOCK = "Resource/panel_grass.bmp";
+static constexpr const char* TEXTURE_CURSOR = "Resource/debug/test2.bmp";
+
 Cell::Cell(std::shared_ptr<Parameter> param)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);

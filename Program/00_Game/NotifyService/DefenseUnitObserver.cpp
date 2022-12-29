@@ -7,6 +7,8 @@
 #include "../GameObject/ObjectManager.h"
 #include "../GameObject/GameParameter.h"
 
+static constexpr int CONSUME_COST = 75;
+
 DefenseUnitObserver::DefenseUnitObserver()
 {}
 

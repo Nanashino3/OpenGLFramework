@@ -12,11 +12,6 @@ namespace tkl{ class Mesh; }
 
 class Cell : public GameObject
 {
-	static constexpr int PLANE_SIZE = 50;
-	static constexpr int BLOCK_SIZE = 30;
-	static constexpr const char* TEXTURE_FIELD = "Resource/panel_soil.bmp";
-	static constexpr const char* TEXTURE_BLOCK = "Resource/panel_grass.bmp";
-	static constexpr const char* TEXTURE_CURSOR = "Resource/debug/test2.bmp";
 public:
 	Cell(std::shared_ptr<Parameter> param);
 	virtual ~Cell();
@@ -31,7 +26,6 @@ public:
 private:
 	tkl::CELL mCellInfo;
 	std::vector<std::shared_ptr<tkl::Mesh>> mMeshList;
-//	std::shared_ptr<tkl::Mesh> mMesh;
 	std::shared_ptr<tkl::Mesh> mCursor;
 	std::shared_ptr<GameParameter> mParam;
 };

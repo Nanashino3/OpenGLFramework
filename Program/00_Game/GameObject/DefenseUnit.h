@@ -11,7 +11,6 @@
 class Bullet;
 class GameParameter;
 namespace tkl{
-//class Mesh;
 class Model;
 class Sound;
 }
@@ -30,7 +29,6 @@ private:
 	std::shared_ptr<GameParameter> mParam;
 	std::weak_ptr<Bullet> mBullet;
 
-	//std::shared_ptr<tkl::Mesh> mMesh;
 	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Sound> mSound;
 };

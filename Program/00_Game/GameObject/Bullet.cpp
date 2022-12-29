@@ -10,6 +10,11 @@
 #include "../../01_Engine/Intersect.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
 
+static constexpr int BULLET_SIZE = 5;
+static constexpr float DESTROY_POS = 70.0f;
+static constexpr float MOVE_SPEED = 50.0f;
+static constexpr int DAMAGE = 5;
+
 Bullet::Bullet(std::shared_ptr<Parameter> param)
 : mRadian(0)
 , mMesh(nullptr)

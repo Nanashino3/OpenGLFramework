@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SOUNDPARSER_H_
+#define _SOUNDPARSER_H_
 
 namespace tkl
 {
@@ -43,3 +44,5 @@ private:
 using SoundInfo = tkl::SoundParser::SoundInfo;
 
 } // namespace tkl
+
+#endif

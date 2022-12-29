@@ -14,6 +14,8 @@
 #include "../02_Library/Input.h"
 #include "../02_Library/Utility.h"
 
+static constexpr int MAP_SIZE = 50;
+
 Field::Field(std::shared_ptr<Parameter> param)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);

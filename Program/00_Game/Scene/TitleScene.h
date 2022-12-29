@@ -5,7 +5,11 @@
 #define _TITLESCENE_H_
 
 #include "SceneBase.h"
-namespace tkl{ class Sound; }
+namespace tkl{
+class Mesh;
+class Camera;
+class Sound;
+}
 class TitleScene : public SceneBase
 {
 public:
@@ -18,6 +22,8 @@ public:
 
 private:
 	std::shared_ptr<tkl::Sound> mSndDecide;
+	std::shared_ptr<tkl::Mesh> mTexMesh;
+	std::shared_ptr<tkl::Camera> mCamera;
 };
 
 #endif

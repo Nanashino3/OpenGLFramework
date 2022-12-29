@@ -24,6 +24,9 @@
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
+static constexpr int MAX_CREATE = 5;
+static constexpr int MAX_DURABILITY = 1;
+
 GameScene::GameScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
 , mElapsed(0)
