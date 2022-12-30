@@ -180,9 +180,11 @@
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\VertexArray.cpp">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\Geometry\Model.cpp" />
     <ClCompile Include="Program\01_Engine\ResourceManager.cpp">
       <Filter>Program\01_Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\Model.cpp">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +204,12 @@
       <Filter>Shader</Filter>
     </None>
     <None Include="Shader\SpriteVert.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\FontFrag.glsl">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\FontVert.glsl">
       <Filter>Shader</Filter>
     </None>
   </ItemGroup>
@@ -359,6 +367,8 @@
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\VertexArray.h">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Model.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\Model.h">
+      <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

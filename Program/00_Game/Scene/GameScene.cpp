@@ -90,7 +90,7 @@ void GameScene::Update(float deltaTime)
 		mSndBgm->Stop();
 		return;
 	}
-	tkl::Font::DrawStringEx(0, 0, "ゲーム画面");
+	tkl::Font::DrawStringEx(0, 0, tkl::Vector3(1, 1, 1), "ゲーム画面");
 	if(!mSndBgm->IsPlay()){ mSndBgm->Play(); }
 
 	// カメラ更新
@@ -138,9 +138,9 @@ void GameScene::Update(float deltaTime)
 //****************************************************************************
 void GameScene::Draw()
 {
-	tkl::Font::DrawStringEx(0,  50, "耐久度 : %d", mDurability);
-	tkl::Font::DrawStringEx(0, 100, "残金 : %d", mParam->GetTotalCost());
-	tkl::Font::DrawStringEx(0, 150, "進軍レベル : %2d", mParam->GetAdvenceLevel());
+	tkl::Font::DrawStringEx(0,  50, tkl::Vector3(1, 1, 1), "耐久度 : %d", mDurability);
+	tkl::Font::DrawStringEx(0, 100, tkl::Vector3(1, 1, 1), "残金 : %d", mParam->GetTotalCost());
+	tkl::Font::DrawStringEx(0, 150, tkl::Vector3(1, 1, 1), "進軍レベル : %2d", mParam->GetAdvenceLevel());
 
 	// フィールドの更新
 	mField->Draw();

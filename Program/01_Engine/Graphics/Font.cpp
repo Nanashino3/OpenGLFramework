@@ -18,61 +18,17 @@ std::shared_ptr<Mesh> Font::sMesh = nullptr;
 std::shared_ptr<Camera> Font::sCamera = nullptr;
 
 //****************************************************************************
-// 関数名：DrawFontEx
-// 概　要：フォント描画
-// 引　数：arg1 表示位置X
-//       ：arg2 表示位置Y
-//       ：arg3 文字列
-//       ：arg4 パラメータ
-// 戻り値：なし
-// 詳　細：読み込んでいるフォントで文字列を出力する
-//****************************************************************************
-void Font::DrawFontEx(float x, float y, float scale, const char* str, ...)
-{
-	char buff[1024] = { 0 };
-	va_list list;
-	va_start(list, str);
-	vsprintf_s(buff, str, list);
-	va_end(list);
-
-	sMesh = Mesh::CreatePlaneForTexture();
-
-	int screenWidth = 0, screenHeight = 0;
-	tkl::System::GetInstance()->GetWindowSize(&screenWidth, &screenHeight);
-	sCamera = std::make_shared<ScreenCamera>(screenWidth, screenHeight);
-	sCamera->Update();
-
-	for(int i = 0; i < std::string(buff).length(); ++i){
-		tkl::Character ch = tkl::FontManager::GetInstance()->GetFontFromTTF(buff[i]);
-
-		if(ch.texture == nullptr){ return; }
-
-		float strPosX = x + ch.bearing.mX;
-		float strPosY = y - (ch.texture->GetHeight() - ch.bearing.mY);
-
- 		float screenPosX = (strPosX + (ch.texture->GetWidth() >> 1)) / static_cast<float>(sCamera->GetScreenWidth() >> 1);
-		float screenPosY = (strPosY + (ch.texture->GetHeight() >> 1)) / static_cast<float>(sCamera->GetScreenHeight() >> 1);
-
-		sMesh->SetTexture(ch.texture);
-		sMesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0));
-		sMesh->Draw(sCamera);
-
-		x += (static_cast<int>(ch.advance.mX) >> 6);
-		y += (static_cast<int>(ch.advance.mY) >> 6);
-	}
-}
-
-//****************************************************************************
 // 関数名：DrawStringEx
 // 概　要：文字列描画
 // 引　数：arg1 表示位置X
 //       ：arg2 表示位置Y
-//       ：arg3 文字列
-//       ：arg4 パラメータ
+//       ：arg3 カラー
+//       ：arg4 文字列
+//       ：arg5 パラメータ
 // 戻り値：なし
 // 詳　細：文字列を表示する
 //****************************************************************************
-void Font::DrawStringEx(float x, float y, const char* str, ...)
+void Font::DrawStringEx(float x, float y, const tkl::Vector3& color, const char* str, ...)
 {
 	char buff[1024] = {0};
 	va_list list;
@@ -80,14 +36,14 @@ void Font::DrawStringEx(float x, float y, const char* str, ...)
 	vsprintf_s(buff, str, list);
 	va_end(list);
 
-	sMesh = Mesh::CreatePlaneForTexture();
+	sMesh = Mesh::CreateMeshForFont();
 	
 	int screenWidth = 0, screenHeight = 0;
 	tkl::System::GetInstance()->GetWindowSize(&screenWidth, &screenHeight);
 	sCamera = std::make_shared<ScreenCamera>(screenWidth, screenHeight);
 	sCamera->Update();
 
-	DrawString(x, y, buff, sCamera);
+	DrawString(x, y, buff, sCamera, color);
 }
 
 //****************************************************************************
@@ -97,10 +53,11 @@ void Font::DrawStringEx(float x, float y, const char* str, ...)
 //       ：arg2 表示位置Y
 //       ：arg3 文字列
 //       ：arg4 カメラ
+//       ：arg5 カラー
 // 戻り値：なし
 // 詳　細：指定位置に指定したカメラを使用して文字列を描画する
 //****************************************************************************
-void Font::DrawString(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera)
+void Font::DrawString(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, const tkl::Vector3& color)
 {
 	wchar_t buff[256] = {0};
 	tkl::ToWChara(buff, 256, str);
@@ -124,6 +81,7 @@ void Font::DrawString(float posX, float posY, const std::string& str, std::share
 		float screenPoxY = 1.0f - (strPosY + texture->GetHeight() * 0.5f) / static_cast<float>(camera->GetScreenHeight() * 0.5f);
 
 		// テクスチャ用メッシュに情報を設定
+		texture->SetColor(color);
 		sMesh->SetTexture(texture);
 		sMesh->SetPosition(tkl::Vector3(screenPosX, screenPoxY, 0.0f));
 		sMesh->Draw(camera);
@@ -131,6 +89,69 @@ void Font::DrawString(float posX, float posY, const std::string& str, std::share
 		// 次の文字位置計算用
 		prevPosX = strPosX;
 		prevFont = currentFont;
+	}
+}
+
+//****************************************************************************
+// 関数名：DrawFontEx
+// 概　要：フォント描画
+// 引　数：arg1 表示位置X
+//       ：arg2 表示位置Y
+//       ：arg3 カラー
+//       ：arg4 文字列
+//       ：arg5 パラメータ
+// 戻り値：なし
+// 詳　細：読み込んでいるフォントで文字列を出力する
+//****************************************************************************
+void Font::DrawFontEx(float x, float y, const tkl::Vector3& color, const char* str, ...)
+{
+	char buff[1024] = { 0 };
+	va_list list;
+	va_start(list, str);
+	vsprintf_s(buff, str, list);
+	va_end(list);
+
+	sMesh = Mesh::CreateMeshForFont();
+
+	int screenWidth = 0, screenHeight = 0;
+	tkl::System::GetInstance()->GetWindowSize(&screenWidth, &screenHeight);
+	sCamera = std::make_shared<ScreenCamera>(screenWidth, screenHeight);
+	sCamera->Update();
+
+	DrawFont(x, y, buff, sCamera, color);
+}
+
+//****************************************************************************
+// 関数名：DrawFont(private)
+// 概　要：文字列描画
+// 引　数：arg1 表示位置X
+//       ：arg2 表示位置Y
+//       ：arg3 文字列
+//       ：arg4 カメラ
+//       ：arg5 カラー
+// 戻り値：なし
+// 詳　細：指定位置に指定したカメラを使用して文字列を描画する
+//****************************************************************************
+void Font::DrawFont(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, const tkl::Vector3& color)
+{
+	for (int i = 0; i < str.length(); ++i) {
+		tkl::Character ch = tkl::FontManager::GetInstance()->GetFontFromTTF(str[i]);
+
+		if (ch.texture == nullptr) { return; }
+
+		float strPosX = posX + ch.bearing.mX;
+		float strPosY = posY - (ch.texture->GetHeight() - ch.bearing.mY);
+
+		float screenPosX = (strPosX + (ch.texture->GetWidth() >> 1)) / static_cast<float>(sCamera->GetScreenWidth() >> 1);
+		float screenPosY = (strPosY + (ch.texture->GetHeight() >> 1)) / static_cast<float>(sCamera->GetScreenHeight() >> 1);
+
+		ch.texture->SetColor(color);
+		sMesh->SetTexture(ch.texture);
+		sMesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0));
+		sMesh->Draw(sCamera);
+
+		posX += (static_cast<int>(ch.advance.mX) >> 6);
+		posY += (static_cast<int>(ch.advance.mY) >> 6);
 	}
 }
 

@@ -50,7 +50,11 @@ public:
 	static std::shared_ptr<Mesh> CreateSphere(float radius, int divWidth, int divHeight);
 	static std::shared_ptr<Mesh> CreatePlane(float size);
 	static std::shared_ptr<Mesh> CreateGround(int size, int rowNum);
-	static std::shared_ptr<Mesh> CreatePlaneForTexture();
+	static std::shared_ptr<Mesh> CreateMeshForSprite();
+	static std::shared_ptr<Mesh> CreateMeshForFont();
+
+private:
+	static std::shared_ptr<Mesh> CreateMeshForTexture(const char* shaderName);
 
 private:
 	float mAlpha;

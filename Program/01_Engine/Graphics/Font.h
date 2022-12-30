@@ -6,23 +6,23 @@
 
 #include <string>
 #include <memory>
+#include "../../02_Library/Vector.h"
 
 namespace tkl
 {
-class Camera;
 class Mesh;
+class Camera;
 class Font
 {
 public:
-	static void DrawFontEx(float x, float y, float scale, const char* str, ...);
-	static void DrawStringEx(float x, float y, const char* str, ...);
-
+	static void DrawStringEx(float x, float y, const tkl::Vector3& color, const char* str, ...);
+	static void DrawFontEx(float x, float y, const tkl::Vector3& color, const char* str, ...);
 private:
 	Font(){}
 	~Font(){}
 
-	static void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<class Camera> camera);
-
+	static void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<class Camera> camera, const tkl::Vector3& color = Vector3(1, 1, 1));
+	static void DrawFont(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, const tkl::Vector3& color = Vector3(1, 1, 1));
 private:
 	static std::shared_ptr<Mesh> sMesh;
 	static std::shared_ptr<Camera> sCamera;

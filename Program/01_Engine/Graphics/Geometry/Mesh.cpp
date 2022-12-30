@@ -234,10 +234,21 @@ std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 }
 
 // テクスチャ用のメッシュ作成
-std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
+// TODO：一旦ハードコーディングしておく
+// IFを統合したり使用するシェーダを意識しないつくりにしたい
+std::shared_ptr<Mesh> Mesh::CreateMeshForSprite()
+{
+	return CreateMeshForTexture("Sprite");
+}
+std::shared_ptr<Mesh> Mesh::CreateMeshForFont()
+{
+	return CreateMeshForTexture("Font");
+}
+std::shared_ptr<Mesh> Mesh::CreateMeshForTexture(const char* shaderName)
 {
 	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-	mesh->SetRenderer(std::make_shared<SpriteRenderer>());
+	mesh->SetRenderer(std::make_shared<SpriteRenderer>(shaderName));
+	mesh->SetMaterial(std::make_shared<Material>());
 
 	VertexArray::VERTEX vertices[] = {
 		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},

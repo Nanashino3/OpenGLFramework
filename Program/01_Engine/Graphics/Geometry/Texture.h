@@ -4,6 +4,8 @@
 #ifndef _TEXTURE_H_
 #define _TEXTURE_H_
 
+#include "../../../02_Library/Vector.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -22,10 +24,14 @@ public:
 	int GetWidth() const { return mTextureW; }
 	int GetHeight() const { return mTextureH; }
 	unsigned int GetTextureID() const { return mTextureID; }
+	void SetColor(const tkl::Vector3& color){ mColor = color; }
+	const tkl::Vector3& GetColor() { return mColor; }
+
 private:
 	unsigned int mTextureID;
 	int mTextureW;
 	int mTextureH;
+	tkl::Vector3 mColor;
 };
 
 } // namespace tkl

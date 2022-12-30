@@ -20,7 +20,7 @@ TitleScene::TitleScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
 {
 	mSndDecide = tkl::Sound::CreateSound(DECIDE_FILE);
-	mTexMesh = tkl::Mesh::CreatePlaneForTexture();
+	mTexMesh = tkl::Mesh::CreateMeshForSprite();
 	mTexMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FILE));
 
 	int screenW, screenH;
@@ -68,5 +68,5 @@ void TitleScene::Update(float deltaTime)
 void TitleScene::Draw()
 {
 	mTexMesh->Draw(mCamera);
-	tkl::Font::DrawStringEx(0, 0, "タイトル画面");
+	tkl::Font::DrawStringEx(0, 0, tkl::Vector3(1, 1, 1), "タイトル画面");
 }

@@ -47,8 +47,8 @@
     <ClCompile Include="Program\01_Engine\Graphics\Font.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Mesh.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\Geometry\OBJLoader.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Model.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Geometry\OBJLoader.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Texture.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\VertexArray.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.cpp" />
@@ -79,6 +79,8 @@
   <ItemGroup>
     <None Include="Shader\BasicFrag.glsl" />
     <None Include="Shader\BasicVert.glsl" />
+    <None Include="Shader\FontFrag.glsl" />
+    <None Include="Shader\FontVert.glsl" />
     <None Include="Shader\LambertFrag.glsl" />
     <None Include="Shader\LambertVert.glsl" />
     <None Include="Shader\SpriteFrag.glsl" />
@@ -120,8 +122,8 @@
     <ClInclude Include="Program\01_Engine\Graphics\FontManager.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Material.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Mesh.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\Geometry\OBJLoader.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Model.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Geometry\OBJLoader.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Texture.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\VertexArray.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Renderer\MeshRenderer.h" />
