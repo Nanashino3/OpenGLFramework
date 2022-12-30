@@ -23,7 +23,7 @@ public:
 	static void DestroyInstance();
 
 	bool LoadFontFromTTF(const std::string& file);
-	std::tuple<std::shared_ptr<Texture>, Vector3, unsigned int> GetFont(char c);
+	std::tuple<std::shared_ptr<Texture>, Vector3, Vector3> GetFont(char c);
 
 	std::shared_ptr<Texture> CreateTextureFromFile(const char* file);
 	std::shared_ptr<SoundBuffer> CreateSoundFromFile(const char* file);
@@ -38,7 +38,7 @@ private:
 	static ResourceManager* sMyInstance;
 	std::unordered_map<const char*, std::shared_ptr<Texture>> mCacheTextures;
 	std::unordered_map<const char*, std::shared_ptr<SoundBuffer>> mCacheSounds;
-	std::unordered_map<std::string, std::unordered_map<unsigned char, std::tuple<std::shared_ptr<Texture>, Vector3, unsigned int>>> mCacheFonts;
+	std::unordered_map<std::string, std::unordered_map<unsigned char, std::tuple<std::shared_ptr<Texture>, Vector3, Vector3>>> mCacheFonts;
 
 	std::string mNowFont;
 };

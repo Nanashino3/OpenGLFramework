@@ -16,8 +16,8 @@ class FontManager
 public:
 	struct Character{
 		std::shared_ptr<Texture> texture;
-		Vector3 offset;
-		unsigned int horiOffset;
+		Vector3 bearing;
+		Vector3 advance;
 	};
 
 	static FontManager* GetInstance();

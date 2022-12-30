@@ -12,9 +12,6 @@
 #include "../Camera/ScreenCamera.h"
 #include "../../02_Library/Utility.h"
 
-
-#include "../../01_Engine/ResourceManager.h"
-
 namespace tkl
 {
 std::shared_ptr<Mesh> Font::sMesh = nullptr;
@@ -50,8 +47,8 @@ void Font::DrawFontEx(float x, float y, float scale, const char* str, ...)
 
 		if(ch.texture == nullptr){ return; }
 
-		float strPosX = x + ch.offset.mX;
-		float strPosY = y - (ch.texture->GetHeight() - ch.offset.mY);
+		float strPosX = x + ch.bearing.mX;
+		float strPosY = y - (ch.texture->GetHeight() - ch.bearing.mY);
 
  		float screenPosX = (strPosX + (ch.texture->GetWidth() >> 1)) / static_cast<float>(sCamera->GetScreenWidth() >> 1);
 		float screenPosY = (strPosY + (ch.texture->GetHeight() >> 1)) / static_cast<float>(sCamera->GetScreenHeight() >> 1);
@@ -60,7 +57,8 @@ void Font::DrawFontEx(float x, float y, float scale, const char* str, ...)
 		sMesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0));
 		sMesh->Draw(sCamera);
 
-		x += (ch.horiOffset >> 6);
+		x += (static_cast<int>(ch.advance.mX) >> 6);
+		y += (static_cast<int>(ch.advance.mY) >> 6);
 	}
 }
 
@@ -113,8 +111,8 @@ void Font::DrawString(float posX, float posY, const std::string& str, std::share
 	for(int i = 0; i < wcslen(buff); ++i){
 		currentFont = tkl::FontManager::GetInstance()->GetFontFromCreate(buff[i]);
 		std::shared_ptr<Texture> texture = currentFont.texture;
-		float prevFontX = static_cast<float>(prevFont.offset.mX * 0.5f);
-		float currentFontX = static_cast<float>(currentFont.offset.mX * 0.5f);
+		float prevFontX = static_cast<float>(prevFont.bearing.mX * 0.5f);
+		float currentFontX = static_cast<float>(currentFont.bearing.mX * 0.5f);
 
 		// êVÇµÇ¢ï∂éöÇÃà íu
 		float strPosX = posX;

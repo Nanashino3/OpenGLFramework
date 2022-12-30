@@ -119,9 +119,13 @@ bool ResourceManager::LoadFontFromTTF(const std::string& file)
 				std::cerr << "Error : Failed to load Glyph." << std::endl;
 				continue;
 			}
+
 			std::shared_ptr<Texture> newTexture = std::make_shared<Texture>();
 			newTexture->CreateBufferFromTTF(face->glyph->bitmap);
-			mCacheFonts[file].emplace(c, std::make_tuple(newTexture, Vector3(face->glyph->bitmap_left, face->glyph->bitmap_top, 0), face->glyph->advance.x));
+
+			Vector3 bearing = Vector3(face->glyph->bitmap_left, face->glyph->bitmap_top, 0);
+			Vector3 advance = Vector3(face->glyph->advance.x, face->glyph->advance.y, 0);
+			mCacheFonts[file].emplace(c, std::make_tuple(newTexture, bearing, advance));
 		}
 	}
 
@@ -139,12 +143,12 @@ bool ResourceManager::LoadFontFromTTF(const std::string& file)
 // 戻り値：テクスチャ、offset、水平方向のオフセット
 // 詳　細：
 //****************************************************************************
-std::tuple<std::shared_ptr<Texture>, Vector3, unsigned int> ResourceManager::GetFont(char c)
+std::tuple<std::shared_ptr<Texture>, Vector3, Vector3> ResourceManager::GetFont(char c)
 {
 	auto iter = mCacheFonts[mNowFont].find(c);
 	if(iter != mCacheFonts[mNowFont].end()){ return iter->second; }
 
-	return std::make_tuple(nullptr, Vector3(), 0);
+	return std::make_tuple(nullptr, Vector3(), Vector3());
 }
 
 } // namespace tkl
