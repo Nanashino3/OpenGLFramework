@@ -68,5 +68,5 @@ void TitleScene::Update(float deltaTime)
 void TitleScene::Draw()
 {
 	mTexMesh->Draw(mCamera);
-	tkl::Font::DrawStringEx(0, 0, tkl::Vector3(1, 1, 1), "ƒ^ƒCƒgƒ‹‰æ–Ê");
+	tkl::Font::DrawFontEx(-110, 0, tkl::Vector3(1, 1, 1), "SPACE DEFENDER");
 }

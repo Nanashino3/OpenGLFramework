@@ -22,7 +22,7 @@ Bullet::Bullet(std::shared_ptr<Parameter> param)
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 
 	mMesh = tkl::Mesh::CreateSphere(BULLET_SIZE, 24, 16);
-	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/panel_concrete.bmp"));
+	mMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/texture/panel_concrete.bmp"));
 }
 
 Bullet::~Bullet()

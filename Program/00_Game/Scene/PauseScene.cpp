@@ -52,5 +52,5 @@ void PauseScene::Update(float deltaTime)
 //****************************************************************************
 void PauseScene::Draw()
 {
-	tkl::Font::DrawStringEx(0, 0, tkl::Vector3(1, 1, 1), "É|Å[ÉYâÊñ ");
+	tkl::Font::DrawFontEx(-60, 0, tkl::Vector3(1, 1, 1), "PAUSED");
 }

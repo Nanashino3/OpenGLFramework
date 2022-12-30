@@ -50,9 +50,9 @@ void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	wm *= tkl::Matrix::CreateScale(tkl::Vector3(scaleX, scaleY, scale.mZ));
+	mShader->SetVectorUniform("uTextColor", texture->GetColor());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 	mShader->SetFloatUniform("uAlpha", mesh->GetAlpha());
-	mShader->SetVectorUniform("uTextColor", texture->GetColor());
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();

@@ -28,5 +28,5 @@ void GameOverScene::Update(float deltaTime)
 
 void GameOverScene::Draw()
 {
-	tkl::Font::DrawStringEx(0, 0, tkl::Vector3(1, 1, 1), "ゲームオーバ画面");
+	tkl::Font::DrawFontEx(-90, 0, tkl::Vector3(1, 1, 1), "GAME OVER");
 }

@@ -15,11 +15,15 @@
 
 static constexpr int PLANE_SIZE = 50;
 static constexpr int BLOCK_SIZE = 30;
-static constexpr const char* TEXTURE_FIELD = "Resource/panel_soil.bmp";
-static constexpr const char* TEXTURE_BLOCK = "Resource/panel_grass.bmp";
+static constexpr const char* TEXTURE_FIELD = "Resource/texture/panel_soil.bmp";
+static constexpr const char* TEXTURE_BLOCK = "Resource/texture/panel_grass.bmp";
+static constexpr const char* TEXTURE_START = "Resource/texture/red.bmp";
+static constexpr const char* TEXTURE_GAOL  = "Resource/texture/blue.bmp";
 static constexpr const char* TEXTURE_CURSOR = "Resource/debug/test2.bmp";
 
 Cell::Cell(std::shared_ptr<Parameter> param)
+: mCursor(nullptr)
+, mIsSelecting(false)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 }
@@ -47,11 +51,19 @@ void Cell::Initialize()
 	float posX = initPosX + mapSize * mCellInfo.column;
 	float posZ = initPosZ + mapSize * mCellInfo.row;
 
+	//*****************************************************************************************
 	// TODO：マスに何を生成するかを状態で決める
 	std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
-	mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
 	mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
 	mesh->SetPosition(tkl::Vector3(posX, 0, posZ));
+	if(mCellInfo.status == tkl::STATUS::START){
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_START));
+	}else if(mCellInfo.status == tkl::STATUS::GOAL){
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_GAOL));
+	}else{
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
+	}
+
 	mMeshList.emplace_back(mesh);
 
 	if(mCellInfo.status == tkl::STATUS::OBSTACLE){
@@ -60,6 +72,7 @@ void Cell::Initialize()
 		mesh->SetPosition(tkl::Vector3(posX, BLOCK_SIZE >> 1, posZ));
 		mMeshList.emplace_back(mesh);
 	}
+	//*****************************************************************************************
 
 	// カーソル生成
 	mCursor = tkl::Mesh::CreatePlane(50);
@@ -79,12 +92,13 @@ void Cell::Collision()
 	tkl::Vector3 mousePos = mParam->GetMousePos();
 
 	// 自分が選択されているか確認
+	mIsSelecting = false;
 	tkl::Vector3 pos = mMeshList.at(0)->GetPosition();
 	if(tkl::IsIntersectPointRect(mousePos.mX, mousePos.mZ, pos.mX, pos.mZ, mParam->GetMapSize())){
 		if(mCellInfo.status != tkl::STATUS::EDITABLE){ return; }
 
+		mIsSelecting = true;
 		mCursor->SetPosition(tkl::Vector3(pos.mX, 0.5f, pos.mZ));
-		mCursor->Draw(mParam->GetCamera());
 
 		if(tkl::Input::IsMouseDownTrigger(tkl::eMouse::MOUSE_LEFT)){
 
@@ -107,4 +121,6 @@ void Cell::Draw()
 	for(auto mesh : mMeshList){
 		mesh->Draw(mParam->GetCamera());
 	}
+	
+	if(mIsSelecting){ mCursor->Draw(mParam->GetCamera()); }
 }

@@ -35,12 +35,12 @@ void SceneManager::SceneUpdate(float deltaTime)
 	// シーンのインスタンスを更新
 	if(mNowScene != mNextScene){ mNowScene = mNextScene; }
 
+	if(!mPrevScene.empty()){
+		auto prevScene = mPrevScene.top();
+		prevScene->Draw();
+	}
+
 	// 現在のシーンの処理
 	mNowScene->Update(deltaTime);
 	mNowScene->Draw();
-
-	if(mPrevScene.empty()){ return; }
-	
-	auto prevScene = mPrevScene.top();
-	prevScene->Draw();
 }

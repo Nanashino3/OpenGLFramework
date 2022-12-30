@@ -28,6 +28,7 @@ private:
 	std::vector<std::shared_ptr<tkl::Mesh>> mMeshList;
 	std::shared_ptr<tkl::Mesh> mCursor;
 	std::shared_ptr<GameParameter> mParam;
+	bool mIsSelecting;
 };
 
 #endif
