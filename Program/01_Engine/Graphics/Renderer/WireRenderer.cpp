@@ -34,6 +34,8 @@ void WireRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	Renderer::Draw(mesh);
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
+	wm *= tkl::Matrix::CreateRotationFromQuaternion(mesh->GetRotation());
+	wm *= tkl::Matrix::CreateScale(mesh->GetScale());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();

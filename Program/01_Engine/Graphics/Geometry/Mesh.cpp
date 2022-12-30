@@ -233,31 +233,6 @@ std::shared_ptr<Mesh> Mesh::CreateGround(int size, int rowNum)
 	return mesh;
 }
 
-// TODO：通常の平面とRendererが違うだけなので同じにしたいなー
-std::shared_ptr<Mesh> Mesh::CreatePlaneForWireFrame(int size)
-{
-	std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
-	mesh->SetRenderer(std::make_shared<WireRenderer>());
-
-	size *= 0.5f;
-
-	VertexArray::VERTEX vertices[] = {
-		{-size,  size, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f},
-		{ size,  size, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f},
-		{ size, -size, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f},
-		{-size, -size, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f}
-	};
-	int indices[] = {
-		0, 1, 2,
-		0, 2, 3
-	};
-
-	int indicesNum = sizeof(indices) / sizeof(indices[0]);
-	mesh->SetVertex(std::make_shared<VertexArray>(4, vertices, indicesNum, indices));
-
-	return mesh;
-}
-
 // テクスチャ用のメッシュ作成
 std::shared_ptr<Mesh> Mesh::CreatePlaneForTexture()
 {
