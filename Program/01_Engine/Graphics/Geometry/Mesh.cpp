@@ -16,6 +16,7 @@ Mesh::Mesh()
 , mPosition(tkl::Vector3(0, 0, 0))
 , mRotation(tkl::Quaternion())
 , mScale(tkl::Vector3(1, 1, 1))
+, mIsWireframe(false)
 , mRenderer(nullptr)
 , mTexture(nullptr)
 {}

@@ -48,8 +48,7 @@ void MeshRenderer::Draw(std::shared_ptr<Mesh> mesh)
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
 	va->Bind();
-	// TODO：これでワイヤーフレームが出せるっぽい
-//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if(mesh->GetIsWireframe()){ glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); }
 	glDrawElements(GL_TRIANGLES, va->GetIndexNum(), GL_UNSIGNED_INT, nullptr);
 }
 

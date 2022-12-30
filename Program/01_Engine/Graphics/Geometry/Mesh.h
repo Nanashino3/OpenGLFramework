@@ -31,6 +31,9 @@ public:
 	void SetScale(const tkl::Vector3& scale){ mScale = scale; }
 	tkl::Vector3 GetScale() const{ return mScale; }
 
+	void SetIsWireframe(bool value){ mIsWireframe = value; }
+	bool GetIsWireframe() const { return mIsWireframe; }
+
 	void SetTexture(std::shared_ptr<Texture> tex){ mTexture = tex; }
 	std::shared_ptr<Texture> GetTexture() const { return mTexture; }
 
@@ -55,6 +58,7 @@ private:
 	tkl::Vector3 mPosition;
 	tkl::Quaternion mRotation;
 	tkl::Vector3 mScale;
+	bool mIsWireframe;
 
 	std::shared_ptr<Renderer> mRenderer;
 	std::shared_ptr<Texture> mTexture;
