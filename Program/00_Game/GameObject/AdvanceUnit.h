@@ -42,6 +42,8 @@ private:
 	float mMoveSpeed;
 	int mHitPoint;
 	int mAddCoin;
+	int mPrevDx, mPrevDz;
+	float mAngle;
 
 	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Sound> mSound;

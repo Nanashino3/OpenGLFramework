@@ -23,6 +23,8 @@ AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 , mMoveSpeed(0)
 , mHitPoint(0)
 , mAddCoin(0)
+, mPrevDx(0), mPrevDz(0)
+, mAngle(0)
 , mModel(nullptr)
 {
 	mUnitInfo = tkl::LoadCsv(CSV_PATH);
@@ -54,6 +56,14 @@ void AdvanceUnit::Initialize()
 	tkl::Algorithm::RouteSearch(mapRow, mapColumn, field, mRoute);
 
 	mRouteCount = mRoute.size() - 1;
+	mPrevDx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
+	mPrevDz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
+
+	if(mPrevDx != 0){ mAngle = (mPrevDx > 0) ?  90 : 270; }
+	if(mPrevDz != 0){ mAngle = (mPrevDz > 0) ? 180 : 360; }
+
+	tkl::Quaternion rot;
+	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(mAngle));
 
 	// ‰ŠúÀ•WŒvŽZ
 	mFirstPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
@@ -62,8 +72,8 @@ void AdvanceUnit::Initialize()
 	// ƒ‚ƒfƒ‹‚Ì¶¬‚ÆÝ’è
 	mModel = tkl::Model::CreateModelFromObjFile(OBJECT_FILE);
 	mModel->SetPosition(tkl::Vector3(mFirstPosX, (mapSize >> 1), mFirstPosZ));
-	mModel->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(90)));
 	mModel->SetScale(tkl::Vector3(3.5f, 3.5f, 3.5f));
+	mModel->SetRotation(rot);
 
 	// iŒRƒ†ƒjƒbƒg‚ÌƒŒƒxƒ‹Ý’è
 	int level = mParam->GetAdvenceLevel();
@@ -91,6 +101,7 @@ void AdvanceUnit::Update()
 		return;
 	}
 	tkl::Vector3 pos = mModel->GetPosition();
+	tkl::Quaternion rot = mModel->GetRotation();
 
 	// ˆÚ“®—ÊŒvŽZ
 	int column = (mIsRetNewRoute) ? mPrevRoute[mPrevRouteCount - 1].column : mRoute[mRouteCount].column;
@@ -98,6 +109,24 @@ void AdvanceUnit::Update()
 
 	int dx = mRoute[mRouteCount - 1].column - column;
 	int dz = mRoute[mRouteCount - 1].row - row;
+
+	// •ûŒü“]Š·ŒvŽZ
+	float angles[] = { 90, 180, 270, 360 };
+	enum ANGLE { RIGHT, BOTTOM, LEFT, TOP };
+
+	if(dx != 0 && mPrevDx != dx){
+		int dir = (dx > 0) ? RIGHT : LEFT;
+		float diffAngle = angles[dir] - mAngle;
+		rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(diffAngle));
+		mAngle += diffAngle;
+	}
+
+	if(dz != 0 && mPrevDz != dz){
+		int dir = (dz > 0) ? BOTTOM : TOP;
+		float diffAngle = angles[dir] - mAngle;
+		rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(diffAngle));
+		mAngle += diffAngle;
+	}
 
 	//******************************************************************
 	// ’Tõ‚µ‚½Œo˜H‚ði‚Þˆ—
@@ -121,7 +150,10 @@ void AdvanceUnit::Update()
 	}
 	//******************************************************************
 
+	mPrevDx = dx, mPrevDz = dz;
+
 	mModel->SetPosition(pos);
+	mModel->SetRotation(rot);
 }
 
 //****************************************************************************
