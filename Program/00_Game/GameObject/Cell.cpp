@@ -62,17 +62,18 @@ void Cell::Initialize()
 	mMeshList.emplace_back(mesh);
 
 	// ìGèoåªà íuÇ∆ÉSÅ[Éãà íuÇÃê∂ê¨
-	mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
-	if(mCellInfo.status == tkl::STATUS::START){
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_START));
-		
-	}else if(mCellInfo.status == tkl::STATUS::GOAL){
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_GAOL));
+	if(mCellInfo.status == tkl::STATUS::START || mCellInfo.status == tkl::STATUS::GOAL){
+		mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
+		mesh->SetIsBlend(true);
+		if(mCellInfo.status == tkl::STATUS::START){
+			mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_START));
+		}else if(mCellInfo.status == tkl::STATUS::GOAL){
+			mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_GAOL));
+		}
+		mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
+		mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
+		mMeshList.emplace_back(mesh);
 	}
-	mesh->SetIsBlend(true);
-	mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
-	mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
-	mMeshList.emplace_back(mesh);
 
 	// è·äQï®ê∂ê¨
 	if(mCellInfo.status == tkl::STATUS::OBSTACLE){
