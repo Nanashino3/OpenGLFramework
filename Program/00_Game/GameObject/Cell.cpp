@@ -15,11 +15,11 @@
 
 static constexpr int PLANE_SIZE = 50;
 static constexpr int BLOCK_SIZE = 30;
-static constexpr const char* TEXTURE_FIELD = "Resource/texture/panel_soil.bmp";
-static constexpr const char* TEXTURE_BLOCK = "Resource/texture/panel_grass.bmp";
-static constexpr const char* TEXTURE_START = "Resource/texture/red.bmp";
-static constexpr const char* TEXTURE_GAOL  = "Resource/texture/blue.bmp";
-static constexpr const char* TEXTURE_CURSOR = "Resource/debug/test2.bmp";
+static constexpr const char* TEXTURE_FIELD  = "Resource/texture/panel_soil.bmp";
+static constexpr const char* TEXTURE_BLOCK  = "Resource/texture/panel_grass.bmp";
+static constexpr const char* TEXTURE_START  = "Resource/texture/red.png";
+static constexpr const char* TEXTURE_GAOL   = "Resource/texture/blue.png";
+static constexpr const char* TEXTURE_CURSOR = "Resource/texture/frame_green.png";
 
 Cell::Cell(std::shared_ptr<Parameter> param)
 : mCursor(nullptr)
@@ -53,19 +53,28 @@ void Cell::Initialize()
 
 	//*****************************************************************************************
 	// TODO：マスに何を生成するかを状態で決める
+	
+	// フロア生成
 	std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
+	mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
 	mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
 	mesh->SetPosition(tkl::Vector3(posX, 0, posZ));
-	if(mCellInfo.status == tkl::STATUS::START){
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_START));
-	}else if(mCellInfo.status == tkl::STATUS::GOAL){
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_GAOL));
-	}else{
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
-	}
-
 	mMeshList.emplace_back(mesh);
 
+	// 敵出現位置とゴール位置の生成
+	mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
+	if(mCellInfo.status == tkl::STATUS::START){
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_START));
+		
+	}else if(mCellInfo.status == tkl::STATUS::GOAL){
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_GAOL));
+	}
+	mesh->SetIsBlend(true);
+	mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
+	mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
+	mMeshList.emplace_back(mesh);
+
+	// 障害物生成
 	if(mCellInfo.status == tkl::STATUS::OBSTACLE){
 		mesh = tkl::Mesh::CreateBox(BLOCK_SIZE);
 		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_BLOCK));
@@ -76,6 +85,7 @@ void Cell::Initialize()
 
 	// カーソル生成
 	mCursor = tkl::Mesh::CreatePlane(50);
+	mCursor->SetIsBlend(true);
 	mCursor->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_CURSOR));
 	mCursor->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
 }
