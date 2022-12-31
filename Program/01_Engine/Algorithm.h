@@ -14,6 +14,7 @@ class Algorithm
 {
 public:
 	enum class STATUS {
+		NONE = -1,
 		OPEN,		// オープン
 		CLOSE,		// クローズ
 		START,		// スタート
