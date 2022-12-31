@@ -34,6 +34,9 @@ public:
 	void SetIsWireframe(bool value){ mIsWireframe = value; }
 	bool GetIsWireframe() const { return mIsWireframe; }
 
+	void SetIsBlend(bool value) { mIsBlend = value; }
+	bool GetIsBlend() const { return mIsBlend; }
+
 	void SetTexture(std::shared_ptr<Texture> tex){ mTexture = tex; }
 	std::shared_ptr<Texture> GetTexture() const { return mTexture; }
 
@@ -62,6 +65,7 @@ private:
 	tkl::Quaternion mRotation;
 	tkl::Vector3 mScale;
 	bool mIsWireframe;
+	bool mIsBlend;
 
 	std::shared_ptr<Renderer> mRenderer;
 	std::shared_ptr<Texture> mTexture;

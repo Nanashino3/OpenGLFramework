@@ -31,6 +31,7 @@ void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	if(!mesh){ return; }
 
 	glDisable(GL_DEPTH_TEST);
+
 	glEnable(GL_BLEND);
 	glBlendEquationSeparate(GL_FUNC_ADD, GL_FUNC_ADD);
 	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
@@ -50,8 +51,8 @@ void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
 	wm *= tkl::Matrix::CreateScale(tkl::Vector3(scaleX, scaleY, scale.mZ));
-	mShader->SetVectorUniform("uTextColor", texture->GetColor());
 	mShader->SetMatrixUniform("uWorldTransform", wm);
+	mShader->SetVectorUniform("uTextColor", texture->GetColor());
 	mShader->SetFloatUniform("uAlpha", mesh->GetAlpha());
 
 	std::shared_ptr<VertexArray> va = mesh->GetVertex();
