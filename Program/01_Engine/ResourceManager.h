@@ -9,9 +9,6 @@
 #include <string>
 #include "../02_Library/Vector.h"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 namespace tkl
 {
 class Texture;
@@ -23,7 +20,7 @@ public:
 	static void DestroyInstance();
 
 	bool LoadFontFromTTF(const std::string& file);
-	std::tuple<std::shared_ptr<Texture>, Vector3, Vector3> GetFont(char c);
+	std::tuple<std::shared_ptr<Texture>, Vector3, Vector3> GetFont(char c, int fontSize);
 
 	std::shared_ptr<Texture> CreateTextureFromFile(const char* file);
 	std::shared_ptr<SoundBuffer> CreateSoundFromFile(const char* file);
@@ -38,9 +35,7 @@ private:
 	static ResourceManager* sMyInstance;
 	std::unordered_map<const char*, std::shared_ptr<Texture>> mCacheTextures;
 	std::unordered_map<const char*, std::shared_ptr<SoundBuffer>> mCacheSounds;
-	std::unordered_map<std::string, std::unordered_map<unsigned char, std::tuple<std::shared_ptr<Texture>, Vector3, Vector3>>> mCacheFonts;
-
-	std::string mNowFont;
+	std::unordered_map<int, std::unordered_map<unsigned char, std::tuple<std::shared_ptr<Texture>, Vector3, Vector3>>> mCacheFonts;
 };
 
 } // namespace tkl

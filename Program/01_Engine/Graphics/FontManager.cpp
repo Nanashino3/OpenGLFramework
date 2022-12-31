@@ -64,9 +64,9 @@ FontManager::Character FontManager::GetFontFromCreate(wchar_t once)
 // 戻り値：なし
 // 詳　細：TTFファイルから読み込んだフォントを取得
 //****************************************************************************
-FontManager::Character FontManager::GetFontFromTTF(unsigned char ch)
+FontManager::Character FontManager::GetFontFromTTF(unsigned char ch, int fontSize)
 {
-	auto font = tkl::ResourceManager::GetInstance()->GetFont(ch);
+	auto font = tkl::ResourceManager::GetInstance()->GetFont(ch, fontSize);
 
 	Character character = {
 		std::get<0>(font), std::get<1>(font), std::get<2>(font)

@@ -24,7 +24,7 @@ public:
 	static void DestroyInstance();
 
 	Character GetFontFromCreate(wchar_t once);
-	Character GetFontFromTTF(unsigned char ch);
+	Character GetFontFromTTF(unsigned char ch, int fontSize = 32);
 
 private:
 	FontManager();

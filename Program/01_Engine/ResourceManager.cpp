@@ -106,26 +106,37 @@ bool ResourceManager::LoadFontFromTTF(const std::string& file)
 		std::cerr << "Failed to load font." << std::endl;
 		return false;
 	}else{
-		mNowFont = file;
+		std::vector<int> fontSizes = {
+			8, 9, 
+			10, 11, 12, 14, 16, 18,
+			20, 22, 24, 26, 28,
+			30, 32, 34, 36, 38,
+			40, 42, 44, 46, 48,
+			52, 56,
+			60, 64, 68,
+			72
+		};
 
-		// ビットマップフォントのサイズを指定
-		// TODO：32固定
-		FT_Set_Pixel_Sizes(face, 0, 32);
+		for(auto size : fontSizes){
+			// ビットマップフォントのサイズを指定
+			FT_Set_Pixel_Sizes(face, 0, size);
 
-		// TODO：ASCII文字(128文字分)対応
-		// ひらがな・カタカナは未対応
-		for(unsigned char c = 0; c < 128; ++c){
-			if(FT_Load_Char(face, c, FT_LOAD_RENDER)){
-				std::cerr << "Error : Failed to load Glyph." << std::endl;
-				continue;
+			// ASCII文字(128文字分)対応
+			// TODO：ひらがな・カタカナは未対応
+			for (unsigned char c = 0; c < 128; ++c) {
+				if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
+					std::cerr << "Error : Failed to load Glyph." << std::endl;
+					continue;
+				}
+
+				std::shared_ptr<Texture> newTexture = std::make_shared<Texture>();
+				newTexture->CreateBufferFromTTF(face->glyph->bitmap);
+
+				Vector3 bearing = Vector3(face->glyph->bitmap_left, face->glyph->bitmap_top, 0);
+				Vector3 advance = Vector3(face->glyph->advance.x, face->glyph->advance.y, 0);
+				mCacheFonts[size].emplace(c, std::make_tuple(newTexture, bearing, advance));
+
 			}
-
-			std::shared_ptr<Texture> newTexture = std::make_shared<Texture>();
-			newTexture->CreateBufferFromTTF(face->glyph->bitmap);
-
-			Vector3 bearing = Vector3(face->glyph->bitmap_left, face->glyph->bitmap_top, 0);
-			Vector3 advance = Vector3(face->glyph->advance.x, face->glyph->advance.y, 0);
-			mCacheFonts[file].emplace(c, std::make_tuple(newTexture, bearing, advance));
 		}
 	}
 
@@ -143,10 +154,10 @@ bool ResourceManager::LoadFontFromTTF(const std::string& file)
 // 戻り値：テクスチャ、offset、水平方向のオフセット
 // 詳　細：
 //****************************************************************************
-std::tuple<std::shared_ptr<Texture>, Vector3, Vector3> ResourceManager::GetFont(char c)
+std::tuple<std::shared_ptr<Texture>, Vector3, Vector3> ResourceManager::GetFont(char c, int fontSize)
 {
-	auto iter = mCacheFonts[mNowFont].find(c);
-	if(iter != mCacheFonts[mNowFont].end()){ return iter->second; }
+	auto iter = mCacheFonts[fontSize].find(c);
+	if (iter != mCacheFonts[fontSize].end()) { return iter->second; }
 
 	return std::make_tuple(nullptr, Vector3(), Vector3());
 }

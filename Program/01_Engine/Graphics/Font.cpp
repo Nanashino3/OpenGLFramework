@@ -103,7 +103,7 @@ void Font::DrawString(float posX, float posY, const std::string& str, std::share
 // 戻り値：なし
 // 詳　細：読み込んでいるフォントで文字列を出力する
 //****************************************************************************
-void Font::DrawFontEx(float x, float y, const tkl::Vector3& color, const char* str, ...)
+void Font::DrawFontEx(float x, float y, int fontSize, const tkl::Vector3& color, const char* str, ...)
 {
 	char buff[1024] = { 0 };
 	va_list list;
@@ -118,7 +118,7 @@ void Font::DrawFontEx(float x, float y, const tkl::Vector3& color, const char* s
 	sCamera = std::make_shared<ScreenCamera>(screenWidth, screenHeight);
 	sCamera->Update();
 
-	DrawFont(x, y, buff, sCamera, color);
+	DrawFont(x, y, buff, sCamera, fontSize, color);
 }
 
 //****************************************************************************
@@ -132,10 +132,10 @@ void Font::DrawFontEx(float x, float y, const tkl::Vector3& color, const char* s
 // 戻り値：なし
 // 詳　細：指定位置に指定したカメラを使用して文字列を描画する
 //****************************************************************************
-void Font::DrawFont(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, const tkl::Vector3& color)
+void Font::DrawFont(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, int fontSize, const tkl::Vector3& color)
 {
 	for (int i = 0; i < str.length(); ++i) {
-		tkl::Character ch = tkl::FontManager::GetInstance()->GetFontFromTTF(str[i]);
+		tkl::Character ch = tkl::FontManager::GetInstance()->GetFontFromTTF(str[i], fontSize);
 
 		if (ch.texture == nullptr) { return; }
 
