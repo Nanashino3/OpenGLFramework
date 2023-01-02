@@ -30,7 +30,7 @@ public:
 	void ReceiveDamage(int damage);
 
 	void SetNewRoute(const std::vector<tkl::CELL>& newRoute);
-	tkl::Vector3 GetUnitPosition() const;
+	tkl::Vector3 GetPosition() const;
 
 private:
 	bool IsPassing();

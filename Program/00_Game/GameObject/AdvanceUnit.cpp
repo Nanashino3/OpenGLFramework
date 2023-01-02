@@ -54,14 +54,14 @@ void AdvanceUnit::Initialize()
 
 	// 経路検索(初期)
 	tkl::Algorithm::RouteSearch(mapRow, mapColumn, field, mRoute);
-
+	
+	// 初期移動方向計算
 	mRouteCount = mRoute.size() - 1;
 	mPrevDx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
 	mPrevDz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
 
 	if(mPrevDx != 0){ mAngle = (mPrevDx > 0) ?  90 : 270; }
 	if(mPrevDz != 0){ mAngle = (mPrevDz > 0) ? 180 : 360; }
-
 	tkl::Quaternion rot;
 	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(mAngle));
 
@@ -95,7 +95,7 @@ void AdvanceUnit::Initialize()
 //****************************************************************************
 void AdvanceUnit::Update()
 {
-	if (mRouteCount == 0 && mRoute[mRouteCount].status == tkl::STATUS::GOAL) {
+	if(mRouteCount == 0 && mRoute[mRouteCount].status == tkl::STATUS::GOAL){
 		mIsAlive = false;
 		mParam->SetIsArrival(true);
 		return;
@@ -103,30 +103,33 @@ void AdvanceUnit::Update()
 	tkl::Vector3 pos = mModel->GetPosition();
 	tkl::Quaternion rot = mModel->GetRotation();
 
+	//******************************************************************
 	// 移動量計算
 	int column = (mIsRetNewRoute) ? mPrevRoute[mPrevRouteCount - 1].column : mRoute[mRouteCount].column;
 	int row = (mIsRetNewRoute) ? mPrevRoute[mPrevRouteCount - 1].row : mRoute[mRouteCount].row;
 
 	int dx = mRoute[mRouteCount - 1].column - column;
 	int dz = mRoute[mRouteCount - 1].row - row;
+	//******************************************************************
 
+	//******************************************************************
 	// 方向転換計算
 	float angles[] = { 90, 180, 270, 360 };
 	enum ANGLE { RIGHT, BOTTOM, LEFT, TOP };
 
+	float diffAngle = 0;
 	if(dx != 0 && mPrevDx != dx){
 		int dir = (dx > 0) ? RIGHT : LEFT;
-		float diffAngle = angles[dir] - mAngle;
-		rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(diffAngle));
-		mAngle += diffAngle;
+		diffAngle = angles[dir] - mAngle;
 	}
 
 	if(dz != 0 && mPrevDz != dz){
 		int dir = (dz > 0) ? BOTTOM : TOP;
-		float diffAngle = angles[dir] - mAngle;
-		rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(diffAngle));
-		mAngle += diffAngle;
+		diffAngle = angles[dir] - mAngle;
 	}
+	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(diffAngle));
+	mAngle += diffAngle;
+	//******************************************************************
 
 	//******************************************************************
 	// 探索した経路を進む処理
@@ -200,13 +203,13 @@ void AdvanceUnit::ReceiveDamage(int damage)
 }
 
 //****************************************************************************
-// 関数名：GetUnitPosition
-// 概　要：ユニット位置を取得
+// 関数名：GetPosition
+// 概　要：座標取得
 // 引　数：なし
 // 戻り値：ユニットの位置
 // 詳　細：進軍ユニット自身の位置を返す
 //****************************************************************************
-tkl::Vector3 AdvanceUnit::GetUnitPosition() const
+tkl::Vector3 AdvanceUnit::GetPosition() const
 {
 	return mModel->GetPosition();
 }
@@ -256,29 +259,47 @@ void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 //****************************************************************************
 bool AdvanceUnit::IsPassing()
 {
-	// 移動方向計算
-	int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
-	int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
-
-	tkl::Vector3 pos = mModel->GetPosition();
+	// 押下位置から行列を求める
 	tkl::Vector3 clickPos = mParam->GetClickPos();
+	int clickColumn = abs((mFirstPosX - clickPos.mX) / mParam->GetMapSize());
+	int clickRow    = abs((mFirstPosZ - clickPos.mZ) / mParam->GetMapSize());
 
-	bool retX = false, retZ = false;
-	if(dx != 0){ retX = (dx > 0) ? pos.mX > clickPos.mX : pos.mX < clickPos.mX; }
-	if(dz != 0){ retZ = (dz > 0) ? pos.mZ > clickPos.mZ : pos.mZ < clickPos.mZ; }
+	int nowColumn = mRoute[mRouteCount].column;
+	int nowRow = mRoute[mRouteCount].row;
 
-	return (dx == 0 || dz == 0) ? retX || retZ : retX && retZ;
+	// 進軍ユニットの位置と同じ位置に置かれた場合のみ通過判定する
+	if(clickColumn == nowColumn && clickRow == nowRow){
+		// 移動方向計算
+		int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
+		int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
+
+		tkl::Vector3 pos = mModel->GetPosition();
+
+		bool retX = false, retZ = false;
+		if (dx != 0) { retX = (dx > 0) ? pos.mX > clickPos.mX : pos.mX < clickPos.mX; }
+		if (dz != 0) { retZ = (dz > 0) ? pos.mZ > clickPos.mZ : pos.mZ < clickPos.mZ; }
+
+		return (dx == 0 || dz == 0) ? retX || retZ : retX && retZ;
+	}
+
+	return false;
 }
 
-// ルート表示(デバッグ用)
+//****************************************************************************
+// 関数名：PrintRoute(private)
+// 概　要：ルート表示(デバッグ用)
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：現在進行中のルートを描画する
+//****************************************************************************
 void AdvanceUnit::PrintRoute()
 {
 	for (int i = 0; i < mRoute.size(); ++i) {
-		std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(50);
+		std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(mParam->GetMapSize());
 
-        float posX = mFirstPosX + 50 * mRoute[i].column;
-        float posZ = mFirstPosZ + 50 * mRoute[i].row;
-        mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/debug/test.jpg"));
+        float posX = mFirstPosX + mParam->GetMapSize() * mRoute[i].column;
+        float posZ = mFirstPosZ + mParam->GetMapSize() * mRoute[i].row;
+        mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/debug/route.bmp"));
         mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
         mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
         mesh->Draw(mParam->GetCamera());
