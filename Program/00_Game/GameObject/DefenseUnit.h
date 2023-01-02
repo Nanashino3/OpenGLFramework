@@ -13,6 +13,7 @@ class GameParameter;
 namespace tkl{
 class Model;
 class Sound;
+class Vector3;
 }
 
 class DefenseUnit : public GameObject
@@ -24,6 +25,10 @@ public:
 	virtual void Initialize() final;
 	virtual void Update() final;
 	virtual void Draw() final;
+
+private:
+	void Shoot(const tkl::Vector3& targetPos);
+
 private:
 	float mElapsed;
 	std::shared_ptr<GameParameter> mParam;

@@ -7,14 +7,17 @@
 #include "AdvanceUnit.h"
 #include "GameParameter.h"
 #include "ObjectManager.h"
+
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Graphics/Geometry/Model.h"
 
+#include "../../02_Library/Math.h"
+
 static constexpr const char* MODEL_FILE = "Resource/Model/Turret/1/Turret.obj";
 static constexpr const char* SOUND_FILE = "Resource/sound/shot.wav";
-static constexpr float CREATE_SIZE = 25;
-static constexpr float DIST_MAX = 60.0f;
+static constexpr float MODEL_SCALE = 15;
+static constexpr float DIST_MAX = 70.0f;
 static constexpr int CONSUME_COST = 75;
 
 DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
@@ -42,8 +45,9 @@ void DefenseUnit::Initialize()
 	tkl::Vector3 clickPos = mParam->GetClickPos();
 
 	mModel = tkl::Model::CreateModelFromObjFile(MODEL_FILE);
-	mModel->SetPosition(clickPos);
-	mModel->SetScale(tkl::Vector3(15, 15, 15));
+	mModel->SetPosition(tkl::Vector3(clickPos));
+	mModel->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(90)));
+	mModel->SetScale(tkl::Vector3(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE));
 
 	mParam->SetTotalCost(mParam->GetTotalCost() - CONSUME_COST);
 }
@@ -57,37 +61,31 @@ void DefenseUnit::Initialize()
 //****************************************************************************
 void DefenseUnit::Update()
 {
-	if(!mBullet.expired()){ return; }
+	tkl::Quaternion rot = mModel->GetRotation();
+	tkl::Vector3 modelPos = mModel->GetPosition();
 
-	// ’e‚ªÁ–Å‚µ‚Ä‚©‚ç•bŒã‚É”­ŽË‚·‚é
-	// TODOFƒCƒ“ƒ^[ƒoƒ‹‚Í‰Â•Ï‚É‚µ‚½‚¢
-	mElapsed += mParam->GetDeltaTime();
-	if(mElapsed < 0.8f){ return; }
-	mElapsed = 0;
-
-	// ¶‘¶‚µ‚Ä‚¢‚È‚¢ê‡‚Í’e¶¬
-	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+	// 1”Ô‹ß‚¢iŒRƒ†ƒjƒbƒg‚ð’T‚·
 	tkl::Vector3 nearPos;
-	for (auto it = list->begin(); it != list->end(); ++it) {
-		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);
-		tkl::Vector3 pos = unit->GetUnitPosition();
-		float dist = tkl::Vector3::Distance(pos, mModel->GetPosition());
+	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+	for(auto iter = list->begin(); iter != list->end(); ++iter){
+		std::shared_ptr<AdvanceUnit> unit = std::dynamic_pointer_cast<AdvanceUnit>(*iter);
+		tkl::Vector3 unitPos = unit->GetPosition();
 
+		float dist = tkl::Vector3::Distance(unitPos, modelPos);
 		if(dist <= DIST_MAX){
-			nearPos = pos;
+			// iŒRƒ†ƒjƒbƒg‚Ì•ûŒü‚ðŒü‚©‚¹‚é
+			nearPos = tkl::Vector3(unitPos.mX, 0, unitPos.mZ);
+			tkl::Vector3 dir = nearPos - modelPos;
+			float theta = tkl::ToDegree(std::atan2f(dir.mX, dir.mZ));
+			rot = tkl::Quaternion::RotationAxis({0, 1, 0}, tkl::ToRadian(-theta));
 			break;
 		}
 	}
-	if(tkl::Vector3::Magnitude(nearPos) == 0){ return; }
 
-	// ’eŠÖ˜Aˆ—
-	mBullet = ObjectManager::GetInstance()->Create<Bullet>(mParam);
-	std::shared_ptr<Bullet> bullet = mBullet.lock();
-	bullet->SetLauncherPos(mModel->GetPosition());
-	bullet->SetTargetPos(nearPos);
-	bullet->Initialize();
+	// ’e‚ðŒ‚‚Â
+	Shoot(nearPos);
 
-	mSound->Play();
+	mModel->SetRotation(rot);
 }
 
 //****************************************************************************
@@ -100,4 +98,33 @@ void DefenseUnit::Update()
 void DefenseUnit::Draw()
 {
 	mModel->Draw(mParam->GetCamera());
+}
+
+//****************************************************************************
+// ŠÖ”–¼FShoot
+// ŠT@—vF’e‚ðŒ‚‚Â
+// ˆø@”Farg1 –Ú•WˆÊ’u
+// –ß‚è’lF‚È‚µ
+// Ú@×F’e‚ðŒ‚‚Âˆ—(’e‚ðŒ‚‚Â‚©‚Ç‚¤‚©‚à”»’f‚·‚é)
+//****************************************************************************
+void DefenseUnit::Shoot(const tkl::Vector3& targetPos)
+{
+	// ’e‚ªÁ‚¦‚Ä‚¢‚ê‚ÎV‚µ‚­¶¬‚·‚é
+	if(!mBullet.expired() || (tkl::Vector3::Magnitude(targetPos) == 0)){ return; }
+
+	// ’e‚ªÁ–Å‚µ‚Ä‚©‚ç•bŒã‚É”­ŽË‚·‚é
+	// TODOFƒCƒ“ƒ^[ƒoƒ‹‚Í‰Â•Ï‚É‚µ‚½‚¢
+	mElapsed += mParam->GetDeltaTime();
+	if(mElapsed > 0.8f){
+		mElapsed = 0;
+
+		// ’eŠÖ˜Aˆ—
+		mBullet = ObjectManager::GetInstance()->Create<Bullet>(mParam);
+		std::shared_ptr<Bullet> bullet = mBullet.lock();
+		bullet->SetLauncherPos(mModel->GetPosition());
+		bullet->SetTargetPos(targetPos);
+		bullet->Initialize();
+
+		mSound->Play();
+	}
 }
