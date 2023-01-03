@@ -32,8 +32,8 @@ void DefenseUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 	if((fields[row][column].status == tkl::STATUS::OBSTACLE) &&
 	   (param->GetTotalCost() >= CONSUME_COST)) {
 		fields[row][column].status = tkl::STATUS::UNIT;
-		std::shared_ptr<DefenseUnit> unit = ObjectManager::GetInstance()->Create<DefenseUnit>(param);
-		unit->Initialize();
+		std::shared_ptr<DefenseUnit> newObject = ObjectManager::GetInstance()->Create<DefenseUnit>(param);
+		newObject->Initialize();
 	}else{
 		fields[row][column].status = tkl::STATUS::EDITABLE;
 	}

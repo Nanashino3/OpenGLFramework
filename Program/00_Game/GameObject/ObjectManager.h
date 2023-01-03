@@ -24,7 +24,7 @@ public:
 	//       　※作成するオブジェクトのリストがなければ一緒に作成
 	//****************************************************************************
 	template <class T>
-	std::shared_ptr<T> Create(std::shared_ptr<Parameter> param)
+	std::shared_ptr<T> Create(std::shared_ptr<Parameter> param = nullptr)
 	{
 		std::shared_ptr<T> newObject = std::make_shared<T>(param);
 

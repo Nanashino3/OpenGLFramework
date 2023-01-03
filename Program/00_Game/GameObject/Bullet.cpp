@@ -10,9 +10,9 @@
 #include "../../01_Engine/Intersect.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
 
-static constexpr int BULLET_SIZE = 5;
+static constexpr int BULLET_SIZE = 2;
 static constexpr float DESTROY_POS = 70.0f;
-static constexpr float MOVE_SPEED = 50.0f;
+static constexpr float MOVE_SPEED = 100.0f;
 static constexpr int DAMAGE = 5;
 
 Bullet::Bullet(std::shared_ptr<Parameter> param)
@@ -35,12 +35,14 @@ Bullet::~Bullet()
 // 戻り値：なし
 // 詳　細：弾クラスの初期化処理
 //****************************************************************************
-void Bullet::Initialize()
+//void Bullet::Initialize()
+void Bullet::Initialize(const tkl::Vector3& srcPos, const tkl::Vector3& target)
 {
-	tkl::Vector3 diff = mTargetPos - mLauncherPos;
+	tkl::Vector3 diff = target - srcPos;
 	mRadian = atan2f(diff.mZ, diff.mX);
+	mLauncherPos = srcPos;
 
-	mMesh->SetPosition(mLauncherPos);
+	mMesh->SetPosition(tkl::Vector3(srcPos.mX, 9.5f, srcPos.mZ));
 }
 
 //****************************************************************************
@@ -58,10 +60,10 @@ void Bullet::Collision()
 	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 	for(auto it = list->begin(); it != list->end(); ++it){
 		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);		
-		tkl::Vector3 unitPos = unit->GetUnitPosition();
+		tkl::Vector3 unitPos = unit->GetPosition();
 
 		// 進軍ユニットと衝突していたら弾削除
-		if(tkl::IsIntersectAABB(pos, 12.5f, unitPos, 5.0f)){
+		if(tkl::IsIntersectAABB(pos, BULLET_SIZE, unitPos, 8.5f)){
 			mIsAlive = false;
 			// TODO：与えるダメージは可変にしたい
 			unit->ReceiveDamage(DAMAGE);
@@ -101,5 +103,5 @@ void Bullet::Update()
 //****************************************************************************
 void Bullet::Draw()
 {
-	mMesh->Draw(mParam->GetCamera());
+	if(mIsAlive){ mMesh->Draw(mParam->GetCamera()); }
 }

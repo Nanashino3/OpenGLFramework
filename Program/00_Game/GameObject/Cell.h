@@ -16,15 +16,16 @@ public:
 	Cell(std::shared_ptr<Parameter> param);
 	virtual ~Cell();
 
-	virtual void Initialize() final;
+	void Initialize(const tkl::CELL& cell);
+
 	virtual void Collision() final;
 	virtual void Draw() final;
 
-	void SetCellInfo(const tkl::CELL& info){ mCellInfo = info; }
-	const tkl::CELL& GetCellInfo() { return mCellInfo; }
+	void SetCellInfo(const tkl::CELL& cell){ mCell = cell; }
+	const tkl::CELL& GetCellInfo() { return mCell; }
 
 private:
-	tkl::CELL mCellInfo;
+	tkl::CELL mCell;
 	std::vector<std::shared_ptr<tkl::Mesh>> mMeshList;
 	std::shared_ptr<tkl::Mesh> mCursor;
 	std::shared_ptr<GameParameter> mParam;

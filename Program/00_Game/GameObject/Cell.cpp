@@ -38,7 +38,7 @@ Cell::~Cell()
 // 戻り値：なし
 // 詳　細：マスクラスの初期化処理
 //****************************************************************************
-void Cell::Initialize()
+void Cell::Initialize(const tkl::CELL& cell)
 {
 	// 座標計算
 	int mapSize = mParam->GetMapSize();
@@ -48,8 +48,8 @@ void Cell::Initialize()
 	float initPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
 	float initPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
 
-	float posX = initPosX + mapSize * mCellInfo.column;
-	float posZ = initPosZ + mapSize * mCellInfo.row;
+	float posX = initPosX + mapSize * cell.column;
+	float posZ = initPosZ + mapSize * cell.row;
 
 	//*****************************************************************************************
 	// TODO：マスに何を生成するかを状態で決める
@@ -62,21 +62,26 @@ void Cell::Initialize()
 	mMeshList.emplace_back(mesh);
 
 	// 敵出現位置とゴール位置の生成
-	if(mCellInfo.status == tkl::STATUS::START || mCellInfo.status == tkl::STATUS::GOAL){
+	if(cell.status == tkl::STATUS::START || cell.status == tkl::STATUS::GOAL){
 		mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
 		mesh->SetIsBlend(true);
-		if(mCellInfo.status == tkl::STATUS::START){
-			mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_START));
-		}else if(mCellInfo.status == tkl::STATUS::GOAL){
-			mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_GAOL));
-		}
 		mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
 		mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
+
+		// テクスチャの設定
+		std::string file = "";
+		if(cell.status == tkl::STATUS::START){
+			file = TEXTURE_START;
+		}else if(cell.status == tkl::STATUS::GOAL){
+			file = TEXTURE_GAOL;
+		}
+		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(file.c_str()));
+
 		mMeshList.emplace_back(mesh);
 	}
 
 	// 障害物生成
-	if(mCellInfo.status == tkl::STATUS::OBSTACLE){
+	if(cell.status == tkl::STATUS::OBSTACLE){
 		mesh = tkl::Mesh::CreateBox(BLOCK_SIZE);
 		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_BLOCK));
 		mesh->SetPosition(tkl::Vector3(posX, BLOCK_SIZE >> 1, posZ));
@@ -89,6 +94,8 @@ void Cell::Initialize()
 	mCursor->SetIsBlend(true);
 	mCursor->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_CURSOR));
 	mCursor->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
+
+	mCell = cell;
 }
 
 //****************************************************************************
@@ -106,7 +113,7 @@ void Cell::Collision()
 	mIsSelecting = false;
 	tkl::Vector3 pos = mMeshList.at(0)->GetPosition();
 	if(tkl::IsIntersectPointRect(mousePos.mX, mousePos.mZ, pos.mX, pos.mZ, mParam->GetMapSize())){
-		if(mCellInfo.status != tkl::STATUS::EDITABLE){ return; }
+		if(mCell.status != tkl::STATUS::EDITABLE){ return; }
 
 		mIsSelecting = true;
 		mCursor->SetPosition(tkl::Vector3(pos.mX, 0.5f, pos.mZ));
@@ -115,7 +122,7 @@ void Cell::Collision()
 
 			// フィールド状態変化通知
 			mParam->SetClickPos(tkl::Vector3(pos.mX, 0, pos.mZ));
-			Notifier::GetInstance()->FieldStateChange(mCellInfo.row, mCellInfo.column, mParam);
+			Notifier::GetInstance()->FieldStateChange(mCell.row, mCell.column, mParam);
 		}
 	}
 }

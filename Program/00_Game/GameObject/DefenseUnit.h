@@ -22,7 +22,8 @@ public:
 	DefenseUnit(std::shared_ptr<Parameter> param);
 	virtual ~DefenseUnit();
 
-	virtual void Initialize() final;
+	void Initialize();
+
 	virtual void Update() final;
 	virtual void Draw() final;
 

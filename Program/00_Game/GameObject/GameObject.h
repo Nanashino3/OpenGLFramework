@@ -13,7 +13,6 @@ public:
 	GameObject() : mIsAlive(true){}
 	virtual ~GameObject(){}
 
-	virtual void Initialize(){}
 	virtual void Collision(){}
 	virtual void Update(){}
 	virtual void Draw() = 0;

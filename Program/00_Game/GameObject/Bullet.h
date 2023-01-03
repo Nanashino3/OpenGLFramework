@@ -14,16 +14,14 @@ public:
 	Bullet(std::shared_ptr<Parameter> param);
 	virtual ~Bullet();
 
-	virtual void Initialize() final;
+	void Initialize(const tkl::Vector3& srcPos, const tkl::Vector3& target);
+
 	virtual void Collision() final;
 	virtual void Update() final;
 	virtual void Draw() final;
-	void SetLauncherPos(const tkl::Vector3& pos){ mLauncherPos = pos; }
-	void SetTargetPos(const tkl::Vector3& pos){ mTargetPos = pos; }
 
 private:
 	float mRadian;
-	tkl::Vector3 mTargetPos;
 	tkl::Vector3 mLauncherPos;
 	std::shared_ptr<tkl::Mesh> mMesh;
 	std::shared_ptr<GameParameter> mParam;

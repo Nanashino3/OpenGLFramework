@@ -121,9 +121,7 @@ void DefenseUnit::Shoot(const tkl::Vector3& targetPos)
 		// ’eŠÖ˜Aˆ—
 		mBullet = ObjectManager::GetInstance()->Create<Bullet>(mParam);
 		std::shared_ptr<Bullet> bullet = mBullet.lock();
-		bullet->SetLauncherPos(mModel->GetPosition());
-		bullet->SetTargetPos(targetPos);
-		bullet->Initialize();
+		bullet->Initialize(mModel->GetPosition(), targetPos);
 
 		mSound->Play();
 	}
