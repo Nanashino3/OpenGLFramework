@@ -19,7 +19,7 @@ static constexpr const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 : mRouteCount(0)
-, mFirstPosX(0), mFirstPosZ(0)
+, mMapInitPosX(0), mMapInitPosZ(0)
 , mMoveSpeed(0)
 , mHitPoint(0)
 , mAddCoin(0)
@@ -66,12 +66,15 @@ void AdvanceUnit::Initialize()
 	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(mAngle));
 
 	// 初期座標計算
-	mFirstPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
-	mFirstPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
+	mMapInitPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
+	mMapInitPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
+
+	float posX = mMapInitPosX + mParam->GetMapSize() * mRoute[mRouteCount].column;
+	float posZ = mMapInitPosZ + mParam->GetMapSize() * mRoute[mRouteCount].row;
 
 	// モデルの生成と設定
 	mModel = tkl::Model::CreateModelFromObjFile(OBJECT_FILE);
-	mModel->SetPosition(tkl::Vector3(mFirstPosX, (mapSize >> 1), mFirstPosZ));
+	mModel->SetPosition(tkl::Vector3(posX, 10, posZ));
 	mModel->SetScale(tkl::Vector3(3.5f, 3.5f, 3.5f));
 	mModel->SetRotation(rot);
 
@@ -115,7 +118,7 @@ void AdvanceUnit::Update()
 	//******************************************************************
 	// 方向転換計算
 	float angles[] = { 90, 180, 270, 360 };
-	enum ANGLE { RIGHT, BOTTOM, LEFT, TOP };
+	enum { RIGHT, BOTTOM, LEFT, TOP };
 
 	float diffAngle = 0;
 	if(dx != 0 && mPrevDx != dx){
@@ -134,8 +137,8 @@ void AdvanceUnit::Update()
 	//******************************************************************
 	// 探索した経路を進む処理
 	int mapSize = mParam->GetMapSize();
-	float targetPosX = mFirstPosX + mapSize * mRoute[mRouteCount - 1].column;
-	float targetPosZ = mFirstPosZ + mapSize * mRoute[mRouteCount - 1].row;
+	float targetPosX = mMapInitPosX + mapSize * mRoute[mRouteCount - 1].column;
+	float targetPosZ = mMapInitPosZ + mapSize * mRoute[mRouteCount - 1].row;
 
 	pos.mX += mMoveSpeed * dx * mParam->GetDeltaTime();
 	pos.mZ += mMoveSpeed * dz * mParam->GetDeltaTime();
@@ -206,10 +209,10 @@ void AdvanceUnit::ReceiveDamage(int damage)
 // 関数名：GetPosition
 // 概　要：座標取得
 // 引　数：なし
-// 戻り値：ユニットの位置
+// 戻り値：モデルの座標
 // 詳　細：進軍ユニット自身の位置を返す
 //****************************************************************************
-tkl::Vector3 AdvanceUnit::GetPosition() const
+const tkl::Vector3& AdvanceUnit::GetPosition() const
 {
 	return mModel->GetPosition();
 }
@@ -224,10 +227,10 @@ tkl::Vector3 AdvanceUnit::GetPosition() const
 void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 {
 	if(IsPassing()){
-		printf("通り過ぎています\n"); 
+//		printf("通り過ぎています\n"); 
 		return;
 	}
-	printf("通り過ぎていません\n");
+//	printf("通り過ぎていません\n");
 
 	// 進行済ルートカウントの再計算
 	int prevSize = mRoute.size(), currentSize = newRoute.size();
@@ -238,7 +241,7 @@ void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 	if((mRoute[mRouteCount - 1].row != newRoute[newRoutCount - 1].row) ||
 		(mRoute[mRouteCount - 1].column != newRoute[newRoutCount - 1].column))
 	{
-		printf("新ルートに戻ります\n");
+//		printf("新ルートに戻ります\n");
 		mPrevRoute = mRoute;
 		mPrevRouteCount = mRouteCount;
 		mIsRetNewRoute = true;
@@ -261,8 +264,8 @@ bool AdvanceUnit::IsPassing()
 {
 	// 押下位置から行列を求める
 	tkl::Vector3 clickPos = mParam->GetClickPos();
-	int clickColumn = abs((mFirstPosX - clickPos.mX) / mParam->GetMapSize());
-	int clickRow    = abs((mFirstPosZ - clickPos.mZ) / mParam->GetMapSize());
+	int clickColumn = abs((mMapInitPosX - clickPos.mX) / mParam->GetMapSize());
+	int clickRow    = abs((mMapInitPosZ - clickPos.mZ) / mParam->GetMapSize());
 
 	int nowColumn = mRoute[mRouteCount].column;
 	int nowRow = mRoute[mRouteCount].row;
@@ -297,8 +300,8 @@ void AdvanceUnit::PrintRoute()
 	for (int i = 0; i < mRoute.size(); ++i) {
 		std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(mParam->GetMapSize());
 
-        float posX = mFirstPosX + mParam->GetMapSize() * mRoute[i].column;
-        float posZ = mFirstPosZ + mParam->GetMapSize() * mRoute[i].row;
+        float posX = mMapInitPosX + mParam->GetMapSize() * mRoute[i].column;
+        float posZ = mMapInitPosZ + mParam->GetMapSize() * mRoute[i].row;
         mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/debug/route.bmp"));
         mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
         mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));

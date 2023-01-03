@@ -22,7 +22,8 @@ public:
 	AdvanceUnit(std::shared_ptr<Parameter> param);
 	virtual ~AdvanceUnit();
 
-	virtual void Initialize() final;
+	void Initialize();
+
 	virtual void Update() final;
 	virtual void Draw() final;
 	virtual bool IsAlive() final;
@@ -30,7 +31,7 @@ public:
 	void ReceiveDamage(int damage);
 
 	void SetNewRoute(const std::vector<tkl::CELL>& newRoute);
-	tkl::Vector3 GetPosition() const;
+	const tkl::Vector3& GetPosition() const;
 
 private:
 	bool IsPassing();
@@ -38,7 +39,7 @@ private:
 
 private:
 	int mRouteCount;
-	float mFirstPosX, mFirstPosZ;
+	float mMapInitPosX, mMapInitPosZ;
 	float mMoveSpeed;
 	int mHitPoint;
 	int mAddCoin;
