@@ -19,6 +19,8 @@ public:
 	void Draw(std::shared_ptr<tkl::Camera> camera);
 	void AddPart(const std::shared_ptr<Mesh> part) { mParts.emplace_back(part); }
 
+	//*************************************************************
+	// パラメータ設定
 	void SetPosition(const tkl::Vector3& pos){
 		mPosition = pos;
 		for (int i = 0; i < mParts.size(); ++i){
@@ -40,6 +42,7 @@ public:
 	const tkl::Vector3& GetPosition() const { return mPosition; }
 	const tkl::Quaternion& GetRotation() const { return mRotation; }
 	const tkl::Vector3& GetScale() const { return mScale; }
+	//*************************************************************
 
 	//*************************************************************
 	// モデルの生成方法

@@ -22,6 +22,11 @@ public:
 	Vector3(float x, float y, float z) : mX(x), mY(y), mZ(z){}
 
 	//******************************************************
+	// 単項演算子
+	Vector3 operator-() const;
+	//******************************************************
+
+	//******************************************************
 	// ベクトル同士の計算
 	Vector3 operator+(const Vector3& a) const;
 	Vector3& operator+=(const Vector3& a);

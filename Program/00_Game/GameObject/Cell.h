@@ -8,7 +8,10 @@
 #include "../../01_Engine/Algorithm.h"
 
 class GameParameter;
-namespace tkl{ class Mesh; }
+namespace tkl{
+class Mesh;
+class Model;
+}
 
 class Cell : public GameObject
 {
@@ -29,6 +32,7 @@ private:
 	std::vector<std::shared_ptr<tkl::Mesh>> mMeshList;
 	std::shared_ptr<tkl::Mesh> mCursor;
 	std::shared_ptr<GameParameter> mParam;
+	std::shared_ptr<tkl::Model> mModel;
 	bool mIsSelecting;
 };
 

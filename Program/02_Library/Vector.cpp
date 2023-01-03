@@ -18,6 +18,14 @@ const Vector3 Vector3::NEG_UNITY( 0, -1,  0);
 const Vector3 Vector3::NEG_UNITZ( 0,  0, -1);
 
 //******************************************************
+// 単項演算子
+Vector3 Vector3::operator-() const
+{
+	return Vector3(-mX, -mY, -mZ);
+}
+//******************************************************
+
+//******************************************************
 // ベクトル同士
 Vector3 Vector3::operator+(const Vector3& a) const
 {

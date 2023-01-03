@@ -9,6 +9,7 @@
 #include "../../01_Engine/Intersect.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
+#include "../../01_Engine/Graphics/Geometry/Model.h"
 
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Input.h"
@@ -20,9 +21,11 @@ static constexpr const char* TEXTURE_BLOCK  = "Resource/texture/panel_grass.bmp"
 static constexpr const char* TEXTURE_START  = "Resource/texture/red.png";
 static constexpr const char* TEXTURE_GAOL   = "Resource/texture/blue.png";
 static constexpr const char* TEXTURE_CURSOR = "Resource/texture/frame_green.png";
+static constexpr const char* MODEL_FILE = "Resource/model/crate/SciFi_Crate.obj";
 
 Cell::Cell(std::shared_ptr<Parameter> param)
 : mCursor(nullptr)
+, mModel(nullptr)
 , mIsSelecting(false)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
@@ -82,10 +85,9 @@ void Cell::Initialize(const tkl::CELL& cell)
 
 	// áŠQ•¨¶¬
 	if(cell.status == tkl::STATUS::OBSTACLE){
-		mesh = tkl::Mesh::CreateBox(BLOCK_SIZE);
-		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_BLOCK));
-		mesh->SetPosition(tkl::Vector3(posX, BLOCK_SIZE >> 1, posZ));
-		mMeshList.emplace_back(mesh);
+		mModel = tkl::Model::CreateModelFromObjFile(MODEL_FILE);
+		mModel->SetPosition(tkl::Vector3(posX, BLOCK_SIZE >> 1, posZ));
+		mModel->SetScale(tkl::Vector3(10, 10, 10));
 	}
 	//*****************************************************************************************
 
@@ -139,6 +141,6 @@ void Cell::Draw()
 	for(auto mesh : mMeshList){
 		mesh->Draw(mParam->GetCamera());
 	}
-	
+	if(mModel != nullptr){ mModel->Draw(mParam->GetCamera()); }
 	if(mIsSelecting){ mCursor->Draw(mParam->GetCamera()); }
 }

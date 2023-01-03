@@ -12,6 +12,9 @@ static constexpr int TRIANGLE_NUM = 3;
 namespace tkl
 {
 Model::Model()
+: mPosition(tkl::Vector3::ZERO)
+, mRotation(tkl::Quaternion())
+, mScale(tkl::Vector3::ZERO)
 {}
 
 Model::~Model()

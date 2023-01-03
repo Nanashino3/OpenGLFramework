@@ -21,7 +21,7 @@ Field::Field(std::shared_ptr<Parameter> param)
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 
 	// フィールド情報読み込み
-	auto readField = tkl::LoadCsv("Resource/debug/test.csv");
+	auto readField = tkl::LoadCsv("Resource/debug/test1.csv");
 	mParam->SetMapSize(MAP_SIZE);
 	mParam->SetMapRow(readField.size());
 	mParam->SetMapColumn(readField[0].size());
@@ -34,9 +34,8 @@ Field::Field(std::shared_ptr<Parameter> param)
 			tkl::CELL cell = {r, c, static_cast<tkl::STATUS>(stoi(readField[r][c]))};
 			cells.emplace_back(cell);
 
-			std::shared_ptr<Cell> object = ObjectManager::GetInstance()->Create<Cell>(param);
-			object->SetCellInfo(cell);
-			object->Initialize();
+			std::shared_ptr<Cell> newObject = ObjectManager::GetInstance()->Create<Cell>(param);
+			newObject->Initialize(cell);
 		}
 		fields.emplace_back(cells);
 	}
