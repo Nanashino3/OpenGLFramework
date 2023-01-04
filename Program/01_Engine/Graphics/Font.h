@@ -24,7 +24,6 @@ private:
 	static void DrawString(float posX, float posY, const std::string& str, std::shared_ptr<class Camera> camera, const tkl::Vector3& color = Vector3(1, 1, 1));
 	static void DrawFont(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, int fontSize = 32, const tkl::Vector3& color = Vector3(1, 1, 1));
 private:
-	static std::shared_ptr<Mesh> sMesh;
 	static std::shared_ptr<Camera> sCamera;
 };
 

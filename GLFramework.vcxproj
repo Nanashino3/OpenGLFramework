@@ -44,6 +44,8 @@
     <ClCompile Include="Program\01_Engine\Camera\PostureControlCamera.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Button.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Canvas.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Font.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Mesh.cpp" />
@@ -118,6 +120,8 @@
     <ClInclude Include="Program\01_Engine\Camera\PostureControlCamera.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Button.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Canvas.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Font.h" />
     <ClInclude Include="Program\01_Engine\Graphics\FontManager.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Material.h" />

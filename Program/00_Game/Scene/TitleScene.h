@@ -7,8 +7,10 @@
 #include "SceneBase.h"
 namespace tkl{
 class Mesh;
+class Model;
 class Camera;
 class Sound;
+class Canvas;
 }
 class TitleScene : public SceneBase
 {
@@ -21,9 +23,12 @@ public:
 	virtual void Draw() final;
 
 private:
+	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Sound> mSndDecide;
 	std::shared_ptr<tkl::Mesh> mTexMesh;
-	std::shared_ptr<tkl::Camera> mCamera;
+	std::shared_ptr<tkl::Camera> m3DCam;
+	std::shared_ptr<tkl::Camera> m2DCam;
+	std::shared_ptr<tkl::Canvas> mCanvas;
 };
 
 #endif

@@ -14,7 +14,6 @@
 
 namespace tkl
 {
-std::shared_ptr<Mesh> Font::sMesh = nullptr;
 std::shared_ptr<Camera> Font::sCamera = nullptr;
 
 //****************************************************************************
@@ -36,8 +35,6 @@ void Font::DrawStringEx(float x, float y, const tkl::Vector3& color, const char*
 	vsprintf_s(buff, str, list);
 	va_end(list);
 
-	sMesh = Mesh::CreateMeshForFont();
-	
 	int screenWidth = 0, screenHeight = 0;
 	tkl::System::GetInstance()->GetWindowSize(&screenWidth, &screenHeight);
 	sCamera = std::make_shared<ScreenCamera>(screenWidth, screenHeight);
@@ -68,6 +65,9 @@ void Font::DrawString(float posX, float posY, const std::string& str, std::share
 	for(int i = 0; i < wcslen(buff); ++i){
 		currentFont = tkl::FontManager::GetInstance()->GetFontFromCreate(buff[i]);
 		std::shared_ptr<Texture> texture = currentFont.texture;
+		if(texture == nullptr){ return; }
+		texture->SetColor(color);
+
 		float prevFontX = static_cast<float>(prevFont.bearing.mX * 0.5f);
 		float currentFontX = static_cast<float>(currentFont.bearing.mX * 0.5f);
 
@@ -77,14 +77,14 @@ void Font::DrawString(float posX, float posY, const std::string& str, std::share
 		if(i > 0){ strPosX = prevPosX + prevFontX + currentFontX; }
 
 		// スクリーン座標に変換(左上原点にする)
-		float screenPosX = (strPosX + texture->GetWidth() * 0.5f) / static_cast<float>(camera->GetScreenWidth() * 0.5f) - 1.0f;
-		float screenPoxY = 1.0f - (strPosY + texture->GetHeight() * 0.5f) / static_cast<float>(camera->GetScreenHeight() * 0.5f);
+		float screenPosX = (strPosX + (texture->GetWidth() >> 1)) - static_cast<float>(camera->GetScreenWidth() >> 1);
+		float screenPosY = static_cast<float>(camera->GetScreenHeight() >> 1) - (strPosY + (texture->GetHeight() >> 1));
 
 		// テクスチャ用メッシュに情報を設定
-		texture->SetColor(color);
-		sMesh->SetTexture(texture);
-		sMesh->SetPosition(tkl::Vector3(screenPosX, screenPoxY, 0.0f));
-		sMesh->Draw(camera);
+		std::shared_ptr<Mesh> mesh = Mesh::CreateMeshForFont();
+		mesh->SetTexture(texture);
+		mesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0.0f));
+		mesh->Draw(camera);
 
 		// 次の文字位置計算用
 		prevPosX = strPosX;
@@ -111,8 +111,6 @@ void Font::DrawFontEx(float x, float y, int fontSize, const tkl::Vector3& color,
 	vsprintf_s(buff, str, list);
 	va_end(list);
 
-	sMesh = Mesh::CreateMeshForFont();
-
 	int screenWidth = 0, screenHeight = 0;
 	tkl::System::GetInstance()->GetWindowSize(&screenWidth, &screenHeight);
 	sCamera = std::make_shared<ScreenCamera>(screenWidth, screenHeight);
@@ -134,24 +132,45 @@ void Font::DrawFontEx(float x, float y, int fontSize, const tkl::Vector3& color,
 //****************************************************************************
 void Font::DrawFont(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, int fontSize, const tkl::Vector3& color)
 {
-	for (int i = 0; i < str.length(); ++i) {
-		tkl::Character ch = tkl::FontManager::GetInstance()->GetFontFromTTF(str[i], fontSize);
+	// 文字毎に必要な情報を作成する
+	float strOffsetX = 0, strOffsetY = 0;
+	std::vector<std::shared_ptr<Mesh>> meshList;
+	for(int i = 0; i < str.length(); ++i){
+		Character ch = FontManager::GetInstance()->GetFontFromTTF(str[i], fontSize);
 
-		if (ch.texture == nullptr) { return; }
+		if(ch.texture == nullptr){ return; }
 
-		float strPosX = posX + ch.bearing.mX;
-		float strPosY = posY - (ch.texture->GetHeight() - ch.bearing.mY);
+		float strPosX = posX, strPosY = posY;
+		if (i > 0) {
+			strPosX += ch.bearing.mX;
+			strPosY -= ch.texture->GetHeight() - ch.bearing.mY;
+		}
 
-		float screenPosX = (strPosX + (ch.texture->GetWidth() >> 1)) / static_cast<float>(sCamera->GetScreenWidth() >> 1);
-		float screenPosY = (strPosY + (ch.texture->GetHeight() >> 1)) / static_cast<float>(sCamera->GetScreenHeight() >> 1);
+		float screenPosX = strPosX + (ch.texture->GetWidth() >> 1);
+		float screenPosY = strPosY + (ch.texture->GetHeight() >> 1);
 
+		std::shared_ptr<Mesh> mesh = Mesh::CreateMeshForFont();
 		ch.texture->SetColor(color);
-		sMesh->SetTexture(ch.texture);
-		sMesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0));
-		sMesh->Draw(sCamera);
+		mesh->SetTexture(ch.texture);
+		mesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0));
+		meshList.emplace_back(mesh);
 
 		posX += (static_cast<int>(ch.advance.mX) >> 6);
 		posY += (static_cast<int>(ch.advance.mY) >> 6);
+
+		strOffsetX = std::max(strOffsetX, screenPosX);
+		strOffsetY = std::max(strOffsetY, screenPosY);
+	}
+
+	// 最後の文字の位置が文字列の最終なので
+	// 各文字にオフセットを掛けて真ん中描画にする
+	for(auto mesh : meshList){
+		Vector3 pos = mesh->GetPosition();
+		pos.mX -= strOffsetX * 0.5f;
+		pos.mY -= strOffsetY * 0.5f;
+		mesh->SetPosition(pos);
+
+		mesh->Draw(sCamera);
 	}
 }
 

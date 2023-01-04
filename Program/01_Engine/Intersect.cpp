@@ -11,16 +11,33 @@ namespace tkl
 // 　　　：arg2 縦方向成分の点
 // 　　　：arg3 横方向成分の矩形中心
 // 　　　：arg4 縦方向成分の矩形中心
-// 　　　：arg4 矩形のサイズ
+// 　　　：arg5 矩形のサイズ
 // 戻り値： [衝突している : true]   [衝突していない : false]
 // 詳　細：点と矩形の衝突検知を行い結果を返す
 //****************************************************************************
 bool IsIntersectPointRect(float ph, float pv, float rh, float rv, int size)
 {
-	float left	 = rh - (size >> 1);
-	float right	 = rh + (size >> 1);
-	float top	 = rv + (size >> 1);
-	float bottom = rv - (size >> 1);
+	return IsIntersectPointRect(ph, pv, rh, rv, size, size);
+}
+
+//****************************************************************************
+// 関数名：IsIntersectPointRect
+// 概　要：衝突検知(点と矩形)
+// 引　数：arg1 横方向成分の点
+// 　　　：arg2 縦方向成分の点
+// 　　　：arg3 横方向成分の矩形中心
+// 　　　：arg4 縦方向成分の矩形中心
+// 　　　：arg5 横方向の矩形サイズ
+// 　　　：arg6 縦方向の矩形サイズ
+// 戻り値： [衝突している : true]   [衝突していない : false]
+// 詳　細：点と矩形の衝突検知を行い結果を返す
+//****************************************************************************
+bool IsIntersectPointRect(float ph, float pv, float rh, float rv, int rhSize, int rvSize)
+{
+	float left	 = rh - (rhSize >> 1);
+	float right	 = rh + (rhSize >> 1);
+	float top	 = rv + (rvSize >> 1);
+	float bottom = rv - (rvSize >> 1);
 
 	if(left > ph)	{ return false; }
 	if(right < ph)	{ return false; }

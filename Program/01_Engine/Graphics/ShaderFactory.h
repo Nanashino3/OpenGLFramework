@@ -13,7 +13,7 @@ public:
 	static ShaderFactory* GetInstance();
 	static void DestroyInstance();
 
-	std::shared_ptr<Shader> GetShader(std::string shaderName);
+	std::shared_ptr<Shader> GetShader(const std::string& shaderName);
 
 private:
 	ShaderFactory();

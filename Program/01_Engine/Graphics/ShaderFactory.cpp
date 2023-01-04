@@ -21,7 +21,7 @@ void ShaderFactory::DestroyInstance()
 }
 
 // 組み立て
-std::shared_ptr<Shader> ShaderFactory::GetShader(std::string shaderName)
+std::shared_ptr<Shader> ShaderFactory::GetShader(const std::string& shaderName)
 {
 	// シェーダを生成済か
 	auto iter = mCacheShaders.find(shaderName);

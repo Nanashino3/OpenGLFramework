@@ -25,6 +25,7 @@ Mesh::Mesh()
 Mesh::~Mesh()
 {}
 
+// TODOFƒJƒƒ‰‚ğ“n‚³‚È‚¢‚Æ‚¢‚¯‚È‚¢‚Ì‚ªg‚¢‚É‚­‚¢
 void Mesh::Draw(std::shared_ptr<Camera> camera)
 {
 	mRenderer->SetView(camera->GetView());

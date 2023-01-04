@@ -2,19 +2,25 @@
 // ファイル名：TitleScene(タイトル画面クラス)
 // 作　成　日：2022/12/15
 #include "TitleScene.h"
-
 #include "GameScene.h"
 #include "SceneManager.h"
+
 #include "../../01_Engine/System.h"
 #include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Graphics/Font.h"
+#include "../../01_Engine/Graphics/Canvas.h"
+#include "../../01_Engine/Graphics/Geometry/Model.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/Camera/ScreenCamera.h"
+#include "../../01_Engine/Camera/FixedCamera.h"
+
 #include "../../02_Library/Input.h"
+#include "../../02_Library/Math.h"
 
 static constexpr const char* DECIDE_FILE = "Resource/sound/decide.wav";
 static constexpr const char* TEXTURE_FILE = "Resource/texture/img_title.jpg";
+static constexpr const char* MODEL_FILE = "Resource/model/earth/earth.obj";
 
 TitleScene::TitleScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
@@ -23,9 +29,27 @@ TitleScene::TitleScene(std::shared_ptr<SceneManager> manager)
 	mTexMesh = tkl::Mesh::CreateMeshForSprite();
 	mTexMesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FILE));
 
+	// カメラ関連生成
 	int screenW, screenH;
 	tkl::System::GetInstance()->GetWindowSize(&screenW, &screenH);
-	mCamera = std::make_shared<tkl::ScreenCamera>(screenW, screenH);
+	m2DCam = std::make_shared<tkl::ScreenCamera>(screenW, screenH);
+	m3DCam = std::make_shared<tkl::FixedCamera>(screenW, screenH);
+	m3DCam->SetPosition(tkl::Vector3(0, 0, 50));
+
+	// UI描画とボタンの生成
+	mCanvas = std::make_shared<tkl::Canvas>();
+	mCanvas->AddButton("Play", tkl::Vector3(0, -64, 0), [this](){ 
+		mSceneManager->LoadScene<GameScene>();
+		mSndDecide->Play();
+	});
+	mCanvas->AddButton("Exit", tkl::Vector3(0, -128, 0), [this](){
+		mSndDecide->Play();
+		exit(1);
+	});
+
+	mModel = tkl::Model::CreateModelFromObjFile(MODEL_FILE);
+	mModel->SetScale(tkl::Vector3(15, 15, 15));
+	mModel->SetPosition(tkl::Vector3(0, 10, 0));
 }
 
 TitleScene::~TitleScene()
@@ -50,12 +74,13 @@ void TitleScene::Initialize()
 //****************************************************************************
 void TitleScene::Update(float deltaTime)
 {
-	mCamera->Update();
+	m2DCam->Update();
+	m3DCam->Update();
+	mCanvas->Update();
 
-	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_ENTER)){
-		mSceneManager->LoadScene<GameScene>();
-		mSndDecide->Play();
-	}
+	tkl::Quaternion rot = mModel->GetRotation();
+	rot *= tkl::Quaternion::RotationAxis({0, 1, 0}, tkl::ToRadian(0.1f));
+	mModel->SetRotation(rot);
 }
 
 //****************************************************************************
@@ -67,7 +92,10 @@ void TitleScene::Update(float deltaTime)
 //****************************************************************************
 void TitleScene::Draw()
 {
-	mTexMesh->Draw(mCamera);
-	tkl::Font::DrawFontEx( -90, 64, 64, tkl::Vector3(1, 1, 1), "SPACE");
-	tkl::Font::DrawFontEx(-140,  0, 64, tkl::Vector3(1, 1, 1), "DEFENDER");
+	mTexMesh->Draw(m2DCam);
+	mModel->Draw(m3DCam);
+
+	tkl::Font::DrawFontEx(0, 192, 64, tkl::Vector3(1, 1, 1), "SPACE");
+	tkl::Font::DrawFontEx(0,  64, 64, tkl::Vector3(1, 1, 1), "DEFENDER");
+	mCanvas->Draw(m2DCam);
 }

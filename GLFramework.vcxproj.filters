@@ -186,6 +186,12 @@
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Model.cpp">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Button.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Canvas.cpp">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -369,6 +375,12 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Model.h">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Button.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Canvas.h">
+      <Filter>Program\01_Engine\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
