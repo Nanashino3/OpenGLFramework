@@ -39,8 +39,8 @@ TitleScene::TitleScene(std::shared_ptr<SceneManager> manager)
 	// UI•`‰æ‚Æƒ{ƒ^ƒ“‚Ì¶¬
 	mCanvas = std::make_shared<tkl::Canvas>();
 	mCanvas->AddButton("Play", tkl::Vector3(0, -64, 0), [this](){ 
-		mSceneManager->LoadScene<GameScene>();
 		mSndDecide->Play();
+		mSceneManager->LoadScene<GameScene>();
 	});
 	mCanvas->AddButton("Exit", tkl::Vector3(0, -128, 0), [this](){
 		mSndDecide->Play();
