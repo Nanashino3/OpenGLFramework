@@ -66,7 +66,7 @@ void DefenseUnit::Update()
 
 	// 1”Ô‹ß‚¢iŒRƒ†ƒjƒbƒg‚ğ’T‚·
 	tkl::Vector3 nearPos;
-	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+	const std::list<std::shared_ptr<GameObject>>* list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 	for(auto iter = list->begin(); iter != list->end(); ++iter){
 		std::shared_ptr<AdvanceUnit> unit = std::dynamic_pointer_cast<AdvanceUnit>(*iter);
 		tkl::Vector3 unitPos = unit->GetPosition();

@@ -57,7 +57,7 @@ void Bullet::Collision()
 	tkl::Vector3 pos = mMesh->GetPosition();
 
 	// 進軍ユニットリストを取得
-	auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+	const std::list<std::shared_ptr<GameObject>>* list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 	for(auto it = list->begin(); it != list->end(); ++it){
 		std::shared_ptr<AdvanceUnit> unit = std::static_pointer_cast<AdvanceUnit>(*it);		
 		tkl::Vector3 unitPos = unit->GetPosition();

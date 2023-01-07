@@ -50,7 +50,7 @@ void AdvanceUnit::Initialize()
 	int mapSize = mParam->GetMapSize();
 	int mapRow = mParam->GetMapRow();
 	int mapColumn = mParam->GetMapColumn();
-	auto field = mParam->GetFields();
+	std::vector<std::vector<tkl::CELL>> field = mParam->GetFields();
 
 	// Œo˜HŒŸõ(‰Šú)
 	tkl::Algorithm::RouteSearch(mapRow, mapColumn, field, mRoute);

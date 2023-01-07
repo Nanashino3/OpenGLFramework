@@ -21,7 +21,8 @@ Field::Field(std::shared_ptr<Parameter> param)
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 
 	// フィールド情報読み込み
-	auto readField = tkl::LoadCsv("Resource/debug/test1.csv");
+	std::vector<std::vector<std::string>> readField
+		= tkl::LoadCsv("Resource/debug/test1.csv");
 	mParam->SetMapSize(MAP_SIZE);
 	mParam->SetMapRow(readField.size());
 	mParam->SetMapColumn(readField[0].size());
@@ -57,10 +58,10 @@ void Field::Update()
 	UpdateMousePos();
 
 	// セルの状態を更新
-	auto fields = mParam->GetFields();
-	auto list = ObjectManager::GetInstance()->GetList<Cell>();
+	std::vector<std::vector<tkl::CELL>> fields = mParam->GetFields();
+	const std::list<std::shared_ptr<GameObject>>* list = ObjectManager::GetInstance()->GetList<Cell>();
 	for(auto it = list->begin(); it != list->end(); ++it){
-		auto cell = std::dynamic_pointer_cast<Cell>(*it);
+		std::shared_ptr<Cell> cell = std::dynamic_pointer_cast<Cell>(*it);
 		tkl::CELL info = cell->GetCellInfo();
 
 		cell->SetCellInfo(fields[info.row][info.column]);

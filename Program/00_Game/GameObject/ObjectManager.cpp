@@ -31,7 +31,7 @@ void ObjectManager::DestroyInstance()
 void ObjectManager::Collision()
 {
 	for (auto map : mListMap) {
-		auto list = &mListMap[map.first];
+		std::list<std::shared_ptr<GameObject>>* list = &mListMap[map.first];
 		for (auto it = list->begin(); it != list->end(); ++it) {
 			(*it)->Collision();
 		}
@@ -48,7 +48,7 @@ void ObjectManager::Collision()
 void ObjectManager::Update()
 {
 	for(auto map : mListMap){
-		auto list = &mListMap[map.first];
+		std::list<std::shared_ptr<GameObject>>* list = &mListMap[map.first];
 		for(auto it = list->begin(); it != list->end();){
 			(*it)->Update();
 			if(!(*it)->IsAlive()){
@@ -70,7 +70,7 @@ void ObjectManager::Update()
 void ObjectManager::Draw()
 {
 	for (auto map : mListMap) {
-		auto list = &mListMap[map.first];
+		std::list<std::shared_ptr<GameObject>>* list = &mListMap[map.first];
 		for (auto it = list->begin(); it != list->end(); ++it) {
 			(*it)->Draw();
 		}
