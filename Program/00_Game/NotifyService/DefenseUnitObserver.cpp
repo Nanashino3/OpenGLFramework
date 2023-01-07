@@ -26,7 +26,7 @@ DefenseUnitObserver::~DefenseUnitObserver()
 //****************************************************************************
 void DefenseUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<GameParameter> param)
 {
-	auto fields = param->GetFields();
+	std::vector<std::vector<tkl::CELL>> fields = param->GetFields();
 
 	// –h‰qƒ†ƒjƒbƒg¶¬
 	if((fields[row][column].status == tkl::STATUS::OBSTACLE) &&

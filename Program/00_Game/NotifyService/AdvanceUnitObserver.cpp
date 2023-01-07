@@ -26,7 +26,7 @@ void AdvanceUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 {
 	int mapRow = param->GetMapRow();
 	int mapColumn = param->GetMapColumn();
-	auto fields = param->GetFields();
+	std::vector<std::vector<tkl::CELL>> fields = param->GetFields();
 
 	// áŠQ•¨‚ª‚ ‚éó‘Ô‚É‚µ‚Ä‚¨‚­
 	fields[row][column].status = tkl::STATUS::OBSTACLE;
@@ -34,7 +34,7 @@ void AdvanceUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 	// Œo˜HÄ’Tõ
 	std::vector<tkl::CELL> newRoute;
 	if(tkl::Algorithm::RouteSearch(mapRow, mapColumn, fields, newRoute)){
-		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+		const std::list<std::shared_ptr<GameObject>>* list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 		for(auto it = list->begin(); it != list->end(); ++it){
 			std::shared_ptr<AdvanceUnit> unit = std::dynamic_pointer_cast<AdvanceUnit>(*it);
 			unit->SetNewRoute(newRoute);

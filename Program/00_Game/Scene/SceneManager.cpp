@@ -36,7 +36,7 @@ void SceneManager::SceneUpdate(float deltaTime)
 	if(mNowScene != mNextScene){ mNowScene = mNextScene; }
 
 	if(!mPrevScene.empty()){
-		auto prevScene = mPrevScene.top();
+		std::shared_ptr<SceneBase> prevScene = mPrevScene.top();
 		prevScene->Draw();
 	}
 
