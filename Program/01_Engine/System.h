@@ -23,9 +23,9 @@ public:
 
 private:
 	System();
+	~System();
 	System(const System& other) {}
 	System& operator=(const System& other) {}
-	~System();
 
 private:
 	static System* sMyInstance;

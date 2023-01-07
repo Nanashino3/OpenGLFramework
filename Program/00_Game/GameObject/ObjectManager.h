@@ -55,6 +55,8 @@ public:
 private:
 	ObjectManager();
 	~ObjectManager();
+	ObjectManager(const ObjectManager&){}
+	ObjectManager& operator=(const ObjectManager&){}
 
 private:
 	static ObjectManager* sMyInstance;

@@ -7,7 +7,6 @@
 namespace tkl
 {
 GLFWwindow* Input::sWindow = nullptr;
-int Input::sWindowSize[2] = {0};
 double Input::sMouseScrollValue = 0.0f;
 
 int Input::sKeyDown[GLFW_KEY_LAST] = {0};
@@ -83,10 +82,6 @@ int Input::sMouses[static_cast<int>(Input::eMouse::MOUSE_MAX)] =
 void Input::Initialize(GLFWwindow* const window, int screenWidth, int screenHeight)
 {
 	sWindow = window;
-
-	sWindowSize[0] = screenWidth;
-	sWindowSize[1] = screenHeight;
-
 	glfwSetScrollCallback(window, CallbackMouseScroll);
 }
 

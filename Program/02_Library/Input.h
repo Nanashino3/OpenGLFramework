@@ -154,7 +154,6 @@ private:
 
 private:
 	static GLFWwindow* sWindow;
-	static int sWindowSize[2];
 	static double sMouseScrollValue;
 
 	static int sKeyDown[GLFW_KEY_LAST];
