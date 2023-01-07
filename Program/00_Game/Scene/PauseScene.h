@@ -12,9 +12,9 @@ public:
 	PauseScene(std::shared_ptr<SceneManager> manager);
 	virtual ~PauseScene();
 
-	virtual void Initialize() final;
-	virtual void Update(float deltaTime) final;
-	virtual void Draw() final;
+	virtual void Initialize();
+	virtual void Update(float deltaTime);
+	virtual void Draw();
 
 private:
 	std::shared_ptr<tkl::Sound> mSndCancel;

@@ -9,7 +9,6 @@ namespace tkl{
 class Mesh;
 class Model;
 class Camera;
-class Sound;
 class Canvas;
 }
 class TitleScene : public SceneBase
@@ -18,13 +17,12 @@ public:
 	TitleScene(std::shared_ptr<SceneManager> manager);
 	virtual ~TitleScene();
 
-	virtual void Initialize() final;
-	virtual void Update(float deltaTime) final;
-	virtual void Draw() final;
+	virtual void Initialize();
+	virtual void Update(float deltaTime);
+	virtual void Draw();
 
 private:
 	std::shared_ptr<tkl::Model> mModel;
-	std::shared_ptr<tkl::Sound> mSndDecide;
 	std::shared_ptr<tkl::Mesh> mTexMesh;
 	std::shared_ptr<tkl::Camera> m3DCam;
 	std::shared_ptr<tkl::Camera> m2DCam;

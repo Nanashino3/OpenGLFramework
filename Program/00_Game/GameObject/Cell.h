@@ -21,8 +21,8 @@ public:
 
 	void Initialize(const tkl::CELL& cell);
 
-	virtual void Collision() final;
-	virtual void Draw() final;
+	virtual void Collision();
+	virtual void Draw();
 
 	void SetCellInfo(const tkl::CELL& cell){ mCell = cell; }
 	const tkl::CELL& GetCellInfo() { return mCell; }

@@ -16,9 +16,9 @@ public:
 
 	void Initialize(const tkl::Vector3& srcPos, const tkl::Vector3& target);
 
-	virtual void Collision() final;
-	virtual void Update() final;
-	virtual void Draw() final;
+	virtual void Collision();
+	virtual void Update();
+	virtual void Draw();
 
 private:
 	float mRadian;

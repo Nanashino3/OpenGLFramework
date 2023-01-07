@@ -16,7 +16,7 @@ public:
 	PostureControlCamera(int screenWidth, int screenHeight);
 	virtual ~PostureControlCamera();
 
-	virtual void Update() final;
+	virtual void Update();
 
 private:
 	void Input();

@@ -14,7 +14,7 @@ public:
 	MeshRenderer(const char* shaderName = "Lambert");
 	virtual ~MeshRenderer();
 
-	virtual void Draw(std::shared_ptr<Mesh> mesh) final;
+	virtual void Draw(std::shared_ptr<Mesh> mesh);
 
 private:
 	void SetLightUniforms(std::shared_ptr<Mesh> mesh);

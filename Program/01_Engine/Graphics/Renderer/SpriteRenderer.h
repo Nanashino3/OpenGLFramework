@@ -13,7 +13,7 @@ public:
 	SpriteRenderer(const char* shaderName = "Sprite");
 	virtual ~SpriteRenderer();
 
-	virtual void Draw(std::shared_ptr<Mesh> mesh) final;
+	virtual void Draw(std::shared_ptr<Mesh> mesh);
 };
 
 } // namespace tkl

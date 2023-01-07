@@ -9,10 +9,10 @@ class GameParameter;
 class Observer
 {
 public:
-	Observer() {}
-	virtual ~Observer() {}
+	Observer(){}
+	virtual ~Observer(){}
 
-	virtual void FieldStateChange(int row, int column, std::shared_ptr<GameParameter> param) {}
+	virtual void FieldStateChange(int row, int column, std::shared_ptr<GameParameter> param){}
 };
 
 #endif

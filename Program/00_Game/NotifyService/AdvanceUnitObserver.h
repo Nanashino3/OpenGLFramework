@@ -12,7 +12,7 @@ public:
 	AdvanceUnitObserver();
 	virtual ~AdvanceUnitObserver();
 
-	virtual void FieldStateChange(int row, int column, std::shared_ptr<GameParameter> param) final;
+	virtual void FieldStateChange(int row, int column, std::shared_ptr<GameParameter> param);
 };
 
 #endif
