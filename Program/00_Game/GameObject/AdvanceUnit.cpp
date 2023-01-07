@@ -60,12 +60,12 @@ void AdvanceUnit::Initialize()
 	tkl::Algorithm::RouteSearch(mapRow, mapColumn, field, mRoute);
 	
 	// 初期移動方向計算
-	mRouteCount = mRoute.size() - 1;
+	mRouteCount = static_cast<int>(mRoute.size() - 1);
 	mPrevDx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
 	mPrevDz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
 
-	if(mPrevDx != 0){ mAngle = (mPrevDx > 0) ?  90 : 270; }
-	if(mPrevDz != 0){ mAngle = (mPrevDz > 0) ? 180 : 360; }
+	if(mPrevDx != 0){ mAngle = (mPrevDx > 0) ?  90.f : 270.f; }
+	if(mPrevDz != 0){ mAngle = (mPrevDz > 0) ? 180.f : 360.f; }
 	tkl::Quaternion rot;
 	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(mAngle));
 
@@ -241,7 +241,8 @@ void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 //	printf("通り過ぎていません\n");
 
 	// 進行済ルートカウントの再計算
-	int prevSize = mRoute.size(), currentSize = newRoute.size();
+	int prevSize = static_cast<int>(mRoute.size());
+	int currentSize = static_cast<int>(newRoute.size());
 	int diffSize = abs(prevSize - currentSize);
 	int newRoutCount = mRouteCount + diffSize;
 
@@ -272,8 +273,8 @@ bool AdvanceUnit::IsPassing()
 {
 	// 押下位置から行列を求める
 	tkl::Vector3 clickPos = mParam->GetClickPos();
-	int clickColumn = abs((mMapInitPosX - clickPos.mX) / mParam->GetMapSize());
-	int clickRow    = abs((mMapInitPosZ - clickPos.mZ) / mParam->GetMapSize());
+	int clickColumn = static_cast<int>(abs((mMapInitPosX - clickPos.mX) / mParam->GetMapSize()));
+	int clickRow    = static_cast<int>(abs((mMapInitPosZ - clickPos.mZ) / mParam->GetMapSize()));
 
 	int nowColumn = mRoute[mRouteCount].column;
 	int nowRow = mRoute[mRouteCount].row;
@@ -306,7 +307,8 @@ bool AdvanceUnit::IsPassing()
 void AdvanceUnit::PrintRoute()
 {
 	for (int i = 0; i < mRoute.size(); ++i) {
-		std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(mParam->GetMapSize());
+		float size = static_cast<float>(mParam->GetMapSize());
+		std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(size);
 
         float posX = mMapInitPosX + mParam->GetMapSize() * mRoute[i].column;
         float posZ = mMapInitPosZ + mParam->GetMapSize() * mRoute[i].row;

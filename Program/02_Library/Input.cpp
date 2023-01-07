@@ -128,13 +128,13 @@ void Input::Update()
 }
 
 // マウス座標取得
-void Input::GetMousePoint(int* posX, int* posY)
+void Input::GetMousePoint(float& posX, float& posY)
 {
 	double currentPosX = 0.0f, currentPosY = 0.0f;
 	glfwGetCursorPos(sWindow, &currentPosX, &currentPosY);
 
-	*posX = static_cast<int>(currentPosX);
-	*posY = static_cast<int>(currentPosY);
+	posX = static_cast<float>(currentPosX);
+	posY = static_cast<float>(currentPosY);
 }
 
 // マウススクロール(コールバック関数)

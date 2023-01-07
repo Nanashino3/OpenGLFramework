@@ -59,7 +59,7 @@ public:
 	// ベクトルをマトリックスに射影する
 	static Vector3 TransformCoord(const Vector3& v, const Matrix& m);
 	// スクリーン上にレイを作成
-	static Vector3 CreateScreenRay(int screenX, int screenY, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection);
+	static Vector3 CreateScreenRay(const Vector3& screenPos, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection);
 	// 2点間の距離を求める
 	static float Distance(const Vector3& v1, const Vector3& v2);
 	// 長さを求める

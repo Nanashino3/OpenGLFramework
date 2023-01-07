@@ -80,7 +80,7 @@ public:
 	// 入力システムの更新
 	static void Update();
 	// マウス座標取得
-	static void GetMousePoint(int* posX, int* posY);
+	static void GetMousePoint(float& posX, float& posY);
 
 	// キー押下検知
 	template <typename... tKeys>

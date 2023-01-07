@@ -24,8 +24,8 @@ Field::Field(std::shared_ptr<Parameter> param)
 	std::vector<std::vector<std::string>> readField
 		= tkl::LoadCsv("Resource/debug/test1.csv");
 	mParam->SetMapSize(MAP_SIZE);
-	mParam->SetMapRow(readField.size());
-	mParam->SetMapColumn(readField[0].size());
+	mParam->SetMapRow(static_cast<int>(readField.size()));
+	mParam->SetMapColumn(static_cast<int>(readField[0].size()));
 
 	// フィールド生成
 	std::vector<std::vector<tkl::CELL>> fields;
@@ -92,11 +92,11 @@ void Field::UpdateMousePos()
 	tkl::System::GetInstance()->GetWindowSize(&screenW, &screenH);
 
 	// マウス座標を元にレイを飛ばす
-	int screenMouseX = 0, screenMouseY = 0;
-	tkl::Input::GetMousePoint(&screenMouseX, &screenMouseY);
+	float screenMouseX = 0, screenMouseY = 0;
+	tkl::Input::GetMousePoint(screenMouseX, screenMouseY);
 
 	std::shared_ptr<tkl::Camera> camera = mParam->GetCamera();
-	tkl::Vector3 ray = tkl::Vector3::CreateScreenRay(screenMouseX, screenMouseY,
+	tkl::Vector3 ray = tkl::Vector3::CreateScreenRay(tkl::Vector3(screenMouseX, screenMouseY, 0.f),
 		screenW, screenH, camera->GetView(), camera->GetProjection());
 
 	// レイと平面の衝突判定

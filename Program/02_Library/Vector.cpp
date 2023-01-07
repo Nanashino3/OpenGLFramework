@@ -137,7 +137,7 @@ Vector3 Vector3::TransformCoord(const Vector3& v, const Matrix& m)
 }
 
 // スクリーン上にレイを作成
-Vector3 Vector3::CreateScreenRay(int screenX, int screenY, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection)
+Vector3 Vector3::CreateScreenRay(const Vector3& screenPos, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection)
 {
 	// ビューポート行列を作成
 	Matrix viewport = tkl::Matrix::CreateViewport(screenW, screenH);
@@ -153,11 +153,7 @@ Vector3 Vector3::CreateScreenRay(int screenX, int screenY, int screenW, int scre
 	Matrix invView = tkl::Matrix::CreateInverseMatrix(tempView);
 	Matrix tempMatrix = invView * invProjection * invViewport;
 
-	Vector3 tempVector = tkl::Vector3(static_cast<float>(screenX),
-									  static_cast<float>(screenY),
-									  0.0f);
-
-	return tkl::Vector3::TransformCoord(tempVector, tempMatrix);
+	return tkl::Vector3::TransformCoord(screenPos, tempMatrix);
 }
 
 // 2点間の距離を求める

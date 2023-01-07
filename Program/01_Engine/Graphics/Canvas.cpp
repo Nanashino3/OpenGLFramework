@@ -47,8 +47,8 @@ void Canvas::Update()
 {
 	if(mButtons.empty()){ return; }
 
-	int mousePosX = 0, mousePosY = 0;
-	tkl::Input::GetMousePoint(&mousePosX, &mousePosY);
+	float mousePosX = 0, mousePosY = 0;
+	tkl::Input::GetMousePoint(mousePosX, mousePosY);
 	mousePosX = mousePosX - (mScreenW >> 1);
 	mousePosY = (mScreenH >> 1) - mousePosY;
 

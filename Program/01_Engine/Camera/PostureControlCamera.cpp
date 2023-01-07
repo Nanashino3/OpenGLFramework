@@ -53,10 +53,10 @@ void PostureControlCamera::Update()
 void PostureControlCamera::Input()
 {
 	// クリックした座標を記録する
-	int tempPosX = 0, tempPosY = 0;
+	float clickPosX = 0, clickPosY = 0;
 	if(tkl::Input::IsMouseDownTrigger(eMouse::MOUSE_CENTER, eMouse::MOUSE_RIGHT)){
-		tkl::Input::GetMousePoint(&tempPosX, &tempPosY);
-		mOnClickPos = tkl::Vector3(tempPosX, tempPosY, 0);
+		tkl::Input::GetMousePoint(clickPosX, clickPosY);
+		mOnClickPos = tkl::Vector3(clickPosX, clickPosY, 0.f);
 	}
 	// クリックした座標を初期化する
 	if(tkl::Input::IsMouseReleaseTrigger(eMouse::MOUSE_CENTER, eMouse::MOUSE_RIGHT)){
@@ -65,18 +65,18 @@ void PostureControlCamera::Input()
 	}
 
 	// 現在位置を取得
-	tempPosX = 0, tempPosY = 0;
+	clickPosX = 0, clickPosY = 0;
 	if(tkl::Input::IsMouseDown(eMouse::MOUSE_CENTER, eMouse::MOUSE_RIGHT)){
-		tkl::Input::GetMousePoint(&tempPosX, &tempPosY);
+		tkl::Input::GetMousePoint(clickPosX, clickPosY);
 
 		// マウス移動しているかどうか
 		mIsMouseMove = true;
-		if(mMovePos.mX == tempPosX && mMovePos.mY == tempPosY){
+		if(mMovePos.mX == clickPosX && mMovePos.mY == clickPosY){
 			mIsMouseMove = !mIsMouseMove;
 			mOnClickPos = mMovePos;
 		}else{
-			mMovePos.mX = static_cast<float>(tempPosX);
-			mMovePos.mY = static_cast<float>(tempPosY);
+			mMovePos.mX = static_cast<float>(clickPosX);
+			mMovePos.mY = static_cast<float>(clickPosY);
 		}
 	}
 }
@@ -107,7 +107,7 @@ void PostureControlCamera::Move()
 	// 視線移動
 	if(tkl::Input::IsMouseDown(eMouse::MOUSE_RIGHT)){
 		mRotation *= tkl::Quaternion::RotationAxis(axis, tkl::ToRadian(dy * 5.0f));
-		mRotation *= tkl::Quaternion::RotationAxis({ 0, 1, 0 }, tkl::ToRadian(dx * 5.0f));
+		mRotation *= tkl::Quaternion::RotationAxis({0.f, 1.f, 0.f}, tkl::ToRadian(dx * 5.0f));
 	}
 }
 
