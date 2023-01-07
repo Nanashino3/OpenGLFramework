@@ -24,8 +24,8 @@ public:
 
 	void Initialize();
 
-	virtual void Update() final;
-	virtual void Draw() final;
+	virtual void Update();
+	virtual void Draw();
 
 private:
 	void Shoot(const tkl::Vector3& targetPos);

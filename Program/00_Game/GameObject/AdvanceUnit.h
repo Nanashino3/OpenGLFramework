@@ -24,9 +24,9 @@ public:
 
 	void Initialize();
 
-	virtual void Update() final;
-	virtual void Draw() final;
-	virtual bool IsAlive() final;
+	virtual void Update();
+	virtual void Draw();
+	virtual bool IsAlive();
 
 	void ReceiveDamage(int damage);
 

@@ -13,7 +13,7 @@ public:
 	ScreenCamera(int screenWidth, int screenHeight);
 	virtual ~ScreenCamera();
 
-	virtual void Update() final;
+	virtual void Update();
 };
 
 } // namespace tkl
