@@ -13,26 +13,30 @@
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Utility.h"
 
+// ファイルパス
 static constexpr const char* CSV_PATH = "Resource/AdvanceInfo.csv";
 static constexpr const char* OBJECT_FILE = "Resource/model/UFO/TriangleUFO.obj";
 static constexpr const char* DISAPPER_SOUND = "Resource/sound/disapper.wav";
 
+// 定数
+static constexpr int MODEL_HEIGHT = 10;
+static constexpr float MODEL_SIZE = 3.5f;
+
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 : mRouteCount(0)
-, mMapInitPosX(0), mMapInitPosZ(0)
-, mMoveSpeed(0)
 , mHitPoint(0)
 , mAddCoin(0)
 , mPrevDx(0), mPrevDz(0)
-, mAngle(0)
+, mPrevRouteCount(0)
+, mMapInitPosX(0.f), mMapInitPosZ(0.f)
+, mMoveSpeed(0.f)
+, mAngle(0.f)
+, mIsRetNewRoute(false)
 , mModel(nullptr)
+, mSound(nullptr)
+, mParam(nullptr)
 {
-	mUnitInfo = tkl::LoadCsv(CSV_PATH);
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
-	mSound = tkl::Sound::CreateSound(DISAPPER_SOUND);
-
-	mIsRetNewRoute = false;
-	mPrevRouteCount = 0;
 }
 
 AdvanceUnit::~AdvanceUnit()
@@ -74,12 +78,13 @@ void AdvanceUnit::Initialize()
 
 	// モデルの生成と設定
 	mModel = tkl::Model::CreateModelFromObjFile(OBJECT_FILE);
-	mModel->SetPosition(tkl::Vector3(posX, 10, posZ));
-	mModel->SetScale(tkl::Vector3(3.5f, 3.5f, 3.5f));
+	mModel->SetPosition(tkl::Vector3(posX, MODEL_HEIGHT, posZ));
+	mModel->SetScale(tkl::Vector3(MODEL_SIZE, MODEL_SIZE, MODEL_SIZE));
 	mModel->SetRotation(rot);
 
 	// 進軍ユニットのレベル設定
 	int level = mParam->GetAdvenceLevel();
+	mUnitInfo = tkl::LoadCsv(CSV_PATH);
 	if(stoi(mUnitInfo[level][0]) <= mParam->GetTotalDefeat() && (level + 1) < mUnitInfo.size()){
 		mParam->SetAdvanceLevel(level + 1);
 		mParam->SetTotalDefeat(0);
@@ -87,6 +92,9 @@ void AdvanceUnit::Initialize()
 	mHitPoint = stoi(mUnitInfo[level][1]);
 	mMoveSpeed = stoi(mUnitInfo[level][2]);
 	mAddCoin = stoi(mUnitInfo[level][3]);
+
+	// サウンドの作成
+	mSound = tkl::Sound::CreateSound(DISAPPER_SOUND);
 }
 
 //****************************************************************************

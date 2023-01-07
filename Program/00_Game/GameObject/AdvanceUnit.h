@@ -11,7 +11,8 @@
 #include "../../01_Engine/Algorithm.h"
 
 class GameParameter;
-namespace tkl{
+namespace tkl
+{
 class Model;
 class Sound;
 }
@@ -23,38 +24,39 @@ public:
 	virtual ~AdvanceUnit();
 
 	void Initialize();
-
-	virtual void Update();
-	virtual void Draw();
-	virtual bool IsAlive();
-
 	void ReceiveDamage(int damage);
 
 	void SetNewRoute(const std::vector<tkl::CELL>& newRoute);
 	const tkl::Vector3& GetPosition() const;
+
+	virtual void Update();
+	virtual void Draw();
+	virtual bool IsAlive();
 
 private:
 	bool IsPassing();
 	void PrintRoute();
 
 private:
-	int mRouteCount;
-	float mMapInitPosX, mMapInitPosZ;
-	float mMoveSpeed;
+	int mRouteCount;					// ルート配列のカウンター用
 	int mHitPoint;
 	int mAddCoin;
-	int mPrevDx, mPrevDz;
+	int mPrevDx, mPrevDz;				// 前の進行方向(X、Z)
+	int mPrevRouteCount;				// 前のルートカウンター
+
+	float mMapInitPosX, mMapInitPosZ;	// マップの初期座標(X、Z)
+	float mMoveSpeed;
 	float mAngle;
+	
+	bool mIsRetNewRoute;				// 新ルートに戻るか
 
 	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Sound> mSound;
 	std::shared_ptr<GameParameter> mParam;
-	std::vector<tkl::CELL> mRoute;
-	std::vector<std::vector<std::string>> mUnitInfo;
 
-	int mPrevRouteCount;
-	bool mIsRetNewRoute;
+	std::vector<tkl::CELL> mRoute;
 	std::vector<tkl::CELL> mPrevRoute;
+	std::vector<std::vector<std::string>> mUnitInfo;
 };
 
 #endif
