@@ -14,8 +14,7 @@
 #include "../../02_Library/Math.h"
 #include "../../02_Library/Input.h"
 
-static constexpr int PLANE_SIZE = 50;
-static constexpr int BLOCK_SIZE = 30;
+// ファイルパス
 static constexpr const char* TEXTURE_FIELD  = "Resource/texture/panel_soil.bmp";
 static constexpr const char* TEXTURE_BLOCK  = "Resource/texture/panel_grass.bmp";
 static constexpr const char* TEXTURE_START  = "Resource/texture/red.png";
@@ -23,10 +22,19 @@ static constexpr const char* TEXTURE_GAOL   = "Resource/texture/blue.png";
 static constexpr const char* TEXTURE_CURSOR = "Resource/texture/frame_green.png";
 static constexpr const char* MODEL_FILE = "Resource/model/crate/SciFi_Crate.obj";
 
+// 定数
+static constexpr float PLANE_SIZE = 50.f;
+static constexpr float OBSTACLE_SIZE = 10.f;
+static constexpr float BLOCK_SIZE = 15.f;
+static constexpr float BASE_MESH_HEIGHT = 0.1f;
+static constexpr float CURSOR_SIZE = 50.f;
+static constexpr float CURSOR_HEIGHT = 0.5f;
+
 Cell::Cell(std::shared_ptr<Parameter> param)
-: mCursor(nullptr)
+: mIsSelecting(false)
 , mModel(nullptr)
-, mIsSelecting(false)
+, mCursor(nullptr)
+, mParam(nullptr)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 }
@@ -55,13 +63,13 @@ void Cell::Initialize(const tkl::CELL& cell)
 	float posZ = initPosZ + mapSize * cell.row;
 
 	//*****************************************************************************************
-	// TODO：マスに何を生成するかを状態で決める
+	// マスに何を生成するかを状態で決める
 	
 	// フロア生成
 	std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
 	mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
 	mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
-	mesh->SetPosition(tkl::Vector3(posX, 0, posZ));
+	mesh->SetPosition(tkl::Vector3(posX, 0.f, posZ));
 	mMeshList.emplace_back(mesh);
 
 	// 敵出現位置とゴール位置の生成
@@ -69,7 +77,7 @@ void Cell::Initialize(const tkl::CELL& cell)
 		mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
 		mesh->SetIsBlend(true);
 		mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
-		mesh->SetPosition(tkl::Vector3(posX, 0.1f, posZ));
+		mesh->SetPosition(tkl::Vector3(posX, BASE_MESH_HEIGHT, posZ));
 
 		// テクスチャの設定
 		std::string file = "";
@@ -79,20 +87,19 @@ void Cell::Initialize(const tkl::CELL& cell)
 			file = TEXTURE_GAOL;
 		}
 		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(file.c_str()));
-
 		mMeshList.emplace_back(mesh);
 	}
 
 	// 障害物生成
 	if(cell.status == tkl::STATUS::OBSTACLE){
 		mModel = tkl::Model::CreateModelFromObjFile(MODEL_FILE);
-		mModel->SetPosition(tkl::Vector3(posX, BLOCK_SIZE >> 1, posZ));
-		mModel->SetScale(tkl::Vector3(10, 10, 10));
+		mModel->SetPosition(tkl::Vector3(posX, BLOCK_SIZE, posZ));
+		mModel->SetScale(tkl::Vector3(OBSTACLE_SIZE, OBSTACLE_SIZE, OBSTACLE_SIZE));
 	}
 	//*****************************************************************************************
 
 	// カーソル生成
-	mCursor = tkl::Mesh::CreatePlane(50);
+	mCursor = tkl::Mesh::CreatePlane(CURSOR_SIZE);
 	mCursor->SetIsBlend(true);
 	mCursor->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_CURSOR));
 	mCursor->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
@@ -118,12 +125,12 @@ void Cell::Collision()
 		if(mCell.status != tkl::STATUS::EDITABLE){ return; }
 
 		mIsSelecting = true;
-		mCursor->SetPosition(tkl::Vector3(pos.mX, 0.5f, pos.mZ));
+		mCursor->SetPosition(tkl::Vector3(pos.mX, CURSOR_HEIGHT, pos.mZ));
 
 		if(tkl::Input::IsMouseDownTrigger(tkl::eMouse::MOUSE_LEFT)){
 
 			// フィールド状態変化通知
-			mParam->SetClickPos(tkl::Vector3(pos.mX, 0, pos.mZ));
+			mParam->SetClickPos(tkl::Vector3(pos.mX, 0.f, pos.mZ));
 			Notifier::GetInstance()->FieldStateChange(mCell.row, mCell.column, mParam);
 		}
 	}

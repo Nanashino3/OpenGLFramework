@@ -8,7 +8,8 @@
 #include "../../01_Engine/Algorithm.h"
 
 class GameParameter;
-namespace tkl{
+namespace tkl
+{
 class Mesh;
 class Model;
 }
@@ -21,19 +22,21 @@ public:
 
 	void Initialize(const tkl::CELL& cell);
 
+	void SetCellInfo(const tkl::CELL& cell) { mCell = cell; }
+	const tkl::CELL& GetCellInfo() { return mCell; }
+
 	virtual void Collision();
 	virtual void Draw();
 
-	void SetCellInfo(const tkl::CELL& cell){ mCell = cell; }
-	const tkl::CELL& GetCellInfo() { return mCell; }
-
 private:
+	bool mIsSelecting;	// カーソルで選択中か
 	tkl::CELL mCell;
-	std::vector<std::shared_ptr<tkl::Mesh>> mMeshList;
+
+	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Mesh> mCursor;
 	std::shared_ptr<GameParameter> mParam;
-	std::shared_ptr<tkl::Model> mModel;
-	bool mIsSelecting;
+
+	std::vector<std::shared_ptr<tkl::Mesh>> mMeshList;	// 1マスに複数のメッシュを登録
 };
 
 #endif
