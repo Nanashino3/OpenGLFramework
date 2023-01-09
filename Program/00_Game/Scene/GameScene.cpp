@@ -21,31 +21,35 @@
 #include "../../01_Engine/Camera/FixedCamera.h"
 #include "../../01_Engine/Camera/ScreenCamera.h"
 #include "../../01_Engine/Sound/Sound.h"
-#include "../../01_Engine/Graphics/Font.h"
 #include "../../01_Engine/ResourceManager.h"
+#include "../../01_Engine/Graphics/Font.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
 
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
-static constexpr int MAX_CREATE = 5;
-static constexpr int MAX_DURABILITY = 1;
+// ファイルパス
 static constexpr const char* BGM_FILE = "Resource/sound/gamebgm.wav";
 static constexpr const char* PAUSE_SE_FILE = "Resource/sound/pause.wav";
+static constexpr const char* BG_TEXTURE = "Resource/texture/img_play.jpg";
+
+// 定数
+static constexpr int MAX_CREATE = 1;
+static constexpr int MAX_DURABILITY = 1;
+static constexpr float CREATE_INTERVAL = 5.0f;
+static constexpr float CAMERA_POS_Y = 250.0f;
+static constexpr float CAMERA_POS_Z = 200.0f;
 
 GameScene::GameScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
-, mElapsed(0)
 , mDurability(MAX_DURABILITY)
+, mElapsedTime(0.0f)
+, mField(nullptr)
 , mParam(nullptr)
 , m3DCam(nullptr), m2DCam(nullptr)
 , mbgTex(nullptr)
-, mField(nullptr)
-, mSndBgm(nullptr)
-{
-	mSndBgm = tkl::Sound::CreateSound(BGM_FILE);
-	mSndPause = tkl::Sound::CreateSound(PAUSE_SE_FILE);
-}
+, mSndBgm(nullptr), mSndPause(nullptr)
+{}
 
 GameScene::~GameScene()
 {
@@ -62,13 +66,16 @@ GameScene::~GameScene()
 //****************************************************************************
 void GameScene::Initialize()
 {
+	mSndBgm = tkl::Sound::CreateSound(BGM_FILE);
+	mSndPause = tkl::Sound::CreateSound(PAUSE_SE_FILE);
+
 	// ウィンドウサイズを取得
 	int screenW, screenH;
 	tkl::System::GetInstance()->GetWindowSize(&screenW, &screenH);
 
 	// 3Dカメラ生成
 	m3DCam = std::make_shared<tkl::FixedCamera>(screenW, screenH);
-	m3DCam->SetPosition(tkl::Vector3(0, 350, 180));
+	m3DCam->SetPosition(tkl::Vector3(0.0f, CAMERA_POS_Y, CAMERA_POS_Z));
 
 	m2DCam = std::make_shared<tkl::ScreenCamera>(screenW, screenH);
 
@@ -80,7 +87,7 @@ void GameScene::Initialize()
 	mField = std::make_shared<Field>(mParam);
 
 	mbgTex = tkl::Mesh::CreateMeshForSprite();
-	mbgTex->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile("Resource/texture/img_play.jpg"));
+	mbgTex->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(BG_TEXTURE));
 
 	// オブザーバー登録
 	Notifier::GetInstance()->AddObserver(std::make_shared<AdvanceUnitObserver>());
@@ -98,8 +105,8 @@ void GameScene::Update(float deltaTime)
 {
 	// TODO：暫定で耐久を設ける
 	if(mDurability == 0){
-		mSceneManager->CallScene<GameOverScene>();
 		mSndBgm->Stop();
+		mSceneManager->CallScene(std::make_shared<GameOverScene>(mSceneManager));
 		return;
 	}
 	if(!mSndBgm->IsPlay()){ mSndBgm->Play(); }
@@ -115,15 +122,15 @@ void GameScene::Update(float deltaTime)
 	}
 
 	// 進軍ユニット
-	mElapsed += deltaTime;
-	if(mElapsed > 5.0f){
-		mElapsed = 0;
+	mElapsedTime += deltaTime;
+	if(mElapsedTime > CREATE_INTERVAL){
+		mElapsedTime = 0.0f;
 
-		auto list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
+		const std::list<std::shared_ptr<GameObject>>* list = ObjectManager::GetInstance()->GetList<AdvanceUnit>();
 		if(list->size() != MAX_CREATE){
 			// 進軍ユニット生成
-			auto newUnit = ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
-			newUnit->Initialize();
+			std::shared_ptr<AdvanceUnit> newObject = ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
+			newObject->Initialize();
 		}
 	}
 
@@ -137,8 +144,8 @@ void GameScene::Update(float deltaTime)
 	ObjectManager::GetInstance()->Update();
 
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
-		mSceneManager->CallScene<PauseScene>();
 		mSndPause->Play();
+		mSceneManager->CallScene(std::make_shared<PauseScene>(mSceneManager));
 	}
 }
 
@@ -153,9 +160,9 @@ void GameScene::Draw()
 {
 	mbgTex->Draw(m2DCam);
 
-	tkl::Font::DrawStringEx(0,   0, tkl::Vector3(1, 1, 1), "耐久度 : %d", mDurability);
-	tkl::Font::DrawStringEx(0,  50, tkl::Vector3(1, 1, 1), "残金 : %d", mParam->GetTotalCost());
-	tkl::Font::DrawStringEx(0, 100, tkl::Vector3(1, 1, 1), "進軍レベル : %2d", mParam->GetAdvenceLevel());
+	tkl::Font::DrawStringEx(0.0f,   0.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "耐久度 : %d", mDurability);
+	tkl::Font::DrawStringEx(0.0f,  50.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "残金 : %d", mParam->GetTotalCost());
+	tkl::Font::DrawStringEx(0.0f, 100.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "進軍レベル : %2d", mParam->GetAdvenceLevel());
 
 	// フィールドの更新
 	mField->Draw();

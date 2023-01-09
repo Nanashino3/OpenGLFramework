@@ -8,11 +8,13 @@
 
 class Field;
 class GameParameter;
-namespace tkl{
+namespace tkl
+{
 class Camera;
 class Mesh;
 class Sound;
 }
+
 class GameScene : public SceneBase
 {
 public:
@@ -24,14 +26,14 @@ public:
 	virtual void Draw();
 
 private:
-	float mElapsed;
 	int mDurability;
+	float mElapsedTime;
+
+	std::shared_ptr<Field> mField;
 	std::shared_ptr<GameParameter> mParam;
 	std::shared_ptr<tkl::Camera> m3DCam;
 	std::shared_ptr<tkl::Camera> m2DCam;
-
 	std::shared_ptr<tkl::Mesh> mbgTex;
-	std::shared_ptr<Field> mField;
 	std::shared_ptr<tkl::Sound> mSndBgm;
 	std::shared_ptr<tkl::Sound> mSndPause;
 };
