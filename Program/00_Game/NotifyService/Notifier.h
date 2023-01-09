@@ -9,6 +9,7 @@
 
 class Observer;
 class GameParameter;
+
 class Notifier
 {
 public:

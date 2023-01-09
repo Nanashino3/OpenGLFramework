@@ -5,7 +5,9 @@
 #define _OBSERVER_H_
 
 #include <memory>
+
 class GameParameter;
+
 class Observer
 {
 public:
