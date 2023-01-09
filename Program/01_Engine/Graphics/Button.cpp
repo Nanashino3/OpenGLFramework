@@ -3,11 +3,12 @@
 // çÏÅ@ê¨Å@ì˙ÅF2022/1/5
 #include "Button.h"
 
+#include "../ResourceManager.h"
+#include "../Intersect.h"
 #include "../Graphics/Geometry/Mesh.h"
 #include "../Graphics/Geometry/Texture.h"
 #include "../Graphics/Font.h"
-#include "../ResourceManager.h"
-#include "../Intersect.h"
+#include "../Sound/Sound.h"
 
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Vector.h"
@@ -22,6 +23,8 @@ Button::Button(const std::string& name, const Vector3& pos, std::function<void()
 , mButtonOff(nullptr)
 , mOnClick(onClick)
 {
+	mSound = Sound::CreateSound("Resource/sound/decide.wav");
+
 	mMesh = Mesh::CreateMeshForSprite();
 	mMesh->SetPosition(pos);
 
@@ -42,7 +45,10 @@ Button::~Button()
 void Button::Update()
 {
 	if(mIsFocus && Input::IsMouseDownTrigger(eMouse::MOUSE_LEFT)){
-		if(mOnClick){ mOnClick(); }
+		if(mOnClick){
+			mSound->Play();
+			mOnClick();
+		}
 	}
 	mMesh->SetTexture(mIsFocus ? mButtonOn : mButtonOff);
 }
@@ -57,7 +63,7 @@ void Button::Update()
 void Button::Draw(std::shared_ptr<Camera> camera)
 {
 	mMesh->Draw(camera);
-	Font::DrawFontEx(mMesh->GetPosition().mX, mMesh->GetPosition().mY - 5, 32, Vector3(1, 1, 1), mText.c_str());
+	Font::DrawFontEx(mMesh->GetPosition().mX, mMesh->GetPosition().mY - 5.0f, 32, Vector3(1, 1, 1), mText.c_str());
 }
 
 //****************************************************************************
@@ -70,8 +76,8 @@ void Button::Draw(std::shared_ptr<Camera> camera)
 bool Button::ContainsPoint(const Vector3& mousePos)
 {
 	Vector3 pos = mMesh->GetPosition();
-	float textureW = mButtonOff->GetWidth();
-	float textureH = mButtonOff->GetHeight();
+	int textureW = mButtonOff->GetWidth();
+	int textureH = mButtonOff->GetHeight();
 	return tkl::IsIntersectPointRect(mousePos.mX, mousePos.mY, pos.mX, pos.mY, textureW, textureH);
 }
 

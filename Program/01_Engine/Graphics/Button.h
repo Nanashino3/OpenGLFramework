@@ -13,6 +13,7 @@ namespace tkl
 class Mesh;
 class Texture;
 class Camera;
+class Sound;
 class Vector3;
 class Button
 {
@@ -32,6 +33,7 @@ private:
 	std::shared_ptr<Mesh> mMesh;
 	std::shared_ptr<Texture> mButtonOn;
 	std::shared_ptr<Texture> mButtonOff;
+	std::shared_ptr<Sound> mSound;
 
 	std::function<void()> mOnClick;
 };

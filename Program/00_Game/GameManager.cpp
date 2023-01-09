@@ -11,7 +11,7 @@ GameManager* GameManager::sMyInstance = nullptr;
 GameManager::GameManager()
 {
 	mSceneManager = std::make_shared<SceneManager>();
-	mSceneManager->LoadScene<TitleScene>();
+	mSceneManager->LoadScene(std::make_shared<TitleScene>(mSceneManager));
 }
 
 GameManager::~GameManager()

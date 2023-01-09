@@ -133,7 +133,7 @@ void Font::DrawFontEx(float x, float y, int fontSize, const tkl::Vector3& color,
 void Font::DrawFont(float posX, float posY, const std::string& str, std::shared_ptr<Camera> camera, int fontSize, const tkl::Vector3& color)
 {
 	// ï∂éöñàÇ…ïKóvÇ»èÓïÒÇçÏê¨Ç∑ÇÈ
-	float strOffsetX = 0, strOffsetY = 0;
+	float strOffsetX = 0.0f, strOffsetY = 0.0f;
 	std::vector<std::shared_ptr<Mesh>> meshList;
 	for(int i = 0; i < str.length(); ++i){
 		Character ch = FontManager::GetInstance()->GetFontFromTTF(str[i], fontSize);
@@ -146,17 +146,17 @@ void Font::DrawFont(float posX, float posY, const std::string& str, std::shared_
 			strPosY -= ch.texture->GetHeight() - ch.bearing.mY;
 		}
 
-		float screenPosX = strPosX + (ch.texture->GetWidth() >> 1);
-		float screenPosY = strPosY + (ch.texture->GetHeight() >> 1);
+		float screenPosX = strPosX + static_cast<float>(ch.texture->GetWidth() >> 1);
+		float screenPosY = strPosY + static_cast<float>(ch.texture->GetHeight() >> 1);
 
 		std::shared_ptr<Mesh> mesh = Mesh::CreateMeshForFont();
 		ch.texture->SetColor(color);
 		mesh->SetTexture(ch.texture);
-		mesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0));
+		mesh->SetPosition(tkl::Vector3(screenPosX, screenPosY, 0.0f));
 		meshList.emplace_back(mesh);
 
-		posX += (static_cast<int>(ch.advance.mX) >> 6);
-		posY += (static_cast<int>(ch.advance.mY) >> 6);
+		posX += static_cast<float>(static_cast<int>(ch.advance.mX) >> 6);
+		posY += static_cast<float>(static_cast<int>(ch.advance.mY) >> 6);
 
 		strOffsetX = std::max(strOffsetX, screenPosX);
 		strOffsetY = std::max(strOffsetY, screenPosY);

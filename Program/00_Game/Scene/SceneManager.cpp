@@ -10,6 +10,34 @@ SceneManager::~SceneManager()
 {}
 
 //****************************************************************************
+// 関数名：LoadScene
+// 概　要：画面の読み込み
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：指定した新しい画面を読み込む
+//****************************************************************************
+void SceneManager::LoadScene(std::shared_ptr<SceneBase> nextScene)
+{
+	while (!mPrevScene.empty()) { mPrevScene.pop(); }
+	mNextScene = nextScene;
+	mNextScene->Initialize();
+}
+
+//****************************************************************************
+// 関数名：CallScene
+// 概　要：画面の呼び出し
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：指定した画面を呼び出す(モーダルに近い)
+//****************************************************************************
+void SceneManager::CallScene(std::shared_ptr<SceneBase> nextScene)
+{
+	if (mNowScene) mPrevScene.push(mNowScene);
+	mNextScene = nextScene;
+	mNextScene->Initialize();
+}
+
+//****************************************************************************
 // 関数名：ReturnScene
 // 概　要：画面を戻す
 // 引　数：なし

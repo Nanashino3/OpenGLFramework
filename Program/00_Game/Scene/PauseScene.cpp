@@ -8,11 +8,13 @@
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../02_Library/Input.h"
 
+// ファイルパス
+static constexpr const char* SOUND_FILE = "Resource/sound/cancel.wav";
+
 PauseScene::PauseScene(std::shared_ptr<SceneManager> manager)
 : SceneBase(manager)
-{
-	mSndCancel = tkl::Sound::CreateSound("Resource/sound/cancel.wav");
-}
+, mSndCancel(nullptr)
+{}
 
 PauseScene::~PauseScene()
 {}
@@ -25,7 +27,9 @@ PauseScene::~PauseScene()
 // 詳　細：初期化処理を行う
 //****************************************************************************
 void PauseScene::Initialize()
-{}
+{
+	mSndCancel = tkl::Sound::CreateSound(SOUND_FILE);
+}
 
 //****************************************************************************
 // 関数名：Update
@@ -38,8 +42,8 @@ void PauseScene::Update(float deltaTime)
 {
 	// 前のシーンに戻る
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
-		mSceneManager->ReturnScene();
 		mSndCancel->Play();
+		mSceneManager->ReturnScene();
 	}
 }
 

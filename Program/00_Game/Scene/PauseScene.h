@@ -5,7 +5,9 @@
 #define _PAUSESCENE_H_
 
 #include "SceneBase.h"
+
 namespace tkl{ class Sound; }
+
 class PauseScene : public SceneBase
 {
 public:
