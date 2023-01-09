@@ -4,11 +4,12 @@
 #include <memory>
 
 namespace tkl { class Camera; }
+
 class Parameter
 {
 public:
 	Parameter()
-	: mDeltaTime(0)
+	: mDeltaTime(0.0f)
 	, mCamera(nullptr)
 	{}
 	virtual ~Parameter(){}

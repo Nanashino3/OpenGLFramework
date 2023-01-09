@@ -7,10 +7,13 @@
 #include <memory>
 
 class Parameter;
+
 class GameObject
 {
 public:
-	GameObject() : mIsAlive(true){}
+	GameObject()
+	: mIsAlive(true), mParam(nullptr)
+	{}
 	virtual ~GameObject(){}
 
 	virtual void Collision(){}

@@ -28,9 +28,9 @@ AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 , mAddCoin(0)
 , mPrevDx(0), mPrevDz(0)
 , mPrevRouteCount(0)
-, mMapInitPosX(0.f), mMapInitPosZ(0.f)
-, mMoveSpeed(0.f)
-, mAngle(0.f)
+, mMapInitPosX(0.0f), mMapInitPosZ(0.0f)
+, mMoveSpeed(0.0f)
+, mAngle(0.0f)
 , mIsRetNewRoute(false)
 , mModel(nullptr)
 , mSound(nullptr)
@@ -64,8 +64,8 @@ void AdvanceUnit::Initialize()
 	mPrevDx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
 	mPrevDz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
 
-	if(mPrevDx != 0){ mAngle = (mPrevDx > 0) ?  90.f : 270.f; }
-	if(mPrevDz != 0){ mAngle = (mPrevDz > 0) ? 180.f : 360.f; }
+	if(mPrevDx != 0){ mAngle = (mPrevDx > 0) ?  90.0f : 270.0f; }
+	if(mPrevDz != 0){ mAngle = (mPrevDz > 0) ? 180.0f : 360.0f; }
 	tkl::Quaternion rot;
 	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(mAngle));
 
@@ -125,7 +125,7 @@ void AdvanceUnit::Update()
 
 	//******************************************************************
 	// •ûŒü“]Š·ŒvŽZ
-	float angles[] = { 90, 180, 270, 360 };
+	float angles[] = { 90.0f, 180.0f, 270.0f, 360.0f };
 	enum { RIGHT, BOTTOM, LEFT, TOP };
 
 	float diffAngle = 0;

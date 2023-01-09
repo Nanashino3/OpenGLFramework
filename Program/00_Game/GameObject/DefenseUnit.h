@@ -10,7 +10,8 @@
 
 class Bullet;
 class GameParameter;
-namespace tkl{
+namespace tkl
+{
 class Model;
 class Sound;
 class Vector3;
@@ -31,12 +32,12 @@ private:
 	void Shoot(const tkl::Vector3& targetPos);
 
 private:
-	float mElapsed;
-	std::shared_ptr<GameParameter> mParam;
-	std::weak_ptr<Bullet> mBullet;
+	float mElapsedTime;
 
 	std::shared_ptr<tkl::Model> mModel;
 	std::shared_ptr<tkl::Sound> mSound;
+	std::shared_ptr<GameParameter> mParam;
+	std::weak_ptr<Bullet> mBullet;
 };
 
 #endif

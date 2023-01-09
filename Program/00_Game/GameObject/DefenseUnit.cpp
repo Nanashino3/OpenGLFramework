@@ -14,20 +14,23 @@
 
 #include "../../02_Library/Math.h"
 
+// ファイルパス
 static constexpr const char* MODEL_FILE = "Resource/Model/Turret/1/Turret.obj";
 static constexpr const char* SOUND_FILE = "Resource/sound/shot.wav";
+
+// 定数
+static constexpr int CONSUME_COST = 75;
 static constexpr float MODEL_SCALE = 15;
 static constexpr float DIST_MAX = 70.0f;
-static constexpr int CONSUME_COST = 75;
+static constexpr float CREATE_INTERVAL = 0.8f;
 
 DefenseUnit::DefenseUnit(std::shared_ptr<Parameter> param)
-: mElapsed(0)
-, mParam(nullptr)
+: mElapsedTime(0.0f)
 , mModel(nullptr)
 , mSound(nullptr)
+, mParam(nullptr)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);	
-	mSound = tkl::Sound::CreateSound(SOUND_FILE);
 }
 
 DefenseUnit::~DefenseUnit()
@@ -42,6 +45,8 @@ DefenseUnit::~DefenseUnit()
 //****************************************************************************
 void DefenseUnit::Initialize()
 {
+	mSound = tkl::Sound::CreateSound(SOUND_FILE);
+
 	tkl::Vector3 clickPos = mParam->GetClickPos();
 
 	mModel = tkl::Model::CreateModelFromObjFile(MODEL_FILE);
@@ -73,11 +78,11 @@ void DefenseUnit::Update()
 
 		float dist = tkl::Vector3::Distance(unitPos, modelPos);
 		if(dist <= DIST_MAX){
-			// 進軍ユニットの方向を向かせる
-			nearPos = tkl::Vector3(unitPos.mX, 0, unitPos.mZ);
+			// 進軍ユニットの方向に向く
+			nearPos = tkl::Vector3(unitPos.mX, 0.0f, unitPos.mZ);
 			tkl::Vector3 dir = nearPos - modelPos;
 			float theta = tkl::ToDegree(std::atan2f(dir.mX, dir.mZ));
-			rot = tkl::Quaternion::RotationAxis({0, 1, 0}, tkl::ToRadian(-theta));
+			rot = tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(-theta));
 			break;
 		}
 	}
@@ -114,9 +119,9 @@ void DefenseUnit::Shoot(const tkl::Vector3& targetPos)
 
 	// 弾が消滅してから秒後に発射する
 	// TODO：インターバルは可変にしたい
-	mElapsed += mParam->GetDeltaTime();
-	if(mElapsed > 0.8f){
-		mElapsed = 0;
+	mElapsedTime += mParam->GetDeltaTime();
+	if(mElapsedTime > CREATE_INTERVAL){
+		mElapsedTime = 0.0f;
 
 		// 弾関連処理
 		mBullet = ObjectManager::GetInstance()->Create<Bullet>(mParam);

@@ -23,11 +23,11 @@ static constexpr const char* TEXTURE_CURSOR = "Resource/texture/frame_green.png"
 static constexpr const char* MODEL_FILE = "Resource/model/crate/SciFi_Crate.obj";
 
 // 定数
-static constexpr float PLANE_SIZE = 50.f;
-static constexpr float OBSTACLE_SIZE = 10.f;
-static constexpr float BLOCK_SIZE = 15.f;
+static constexpr float PLANE_SIZE = 50.0f;
+static constexpr float OBSTACLE_SIZE = 10.0f;
+static constexpr float BLOCK_SIZE = 15.0f;
 static constexpr float BASE_MESH_HEIGHT = 0.1f;
-static constexpr float CURSOR_SIZE = 50.f;
+static constexpr float CURSOR_SIZE = 50.0f;
 static constexpr float CURSOR_HEIGHT = 0.5f;
 
 Cell::Cell(std::shared_ptr<Parameter> param)
@@ -69,7 +69,7 @@ void Cell::Initialize(const tkl::CELL& cell)
 	std::shared_ptr<tkl::Mesh> mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
 	mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(TEXTURE_FIELD));
 	mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
-	mesh->SetPosition(tkl::Vector3(posX, 0.f, posZ));
+	mesh->SetPosition(tkl::Vector3(posX, 0.0f, posZ));
 	mMeshList.emplace_back(mesh);
 
 	// 敵出現位置とゴール位置の生成
@@ -128,9 +128,8 @@ void Cell::Collision()
 		mCursor->SetPosition(tkl::Vector3(pos.mX, CURSOR_HEIGHT, pos.mZ));
 
 		if(tkl::Input::IsMouseDownTrigger(tkl::eMouse::MOUSE_LEFT)){
-
 			// フィールド状態変化通知
-			mParam->SetClickPos(tkl::Vector3(pos.mX, 0.f, pos.mZ));
+			mParam->SetClickPos(tkl::Vector3(pos.mX, 0.0f, pos.mZ));
 			Notifier::GetInstance()->FieldStateChange(mCell.row, mCell.column, mParam);
 		}
 	}
