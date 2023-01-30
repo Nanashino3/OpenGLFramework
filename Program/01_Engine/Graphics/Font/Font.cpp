@@ -5,12 +5,12 @@
 
 #include <stdarg.h>
 #include "FontManager.h"
-#include "Geometry/Mesh.h"
-#include "Geometry/Texture.h"
+#include "../Geometry/Mesh.h"
+#include "../Geometry/Texture.h"
 
-#include "../System.h"
-#include "../Camera/ScreenCamera.h"
-#include "../../02_Library/Utility.h"
+#include "../../System.h"
+#include "../../Camera/ScreenCamera.h"
+#include "../../../02_Library/Utility.h"
 
 namespace tkl
 {

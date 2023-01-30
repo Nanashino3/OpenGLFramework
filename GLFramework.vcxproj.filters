@@ -40,6 +40,9 @@
     <Filter Include="Program\01_Engine\Graphics\Geometry">
       <UniqueIdentifier>{f52efef9-ba99-4710-b8c2-2b93275c37e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\01_Engine\Graphics\Font">
+      <UniqueIdentifier>{9a23ecb6-d141-4e6a-8e31-954e2462a1f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
@@ -144,12 +147,6 @@
     <ClCompile Include="Program\00_Game\GameObject\Cell.cpp">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\Font.cpp">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Shader.cpp">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClCompile>
@@ -191,6 +188,12 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Canvas.cpp">
       <Filter>Program\01_Engine\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Font\Font.cpp">
+      <Filter>Program\01_Engine\Graphics\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\01_Engine\Graphics\Font\FontManager.cpp">
+      <Filter>Program\01_Engine\Graphics\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,12 +337,6 @@
     <ClInclude Include="Program\00_Game\GameObject\Cell.h">
       <Filter>Program\00_Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\Font.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Program\01_Engine\Graphics\FontManager.h">
-      <Filter>Program\01_Engine\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Shader.h">
       <Filter>Program\01_Engine\Graphics</Filter>
     </ClInclude>
@@ -381,6 +378,12 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Canvas.h">
       <Filter>Program\01_Engine\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Font\Font.h">
+      <Filter>Program\01_Engine\Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\01_Engine\Graphics\Font\FontManager.h">
+      <Filter>Program\01_Engine\Graphics\Font</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

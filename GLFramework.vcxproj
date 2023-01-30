@@ -46,8 +46,8 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Button.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Canvas.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\Font.cpp" />
-    <ClCompile Include="Program\01_Engine\Graphics\FontManager.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Font\Font.cpp" />
+    <ClCompile Include="Program\01_Engine\Graphics\Font\FontManager.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Mesh.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Model.cpp" />
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\OBJLoader.cpp" />
@@ -122,8 +122,8 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Button.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Canvas.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\Font.h" />
-    <ClInclude Include="Program\01_Engine\Graphics\FontManager.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Font\Font.h" />
+    <ClInclude Include="Program\01_Engine\Graphics\Font\FontManager.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Material.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Mesh.h" />
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Model.h" />

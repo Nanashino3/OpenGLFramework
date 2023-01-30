@@ -22,7 +22,7 @@
 #include "../../01_Engine/Camera/ScreenCamera.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
-#include "../../01_Engine/Graphics/Font.h"
+#include "../../01_Engine/Graphics/Font/Font.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
 
 #include "../../02_Library/Input.h"
@@ -34,7 +34,7 @@ static constexpr const char* PAUSE_SE_FILE = "Resource/sound/pause.wav";
 static constexpr const char* BG_TEXTURE = "Resource/texture/img_play.jpg";
 
 // íËêî
-static constexpr int MAX_CREATE = 1;
+static constexpr int MAX_CREATE = 5;
 static constexpr int MAX_DURABILITY = 1;
 static constexpr float CREATE_INTERVAL = 5.0f;
 static constexpr float CAMERA_POS_Y = 250.0f;

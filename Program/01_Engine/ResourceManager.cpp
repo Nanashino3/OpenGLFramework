@@ -4,7 +4,6 @@
 #include "ResourceManager.h"
 
 #include <iostream>
-#include <string>
 
 #include <SOIL.h>
 #include "Sound/SoundParser.h"

@@ -7,7 +7,7 @@
 
 #include "../../01_Engine/System.h"
 #include "../../01_Engine/ResourceManager.h"
-#include "../../01_Engine/Graphics/Font.h"
+#include "../../01_Engine/Graphics/Font/Font.h"
 #include "../../01_Engine/Graphics/Geometry/Model.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
 #include "../../01_Engine/Graphics/Canvas.h"

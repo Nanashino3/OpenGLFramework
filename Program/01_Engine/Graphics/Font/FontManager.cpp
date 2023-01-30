@@ -2,11 +2,11 @@
 // ファイル名：FontManager(フォント管理者クラス)
 // 作　成　日：2022/10/27
 #include "FontManager.h"
-#include "Geometry/Texture.h"
+#include "../Geometry/Texture.h"
 
-#include "../../01_Engine/ResourceManager.h"
-#include "../../02_Library/FontTexture.h"
-#include "../../02_Library/Utility.h"
+#include "../../../01_Engine/ResourceManager.h"
+#include "../../../02_Library/FontTexture.h"
+#include "../../../02_Library/Utility.h"
 
 namespace tkl
 {

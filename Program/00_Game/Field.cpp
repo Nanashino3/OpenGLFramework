@@ -14,15 +14,16 @@
 #include "../02_Library/Input.h"
 #include "../02_Library/Utility.h"
 
+static constexpr const char* CSV_FILE = "Resource/debug/test1.csv";
 static constexpr int MAP_SIZE = 50;
 
 Field::Field(std::shared_ptr<Parameter> param)
+: mParam(nullptr)
 {
 	mParam = std::dynamic_pointer_cast<GameParameter>(param);
 
 	// フィールド情報読み込み
-	std::vector<std::vector<std::string>> readField
-		= tkl::LoadCsv("Resource/debug/test1.csv");
+	std::vector<std::vector<std::string>> readField = tkl::LoadCsv(CSV_FILE);
 	mParam->SetMapSize(MAP_SIZE);
 	mParam->SetMapRow(static_cast<int>(readField.size()));
 	mParam->SetMapColumn(static_cast<int>(readField[0].size()));
@@ -92,16 +93,16 @@ void Field::UpdateMousePos()
 	tkl::System::GetInstance()->GetWindowSize(&screenW, &screenH);
 
 	// マウス座標を元にレイを飛ばす
-	float screenMouseX = 0, screenMouseY = 0;
+	float screenMouseX = 0.0f, screenMouseY = 0.0f;
 	tkl::Input::GetMousePoint(screenMouseX, screenMouseY);
 
 	std::shared_ptr<tkl::Camera> camera = mParam->GetCamera();
-	tkl::Vector3 ray = tkl::Vector3::CreateScreenRay(tkl::Vector3(screenMouseX, screenMouseY, 0.f),
+	tkl::Vector3 ray = tkl::Vector3::CreateScreenRay(tkl::Vector3(screenMouseX, screenMouseY, 0.0f),
 		screenW, screenH, camera->GetView(), camera->GetProjection());
 
 	// レイと平面の衝突判定
 	tkl::Vector3 mousePos;
 	tkl::IsIntersectLinePlane(camera->GetPosition(), camera->GetPosition() + ray * 1000.0f,
-		{ 1, 0, 0 }, tkl::Vector3::UNITY, &mousePos);
+		tkl::Vector3::UNITX, tkl::Vector3::UNITY, &mousePos);
 	mParam->SetMousePos(mousePos);
 }

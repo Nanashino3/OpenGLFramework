@@ -4,7 +4,7 @@
 #include "PauseScene.h"
 
 #include "SceneManager.h"
-#include "../../01_Engine/Graphics/Font.h"
+#include "../../01_Engine/Graphics/Font/Font.h"
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../02_Library/Input.h"
 
