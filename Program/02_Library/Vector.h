@@ -18,7 +18,7 @@ public:
 		float mVec[3];
 	};
 
-	Vector3() : mX(0), mY(0), mZ(0){}
+	Vector3() : mX(0.0f), mY(0.0f), mZ(0.0f){}
 	Vector3(float x, float y, float z) : mX(x), mY(y), mZ(z){}
 
 	//******************************************************
@@ -54,16 +54,19 @@ public:
 	static Vector3 Cross(const Vector3& v1, const Vector3& v2);
 	// ベクトルの内積
 	static float Dot(const Vector3& v1, const Vector3& v2);
+	// 2点間の距離を求める
+	static float Distance(const Vector3& v1, const Vector3& v2);
+	// 長さを求める
+	static float Magnitude(const Vector3& v1);
+
 	// ベクトルをクォータニオンに射影する
 	static Vector3 TransformCoord(const Vector3& v, const Quaternion& q);
 	// ベクトルをマトリックスに射影する
 	static Vector3 TransformCoord(const Vector3& v, const Matrix& m);
 	// スクリーン上にレイを作成
 	static Vector3 CreateScreenRay(const Vector3& screenPos, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection);
-	// 2点間の距離を求める
-	static float Distance(const Vector3& v1, const Vector3& v2);
-	// 長さを求める
-	static float Magnitude(const Vector3& v1);
+
+	static Vector3 ConvertWorldPosToScreenPos(int screenW, int screenH, const tkl::Vector3& worldPos, const tkl::Matrix& view, const tkl::Matrix& projection);
 
 	static const Vector3 ZERO;
 	static const Vector3 UNITX;

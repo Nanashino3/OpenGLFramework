@@ -112,6 +112,22 @@ float Vector3::Dot(const Vector3& v1, const Vector3& v2)
 	return v1.mX * v2.mX + v1.mY * v2.mY + v1.mZ * v2.mZ;
 }
 
+// 2点間の距離を求める
+float Vector3::Distance(const Vector3& v1, const Vector3& v2)
+{
+	float dx = v1.mX - v2.mX;
+	float dy = v1.mY - v2.mY;
+	float dz = v1.mZ - v2.mZ;
+
+	return sqrtf(dx * dx + dy * dy + dz * dz);
+}
+
+// 長さを求める
+float Vector3::Magnitude(const Vector3& v1)
+{
+	return sqrtf(v1.mX * v1.mX + v1.mY * v1.mY + v1.mZ * v1.mZ);
+}
+
 // ベクトルをクォータニオンに射影する
 Vector3 Vector3::TransformCoord(const Vector3& v, const Quaternion& q)
 {
@@ -130,8 +146,8 @@ Vector3 Vector3::TransformCoord(const Vector3& v, const Quaternion& q)
 // ベクトルをマトリックスに射影する
 Vector3 Vector3::TransformCoord(const Vector3& v, const Matrix& m)
 {
-	tkl::Matrix tm = tkl::Matrix::CreateTranslation(v) ;
-	tkl::Matrix wm = m * tm;
+	Matrix tm = Matrix::CreateTranslation(v) ;
+	Matrix wm = m * tm;
 
 	return Vector3(wm._14, wm._24, wm._34);
 }
@@ -140,7 +156,7 @@ Vector3 Vector3::TransformCoord(const Vector3& v, const Matrix& m)
 Vector3 Vector3::CreateScreenRay(const Vector3& screenPos, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection)
 {
 	// ビューポート行列を作成
-	Matrix viewport = tkl::Matrix::CreateViewport(screenW, screenH);
+	Matrix viewport = Matrix::CreateViewport(screenW, screenH);
 
 	// スクリーン座標からワールド座標を計算
 	Matrix tempView = view;
@@ -148,28 +164,34 @@ Vector3 Vector3::CreateScreenRay(const Vector3& screenPos, int screenW, int scre
 	tempView._24 = 0.0f;
 	tempView._34 = 0.0f;
 
-	Matrix invViewport = tkl::Matrix::CreateInverseMatrix(viewport);
-	Matrix invProjection = tkl::Matrix::CreateInverseMatrix(projection);
-	Matrix invView = tkl::Matrix::CreateInverseMatrix(tempView);
+	Matrix invViewport = Matrix::CreateInverseMatrix(viewport);
+	Matrix invProjection = Matrix::CreateInverseMatrix(projection);
+	Matrix invView = Matrix::CreateInverseMatrix(tempView);
 	Matrix tempMatrix = invView * invProjection * invViewport;
 
 	return tkl::Vector3::TransformCoord(screenPos, tempMatrix);
 }
 
-// 2点間の距離を求める
-float Vector3::Distance(const Vector3& v1, const Vector3& v2)
+Vector3 Vector3::ConvertWorldPosToScreenPos(int screenW, int screenH, const Vector3& worldPos, const Matrix& view, const Matrix& projection)
 {
-	float dx = v1.mX - v2.mX;
-	float dy = v1.mY - v2.mY;
-	float dz = v1.mZ - v2.mZ;
+	float w = screenW * 0.5f;
+	float h = screenH * 0.5f;
 
-	return sqrtf(dx * dx + dy * dy + dz * dz);
-}
+	Matrix wm = Matrix::CreateTranslation(worldPos);
+	Matrix vpm = projection * view;
+	wm = vpm * wm;
 
-// 長さを求める
-float Vector3::Magnitude(const Vector3& v1)
-{
-	return sqrtf(v1.mX * v1.mX + v1.mY * v1.mY + v1.mZ * v1.mZ);
+	wm._14 /= wm._44;
+	wm._24 /= wm._44;
+
+	Vector3 ret;
+	ret.mX = (w + ( w * wm._14));
+	ret.mY = (h + (-h * wm._24));
+
+	ret.mX = ret.mX - w;
+	ret.mY = h - ret.mY;
+
+	return ret;
 }
 
 } // namespace tkl
