@@ -4,8 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <AL/alc.h>
 
-static constexpr int WINDOW_WIDTH = 1024;
-static constexpr int WINDOW_HEIGHT = 768;
+static constexpr int WINDOW_WIDTH = 1280;
+static constexpr int WINDOW_HEIGHT = 720;
 
 namespace tkl
 {

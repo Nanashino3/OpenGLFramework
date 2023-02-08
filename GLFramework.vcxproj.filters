@@ -195,6 +195,9 @@
     <ClCompile Include="Program\01_Engine\Graphics\Font\FontManager.cpp">
       <Filter>Program\01_Engine\Graphics\Font</Filter>
     </ClCompile>
+    <ClCompile Include="Program\UiHitPoint.cpp">
+      <Filter>Program</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -384,6 +387,12 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Font\FontManager.h">
       <Filter>Program\01_Engine\Graphics\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\UiHitPoint.h">
+      <Filter>Program</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\UiBase.h">
+      <Filter>Program</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

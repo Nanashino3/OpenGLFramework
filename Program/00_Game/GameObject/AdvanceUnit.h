@@ -28,6 +28,7 @@ public:
 
 	void SetNewRoute(const std::vector<tkl::CELL>& newRoute);
 	const tkl::Vector3& GetPosition() const;
+	float GetHitPoint() const{ return mHitPoint; } 
 
 	virtual void Update();
 	virtual void Draw();
@@ -39,11 +40,11 @@ private:
 
 private:
 	int mRouteCount;					// ルート配列のカウンター用
-	int mHitPoint;
 	int mAddCoin;
 	int mPrevDx, mPrevDz;				// 前の進行方向(X、Z)
 	int mPrevRouteCount;				// 前のルートカウンター
 
+	float mHitPoint;
 	float mMapInitPosX, mMapInitPosZ;	// マップの初期座標(X、Z)
 	float mMoveSpeed;
 	float mAngle;

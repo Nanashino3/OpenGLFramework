@@ -24,10 +24,10 @@ static constexpr float MODEL_SIZE = 3.5f;
 
 AdvanceUnit::AdvanceUnit(std::shared_ptr<Parameter> param)
 : mRouteCount(0)
-, mHitPoint(0)
 , mAddCoin(0)
 , mPrevDx(0), mPrevDz(0)
 , mPrevRouteCount(0)
+, mHitPoint(0.0f)
 , mMapInitPosX(0.0f), mMapInitPosZ(0.0f)
 , mMoveSpeed(0.0f)
 , mAngle(0.0f)
@@ -89,7 +89,7 @@ void AdvanceUnit::Initialize()
 		mParam->SetAdvanceLevel(level + 1);
 		mParam->SetTotalDefeat(0);
 	}
-	mHitPoint = stoi(mUnitInfo[level][1]);
+	mHitPoint = stof(mUnitInfo[level][1]);
 	mMoveSpeed = stoi(mUnitInfo[level][2]);
 	mAddCoin = stoi(mUnitInfo[level][3]);
 

@@ -5,8 +5,10 @@
 #define _GAMESCENE_H_
 
 #include "SceneBase.h"
+#include <list>
 
 class Field;
+class UiBase;
 class GameParameter;
 namespace tkl
 {
@@ -36,6 +38,8 @@ private:
 	std::shared_ptr<tkl::Mesh> mbgTex;
 	std::shared_ptr<tkl::Sound> mSndBgm;
 	std::shared_ptr<tkl::Sound> mSndPause;
+
+	std::list<std::shared_ptr<UiBase>> mUiList;
 };
 
 #endif

@@ -77,6 +77,7 @@
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
+    <ClCompile Include="Program\UiHitPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\BasicFrag.glsl" />
@@ -153,6 +154,8 @@
     <ClInclude Include="Program\02_Library\Quaternion.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
+    <ClInclude Include="Program\UiBase.h" />
+    <ClInclude Include="Program\UiHitPoint.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

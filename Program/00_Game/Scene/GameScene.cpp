@@ -28,13 +28,16 @@
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
+#include "../../UiBase.h"
+#include "../../UiHitPoint.h"
+
 // ファイルパス
 static constexpr const char* BGM_FILE = "Resource/sound/gamebgm.wav";
 static constexpr const char* PAUSE_SE_FILE = "Resource/sound/pause.wav";
 static constexpr const char* BG_TEXTURE = "Resource/texture/img_play.jpg";
 
 // 定数
-static constexpr int MAX_CREATE = 5;
+static constexpr int MAX_CREATE = 2;
 static constexpr int MAX_DURABILITY = 1;
 static constexpr float CREATE_INTERVAL = 5.0f;
 static constexpr float CAMERA_POS_Y = 250.0f;
@@ -131,6 +134,11 @@ void GameScene::Update(float deltaTime)
 			// 進軍ユニット生成
 			std::shared_ptr<AdvanceUnit> newObject = ObjectManager::GetInstance()->Create<AdvanceUnit>(mParam);
 			newObject->Initialize();
+
+			// UIを生成
+			std::shared_ptr<UiHitPoint> newUi = std::make_shared<UiHitPoint>();
+			newUi->Initialize(newObject);
+			mUiList.emplace_back(newUi);
 		}
 	}
 
@@ -143,6 +151,17 @@ void GameScene::Update(float deltaTime)
 	// オブジェクトの更新処理
 	ObjectManager::GetInstance()->Update();
 
+	// UIリスト
+	for(auto it = mUiList.begin(); it != mUiList.end();){
+		(*it)->Update();
+		if(!(*it)->IsEnabled()){
+			it = mUiList.erase(it);
+			continue;
+		}
+		++it;
+	}
+
+	// ポーズ画面へ遷移
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSndPause->Play();
 		mSceneManager->CallScene(std::make_shared<PauseScene>(mSceneManager));
@@ -158,15 +177,22 @@ void GameScene::Update(float deltaTime)
 //****************************************************************************
 void GameScene::Draw()
 {
+	// 背景の描画
 	mbgTex->Draw(m2DCam);
 
 	tkl::Font::DrawStringEx(0.0f,   0.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "耐久度 : %d", mDurability);
 	tkl::Font::DrawStringEx(0.0f,  50.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "残金 : %d", mParam->GetTotalCost());
-	tkl::Font::DrawStringEx(0.0f, 100.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "進軍レベル : %2d", mParam->GetAdvenceLevel());
+//	tkl::Font::DrawStringEx(0.0f, 100.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "進軍レベル : %2d", mParam->GetAdvenceLevel());
 
 	// フィールドの更新
 	mField->Draw();
 
 	// オブジェクトの描画処理
 	ObjectManager::GetInstance()->Draw();
+
+	// GameSceneに必要なUIの描画
+	// 耐久度、コイン、ヒットポイント(進軍ユニット)
+	for(auto elem : mUiList){
+		elem->Draw();
+	}
 }
