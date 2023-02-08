@@ -3,18 +3,18 @@
 // 作　成　日：2023/01/30
 #include "UiHitPoint.h"
 
-#include "01_Engine/System.h"
-#include "01_Engine/Camera/ScreenCamera.h"
-#include "01_Engine/Graphics/Geometry/Mesh.h"
-#include "01_Engine/Graphics/Geometry/Texture.h"
-#include "01_Engine/ResourceManager.h"
+#include "../../../00_Game/GameObject/AdvanceUnit.h"
 
-#include "00_Game/GameObject/AdvanceUnit.h"
+#include "../../../01_Engine/System.h"
+#include "../../../01_Engine/Camera/ScreenCamera.h"
+#include "../../../01_Engine/Graphics/Geometry/Mesh.h"
+#include "../../../01_Engine/Graphics/Geometry/Texture.h"
+#include "../../../01_Engine/ResourceManager.h"
 
-static constexpr const char* UI_FILE = "Resource/texture/gauge_red2.png";
-static constexpr const char* BG_UI_FILE = "Resource/texture/gauge_whit2.png";
+static constexpr const char* UI_FILE = "Resource/texture/gauge_red.png";
+static constexpr const char* BG_UI_FILE = "Resource/texture/gauge_whit.png";
 
-#include "01_Engine/Camera/FixedCamera.h"
+#include "../../../01_Engine/Camera/FixedCamera.h"
 
 // 矩形の幅、中心座標、割合
 // 座標を返す

@@ -43,6 +43,12 @@
     <Filter Include="Program\01_Engine\Graphics\Font">
       <UniqueIdentifier>{9a23ecb6-d141-4e6a-8e31-954e2462a1f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\00_Game\Graphics">
+      <UniqueIdentifier>{f09364a6-7e7d-42a8-90f1-36bc6a16da7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Program\00_Game\Graphics\Ui">
+      <UniqueIdentifier>{5501752f-aca9-48cd-a71c-91c6311d66d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
@@ -195,8 +201,8 @@
     <ClCompile Include="Program\01_Engine\Graphics\Font\FontManager.cpp">
       <Filter>Program\01_Engine\Graphics\Font</Filter>
     </ClCompile>
-    <ClCompile Include="Program\UiHitPoint.cpp">
-      <Filter>Program</Filter>
+    <ClCompile Include="Program\00_Game\Graphics\Ui\UiHitPoint.cpp">
+      <Filter>Program\00_Game\Graphics\Ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,11 +394,11 @@
     <ClInclude Include="Program\01_Engine\Graphics\Font\FontManager.h">
       <Filter>Program\01_Engine\Graphics\Font</Filter>
     </ClInclude>
-    <ClInclude Include="Program\UiHitPoint.h">
-      <Filter>Program</Filter>
+    <ClInclude Include="Program\00_Game\Graphics\Ui\UiBase.h">
+      <Filter>Program\00_Game\Graphics\Ui</Filter>
     </ClInclude>
-    <ClInclude Include="Program\UiBase.h">
-      <Filter>Program</Filter>
+    <ClInclude Include="Program\00_Game\Graphics\Ui\UiHitPoint.h">
+      <Filter>Program\00_Game\Graphics\Ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

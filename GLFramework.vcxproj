@@ -27,6 +27,7 @@
     <ClCompile Include="Program\00_Game\GameObject\Cell.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\DefenseUnit.cpp" />
     <ClCompile Include="Program\00_Game\GameObject\ObjectManager.cpp" />
+    <ClCompile Include="Program\00_Game\Graphics\Ui\UiHitPoint.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\AdvanceUnitObserver.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\DefenseUnitObserver.cpp" />
     <ClCompile Include="Program\00_Game\NotifyService\Notifier.cpp" />
@@ -77,7 +78,6 @@
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
-    <ClCompile Include="Program\UiHitPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\BasicFrag.glsl" />
@@ -101,6 +101,8 @@
     <ClInclude Include="Program\00_Game\GameObject\GameObject.h" />
     <ClInclude Include="Program\00_Game\GameObject\ObjectManager.h" />
     <ClInclude Include="Program\00_Game\GameObject\Parameter.h" />
+    <ClInclude Include="Program\00_Game\Graphics\Ui\UiBase.h" />
+    <ClInclude Include="Program\00_Game\Graphics\Ui\UiHitPoint.h" />
     <ClInclude Include="Program\00_Game\NotifyService\AdvanceUnitObserver.h" />
     <ClInclude Include="Program\00_Game\NotifyService\DefenseUnitObserver.h" />
     <ClInclude Include="Program\00_Game\NotifyService\Notifier.h" />
@@ -154,8 +156,6 @@
     <ClInclude Include="Program\02_Library\Quaternion.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
-    <ClInclude Include="Program\UiBase.h" />
-    <ClInclude Include="Program\UiHitPoint.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -28,8 +28,8 @@
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
-#include "../../UiBase.h"
-#include "../../UiHitPoint.h"
+#include "../Graphics/Ui/UiBase.h"
+#include "../Graphics/Ui/UiHitPoint.h"
 
 // ファイルパス
 static constexpr const char* BGM_FILE = "Resource/sound/gamebgm.wav";
