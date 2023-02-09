@@ -204,6 +204,9 @@
     <ClCompile Include="Program\00_Game\Graphics\Ui\UiHitPoint.cpp">
       <Filter>Program\00_Game\Graphics\Ui</Filter>
     </ClCompile>
+    <ClCompile Include="Program\00_Game\Graphics\Ui\UiDurability.cpp">
+      <Filter>Program\00_Game\Graphics\Ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -398,6 +401,9 @@
       <Filter>Program\00_Game\Graphics\Ui</Filter>
     </ClInclude>
     <ClInclude Include="Program\00_Game\Graphics\Ui\UiHitPoint.h">
+      <Filter>Program\00_Game\Graphics\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Graphics\Ui\UiDurability.h">
       <Filter>Program\00_Game\Graphics\Ui</Filter>
     </ClInclude>
   </ItemGroup>

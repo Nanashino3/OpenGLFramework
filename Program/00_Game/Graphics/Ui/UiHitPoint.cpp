@@ -6,10 +6,10 @@
 #include "../../../00_Game/GameObject/AdvanceUnit.h"
 
 #include "../../../01_Engine/System.h"
+#include "../../../01_Engine/ResourceManager.h"
 #include "../../../01_Engine/Camera/ScreenCamera.h"
 #include "../../../01_Engine/Graphics/Geometry/Mesh.h"
 #include "../../../01_Engine/Graphics/Geometry/Texture.h"
-#include "../../../01_Engine/ResourceManager.h"
 
 static constexpr const char* UI_FILE = "Resource/texture/gauge_red.png";
 static constexpr const char* BG_UI_FILE = "Resource/texture/gauge_whit.png";
@@ -24,9 +24,13 @@ float Calc(float rectW, const tkl::Vector3& centerPos, float ratio)
 }
 
 UiHitPoint::UiHitPoint()
-: mTexture(nullptr)
+: mScreenW(0), mScreenH(0)
+, mMaxHitPoint(0.0f)
+, mRectW(0.0f)
+, mTexture(nullptr)
 , mBackGroundTexture(nullptr)
 , mCamera(nullptr)
+, mObject(nullptr)
 {}
 
 UiHitPoint::~UiHitPoint()

@@ -30,6 +30,7 @@
 
 #include "../Graphics/Ui/UiBase.h"
 #include "../Graphics/Ui/UiHitPoint.h"
+#include "../Graphics/Ui/UiDurability.h"
 
 // ファイルパス
 static constexpr const char* BGM_FILE = "Resource/sound/gamebgm.wav";
@@ -38,7 +39,7 @@ static constexpr const char* BG_TEXTURE = "Resource/texture/img_play.jpg";
 
 // 定数
 static constexpr int MAX_CREATE = 2;
-static constexpr int MAX_DURABILITY = 1;
+static constexpr int MAX_DURABILITY = 5;
 static constexpr float CREATE_INTERVAL = 5.0f;
 static constexpr float CAMERA_POS_Y = 250.0f;
 static constexpr float CAMERA_POS_Z = 200.0f;
@@ -95,6 +96,11 @@ void GameScene::Initialize()
 	// オブザーバー登録
 	Notifier::GetInstance()->AddObserver(std::make_shared<AdvanceUnitObserver>());
 	Notifier::GetInstance()->AddObserver(std::make_shared<DefenseUnitObserver>());
+
+	// 耐久度UI生成と初期化
+	mUiDurability = std::make_shared<UiDurability>(mDurability);
+	mUiDurability->Initialize();
+	mUiList.emplace_back(mUiDurability);
 }
 
 //****************************************************************************
@@ -120,7 +126,10 @@ void GameScene::Update(float deltaTime)
 	mParam->SetDeltaTime(deltaTime);
 
 	if(mParam->GetIsArrival()){
-		if(mDurability != 0){ mDurability -= 1; }
+		if(mDurability != 0){
+			mDurability -= 1;
+			mUiDurability->SetDurability(mDurability);
+		}
 		mParam->SetIsArrival(false);
 	}
 
@@ -179,10 +188,7 @@ void GameScene::Draw()
 {
 	// 背景の描画
 	mbgTex->Draw(m2DCam);
-
-	tkl::Font::DrawStringEx(0.0f,   0.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "耐久度 : %d", mDurability);
-	tkl::Font::DrawStringEx(0.0f,  50.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "残金 : %d", mParam->GetTotalCost());
-//	tkl::Font::DrawStringEx(0.0f, 100.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "進軍レベル : %2d", mParam->GetAdvenceLevel());
+	tkl::Font::DrawStringEx(0.0f,  100.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "残金 : %d", mParam->GetTotalCost());
 
 	// フィールドの更新
 	mField->Draw();

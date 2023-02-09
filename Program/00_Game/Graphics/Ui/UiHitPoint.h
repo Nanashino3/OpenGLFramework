@@ -27,14 +27,14 @@ public:
 	virtual void Draw();
 
 private:
+	int mScreenW, mScreenH;
+	float mMaxHitPoint;
+	float mRectW;
+
 	std::shared_ptr<tkl::Mesh> mTexture;
 	std::shared_ptr<tkl::Mesh> mBackGroundTexture;
 	std::shared_ptr<tkl::Camera> mCamera;
 	std::shared_ptr<AdvanceUnit> mObject;
-
-	int mScreenW, mScreenH;
-	float mMaxHitPoint;
-	float mRectW;
 
 	std::shared_ptr<tkl::Camera> mTestCam;
 };
