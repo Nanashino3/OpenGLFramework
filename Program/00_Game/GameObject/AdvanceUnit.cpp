@@ -234,31 +234,31 @@ const tkl::Vector3& AdvanceUnit::GetPosition() const
 //****************************************************************************
 void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 {
-	if(IsPassing()){
-//		printf("通り過ぎています\n"); 
-		return;
-	}
-//	printf("通り過ぎていません\n");
+	// 通り過ぎている場合は更新しない
+	if(IsPassing()){ return; }
 
-	// 進行済ルートカウントの再計算
-	int prevSize = static_cast<int>(mRoute.size());
-	int currentSize = static_cast<int>(newRoute.size());
-	int diffSize = abs(prevSize - currentSize);
+	//******************************************************************
+	// ここからは最新ルートで更新する
+	// ※更新する際に新しいルートに戻る必要があるかを確認する
+
+	// ルートカウントも再計算する
+	int diffSize = abs(static_cast<int>(mRoute.size() - newRoute.size()));
 	int newRoutCount = mRouteCount + diffSize;
 
 	// 新ルートに戻るか確認
 	if((mRoute[mRouteCount - 1].row != newRoute[newRoutCount - 1].row) ||
-		(mRoute[mRouteCount - 1].column != newRoute[newRoutCount - 1].column))
+	   (mRoute[mRouteCount - 1].column != newRoute[newRoutCount - 1].column))
 	{
-//		printf("新ルートに戻ります\n");
+		printf("新ルートに戻ります\n");
 		mPrevRoute = mRoute;
 		mPrevRouteCount = mRouteCount;
 		mIsRetNewRoute = true;
 	}
 
-	// ルート更新
+	// 最新ルートで更新
 	mRouteCount = newRoutCount;
 	mRoute = newRoute;
+	//******************************************************************
 }
 
 //****************************************************************************
@@ -271,30 +271,18 @@ void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 //****************************************************************************
 bool AdvanceUnit::IsPassing()
 {
-	// 押下位置から行列を求める
 	tkl::Vector3 clickPos = mParam->GetClickPos();
-	int clickColumn = static_cast<int>(abs((mMapInitPosX - clickPos.mX) / mParam->GetMapSize()));
-	int clickRow    = static_cast<int>(abs((mMapInitPosZ - clickPos.mZ) / mParam->GetMapSize()));
+	tkl::Vector3 unitPos = mModel->GetPosition();
 
-	int nowColumn = mRoute[mRouteCount].column;
-	int nowRow = mRoute[mRouteCount].row;
+	// 移動方向計算
+	int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
+	int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
 
-	// 進軍ユニットの位置と同じ位置に置かれた場合のみ通過判定する
-	if(clickColumn == nowColumn && clickRow == nowRow){
-		// 移動方向計算
-		int dx = mRoute[mRouteCount - 1].column - mRoute[mRouteCount].column;
-		int dz = mRoute[mRouteCount - 1].row - mRoute[mRouteCount].row;
+	bool retX = false, retZ = false;
+	if (dx != 0) { retX = (dx > 0) ? unitPos.mX > clickPos.mX : unitPos.mX < clickPos.mX; }
+	if (dz != 0) { retZ = (dz > 0) ? unitPos.mZ > clickPos.mZ : unitPos.mZ < clickPos.mZ; }
 
-		tkl::Vector3 pos = mModel->GetPosition();
-
-		bool retX = false, retZ = false;
-		if (dx != 0) { retX = (dx > 0) ? pos.mX > clickPos.mX : pos.mX < clickPos.mX; }
-		if (dz != 0) { retZ = (dz > 0) ? pos.mZ > clickPos.mZ : pos.mZ < clickPos.mZ; }
-
-		return (dx == 0 || dz == 0) ? retX || retZ : retX && retZ;
-	}
-
-	return false;
+	return (dx == 0 || dz == 0) ? retX || retZ : retX && retZ;
 }
 
 //****************************************************************************

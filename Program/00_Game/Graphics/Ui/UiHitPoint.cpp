@@ -16,13 +16,6 @@ static constexpr const char* BG_UI_FILE = "Resource/texture/gauge_whit.png";
 
 #include "../../../01_Engine/Camera/FixedCamera.h"
 
-// 矩形の幅、中心座標、割合
-// 座標を返す
-float Calc(float rectW, const tkl::Vector3& centerPos, float ratio)
-{
-	return centerPos.mX + (rectW * ratio - rectW);
-}
-
 UiHitPoint::UiHitPoint()
 : mScreenW(0), mScreenH(0)
 , mMaxHitPoint(0.0f)
@@ -74,22 +67,26 @@ void UiHitPoint::Update()
 	mCamera->Update();
 	mTestCam->Update();
 
+	// ワールド座標→スクリーン座標へ変換
 	tkl::Vector3 unitPos = mObject->GetPosition();
 	tkl::Vector3 screenPos 
 		= tkl::Vector3::ConvertWorldPosToScreenPos(mScreenW, mScreenH, unitPos, mTestCam->GetView(), mTestCam->GetProjection());
 	
+	// ヒットポイントUIの背景
 	tkl::Vector3 bgPos = tkl::Vector3(screenPos.mX, screenPos.mY + 30.0f, 0.0f);
 	mBackGroundTexture->SetPosition(bgPos);
 
+	// ヒットポイントUI
 	tkl::Vector3 uiPos = tkl::Vector3(screenPos.mX, screenPos.mY + 30.0f, 0.0f);
 	float uiRatio = mObject->GetHitPoint() / mMaxHitPoint;
-	uiPos.mX = Calc(mRectW, screenPos, uiRatio);
+	uiPos.mX = screenPos.mX + (mRectW * uiRatio - mRectW);
 	mTexture->SetPosition(uiPos);
 
 	tkl::Vector3 uiScale = mTexture->GetScale();
 	uiScale.mX = uiRatio;
 	mTexture->SetScale(uiScale);
 
+	// UIを表示する対象が生きているか
 	if(!mObject->IsAlive()){ mIsEnabled = false; }
 }
 
