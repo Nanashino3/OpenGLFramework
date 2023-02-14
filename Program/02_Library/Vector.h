@@ -65,7 +65,7 @@ public:
 	static Vector3 TransformCoord(const Vector3& v, const Matrix& m);
 	// スクリーン上にレイを作成
 	static Vector3 CreateScreenRay(const Vector3& screenPos, int screenW, int screenH, const tkl::Matrix& view, const tkl::Matrix& projection);
-
+	// ワールド座標→スクリーン座標へ変換
 	static Vector3 ConvertWorldPosToScreenPos(int screenW, int screenH, const tkl::Vector3& worldPos, const tkl::Matrix& view, const tkl::Matrix& projection);
 
 	static const Vector3 ZERO;

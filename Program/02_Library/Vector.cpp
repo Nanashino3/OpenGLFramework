@@ -172,6 +172,7 @@ Vector3 Vector3::CreateScreenRay(const Vector3& screenPos, int screenW, int scre
 	return tkl::Vector3::TransformCoord(screenPos, tempMatrix);
 }
 
+// ワールド座標→スクリーン座標へ変換
 Vector3 Vector3::ConvertWorldPosToScreenPos(int screenW, int screenH, const Vector3& worldPos, const Matrix& view, const Matrix& projection)
 {
 	float w = screenW * 0.5f;
