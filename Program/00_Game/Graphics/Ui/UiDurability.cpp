@@ -6,7 +6,7 @@
 #include "../../../01_Engine/Graphics/Geometry/Mesh.h"
 #include "../../../01_Engine/Graphics/Geometry/Texture.h"
 
-static constexpr const char* UI_FILE = "Resource/texture/Defense_64.png";
+static constexpr const char* UI_FILE = "Resource/texture/ui/image_3.png";
 
 UiDurability::UiDurability(int durability)
 : mDurability(durability)

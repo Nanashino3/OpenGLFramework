@@ -10,6 +10,7 @@
 class Field;
 class UiBase;
 class UiDurability;
+class UiCollect;
 class GameParameter;
 namespace tkl
 {
@@ -34,6 +35,7 @@ private:
 
 	std::shared_ptr<Field> mField;
 	std::shared_ptr<UiDurability> mUiDurability;
+	std::shared_ptr<UiCollect> mUiCollect;
 	std::shared_ptr<GameParameter> mParam;
 
 	std::shared_ptr<tkl::Camera> m3DCam;

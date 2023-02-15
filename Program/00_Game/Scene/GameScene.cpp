@@ -31,6 +31,7 @@
 #include "../Graphics/Ui/UiBase.h"
 #include "../Graphics/Ui/UiHitPoint.h"
 #include "../Graphics/Ui/UiDurability.h"
+#include "../Graphics/Ui/UiCollect.h"
 
 // ファイルパス
 static constexpr const char* BGM_FILE = "Resource/sound/gamebgm.wav";
@@ -101,6 +102,11 @@ void GameScene::Initialize()
 	mUiDurability = std::make_shared<UiDurability>(mDurability);
 	mUiDurability->Initialize();
 	mUiList.emplace_back(mUiDurability);
+
+	// 回収UI生成と初期化
+	mUiCollect = std::make_shared<UiCollect>();
+	mUiCollect->Initialize();
+	mUiList.emplace_back(mUiCollect);
 }
 
 //****************************************************************************
@@ -161,6 +167,7 @@ void GameScene::Update(float deltaTime)
 	ObjectManager::GetInstance()->Update();
 
 	// UIリスト
+	mUiCollect->SetTotalCost(mParam->GetTotalCost());
 	for(auto it = mUiList.begin(); it != mUiList.end();){
 		(*it)->Update();
 		if(!(*it)->IsEnabled()){
@@ -188,7 +195,6 @@ void GameScene::Draw()
 {
 	// 背景の描画
 	mbgTex->Draw(m2DCam);
-	tkl::Font::DrawStringEx(0.0f,  100.0f, tkl::Vector3(1.0f, 1.0f, 1.0f), "残金 : %d", mParam->GetTotalCost());
 
 	// フィールドの更新
 	mField->Draw();

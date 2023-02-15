@@ -249,7 +249,6 @@ void AdvanceUnit::SetNewRoute(const std::vector<tkl::CELL>& newRoute)
 	if((mRoute[mRouteCount - 1].row != newRoute[newRoutCount - 1].row) ||
 	   (mRoute[mRouteCount - 1].column != newRoute[newRoutCount - 1].column))
 	{
-		printf("Vƒ‹[ƒg‚É–ß‚è‚Ü‚·\n");
 		mPrevRoute = mRoute;
 		mPrevRouteCount = mRouteCount;
 		mIsRetNewRoute = true;

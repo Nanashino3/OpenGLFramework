@@ -11,8 +11,8 @@
 #include "../../../01_Engine/Graphics/Geometry/Mesh.h"
 #include "../../../01_Engine/Graphics/Geometry/Texture.h"
 
-static constexpr const char* UI_FILE = "Resource/texture/gauge_red.png";
-static constexpr const char* BG_UI_FILE = "Resource/texture/gauge_whit.png";
+static constexpr const char* BG_UI_FILE = "Resource/texture/ui/image_1.png";
+static constexpr const char* UI_FILE = "Resource/texture/ui/image_2.png";
 
 #include "../../../01_Engine/Camera/FixedCamera.h"
 
