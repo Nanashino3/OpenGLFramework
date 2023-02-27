@@ -87,7 +87,7 @@ void TitleScene::Update(float deltaTime)
 	mCanvas->Update();
 
 	tkl::Quaternion rot = mModel->GetRotation();
-	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(0.1));
+	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(0.1f));
 	mModel->SetRotation(rot);
 }
 

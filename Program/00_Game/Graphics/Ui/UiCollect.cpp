@@ -10,6 +10,10 @@
 static constexpr const char* UI_FILE = "Resource/texture/ui/image_4.png";
 
 UiCollect::UiCollect()
+: mStartPosX(0.0f), mStartPosY(0.0f)
+, mTotalCost(0)
+, mMesh(nullptr)
+, mCamera(nullptr)
 {}
 
 UiCollect::~UiCollect()

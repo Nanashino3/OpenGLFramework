@@ -7,6 +7,7 @@
 #include "UiBase.h"
 #include <memory>
 
+class Parameter;
 class AdvanceUnit;
 namespace tkl
 {
@@ -18,7 +19,7 @@ class Vector3;
 class UiHitPoint : public UiBase
 {
 public:
-	UiHitPoint();
+	UiHitPoint(std::shared_ptr<Parameter> param);
 	virtual ~UiHitPoint();
 
 	void Initialize(std::shared_ptr<AdvanceUnit> object);
@@ -31,12 +32,12 @@ private:
 	float mMaxHitPoint;
 	float mRectW;
 
+	std::shared_ptr<AdvanceUnit> mObject;
+	std::shared_ptr<Parameter> mParam;
+
 	std::shared_ptr<tkl::Mesh> mTexture;
 	std::shared_ptr<tkl::Mesh> mBackGroundTexture;
 	std::shared_ptr<tkl::Camera> mCamera;
-	std::shared_ptr<AdvanceUnit> mObject;
-
-	std::shared_ptr<tkl::Camera> mTestCam;
 };
 
 #endif

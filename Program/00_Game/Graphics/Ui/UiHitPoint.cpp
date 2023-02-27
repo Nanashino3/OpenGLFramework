@@ -3,6 +3,7 @@
 // 作　成　日：2023/01/30
 #include "UiHitPoint.h"
 
+#include "../../../00_Game/GameObject/Parameter.h"
 #include "../../../00_Game/GameObject/AdvanceUnit.h"
 
 #include "../../../01_Engine/System.h"
@@ -14,16 +15,15 @@
 static constexpr const char* BG_UI_FILE = "Resource/texture/ui/image_1.png";
 static constexpr const char* UI_FILE = "Resource/texture/ui/image_2.png";
 
-#include "../../../01_Engine/Camera/FixedCamera.h"
-
-UiHitPoint::UiHitPoint()
+UiHitPoint::UiHitPoint(std::shared_ptr<Parameter> param)
 : mScreenW(0), mScreenH(0)
 , mMaxHitPoint(0.0f)
 , mRectW(0.0f)
+, mObject(nullptr)
+, mParam(param)
 , mTexture(nullptr)
 , mBackGroundTexture(nullptr)
 , mCamera(nullptr)
-, mObject(nullptr)
 {}
 
 UiHitPoint::~UiHitPoint()
@@ -50,9 +50,6 @@ void UiHitPoint::Initialize(std::shared_ptr<AdvanceUnit> object)
 
 	mBackGroundTexture = tkl::Mesh::CreateMeshForSprite();
 	mBackGroundTexture->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(BG_UI_FILE));
-
-	mTestCam = std::make_shared<tkl::FixedCamera>(mScreenW, mScreenH);
-	mTestCam->SetPosition(tkl::Vector3(0.0f, 250.0f, 200.0f));
 }
 
 //****************************************************************************
@@ -65,12 +62,11 @@ void UiHitPoint::Initialize(std::shared_ptr<AdvanceUnit> object)
 void UiHitPoint::Update()
 {
 	mCamera->Update();
-	mTestCam->Update();
 
 	// ワールド座標→スクリーン座標へ変換
 	tkl::Vector3 unitPos = mObject->GetPosition();
 	tkl::Vector3 screenPos 
-		= tkl::Vector3::ConvertWorldPosToScreenPos(mScreenW, mScreenH, unitPos, mTestCam->GetView(), mTestCam->GetProjection());
+		= tkl::Vector3::ConvertWorldPosToScreenPos(mScreenW, mScreenH, unitPos, mParam->GetCamera()->GetView(), mParam->GetCamera()->GetProjection());
 	
 	// ヒットポイントUIの背景
 	tkl::Vector3 bgPos = tkl::Vector3(screenPos.mX, screenPos.mY + 30.0f, 0.0f);
