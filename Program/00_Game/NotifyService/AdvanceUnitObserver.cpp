@@ -29,7 +29,7 @@ void AdvanceUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 	std::vector<std::vector<tkl::CELL>> fields = param->GetFields();
 
 	// áŠQ•¨‚ª‚ ‚éó‘Ô‚É‚µ‚Ä‚¨‚­
-	fields[row][column].status = tkl::STATUS::OBSTACLE;
+	fields[row][column].status = tkl::eStatus::OBSTACLE;
 
 	// Œo˜HÄ’Tõ
 	std::vector<tkl::CELL> newRoute;
@@ -40,7 +40,7 @@ void AdvanceUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 			unit->SetNewRoute(newRoute);
 		}
 	}else{
-		fields[row][column].status = tkl::STATUS::EDITABLE;
+		fields[row][column].status = tkl::eStatus::EDITABLE;
 	}
 	param->SetFields(fields);
 }

@@ -80,16 +80,29 @@
     <ClCompile Include="Program\02_Library\Utility.cpp" />
     <ClCompile Include="Program\02_Library\Vector.cpp" />
     <ClCompile Include="Program\Main.cpp" />
+    <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\BasicFrag.glsl" />
-    <None Include="Shader\BasicVert.glsl" />
-    <None Include="Shader\FontFrag.glsl" />
-    <None Include="Shader\FontVert.glsl" />
+    <None Include="Shader\BasicFrag.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
+    <None Include="Shader\BasicVert.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
+    <None Include="Shader\FontFrag.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
+    <None Include="Shader\FontVert.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
     <None Include="Shader\LambertFrag.glsl" />
     <None Include="Shader\LambertVert.glsl" />
-    <None Include="Shader\SpriteFrag.glsl" />
-    <None Include="Shader\SpriteVert.glsl" />
+    <None Include="Shader\SpriteFrag.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
+    <None Include="Shader\SpriteVert.glsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Program\00_Game\Field.h" />
@@ -160,6 +173,7 @@
     <ClInclude Include="Program\02_Library\Quaternion.h" />
     <ClInclude Include="Program\02_Library\Utility.h" />
     <ClInclude Include="Program\02_Library\Vector.h" />
+    <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

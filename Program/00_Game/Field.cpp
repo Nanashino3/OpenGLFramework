@@ -33,7 +33,7 @@ Field::Field(std::shared_ptr<Parameter> param)
 	for(int r = 0; r < readField.size(); ++r){
 		std::vector<tkl::CELL> cells;
 		for(int c = 0; c < readField[r].size(); ++c){
-			tkl::CELL cell = {r, c, static_cast<tkl::STATUS>(stoi(readField[r][c]))};
+			tkl::CELL cell = {r, c, static_cast<tkl::eStatus>(stoi(readField[r][c]))};
 			cells.emplace_back(cell);
 
 			std::shared_ptr<Cell> newObject = ObjectManager::GetInstance()->Create<Cell>(param);

@@ -13,13 +13,15 @@ namespace tkl
 {
 Mesh::Mesh()
 : mAlpha(1.0f)
+, mIsBlend(false)
+, mIsWireframe(false)
 , mPosition(tkl::Vector3(0, 0, 0))
 , mRotation(tkl::Quaternion())
 , mScale(tkl::Vector3(1, 1, 1))
-, mIsWireframe(false)
-, mIsBlend(false)
 , mRenderer(nullptr)
+, mMaterial(nullptr)
 , mTexture(nullptr)
+, mVertexArray(nullptr)
 {}
 
 Mesh::~Mesh()

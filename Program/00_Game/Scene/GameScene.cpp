@@ -39,7 +39,7 @@ static constexpr const char* PAUSE_SE_FILE = "Resource/sound/pause.wav";
 static constexpr const char* BG_TEXTURE = "Resource/texture/img_play.jpg";
 
 // ’è”
-static constexpr int MAX_CREATE = 2;
+static constexpr int MAX_CREATE = 5;
 static constexpr int MAX_DURABILITY = 5;
 static constexpr float CREATE_INTERVAL = 5.0f;
 static constexpr float CAMERA_POS_Y = 250.0f;
@@ -151,7 +151,7 @@ void GameScene::Update(float deltaTime)
 			newObject->Initialize();
 
 			// UI‚ğ¶¬
-			std::shared_ptr<UiHitPoint> newUi = std::make_shared<UiHitPoint>();
+			std::shared_ptr<UiHitPoint> newUi = std::make_shared<UiHitPoint>(mParam);
 			newUi->Initialize(newObject);
 			mUiList.emplace_back(newUi);
 		}

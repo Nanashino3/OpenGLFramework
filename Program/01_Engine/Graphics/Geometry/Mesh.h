@@ -15,12 +15,18 @@ class Mesh : public std::enable_shared_from_this<Mesh>
 {
 public:
 	Mesh();
-	~Mesh();
+	virtual ~Mesh();
 
 	void Draw(std::shared_ptr<Camera> camera);
 
 	void SetAlpha(float value){ mAlpha = value; }
 	float GetAlpha() const{ return mAlpha; }
+
+	void SetIsBlend(bool value) { mIsBlend = value; }
+	bool GetIsBlend() const { return mIsBlend; }
+
+	void SetIsWireframe(bool value){ mIsWireframe = value; }
+	bool GetIsWireframe() const { return mIsWireframe; }
 
 	void SetPosition(const tkl::Vector3& pos){ mPosition = pos; }
 	tkl::Vector3 GetPosition() const{ return mPosition; }
@@ -30,12 +36,6 @@ public:
 
 	void SetScale(const tkl::Vector3& scale){ mScale = scale; }
 	tkl::Vector3 GetScale() const{ return mScale; }
-
-	void SetIsWireframe(bool value){ mIsWireframe = value; }
-	bool GetIsWireframe() const { return mIsWireframe; }
-
-	void SetIsBlend(bool value) { mIsBlend = value; }
-	bool GetIsBlend() const { return mIsBlend; }
 
 	void SetTexture(std::shared_ptr<Texture> tex){ mTexture = tex; }
 	std::shared_ptr<Texture> GetTexture() const { return mTexture; }
@@ -59,18 +59,19 @@ public:
 private:
 	static std::shared_ptr<Mesh> CreateMeshForTexture(const char* shaderName);
 
-private:
+protected:
 	float mAlpha;
+	bool mIsBlend;
+	bool mIsWireframe;
+
 	tkl::Vector3 mPosition;
 	tkl::Quaternion mRotation;
 	tkl::Vector3 mScale;
-	bool mIsWireframe;
-	bool mIsBlend;
 
 	std::shared_ptr<Renderer> mRenderer;
+	std::shared_ptr<Material> mMaterial;
 	std::shared_ptr<Texture> mTexture;
 	std::shared_ptr<VertexArray> mVertexArray;
-	std::shared_ptr<Material> mMaterial;
 };
 
 } // namespace tkl

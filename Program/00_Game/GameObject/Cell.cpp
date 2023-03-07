@@ -73,7 +73,7 @@ void Cell::Initialize(const tkl::CELL& cell)
 	mMeshList.emplace_back(mesh);
 
 	// 敵出現位置とゴール位置の生成
-	if(cell.status == tkl::STATUS::START || cell.status == tkl::STATUS::GOAL){
+	if(cell.status == tkl::eStatus::START || cell.status == tkl::eStatus::GOAL){
 		mesh = tkl::Mesh::CreatePlane(PLANE_SIZE);
 		mesh->SetIsBlend(true);
 		mesh->SetRotation(tkl::Quaternion::RotationAxis(tkl::Vector3::UNITX, tkl::ToRadian(90)));
@@ -81,9 +81,9 @@ void Cell::Initialize(const tkl::CELL& cell)
 
 		// テクスチャの設定
 		std::string file = "";
-		if(cell.status == tkl::STATUS::START){
+		if(cell.status == tkl::eStatus::START){
 			file = TEXTURE_START;
-		}else if(cell.status == tkl::STATUS::GOAL){
+		}else if(cell.status == tkl::eStatus::GOAL){
 			file = TEXTURE_GAOL;
 		}
 		mesh->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(file.c_str()));
@@ -91,7 +91,7 @@ void Cell::Initialize(const tkl::CELL& cell)
 	}
 
 	// 障害物生成
-	if(cell.status == tkl::STATUS::OBSTACLE){
+	if(cell.status == tkl::eStatus::OBSTACLE){
 		mModel = tkl::Model::CreateModelFromObjFile(MODEL_FILE);
 		mModel->SetPosition(tkl::Vector3(posX, BLOCK_SIZE, posZ));
 		mModel->SetScale(tkl::Vector3(OBSTACLE_SIZE, OBSTACLE_SIZE, OBSTACLE_SIZE));
@@ -122,7 +122,7 @@ void Cell::Collision()
 	mIsSelecting = false;
 	tkl::Vector3 pos = mMeshList.at(0)->GetPosition();
 	if(tkl::IsIntersectPointRect(mousePos.mX, mousePos.mZ, pos.mX, pos.mZ, mParam->GetMapSize())){
-		if(mCell.status != tkl::STATUS::EDITABLE){ return; }
+		if(mCell.status != tkl::eStatus::EDITABLE){ return; }
 
 		mIsSelecting = true;
 		mCursor->SetPosition(tkl::Vector3(pos.mX, CURSOR_HEIGHT, pos.mZ));

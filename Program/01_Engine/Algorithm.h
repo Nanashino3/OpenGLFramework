@@ -13,7 +13,7 @@ namespace tkl
 class Algorithm
 {
 public:
-	enum class STATUS {
+	enum class eStatus {
 		NONE = -1,
 		OPEN,		// オープン
 		CLOSE,		// クローズ
@@ -30,7 +30,7 @@ public:
 	{
 		int row;		// 行
 		int column;		// 列
-		STATUS status;	// マスの状態
+		eStatus status;	// マスの状態
 	};
 
 	struct NODE
@@ -53,7 +53,7 @@ private:
 	static std::list<NODE*> sOpenList;
 };
 
-using STATUS = tkl::Algorithm::STATUS;
+using eStatus = tkl::Algorithm::eStatus;
 using CELL = tkl::Algorithm::CELL;
 using NODE = tkl::Algorithm::NODE;
 

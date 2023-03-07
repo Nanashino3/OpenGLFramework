@@ -210,6 +210,9 @@
     <ClCompile Include="Program\00_Game\Graphics\Ui\UiCollect.cpp">
       <Filter>Program\00_Game\Graphics\Ui</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Program</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -411,6 +414,9 @@
     </ClInclude>
     <ClInclude Include="Program\00_Game\Graphics\Ui\UiCollect.h">
       <Filter>Program\00_Game\Graphics\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Program</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

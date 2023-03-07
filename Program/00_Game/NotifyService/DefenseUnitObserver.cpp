@@ -29,13 +29,13 @@ void DefenseUnitObserver::FieldStateChange(int row, int column, std::shared_ptr<
 	std::vector<std::vector<tkl::CELL>> fields = param->GetFields();
 
 	// –h‰qƒ†ƒjƒbƒg¶¬
-	if((fields[row][column].status == tkl::STATUS::OBSTACLE) &&
+	if((fields[row][column].status == tkl::eStatus::OBSTACLE) &&
 	   (param->GetTotalCost() >= CONSUME_COST)) {
-		fields[row][column].status = tkl::STATUS::UNIT;
+		fields[row][column].status = tkl::eStatus::UNIT;
 		std::shared_ptr<DefenseUnit> newObject = ObjectManager::GetInstance()->Create<DefenseUnit>(param);
 		newObject->Initialize();
 	}else{
-		fields[row][column].status = tkl::STATUS::EDITABLE;
+		fields[row][column].status = tkl::eStatus::EDITABLE;
 	}
 	param->SetFields(fields);
 }

@@ -106,7 +106,7 @@ void AdvanceUnit::Initialize()
 //****************************************************************************
 void AdvanceUnit::Update()
 {
-	if(mRouteCount == 0 && mRoute[mRouteCount].status == tkl::STATUS::GOAL){
+	if(mRouteCount == 0 && mRoute[mRouteCount].status == tkl::eStatus::GOAL){
 		mIsAlive = false;
 		mParam->SetIsArrival(true);
 		return;

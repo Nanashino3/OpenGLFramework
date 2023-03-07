@@ -26,8 +26,8 @@ bool Algorithm::RouteSearch(int rowSize, int colSize, std::vector<std::vector<CE
 	CELL start = {}, goal = {};
 	for(int r = 0; r < rowSize; ++r){
 		for(int c = 0; c < colSize; ++c){
-			if(STATUS::START == cells[r][c].status) start = cells[r][c];
-			if(STATUS::GOAL  == cells[r][c].status) goal  = cells[r][c];
+			if(eStatus::START == cells[r][c].status) start = cells[r][c];
+			if(eStatus::GOAL  == cells[r][c].status) goal  = cells[r][c];
 		}
 	}
 
@@ -68,7 +68,7 @@ bool Algorithm::ASter(int rowSize, int colSize, std::vector<std::vector<NODE>>& 
 		if(!IsPossibleOpen(rowSize, colSize, row, column, nodes)){ continue; }
 
 		// ゴール判定を行う
-		if(STATUS::GOAL == nodes[row][column].cell.status){
+		if(eStatus::GOAL == nodes[row][column].cell.status){
 			route.emplace_back(nodes[row][column].cell);
 
 			NODE* node = current;
@@ -80,7 +80,7 @@ bool Algorithm::ASter(int rowSize, int colSize, std::vector<std::vector<NODE>>& 
 		}
 
 		// 隣接ノードをオープンリストに追加する
-		nodes[row][column].cell.status = STATUS::OPEN;
+		nodes[row][column].cell.status = eStatus::OPEN;
 		nodes[row][column].parent = current;
 		nodes[row][column].betweenCost = current->betweenCost + 1;
 		nodes[row][column].totalCost = nodes[row][column].betweenCost + nodes[row][column].heuristCost;
@@ -88,7 +88,7 @@ bool Algorithm::ASter(int rowSize, int colSize, std::vector<std::vector<NODE>>& 
 		sOpenList.emplace_back(&nodes[row][column]);
 	}
 	// 探索が終了したので自分をクローズする
-	if(STATUS::START != current->cell.status){ current->cell.status = STATUS::CLOSE; }
+	if(eStatus::START != current->cell.status){ current->cell.status = eStatus::CLOSE; }
 
 	// 次の探索ノードを取得する(オープン済リストから最小コスト)
 	if(sOpenList.empty()){ return false; }
@@ -118,9 +118,9 @@ bool Algorithm::IsPossibleOpen(int rowSize, int colSize, int row, int column, st
 	if(column >= colSize || column < 0){ return false; }
 
 	// 状態検査
-	if(nodes[row][column].cell.status == STATUS::EDITABLE){ return true; }
-	if(nodes[row][column].cell.status == STATUS::UNEDITABLE){ return true; }
-	if(nodes[row][column].cell.status == STATUS::GOAL){ return true; }
+	if(nodes[row][column].cell.status == eStatus::EDITABLE){ return true; }
+	if(nodes[row][column].cell.status == eStatus::UNEDITABLE){ return true; }
+	if(nodes[row][column].cell.status == eStatus::GOAL){ return true; }
 
 	return false;
 }
