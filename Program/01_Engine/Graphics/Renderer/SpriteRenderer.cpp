@@ -50,7 +50,7 @@ void SpriteRenderer::Draw(std::shared_ptr<Mesh> mesh)
 	float scaleY = static_cast<float>(texture->GetHeight() * scale.mY);
 
 	tkl::Matrix wm = tkl::Matrix::CreateTranslation(mesh->GetPosition());
-	wm *= tkl::Matrix::CreateScale(tkl::Vector3(scaleX, scaleY, scale.mZ));
+	wm *= tkl::Matrix::CreateScale(tkl::Vector3(96, 96, scale.mZ));
 	mShader->SetMatrixUniform("uWorldTransform", wm);
 	mShader->SetVectorUniform("uTextColor", texture->GetColor());
 	mShader->SetFloatUniform("uAlpha", mesh->GetAlpha());

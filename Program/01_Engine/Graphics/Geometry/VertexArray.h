@@ -13,10 +13,11 @@ public:
 		float uv[2];
 	};
 
-	VertexArray(unsigned int vertexNum, const VERTEX* vertices, unsigned int indexNum, const int* indices);
+	VertexArray(unsigned int vertexNum, VERTEX* vertices, unsigned int indexNum, const int* indices);
 	~VertexArray();
 
 	void Bind() const;
+	void UpdateUVCoords(int vertexNum, float u, float v);
 
 	unsigned int GetVertexNum() const{ return mVertexNum; }
 	unsigned int GetIndexNum() const{ return mIndexNum; }
@@ -27,6 +28,7 @@ private:
 	unsigned int mVertexArray;
 	unsigned int mVertexBuffer;
 	unsigned int mIndexBuffer;
+	VERTEX* mVertices;
 };
 
 } // namespace tkl
