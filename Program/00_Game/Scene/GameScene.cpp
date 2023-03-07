@@ -13,9 +13,16 @@
 #include "../GameObject/GameParameter.h"
 #include "../GameObject/ObjectManager.h"
 
+#include "../Graphics/Ui/UiBase.h"
+#include "../Graphics/Ui/UiHitPoint.h"
+#include "../Graphics/Ui/UiDurability.h"
+#include "../Graphics/Ui/UiCollect.h"
+#include "../Graphics/Effect/EffectBase.h"
+
 #include "../NotifyService/Notifier.h"
 #include "../NotifyService/AdvanceUnitObserver.h"
 #include "../NotifyService/DefenseUnitObserver.h"
+#include "../NotifyService/EffectObserver.h"
 
 #include "../../01_Engine/System.h"
 #include "../../01_Engine/Camera/FixedCamera.h"
@@ -28,18 +35,13 @@
 #include "../../02_Library/Input.h"
 #include "../../02_Library/Utility.h"
 
-#include "../Graphics/Ui/UiBase.h"
-#include "../Graphics/Ui/UiHitPoint.h"
-#include "../Graphics/Ui/UiDurability.h"
-#include "../Graphics/Ui/UiCollect.h"
-
 // ファイルパス
 static constexpr const char* BGM_FILE = "Resource/sound/gamebgm.wav";
 static constexpr const char* PAUSE_SE_FILE = "Resource/sound/pause.wav";
 static constexpr const char* BG_TEXTURE = "Resource/texture/img_play.jpg";
 
 // 定数
-static constexpr int MAX_CREATE = 5;
+static constexpr int MAX_CREATE = 1;
 static constexpr int MAX_DURABILITY = 5;
 static constexpr float CREATE_INTERVAL = 5.0f;
 static constexpr float CAMERA_POS_Y = 250.0f;
@@ -97,6 +99,7 @@ void GameScene::Initialize()
 	// オブザーバー登録
 	Notifier::GetInstance()->AddObserver(std::make_shared<AdvanceUnitObserver>());
 	Notifier::GetInstance()->AddObserver(std::make_shared<DefenseUnitObserver>());
+	Notifier::GetInstance()->AddObserver(std::make_shared<EffectObserver>(shared_from_this()));
 
 	// 耐久度UI生成と初期化
 	mUiDurability = std::make_shared<UiDurability>(mDurability);
@@ -177,6 +180,16 @@ void GameScene::Update(float deltaTime)
 		++it;
 	}
 
+	// EffectList
+	for(auto it = mEffectList.begin(); it != mEffectList.end();){
+		(*it)->Update(deltaTime);
+		if(!(*it)->IsEnabled()){
+			it = mEffectList.erase(it);
+			continue;
+		}
+		++it;
+	}
+
 	// ポーズ画面へ遷移
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSndPause->Play();
@@ -202,9 +215,13 @@ void GameScene::Draw()
 	// オブジェクトの描画処理
 	ObjectManager::GetInstance()->Draw();
 
-	// GameSceneに必要なUIの描画
-	// 耐久度、コイン、ヒットポイント(進軍ユニット)
+	// UIの描画
 	for(auto elem : mUiList){
+		elem->Draw();
+	}
+
+	// Effectの描画
+	for(auto elem : mEffectList){
 		elem->Draw();
 	}
 }

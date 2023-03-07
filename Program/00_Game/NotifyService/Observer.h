@@ -6,6 +6,10 @@
 
 #include <memory>
 
+namespace tkl
+{
+class Vector3;
+}
 class GameParameter;
 
 class Observer
@@ -15,6 +19,7 @@ public:
 	virtual ~Observer(){}
 
 	virtual void FieldStateChange(int row, int column, std::shared_ptr<GameParameter> param){}
+	virtual void DefeatAdvanceUnit(std::shared_ptr<GameParameter> param, const tkl::Vector3& position){}
 };
 
 #endif

@@ -11,6 +11,7 @@ class Field;
 class UiBase;
 class UiDurability;
 class UiCollect;
+class EffectBase;
 class GameParameter;
 namespace tkl
 {
@@ -19,7 +20,7 @@ class Mesh;
 class Sound;
 }
 
-class GameScene : public SceneBase
+class GameScene : public SceneBase, public std::enable_shared_from_this<GameScene>
 {
 public:
 	GameScene(std::shared_ptr<SceneManager> manager);
@@ -28,6 +29,8 @@ public:
 	virtual void Initialize();
 	virtual void Update(float deltaTime);
 	virtual void Draw();
+
+	void AddEffect(std::shared_ptr<EffectBase> effect){ mEffectList.emplace_back(effect); }
 
 private:
 	int mDurability;
@@ -45,6 +48,7 @@ private:
 	std::shared_ptr<tkl::Sound> mSndPause;
 
 	std::list<std::shared_ptr<UiBase>> mUiList;
+	std::list<std::shared_ptr<EffectBase>> mEffectList;
 };
 
 #endif

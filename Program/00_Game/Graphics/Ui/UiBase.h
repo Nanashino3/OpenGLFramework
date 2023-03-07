@@ -10,7 +10,7 @@ public:
 	virtual void Update(){}
 	virtual void Draw(){}
 
-	virtual bool IsEnabled(){ return mIsEnabled; }
+	bool IsEnabled(){ return mIsEnabled; }
 
 protected:
 	bool mIsEnabled;

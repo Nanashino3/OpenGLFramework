@@ -20,17 +20,15 @@ Sprite::Sprite(const char* file, int totalFrames, int colNum, int rowNum, bool i
 , mAnimInterval(animInterval)
 {
 	mTexture = ResourceManager::GetInstance()->CreateTextureFromFile(file);
-	mTexture->SetWidth(mTexture->GetWidth() / colNum);
-	mTexture->SetHeight(mTexture->GetHeight() / rowNum);
 
 	mRenderer = std::make_shared<SpriteRenderer>("Sprite");
 	mMaterial = std::make_shared<Material>();
 
 	VertexArray::VERTEX vertices[] = {
-		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  0.0f},
-		{ 0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  0.0f},
-		{ 0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 1.0f,  1.0f},
-		{-0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,  1.0f}
+		{-0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,			0.0f},
+		{ 0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 0.0f, mSpriteWidth,  0.0f},
+		{ 0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, mSpriteWidth,  mSpriteHeight},
+		{-0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 0.0f, 0.0f,			mSpriteHeight}
 	};
 
 	int indices[] = {
@@ -40,6 +38,8 @@ Sprite::Sprite(const char* file, int totalFrames, int colNum, int rowNum, bool i
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
 	mVertexArray = std::make_shared<VertexArray>(4, vertices, indicesNum, indices);
+
+	mScale = tkl::Vector3(mSpriteWidth, mSpriteHeight, 0.0f);
 }
 
 Sprite::~Sprite()

@@ -39,3 +39,18 @@ void Notifier::FieldStateChange(int row, int column, std::shared_ptr<GameParamet
 		mObservers[i]->FieldStateChange(row, column, param);
 	}
 }
+
+//****************************************************************************
+// 関数名：DefeatAdvanceUnit
+// 概　要：進軍ユニット撃破通知
+// 引　数：arg1 ゲームパラメータ
+//       ：arg2 撃破時の位置
+// 戻り値：なし
+// 詳　細：進軍ユニットを撃破したことを通知する
+//****************************************************************************
+void Notifier::DefeatAdvanceUnit(std::shared_ptr<GameParameter> param, const tkl::Vector3& position)
+{
+	for(int i = 0; i < mObservers.size(); ++i){
+		mObservers[i]->DefeatAdvanceUnit(param, position);
+	}
+}

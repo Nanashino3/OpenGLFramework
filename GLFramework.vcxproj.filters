@@ -49,6 +49,9 @@
     <Filter Include="Program\00_Game\Graphics\Ui">
       <UniqueIdentifier>{5501752f-aca9-48cd-a71c-91c6311d66d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Program\00_Game\Graphics\Effect">
+      <UniqueIdentifier>{1d9a6911-4243-4229-b87a-9b42bce5c49e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program\00_Game\GameMain.cpp">
@@ -212,6 +215,12 @@
     </ClCompile>
     <ClCompile Include="Program\01_Engine\Graphics\Geometry\Sprite.cpp">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\Graphics\Effect\EffectBomb.cpp">
+      <Filter>Program\00_Game\Graphics\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Program\00_Game\NotifyService\EffectObserver.cpp">
+      <Filter>Program\00_Game\NotifyService</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -417,6 +426,15 @@
     </ClInclude>
     <ClInclude Include="Program\01_Engine\Graphics\Geometry\Sprite.h">
       <Filter>Program\01_Engine\Graphics\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Graphics\Effect\EffectBomb.h">
+      <Filter>Program\00_Game\Graphics\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\Graphics\Effect\EffectBase.h">
+      <Filter>Program\00_Game\Graphics\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\00_Game\NotifyService\EffectObserver.h">
+      <Filter>Program\00_Game\NotifyService</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

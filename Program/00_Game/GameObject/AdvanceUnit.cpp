@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "GameParameter.h"
+#include "../NotifyService/Notifier.h"
 
 #include "../../01_Engine/Sound/Sound.h"
 #include "../../01_Engine/ResourceManager.h"
@@ -210,7 +211,12 @@ bool AdvanceUnit::IsAlive()
 void AdvanceUnit::ReceiveDamage(int damage)
 {
 	mHitPoint -= damage;
-	if(mHitPoint <= 0){ mIsAlive = false; }
+	if(mHitPoint <= 0){
+		// TODOFŒ‚”j‚³‚ê‚½‚±‚Æ‚ð’Ê’m‚·‚é
+		Notifier::GetInstance()->DefeatAdvanceUnit(mParam, mModel->GetPosition());
+
+		mIsAlive = false;
+	}
 }
 
 //****************************************************************************

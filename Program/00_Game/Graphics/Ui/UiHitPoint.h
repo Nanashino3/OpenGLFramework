@@ -7,8 +7,6 @@
 #include "UiBase.h"
 #include <memory>
 
-class Parameter;
-class AdvanceUnit;
 namespace tkl
 {
 class Mesh;
@@ -16,6 +14,8 @@ class Camera;
 class Vector3;
 }
 
+class Parameter;
+class AdvanceUnit;
 class UiHitPoint : public UiBase
 {
 public:
@@ -37,7 +37,7 @@ private:
 
 	std::shared_ptr<tkl::Mesh> mTexture;
 	std::shared_ptr<tkl::Mesh> mBackGroundTexture;
-	std::shared_ptr<tkl::Camera> mCamera;
+	std::shared_ptr<tkl::Camera> m2DCam;
 };
 
 #endif

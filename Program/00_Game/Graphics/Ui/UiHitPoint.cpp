@@ -23,7 +23,7 @@ UiHitPoint::UiHitPoint(std::shared_ptr<Parameter> param)
 , mParam(param)
 , mTexture(nullptr)
 , mBackGroundTexture(nullptr)
-, mCamera(nullptr)
+, m2DCam(nullptr)
 {}
 
 UiHitPoint::~UiHitPoint()
@@ -41,13 +41,16 @@ void UiHitPoint::Initialize(std::shared_ptr<AdvanceUnit> object)
 	mObject = object;
 	mMaxHitPoint = mObject->GetHitPoint();
 
+	// ウィンドウサイズを取得し2D用カメラ生成
 	tkl::System::GetInstance()->GetWindowSize(&mScreenW, &mScreenH);
-	mCamera = std::make_shared<tkl::ScreenCamera>(mScreenW, mScreenH);
+	m2DCam = std::make_shared<tkl::ScreenCamera>(mScreenW, mScreenH);
 
+	// ヒットポイントのテクスチャ生成
 	mTexture = tkl::Mesh::CreateMeshForSprite();
 	mTexture->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(UI_FILE));
 	mRectW = (mTexture->GetTexture()->GetWidth()) * 0.5f;
 
+	// ヒットポイントの背景テクスチャ生成
 	mBackGroundTexture = tkl::Mesh::CreateMeshForSprite();
 	mBackGroundTexture->SetTexture(tkl::ResourceManager::GetInstance()->CreateTextureFromFile(BG_UI_FILE));
 }
@@ -61,7 +64,7 @@ void UiHitPoint::Initialize(std::shared_ptr<AdvanceUnit> object)
 //****************************************************************************
 void UiHitPoint::Update()
 {
-	mCamera->Update();
+	m2DCam->Update();
 
 	// ワールド座標→スクリーン座標へ変換
 	tkl::Vector3 unitPos = mObject->GetPosition();
@@ -95,6 +98,6 @@ void UiHitPoint::Update()
 //****************************************************************************
 void UiHitPoint::Draw()
 {
-	mBackGroundTexture->Draw(mCamera);
-	mTexture->Draw(mCamera);
+	mBackGroundTexture->Draw(m2DCam);
+	mTexture->Draw(m2DCam);
 }
