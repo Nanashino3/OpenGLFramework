@@ -21,7 +21,9 @@ public:
 	void CreateBuffer(int width, int height, void* pixels, int channels = 4);
 	void CreateBufferFromTTF(const FT_Bitmap& bitmap);
 
+	void SetWidth(int value){ mTextureW = value;}
 	int GetWidth() const { return mTextureW; }
+	void SetHeight(int value){ mTextureH = value;}
 	int GetHeight() const { return mTextureH; }
 	unsigned int GetTextureID() const { return mTextureID; }
 	void SetColor(const tkl::Vector3& color){ mColor = color; }

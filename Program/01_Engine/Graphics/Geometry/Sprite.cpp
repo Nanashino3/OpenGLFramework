@@ -1,19 +1,27 @@
 #include "Sprite.h"
 
-
-#include "Program/01_Engine/Graphics/Renderer/SpriteRenderer.h"
-#include "Program/01_Engine/Graphics/Geometry/VertexArray.h"
-#include "Program/01_Engine/Graphics/Geometry/Material.h"
-#include "Program/01_Engine/ResourceManager.h"
+#include "Material.h"
+#include "Texture.h"
+#include "VertexArray.h"
+#include "../Renderer/SpriteRenderer.h"
+#include "../../ResourceManager.h"
 
 namespace tkl
 {
-Sprite::Sprite(const char* file, int totalFrames)
+Sprite::Sprite(const char* file, int totalFrames, int colNum, int rowNum, bool isAnimation, float animInterval)
 : mElapsedTime(0.0f)
 , mTotalFrames(totalFrames)
-, mCurrentFrame(0.0f) 
+, mCurrentFrame(0.0f)
+, mColNum(colNum)
+, mRowNum(rowNum)
+, mSpriteWidth(1.0f / colNum)
+, mSpriteHeight(1.0f / rowNum)
+, mIsAnimation(isAnimation)
+, mAnimInterval(animInterval)
 {
 	mTexture = ResourceManager::GetInstance()->CreateTextureFromFile(file);
+	mTexture->SetWidth(mTexture->GetWidth() / colNum);
+	mTexture->SetHeight(mTexture->GetHeight() / rowNum);
 
 	mRenderer = std::make_shared<SpriteRenderer>("Sprite");
 	mMaterial = std::make_shared<Material>();
@@ -39,17 +47,18 @@ Sprite::~Sprite()
 
 void Sprite::Update(float deltaTime)
 {
-	// アニメーションのフレームを計算
+	if(!mIsAnimation){ return; }
+
 	mElapsedTime += deltaTime;
-	if(mElapsedTime >= 0.05f){
+	if(mElapsedTime >= mAnimInterval){
 		mElapsedTime = 0;
 
-		float u0 = fmodf(mCurrentFrame, 8) * 0.125f;
-		float u1 = u0 + 0.125f;
-		float v0 = floorf(mCurrentFrame / 8) * 0.5f;
-		float v1 = v0 + 0.5f;
+		// フレーム毎のUV座標を計算
+		float u0 = fmodf(mCurrentFrame, mColNum) * mSpriteWidth;
+		float u1 = u0 + mSpriteWidth;
+		float v0 = floorf(mCurrentFrame / mColNum) * mSpriteHeight;
+		float v1 = v0 + mSpriteHeight;
 
-		mCurrentFrame = (mCurrentFrame + 1) % mTotalFrames;
 		float uv[][2] = {
 			{u0, v0},
 			{u1, v0},
@@ -57,9 +66,13 @@ void Sprite::Update(float deltaTime)
 			{u0, v1}
 		};
 
+		// 最新のUV座標で更新(スプライトなので4頂点で決め打ち)
 		for(int i = 0; i < 4; i++){
 			mVertexArray->UpdateUVCoords(i, uv[i][0], uv[i][1]);
 		}
+
+		// アニメーションのフレームを計算
+		mCurrentFrame = (mCurrentFrame + 1) % mTotalFrames;
 	}
 }
 
