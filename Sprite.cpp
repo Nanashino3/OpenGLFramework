@@ -13,7 +13,6 @@ Sprite::Sprite(const char* file, int totalFrames)
 , mTotalFrames(totalFrames)
 , mCurrentFrame(0.0f) 
 {
-	mIsAnimated = true;
 	mTexture = ResourceManager::GetInstance()->CreateTextureFromFile(file);
 
 	mRenderer = std::make_shared<SpriteRenderer>("Sprite");
