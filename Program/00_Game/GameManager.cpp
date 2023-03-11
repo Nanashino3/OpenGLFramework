@@ -10,12 +10,13 @@
 GameManager* GameManager::sMyInstance = nullptr;
 GameManager::GameManager()
 {
-	mSceneManager = std::make_shared<SceneManager>();
-	mSceneManager->LoadScene(std::make_shared<TitleScene>(mSceneManager));
+	SceneManager::GetInstance()->LoadScene(std::make_shared<TitleScene>());
 }
 
 GameManager::~GameManager()
-{}
+{
+	SceneManager::DestoryInstance();
+}
 
 GameManager* GameManager::GetInstance()
 {
@@ -36,5 +37,5 @@ void GameManager::DestoryInstance()
 //****************************************************************************
 void GameManager::Update(float deltaTime)
 {
-	mSceneManager->SceneUpdate(deltaTime);
+	SceneManager::GetInstance()->SceneUpdate(deltaTime);
 }
