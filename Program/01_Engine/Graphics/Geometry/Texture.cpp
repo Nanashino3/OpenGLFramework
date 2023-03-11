@@ -12,7 +12,9 @@ Texture::Texture()
 {}
 
 Texture::~Texture()
-{}
+{
+	glDeleteTextures(1, &mTextureID);
+}
 
 //****************************************************************************
 // ä÷êîñºÅFCreateBuffer

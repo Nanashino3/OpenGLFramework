@@ -23,7 +23,7 @@ public:
 	, mMousePos(tkl::Vector3::ZERO)
 	, mClickPos(tkl::Vector3::ZERO)
 	{}
-	~GameParameter(){}
+	virtual ~GameParameter(){}
 
 	void SetMapSize(int value){ mMapSize = value; }
 	int GetMapSize() const { return mMapSize; }

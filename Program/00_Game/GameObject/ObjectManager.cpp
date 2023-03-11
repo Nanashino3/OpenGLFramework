@@ -18,7 +18,7 @@ ObjectManager* ObjectManager::GetInstance()
 }
 void ObjectManager::DestroyInstance()
 {
-	TKL_SAFE_DELETE(sMyInstance) ;
+	TKL_SAFE_DELETE(sMyInstance);
 }
 
 //****************************************************************************

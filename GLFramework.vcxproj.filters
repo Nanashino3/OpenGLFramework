@@ -222,6 +222,9 @@
     <ClCompile Include="Program\00_Game\NotifyService\EffectObserver.cpp">
       <Filter>Program\00_Game\NotifyService</Filter>
     </ClCompile>
+    <ClCompile Include="Program\Particle.cpp">
+      <Filter>Program</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\LambertFrag.glsl">
@@ -435,6 +438,9 @@
     </ClInclude>
     <ClInclude Include="Program\00_Game\NotifyService\EffectObserver.h">
       <Filter>Program\00_Game\NotifyService</Filter>
+    </ClInclude>
+    <ClInclude Include="Program\Particle.h">
+      <Filter>Program</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
