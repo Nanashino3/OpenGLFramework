@@ -16,7 +16,6 @@
 
 // ファイルパス
 static constexpr const char* TEXTURE_FIELD  = "Resource/texture/panel_soil.bmp";
-static constexpr const char* TEXTURE_BLOCK  = "Resource/texture/panel_grass.bmp";
 static constexpr const char* TEXTURE_START  = "Resource/texture/red.png";
 static constexpr const char* TEXTURE_GAOL   = "Resource/texture/blue.png";
 static constexpr const char* TEXTURE_CURSOR = "Resource/texture/frame_green.png";
