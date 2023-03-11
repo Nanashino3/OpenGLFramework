@@ -16,5 +16,5 @@ void EffectObserver::DefeatAdvanceUnit(std::shared_ptr<GameParameter> param, con
 	std::shared_ptr<EffectBomb> newEffect = std::make_shared<EffectBomb>(param);
 	newEffect->Initialize(position);
 
-	mGameScene->AddEffect(newEffect);
+	mGameScene.lock()->AddEffect(newEffect);
 }

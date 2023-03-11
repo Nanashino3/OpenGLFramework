@@ -13,7 +13,7 @@ public:
 	virtual void DefeatAdvanceUnit(std::shared_ptr<GameParameter> param, const tkl::Vector3& position);
 
 private:
-	std::shared_ptr<GameScene> mGameScene;
+	std::weak_ptr<GameScene> mGameScene;
 };
 
 #endif
