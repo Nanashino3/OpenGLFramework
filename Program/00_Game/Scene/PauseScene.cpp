@@ -11,9 +11,8 @@
 // ファイルパス
 static constexpr const char* SOUND_FILE = "Resource/sound/cancel.wav";
 
-PauseScene::PauseScene(std::shared_ptr<SceneManager> manager)
-: SceneBase(manager)
-, mSndCancel(nullptr)
+PauseScene::PauseScene()
+: mSndCancel(nullptr)
 {}
 
 PauseScene::~PauseScene()
@@ -43,7 +42,7 @@ void PauseScene::Update(float deltaTime)
 	// 前のシーンに戻る
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSndCancel->Play();
-		mSceneManager->ReturnScene();
+		SceneManager::GetInstance()->ReturnScene();
 	}
 }
 

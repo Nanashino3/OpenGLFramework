@@ -11,15 +11,25 @@
 class SceneManager : public std::enable_shared_from_this<SceneManager>
 {
 public:
-	SceneManager();
-	~SceneManager();
 	
+	static SceneManager* GetInstance();
+	static void DestoryInstance();
+
 	void LoadScene(std::shared_ptr<SceneBase> nextScene);
 	void CallScene(std::shared_ptr<SceneBase> nextScene);
 	void ReturnScene();
 	void SceneUpdate(float deltaTime);
 
 private:
+	SceneManager();
+	~SceneManager();
+
+	SceneManager(const SceneManager&){}
+	SceneManager& operator=(const SceneManager&){}
+
+private:
+	static SceneManager* sMyInstance;
+
 	std::shared_ptr<SceneBase> mNextScene;
 	std::shared_ptr<SceneBase> mNowScene;
 	std::stack<std::shared_ptr<SceneBase>> mPrevScene;

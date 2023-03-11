@@ -2,12 +2,25 @@
 // ファイル名：SceneManager(画面管理クラス)
 // 作　成　日：2022/12/15
 #include "SceneManager.h"
+#include "../../02_Library/Utility.h"
 
+SceneManager* SceneManager::sMyInstance = nullptr;
 SceneManager::SceneManager()
 {}
 
 SceneManager::~SceneManager()
 {}
+
+SceneManager* SceneManager::GetInstance()
+{
+	if(!sMyInstance){ sMyInstance = new SceneManager(); }
+	return sMyInstance;
+}
+
+void SceneManager::DestoryInstance()
+{
+	TKL_SAFE_DELETE(sMyInstance);
+}
 
 //****************************************************************************
 // 関数名：LoadScene
@@ -18,7 +31,7 @@ SceneManager::~SceneManager()
 //****************************************************************************
 void SceneManager::LoadScene(std::shared_ptr<SceneBase> nextScene)
 {
-	while (!mPrevScene.empty()) { mPrevScene.pop(); }
+	while (!mPrevScene.empty()){ mPrevScene.pop(); }
 	mNextScene = nextScene;
 	mNextScene->Initialize();
 }
@@ -32,7 +45,7 @@ void SceneManager::LoadScene(std::shared_ptr<SceneBase> nextScene)
 //****************************************************************************
 void SceneManager::CallScene(std::shared_ptr<SceneBase> nextScene)
 {
-	if (mNowScene) mPrevScene.push(mNowScene);
+	if (mNowScene){ mPrevScene.push(mNowScene); }
 	mNextScene = nextScene;
 	mNextScene->Initialize();
 }
@@ -61,7 +74,12 @@ void SceneManager::ReturnScene()
 void SceneManager::SceneUpdate(float deltaTime)
 {
 	// シーンのインスタンスを更新
-	if(mNowScene != mNextScene){ mNowScene = mNextScene; }
+	if(mNextScene != nullptr){
+		if(mNowScene != mNextScene){
+			mNowScene = mNextScene;
+			mNextScene = nullptr;
+		}
+	}
 
 	if(!mPrevScene.empty()){
 		std::shared_ptr<SceneBase> prevScene = mPrevScene.top();

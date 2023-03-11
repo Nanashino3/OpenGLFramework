@@ -23,7 +23,7 @@ class Sound;
 class GameScene : public SceneBase, public std::enable_shared_from_this<GameScene>
 {
 public:
-	GameScene(std::shared_ptr<SceneManager> manager);
+	GameScene();
 	virtual ~GameScene();
 
 	virtual void Initialize();

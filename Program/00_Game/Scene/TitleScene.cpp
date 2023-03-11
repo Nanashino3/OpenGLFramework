@@ -29,9 +29,8 @@ static constexpr float MODEL_HEIGHT = 10.0f;
 static constexpr float PLAY_BTN_HEIGHT = 64.0f;
 static constexpr float EXIT_BTN_HEIGHT = 128.0f;
 
-TitleScene::TitleScene(std::shared_ptr<SceneManager> manager)
-: SceneBase(manager)
-, mModel(nullptr)
+TitleScene::TitleScene()
+: mModel(nullptr)
 , mTexMesh(nullptr)
 , m3DCam(nullptr), m2DCam(nullptr)
 , mCanvas(nullptr)
@@ -62,7 +61,7 @@ void TitleScene::Initialize()
 	// UIï`âÊÇ∆É{É^ÉìÇÃê∂ê¨
 	mCanvas = std::make_shared<tkl::Canvas>();
 	mCanvas->AddButton("Play", tkl::Vector3(0.0f, -PLAY_BTN_HEIGHT, 0.0f), [this]() {
-		mSceneManager->LoadScene(std::make_shared<GameScene>(mSceneManager));
+		SceneManager::GetInstance()->LoadScene(std::make_shared<GameScene>());
 	});
 	mCanvas->AddButton("Exit", tkl::Vector3(0.0f, -EXIT_BTN_HEIGHT, 0.0f), [this]() {
 		exit(1);

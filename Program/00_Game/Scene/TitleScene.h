@@ -14,7 +14,7 @@ class Canvas;
 class TitleScene : public SceneBase
 {
 public:
-	TitleScene(std::shared_ptr<SceneManager> manager);
+	TitleScene();
 	virtual ~TitleScene();
 
 	virtual void Initialize();

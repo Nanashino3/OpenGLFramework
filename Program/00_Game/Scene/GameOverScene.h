@@ -9,7 +9,7 @@ namespace tkl{ class Sound; }
 class GameOverScene : public SceneBase
 {
 public:
-	GameOverScene(std::shared_ptr<SceneManager> manager);
+	GameOverScene();
 	virtual ~GameOverScene();
 
 	virtual void Initialize();

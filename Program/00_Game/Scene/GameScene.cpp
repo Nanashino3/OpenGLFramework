@@ -8,7 +8,6 @@
 #include "SceneManager.h"
 
 #include "../Field.h"
-#include "../GameObject/Cell.h"
 #include "../GameObject/AdvanceUnit.h"
 #include "../GameObject/GameParameter.h"
 #include "../GameObject/ObjectManager.h"
@@ -25,10 +24,10 @@
 #include "../NotifyService/EffectObserver.h"
 
 #include "../../01_Engine/System.h"
+#include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Camera/FixedCamera.h"
 #include "../../01_Engine/Camera/ScreenCamera.h"
 #include "../../01_Engine/Sound/Sound.h"
-#include "../../01_Engine/ResourceManager.h"
 #include "../../01_Engine/Graphics/Font/Font.h"
 #include "../../01_Engine/Graphics/Geometry/Mesh.h"
 
@@ -41,15 +40,14 @@ static constexpr const char* PAUSE_SE_FILE = "Resource/sound/pause.wav";
 static constexpr const char* BG_TEXTURE = "Resource/texture/img_play.jpg";
 
 // íËêî
-static constexpr int MAX_CREATE = 1;
+static constexpr int MAX_CREATE = 5;
 static constexpr int MAX_DURABILITY = 5;
 static constexpr float CREATE_INTERVAL = 5.0f;
 static constexpr float CAMERA_POS_Y = 250.0f;
 static constexpr float CAMERA_POS_Z = 200.0f;
 
-GameScene::GameScene(std::shared_ptr<SceneManager> manager)
-: SceneBase(manager)
-, mDurability(MAX_DURABILITY)
+GameScene::GameScene()
+: mDurability(MAX_DURABILITY)
 , mElapsedTime(0.0f)
 , mField(nullptr)
 , mParam(nullptr)
@@ -60,8 +58,8 @@ GameScene::GameScene(std::shared_ptr<SceneManager> manager)
 
 GameScene::~GameScene()
 {
-	ObjectManager::GetInstance()->DestroyInstance();
-	Notifier::GetInstance()->DestroyInstance();
+	ObjectManager::DestroyInstance();
+	Notifier::DestroyInstance();
 }
 
 //****************************************************************************
@@ -124,7 +122,7 @@ void GameScene::Update(float deltaTime)
 	// TODOÅFébíËÇ≈ëœãvÇê›ÇØÇÈ
 	if(mDurability == 0){
 		mSndBgm->Stop();
-		mSceneManager->CallScene(std::make_shared<GameOverScene>(mSceneManager));
+		SceneManager::GetInstance()->CallScene(std::make_shared<GameOverScene>());
 		return;
 	}
 	if(!mSndBgm->IsPlay()){ mSndBgm->Play(); }
@@ -193,7 +191,7 @@ void GameScene::Update(float deltaTime)
 	// É|Å[ÉYâÊñ Ç÷ëJà⁄
 	if(tkl::Input::IsKeyDownTrigger(tkl::eKeys::KB_P)){
 		mSndPause->Play();
-		mSceneManager->CallScene(std::make_shared<PauseScene>(mSceneManager));
+		SceneManager::GetInstance()->CallScene(std::make_shared<PauseScene>());
 	}
 }
 

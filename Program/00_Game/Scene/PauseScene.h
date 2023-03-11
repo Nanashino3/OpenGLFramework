@@ -11,7 +11,7 @@ namespace tkl{ class Sound; }
 class PauseScene : public SceneBase
 {
 public:
-	PauseScene(std::shared_ptr<SceneManager> manager);
+	PauseScene();
 	virtual ~PauseScene();
 
 	virtual void Initialize();
