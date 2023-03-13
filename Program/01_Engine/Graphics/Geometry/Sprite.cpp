@@ -1,3 +1,6 @@
+//****************************************************************************
+// ファイル名：Sprite
+// 作　成　日：2023/3/7
 #include "Sprite.h"
 
 #include "Material.h"
@@ -47,6 +50,13 @@ Sprite::Sprite(const char* file, int totalFrames, int colNum, int rowNum, bool i
 Sprite::~Sprite()
 {}
 
+//****************************************************************************
+// 関数名：Update
+// 概　要：更新処理
+// 引　数：なし
+// 戻り値：なし
+// 詳　細：登録した画像のUV座標を計算し直し更新する
+//****************************************************************************
 void Sprite::Update(float deltaTime)
 {
 	if(!mIsAnimation){ return; }
