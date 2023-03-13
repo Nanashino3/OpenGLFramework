@@ -102,7 +102,7 @@ void TitleScene::Draw()
 	mTexMesh->Draw(m2DCam);
 	mModel->Draw(m3DCam);
 
-	tkl::Font::DrawFontEx(0.0f, 192, 64, tkl::Vector3(1.0f, 1.0f, 1.0f), "SPACE");
-	tkl::Font::DrawFontEx(0.0f,  64, 64, tkl::Vector3(1.0f, 1.0f, 1.0f), "DEFENDER");
+	tkl::Font::DrawFontEx(0.0f, 192.0f, 64, tkl::Vector3(1.0f, 1.0f, 1.0f), "SPACE");
+	tkl::Font::DrawFontEx(0.0f,  64.0f, 64, tkl::Vector3(1.0f, 1.0f, 1.0f), "DEFENDER");
 	mCanvas->Draw(m2DCam);
 }

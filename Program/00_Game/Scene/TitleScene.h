@@ -5,12 +5,14 @@
 #define _TITLESCENE_H_
 
 #include "SceneBase.h"
-namespace tkl{
+namespace tkl
+{
 class Mesh;
 class Model;
 class Camera;
 class Canvas;
 }
+
 class TitleScene : public SceneBase
 {
 public:
