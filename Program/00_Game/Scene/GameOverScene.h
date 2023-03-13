@@ -5,7 +5,13 @@
 #define _GAMEOVERSCENE_H_
 
 #include "SceneBase.h"
-namespace tkl{ class Sound; }
+
+namespace tkl
+{
+class Camera;
+class Canvas;
+}
+
 class GameOverScene : public SceneBase
 {
 public:
@@ -17,7 +23,8 @@ public:
 	virtual void Draw();
 
 private:
-	std::shared_ptr<tkl::Sound> mSndDecide;
+	std::shared_ptr<tkl::Camera> m2DCam;
+	std::shared_ptr<tkl::Canvas> mCanvas;
 };
 
 #endif
