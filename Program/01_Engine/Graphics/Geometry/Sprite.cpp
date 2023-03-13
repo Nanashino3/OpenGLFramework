@@ -6,6 +6,8 @@
 #include "../Renderer/SpriteRenderer.h"
 #include "../../ResourceManager.h"
 
+static constexpr int VERTEX_NUM = 4;
+
 namespace tkl
 {
 Sprite::Sprite(const char* file, int totalFrames, int colNum, int rowNum, bool isAnimation, float animInterval)
@@ -37,7 +39,7 @@ Sprite::Sprite(const char* file, int totalFrames, int colNum, int rowNum, bool i
 	};
 
 	int indicesNum = sizeof(indices) / sizeof(indices[0]);
-	mVertexArray = std::make_shared<VertexArray>(4, vertices, indicesNum, indices);
+	mVertexArray = std::make_shared<VertexArray>(VERTEX_NUM, vertices, indicesNum, indices);
 
 	mScale = tkl::Vector3(mSpriteWidth, mSpriteHeight, 0.0f);
 }
@@ -66,8 +68,8 @@ void Sprite::Update(float deltaTime)
 			{u0, v1}
 		};
 
-		// 最新のUV座標で更新(スプライトなので4頂点で決め打ち)
-		for(int i = 0; i < 4; i++){
+		// 最新のUV座標で更新
+		for(int i = 0; i < VERTEX_NUM; i++){
 			mVertexArray->UpdateUVCoords(i, uv[i][0], uv[i][1]);
 		}
 

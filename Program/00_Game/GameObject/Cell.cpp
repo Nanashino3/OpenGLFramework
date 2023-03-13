@@ -54,9 +54,9 @@ void Cell::Initialize(const tkl::CELL& cell)
 	int mapSize = mParam->GetMapSize();
 	int mapRow = mParam->GetMapRow();
 	int mapColumn = mParam->GetMapColumn();
-	
-	float initPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
-	float initPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
+
+	float initPosX = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
+	float initPosZ = -mapSize * mapRow * 0.5f + (mapSize >> 1);
 
 	float posX = initPosX + mapSize * cell.column;
 	float posZ = initPosZ + mapSize * cell.row;

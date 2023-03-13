@@ -71,8 +71,8 @@ void AdvanceUnit::Initialize()
 	rot *= tkl::Quaternion::RotationAxis(tkl::Vector3::UNITY, tkl::ToRadian(mAngle));
 
 	// ‰ŠúÀ•WŒvŽZ
-	mMapInitPosX = -mapSize * mapRow * 0.5f + (mapSize >> 1);
-	mMapInitPosZ = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
+	mMapInitPosX = -mapSize * mapColumn * 0.5f + (mapSize >> 1);
+	mMapInitPosZ = -mapSize * mapRow * 0.5f + (mapSize >> 1);
 
 	float posX = mMapInitPosX + mParam->GetMapSize() * mRoute[mRouteCount].column;
 	float posZ = mMapInitPosZ + mParam->GetMapSize() * mRoute[mRouteCount].row;
